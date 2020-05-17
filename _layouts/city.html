@@ -1,20 +1,27 @@
----
-layout: default
----
-<article class="city">
+<!doctype html>
+<html lang="en">
+  
+  {% include head.html %}
+  
+  <body>
 
-  <h1>Animal Profile: {{ page.title }}</h1>
+    <div class="header-img-container">
+      <img class="header-img" src="/images/IMG_7607.jpg"/>
+      <span class="header-label">Dinant</span>
+    </div>
 
-  <div class="animal-class {{ page.class | downcase }}">
-    {{ page.class }}
-  </div>
+    <section>
+      <main class="page-content" aria-label="Content">
+        <div class="gallery-page-wrapper">
+          <article class="city">
+            <div class="gallery-container">
+              {{ content }}
+            </div>
+          </article>
+        </div>
+      </main>
+    </section>
 
-  <div class="animal-family {{ page.family | downcase }}">
-    {{ page.family }}
-  </div>
-
-  <div>
-    {{ content }}
-  </div>
-
-</article>
+    {% include footer.html %}
+  </body>
+</html>
