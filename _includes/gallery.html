@@ -1,0 +1,32 @@
+<div class="gallery-column">
+  {% for image in page.images %}
+    {% assign mod3 = forloop.index | modulo: 3 %}
+    {% if mod3 == 1 %}
+      <div class="photo-container" data-index="{{ forloop.index }}">
+        <img class="photo" src="/images/full/{{ image }}.jpg" onclick="openModal({{ forloop.index }})" />
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div class="gallery-column">
+  {% for image in page.images %}
+    {% assign mod3 = forloop.index | modulo: 3 %}
+    {% if mod3 == 2 %}
+      <div class="photo-container" data-index="{{ forloop.index }}">
+        <img class="photo" src="/images/full/{{ image }}.jpg" onclick="openModal({{ forloop.index }})" />
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div class="gallery-column">
+  {% for image in page.images %}
+    {% assign mod3 = forloop.index | modulo: 3 %}
+    {% if mod3 == 0 %}
+      <div class="photo-container" data-index="{{ forloop.index }}">
+        <img class="photo" src="/images/full/{{ image }}.jpg" onclick="openModal({{ forloop.index }})" />
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
