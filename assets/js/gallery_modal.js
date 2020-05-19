@@ -9,6 +9,10 @@ function closeModal() {
   document.getElementById("myModal").style.display = "none";
 }
 
+function ignore(e) {
+  e.stopPropagation();
+}
+
 var slideIndex = 1;
 showSlides(slideIndex);
 
@@ -24,7 +28,7 @@ function currentSlide(n) {
 
 function showSlides(n) {
   var i;
-  var slides = document.getElementsByClassName("mySlides");
+  var slides = document.getElementsByClassName("slide");
   var dots = document.getElementsByClassName("demo");
   var captionText = document.getElementById("caption");
   if (n > slides.length) {slideIndex = 1}

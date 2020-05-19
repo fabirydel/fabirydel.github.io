@@ -17,10 +17,6 @@
     color: white;
     font-family: "satisfy", sans-serif;
     font-size: 36px;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
     z-index: 1;
   }
 }
@@ -41,7 +37,7 @@
 }
 
 .gallery-page-wrapper {
-  padding: 0 150px;
+  padding: 0 250px;
   margin: 0 auto;
 }
 
@@ -60,7 +56,7 @@
 .photo-container {
   background: white;
   border-radius: 5px;
-  margin: 3px;
+  margin: 5px;
 }
 
 .photo {
