@@ -1,17 +1,50 @@
-<footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-  <div class="wrapper">
-    <h2 class="footer-heading">Your awesome title</h2>
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Your awesome title</li><li><a class="u-email" href="mailto:your-email@example.com">your-email@example.com</a></li></ul>
-      </div>
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
-      </div>
-      <div class="footer-col footer-col-3">
-        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
-      </div>
+<div id="footer-header">
+  <h1><strong>Photography by</strong> Fabian Rydel</h1>
+  <nav>
+    <ul>
+      <li><span id="#about" onclick="expandFooter()" class="about icon fa-info-circle">About</span></li>
+    </ul>
+  </nav>
+</div>
+
+<footer id="footer" class="footer">
+  <div class="inner split">
+    <div>
+      <section>
+        <h2>Hey there, my name is Fabian</h2>
+        <p>I am a developer and a tech aficionado from India. Love making teeny tiny apps solving tiny problems in life and now learning photography.</p>
+      </section>
+      <section>
+        <h2>Follow me on ...</h2>
+        <ul class="icons">
+          <li>
+            <a href="https://www.instagram.com/ram_patra" class="icon fa-instagram">
+              <span class="label">Instagram</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <div>
+      <section>
+        <h2>Get in touch</h2>
+        <form method="post" action="#">
+          <div class="field half first">
+            <input type="text" name="name" id="name" placeholder="Name"/>
+          </div>
+          <div class="field half right">
+            <input type="text" name="email" id="email" placeholder="Email"/>
+          </div>
+          <div class="field">
+            <textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
+          </div>
+          <ul class="actions">
+            <li><input type="submit" value="Send" class="special"/></li>
+            <li><input type="reset" value="Reset"/></li>
+          </ul>
+        </form>
+      </section>
     </div>
   </div>
+  <span class="close cursor" onclick="closeFooter()">&times;</span>
 </footer>
