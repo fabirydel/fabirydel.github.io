@@ -1,0 +1,32 @@
+.cities-index {
+  display: inline-grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  width: 100%;
+
+  .city {
+    background: black;
+    justify-self: center;
+    overflow: hidden;
+    position: relative;
+    width: 89%;
+  }
+
+  img {
+    -webkit-transition: .3s ease-in-out;
+    height: 500px;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: .3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
+
+  .title {
+    color: white;
+    position: absolute;
+    font-family: "satisfy", sans-serif;
+    font-size: 36px;
+  }
+}
