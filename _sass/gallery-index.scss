@@ -19,7 +19,8 @@
     transition: .3s ease-in-out;
 
     &:hover {
-      transform: scale(1.25);
+      opacity: 0.5;
+      transform: scale(1.15);
     }
   }
 

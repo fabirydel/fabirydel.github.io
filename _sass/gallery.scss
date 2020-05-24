@@ -1,15 +1,23 @@
+.city-page {
+  margin-top: -80px;
+
+  .page-content {
+    padding-top: 0;
+  }
+}
+
 .gallery-body {
   background: #333;
 }
 
 .header-img-container {
-  height: 300px;
+  height: 350px;
   position: relative;
+  z-index: -1;
 
   .header-img {
     max-height: 100%;
     object-fit: cover;
-    object-position: 0 10%;
     width: 100%;
   }
 
