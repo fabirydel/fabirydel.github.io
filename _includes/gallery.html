@@ -1,32 +1,56 @@
 <div class="gallery-column">
-  {% for image in page.images %}
-    {% assign mod3 = forloop.index | modulo: 3 %}
-    {% if mod3 == 1 %}
-      <div class="photo-container" data-index="{{ forloop.index }}">
-        <img class="photo" src="/images/full/{{ image }}.jpg" onclick="openModal({{ forloop.index }})" />
-      </div>
+  {% assign image_files = site.static_files | where: "image", true %}
+  {% assign image_index = 0 %}
+  {% for image in image_files %}
+    {% assign path = "thumb/" | append: page.namePath %}
+    {% if image.path contains path %}
+    {% assign mod3 = image_index | modulo: 3 %}
+      {% if mod3 == 0 %}
+
+        <div class="photo-container">
+          <img class="photo" src="{{ image.path }}" onclick="openModal({{ image_index }})" />
+        </div>
+
+      {% endif %}
+      {% assign image_index = image_index | plus: 1 %}
     {% endif %}
   {% endfor %}
 </div>
 
 <div class="gallery-column">
-  {% for image in page.images %}
-    {% assign mod3 = forloop.index | modulo: 3 %}
-    {% if mod3 == 2 %}
-      <div class="photo-container" data-index="{{ forloop.index }}">
-        <img class="photo" src="/images/full/{{ image }}.jpg" onclick="openModal({{ forloop.index }})" />
-      </div>
+  {% assign image_files = site.static_files | where: "image", true %}
+  {% assign image_index = 0 %}
+  {% for image in image_files %}
+    {% assign path = "thumb/" | append: page.namePath %}
+    {% if image.path contains path %}
+    {% assign mod3 = image_index | modulo: 3 %}
+      {% if mod3 == 1 %}
+
+        <div class="photo-container">
+          <img class="photo" src="{{ image.path }}"  onclick="openModal({{ image_index }})" />
+        </div>
+
+      {% endif %}
+      {% assign image_index = image_index | plus: 1 %}
     {% endif %}
   {% endfor %}
 </div>
 
 <div class="gallery-column">
-  {% for image in page.images %}
-    {% assign mod3 = forloop.index | modulo: 3 %}
-    {% if mod3 == 0 %}
-      <div class="photo-container" data-index="{{ forloop.index }}">
-        <img class="photo" src="/images/full/{{ image }}.jpg" onclick="openModal({{ forloop.index }})" />
-      </div>
+  {% assign image_files = site.static_files | where: "image", true %}
+  {% assign image_index = 0 %}
+  {% for image in image_files %}
+    {% assign path = "thumb/" | append: page.namePath %}
+    {% if image.path contains path %}
+    {% assign mod3 = image_index | modulo: 3 %}
+      {% if mod3 == 2 %}
+
+        <div class="photo-container">
+          <img class="photo" src="{{ image.path }}"  onclick="openModal({{ image_index }})" />
+        </div>
+
+      {% endif %}
+      {% assign image_index = image_index | plus: 1 %}
     {% endif %}
   {% endfor %}
 </div>

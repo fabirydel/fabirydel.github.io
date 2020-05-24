@@ -29,7 +29,7 @@ function ignore(e) {
   e.stopPropagation();
 }
 
-var slideIndex = 1;
+var slideIndex = 0
 showSlides(slideIndex);
 
 // Next/previous controls
@@ -48,14 +48,14 @@ function showSlides(n) {
   var slides = document.getElementsByClassName("slide");
   var dots = document.getElementsByClassName("demo");
   var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
+  if (n >= slides.length) {slideIndex = 0}
+  if (n < 0) {slideIndex = slides.length - 1}
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-  if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
-  if (dots[slideIndex-1]) {
-    dots[slideIndex-1].className += " active";
-    captionText.innerHTML = dots[slideIndex-1].alt;
+  if (slides[slideIndex]) slides[slideIndex].style.display = "block";
+  if (dots[slideIndex]) {
+    dots[slideIndex].className += " active";
+    captionText.innerHTML = dots[slideIndex].alt;
   }
 }

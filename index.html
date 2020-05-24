@@ -3,18 +3,13 @@ layout: default
 ---
 
 <div class="home">
+  <span class="cities-title">Cities around the world</span>
   <div class="cities-index">
-    <a class="city" href="/cities/dinant">
-      <img src="/images/thumb/dinant/IMG_7889.jpg"/>
-      <span class="center title">Dinant</span>
-    </a>
-    <a class="city" href="/cities/brussels">
-      <img src="/images/thumb/brussels/IMG_7927.jpg"/>
-      <span class="center title">Brussels</span>
-    </a>
-    <a class="city" href="/cities/ghent">
-      <img src="/images/thumb/ghent/IMG_8675.jpg"/>
-      <span class="center title">Ghent</span>
-    </a>
+    {% for city in site.cities %}
+      <a class="city" href="/cities/{{ city.namePath }}">
+        <img src="/images/thumb/{{ city.headerImagePath }}"/>
+        <span class="center title">{{ city.title }}</span>
+      </a>
+    {% endfor %}
   </div>
 </div>

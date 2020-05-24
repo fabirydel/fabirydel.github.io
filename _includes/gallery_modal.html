@@ -2,10 +2,14 @@
   <span class="close cursor" onclick="closeModal()">&times;</span>
   <div class="modal-content">
 
-    {% for image in page.images %}
-      <div class="slide" onclick="closeModal()">
-        <img src="/images/full/{{ image }}.jpg" onclick="ignore(event)" class="center">
-      </div>
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+        <div class="slide" onclick="closeModal()">
+          <img src="{{ image.path }}" onclick="ignore(event)" class="center">
+        </div>
+      {% endif %}
     {% endfor %}
 
     <a class="prev" onclick="plusSlides(event, -1)">&#10094;</a>

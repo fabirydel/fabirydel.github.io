@@ -1,3 +1,16 @@
+.default.page-content {
+  background-color: #333;
+}
+
+.cities-title {
+  color: white;
+  display: block;
+  font-family: "satisfy", sans-serif;
+  font-size: 36px;
+  margin: 20px 0;
+  text-align: center;
+}
+
 .cities-index {
   display: inline-grid;
   grid-template-columns: 25% 25% 25% 25%;
