@@ -7,7 +7,7 @@ layout: default
   <div class="cities-index">
     {% for city in site.cities %}
       <a class="city" href="/cities/{{ city.namePath }}">
-        <img src="/images/thumb/{{ city.headerImagePath }}"/>
+        <img src="/images/thumb/{{ city.indexImagePath }}"/>
         <span class="center title">{{ city.title }}</span>
       </a>
     {% endfor %}
