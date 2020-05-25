@@ -1,9 +1,5 @@
 .city-page {
   margin-top: -80px;
-
-  .page-content {
-    padding-top: 0;
-  }
 }
 
 .gallery-body {
@@ -71,7 +67,10 @@
   -webkit-transition: .3s ease-in;
   border-radius: 5px;
   cursor: pointer;
+  max-height: 375px;
+  min-height: 215px;
   object-fit: cover;
+  width: 100%;
 
   &:hover {
     -webkit-transition: .3s ease-in-out;
