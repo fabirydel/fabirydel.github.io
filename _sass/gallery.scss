@@ -1,5 +1,5 @@
 .city-page {
-  margin-top: -80px;
+  margin-top: -100px;
 }
 
 .gallery-body {
@@ -7,7 +7,7 @@
 }
 
 .header-img-container {
-  height: 350px;
+  height: 400px;
   position: relative;
   z-index: -1;
 
@@ -21,6 +21,7 @@
     color: white;
     font-family: "satisfy", sans-serif;
     font-size: 36px;
+    top: calc(50% - 50px);
     z-index: 1;
   }
 }

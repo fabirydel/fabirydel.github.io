@@ -12,16 +12,24 @@
 }
 
 .cities-index {
-  display: inline-grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 
   .city {
     background: black;
+    flex-shrink: 0;
     justify-self: center;
+    margin: 0 15px 0 0px;
     overflow: hidden;
     position: relative;
-    width: 89%;
+    width: 165px;
+
+    &:visited {
+      color: transparent;
+    }
   }
 
   img {
@@ -43,4 +51,16 @@
     font-family: "satisfy", sans-serif;
     font-size: 36px;
   }
+
+  .medium {
+    font-size: 32px;
+  }
+}
+
+.cities-index::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.cities-index::-webkit-scrollbar-track {
+  background: transparent;
 }

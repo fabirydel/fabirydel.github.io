@@ -34,6 +34,7 @@ body.loading #footer-header {
   display: inline-block;
   font-size: 14px;
   line-height: 1;
+  overflow: auto;
   margin: 0;
 }
 
@@ -65,17 +66,18 @@ body.loading #footer-header {
 
 #footer-header nav>ul>li .about {
   -moz-transition: background-color 0.5s ease;
-  -webkit-transition: background-color 0.5s ease;
   -ms-transition: background-color 0.5s ease;
-  transition: background-color 0.5s ease;
+  -webkit-transition: background-color 0.5s ease;
   border: 0;
   color: #ffffff;
+  cursor: pointer;
   display: inline-block;
+  font-size: 14px;
   letter-spacing: 0.1em;
+  overflow: auto;
   padding: 0 1.65em;
   text-transform: uppercase;
-  cursor: pointer;
-  font-size: 14px;
+  transition: background-color 0.5s ease;
 }
 
 #footer-header nav>ul>li .about.icon:before {

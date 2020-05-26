@@ -6,10 +6,15 @@ layout: default
   <span class="cities-title">Cities around the world</span>
   <div class="cities-index">
     {% for city in site.cities %}
-      <a class="city" href="/cities/{{ city.namePath }}">
+      <a class="city" id="{{ forloop.index }}" href="/cities/{{ city.namePath }}">
         <img src="/images/thumb/{{ city.indexImagePath }}"/>
-        <span class="center title">{{ city.title }}</span>
+        <span class="center title {{ city.indexImageClass }}">{{ city.title }}</span>
       </a>
     {% endfor %}
   </div>
+<!--       <a class="gal-links" href="#1">1</a>
+	  <a class="gal-links" href="#2">2</a>
+	  <a class="gal-links" href="#3">3</a>
+	  <a class="gal-links" href="#4">4</a>
+	  <a class="gal-links" href="#5">5</a> -->
 </div>
