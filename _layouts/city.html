@@ -5,9 +5,29 @@
 
   <body class="gallery-body">
 
+    {% if page.collection %}
+        {% assign links = site[page.collection]  %}
+    {% endif %}
+
+    {% for link in links %}
+      {% if link.title == page.title %}
+        {% unless forloop.first %}
+          {% assign prev = tmpprev %}
+        {% endunless %}
+        {% unless forloop.last %}
+          {% assign next = links[forloop.index] %}
+        {% endunless %}
+      {% endif %}
+      {% assign tmpprev = link %}
+    {% endfor %}
+
     <div class="header-img-container">
       <img class="header-img" style="object-position: 0 {{ page.position }}" src="/images/full/{{ page.headerImagePath }}"/>
-      <span class="header-label center">{{ page.title }}</span>
+      <div class="header-label center">
+        {% if prev %}<a href="{{ prev.url }}" class="icon fa-chevron-circle-left"></a>{% endif %}
+        <span class="page-title">{{ page.title }}</span>
+        {% if next %}<a href="{{ next.url }}" class="icon fa-chevron-circle-right"></a>{% endif %}
+      </div>
     </div>
 
     <section id="city-page" class="city-page">
