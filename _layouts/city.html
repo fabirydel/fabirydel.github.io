@@ -24,9 +24,9 @@
     <div class="header-img-container">
       <img class="header-img" style="object-position: 0 {{ page.position }}" src="/images/full/{{ page.headerImagePath }}"/>
       <div class="header-label center">
-        {% if prev %}<a href="{{ prev.url }}" class="icon fa-chevron-circle-left"></a>{% endif %}
+        {% if prev %}<a href="{{ prev.url }}" class="icon fa-chevron-left"></a>{% endif %}
         <span class="page-title">{{ page.title }}</span>
-        {% if next %}<a href="{{ next.url }}" class="icon fa-chevron-circle-right"></a>{% endif %}
+        {% if next %}<a href="{{ next.url }}" class="icon fa-chevron-right"></a>{% endif %}
       </div>
     </div>
 
@@ -38,8 +38,6 @@
               {{ content }}
 
               {% include gallery.html %}
-
-              {% include gallery_modal.html %}
             </div>
           </article>
         </div>
@@ -48,4 +46,7 @@
 
     {% include footer.html %}
   </body>
+
+  {% include gallery_modal.html %}
+
 </html>

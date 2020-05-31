@@ -7,7 +7,7 @@
     {% assign mod3 = image_index | modulo: 3 %}
       {% if mod3 == 0 %}
 
-        <div class="photo-container">
+        <div class="photo-container photo-container-left">
           <img class="photo" src="{{ image.path }}" onclick="openModal({{ image_index }})" />
         </div>
 
@@ -26,7 +26,7 @@
     {% assign mod3 = image_index | modulo: 3 %}
       {% if mod3 == 1 %}
 
-        <div class="photo-container">
+        <div class="photo-container photo-container-center">
           <img class="photo" src="{{ image.path }}"  onclick="openModal({{ image_index }})" />
         </div>
 
@@ -45,7 +45,7 @@
     {% assign mod3 = image_index | modulo: 3 %}
       {% if mod3 == 2 %}
 
-        <div class="photo-container">
+        <div class="photo-container photo-container-right">
           <img class="photo" src="{{ image.path }}"  onclick="openModal({{ image_index }})" />
         </div>
 

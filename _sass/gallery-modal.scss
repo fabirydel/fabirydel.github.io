@@ -34,14 +34,18 @@
   top: 10px;
   right: 25px;
   font-size: 35px;
-  font-weight: bold;
+  opacity: 0.75;
+  transition: 0.6s ease;
 }
 
 .close:hover,
-.close:focus {
-  color: #999;
-  text-decoration: none;
+.close:focus,
+.prev:hover,
+.next:hover {
+  color: white;
   cursor: pointer;
+  opacity: 1;
+  text-decoration: none;
 }
 
 /* Hide the slides by default */
@@ -72,6 +76,7 @@
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
+  opacity: 0.75;
   -webkit-user-select: none;
 }
 
@@ -79,13 +84,6 @@
 .next {
   right: 0;
   border-radius: 3px 0 0 3px;
-}
-
-.prev:hover,
-.next:hover {
-  color: white;
-  opacity: 0.5;
-  text-decoration: none;
 }
 
 /* Caption text */
