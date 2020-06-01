@@ -56,7 +56,7 @@
     font-size: 36px;
     text-align: center;
     top: calc(50% - 50px);
-    width: 100%;
+    width: 102%;
     z-index: 1;
 
     a {
@@ -85,12 +85,12 @@
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333), color-stop(100%,rgba(0, 0, 0, 0.15))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.15) 0%, #333 95%); /* Chrome10+,Safari5.1+ */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, #333 95%); /* W3C */
-  content:'';
-  display:inline-block;
-  height:100%;
-  left:0; top:0;
-  position:absolute;
-  width:100%;
+  content: '';
+  display: inline-block;
+  height: 102%;
+  left: 0; top: 0;
+  position: absolute;
+  width: 100%;
 }
 
 .gallery-page-wrapper {
