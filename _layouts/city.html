@@ -22,7 +22,7 @@
     {% endfor %}
 
     <div class="header-img-container">
-      <img class="header-img" style="object-position: 0 {{ page.position }}" src="/images/full/{{ page.headerImagePath }}"/>
+      <img class="header-img" style="object-position: 0 {{ page.position }}" src="/images/thumb/{{ page.headerImagePath }}"/>
       <div class="header-label center">
         {% if prev %}<a href="{{ prev.url }}" class="icon fa-chevron-left"></a>{% endif %}
         <span class="page-title">{{ page.title }}</span>
