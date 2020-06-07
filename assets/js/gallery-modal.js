@@ -9,6 +9,17 @@ function openModal(index) {
   }, 10);
 
   currentSlide(index)
+
+  document.onkeydown = function(e) {
+    switch (e.keyCode) {
+      case 37:
+        plusSlides(e, -1)
+        break;
+      case 39:
+        plusSlides(e, 1)
+        break;
+    }
+  };
 }
 
 // Close the Modal

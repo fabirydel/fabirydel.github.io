@@ -1,0 +1,28 @@
+#header {
+  background: #1f2224;
+  top: 0;
+  left: 0;
+  padding: 0 24px;
+  position: fixed;
+  user-select: none;
+  width: calc(100% - 48px);
+  z-index: 5;
+
+  h1 {
+    color: #ffffff;
+    cursor: pointer;
+    display: block;
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    line-height: 2;
+    margin: 0;
+    padding: 0 1.65em;
+    text-transform: uppercase;
+  }
+
+  a {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
