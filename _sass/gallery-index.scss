@@ -36,11 +36,11 @@
     -webkit-transition: .3s ease-in-out;
     height: 500px;
     object-fit: cover;
-    opacity: 0.7;
+    opacity: 0.95;
     transition: .3s ease-in-out;
 
     &:hover {
-      opacity: 0.5;
+      opacity: 0.35;
       transform: scale(1.15);
     }
   }

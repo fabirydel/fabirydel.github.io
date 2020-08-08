@@ -7,8 +7,8 @@ layout: default
   <div class="cities-index">
     {% for city in site.cities %}
       <a class="city" id="{{ forloop.index }}" href="/cities/{{ city.namePath }}">
-        <img src="/images/thumb/{{ city.indexImagePath }}"/>
         <span class="center title {{ city.indexImageClass }}">{{ city.title }}</span>
+        <img src="/images/thumb/{{ city.indexImagePath }}"/>
       </a>
     {% endfor %}
   </div>
