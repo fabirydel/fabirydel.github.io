@@ -98,24 +98,6 @@ body.loading #footer-header {
       padding: 4em 0 0 0;
   }
 
-  #footer-header {
-    -moz-transform: translateY(0);
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-    bottom: auto;
-    height: 4em;
-    padding: 0 1em;
-    top: 0;
-  }
-
-  body.loading #footer-header {
-    -moz-transform: translateY(-3.4em);
-    -webkit-transform: translateY(-3.4em);
-    -ms-transform: translateY(-3.4em);
-    transform: translateY(-3.4em);
-  }
-
   #footer-header h1 {
     font-size: 0.9em;
   }
@@ -144,11 +126,10 @@ body.loading #footer-header {
   left: 0;
   max-height: calc(80vh - 4em);
   overflow-y: auto;
-  padding: 32px 64px;
+  padding: 32px;
   position: fixed;
   transform: translateY(100vh);
   transition: transform 0.5s ease;
-  width: calc(100% - 128px);
   z-index: 4;
 }
 
@@ -160,9 +141,7 @@ body.loading #footer-header {
 }
 
 .footer>.inner {
-  margin: 0 auto;
   max-width: 100%;
-  width: 75em;
 }
 
 .footer>.inner.split {
@@ -187,7 +166,7 @@ body.loading #footer-header {
   -ms-transition: opacity 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out;
   opacity: 0.25;
-  right: 90px;
+  right: 36px;
   font-weight: 300;
   z-index: 2;
 }
@@ -196,20 +175,12 @@ body.loading #footer-header {
   opacity: 1.0;
 }
 
+.follow-me {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
 @media screen and (max-width: 1280px) {
-
-  .footer {
-      padding: 3em 3em 1em 3em;
-  }
-
-  .footer>.inner.split>div {
-      margin-left: 3em;
-  }
-
-  .footer>.closer {
-      background-size: 2.5em;
-      background-position: 75% 25%;
-  }
 
 }
 
@@ -231,22 +202,6 @@ body.loading #footer-header {
 
 @media screen and (max-width: 736px) {
 
-  .footer {
-    -moz-transform: translateY(-100vh);
-    -webkit-transform: translateY(-100vh);
-    -ms-transform: translateY(-100vh);
-    transform: translateY(-100vh);
-    padding: 4em 2em 2em 2em;
-    bottom: auto;
-    top: calc(4em - 1px);
-  }
-
-  .footer.active {
-    -moz-transform: translateY(0);
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-  }
 }
 
 footer {
@@ -280,7 +235,13 @@ footer {
 
   p,
   form {
+    display: flex;
+    flex-direction: column;
     margin: 0 0 2em 0;
+
+    .name-email {
+      justify-content: space-between;
+    }
   }
 
 
@@ -315,15 +276,23 @@ footer {
     cursor: default;
     list-style: none;
     padding-left: 0;
+    display: inline-block;
+    margin-bottom: 0;
+
+    .icon {
+      color: #a0a0a1;
+      font-size: 1.25em;
+      margin-left: 12px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 
   ul.icons li {
     display: inline-block;
     padding: 0 1em 0 0;
-  }
-
-  ul.icons li:last-child {
-    padding-right: 0;
   }
 
   ul.icons li .icon {
@@ -337,17 +306,15 @@ footer {
   ul.actions {
     cursor: default;
     list-style: none;
-    padding-left: 0;
+    padding: 0;
+    margin: 0;
   }
 
   ul.actions li {
     display: inline-block;
-    padding: 0 1em 0 0;
+    padding: 0;
+    width: 100%;
     vertical-align: middle;
-  }
-
-  ul.actions li:last-child {
-    padding-right: 0;
   }
 
   ul.actions.small li {
@@ -403,7 +370,6 @@ footer {
 
   @media screen and (max-width: 480px) {
     ul.actions {
-      margin: 0 0 2em 0;
     }
 
     ul.actions li {
@@ -474,7 +440,12 @@ footer {
   }
 
   form>.actions {
-    margin: 1.5em 0 0 0 !important;
+    margin: 0;
+
+    .btn {
+      padding: 0;
+      width: 100%;
+    }
   }
 
   @media screen and (max-width: 736px) {
@@ -511,7 +482,7 @@ footer {
     outline: 0;
     padding: 0 1em;
     text-decoration: none;
-    width: 100%;
+    width: calc(100% - 26.66px);
     font-family: "Source Sans Pro", Helvetica, sans-serif;
   }
 
@@ -534,20 +505,6 @@ footer {
 
   textarea {
     padding: 0.75em 1em;
-  }
-
-  input[type="checkbox"],
-  input[type="radio"] {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    display: block;
-    float: left;
-    margin-right: -2em;
-    opacity: 0;
-    width: 1em;
-    z-index: -1;
   }
 
   ::-webkit-input-placeholder {

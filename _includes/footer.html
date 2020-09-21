@@ -15,13 +15,11 @@
         <p>I am a software developer who loves to travel, so I combine both and travel while working, which has led me to discover a passion for travel photography along the way. Here's where I share the images I've captured during my travels.</p>
       </section>
       <section>
-        <h2>Follow me on</h2>
+        <h2 class="follow-me">Follow me on</h2>
         <ul class="icons">
-          <li>
             <a href="https://www.instagram.com/fabirydel" class="icon fa-instagram">
               <span class="label">Instagram</span>
             </a>
-          </li>
         </ul>
       </section>
     </div>
@@ -29,18 +27,19 @@
       <section>
         <h2>Get in touch</h2>
         <form method="post" action="#">
-          <div class="field half first">
-            <input type="text" name="name" id="name" placeholder="Name"/>
-          </div>
-          <div class="field half right">
-            <input type="text" name="email" id="email" placeholder="Email"/>
+          <div class="name-email">
+            <div class="field half first">
+              <input type="text" name="name" id="name" placeholder="Name"/>
+            </div>
+            <div class="field half right">
+              <input type="text" name="email" id="email" placeholder="Email"/>
+            </div>
           </div>
           <div class="field">
             <textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
           </div>
           <ul class="actions">
-            <li><input type="submit" value="Send" class="special"/></li>
-            <li><input type="reset" value="Reset"/></li>
+            <li class="btn-container"><input class="btn" type="submit" value="Send" class="special"/></li>
           </ul>
         </form>
       </section>
