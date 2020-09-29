@@ -8,7 +8,7 @@
       {% if mod3 == 0 %}
 
         <div class="photo-container photo-container-left">
-          <img class="photo" src="{{ image.path }}" onclick="openModal({{ image_index }})" />
+          <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }})" />
         </div>
 
       {% endif %}
@@ -27,7 +27,7 @@
       {% if mod3 == 1 %}
 
         <div class="photo-container photo-container-center">
-          <img class="photo" src="{{ image.path }}"  onclick="openModal({{ image_index }})" />
+          <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }})" />
         </div>
 
       {% endif %}
@@ -46,7 +46,7 @@
       {% if mod3 == 2 %}
 
         <div class="photo-container photo-container-right">
-          <img class="photo" src="{{ image.path }}"  onclick="openModal({{ image_index }})" />
+          <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }})" />
         </div>
 
       {% endif %}
