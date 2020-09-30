@@ -67,7 +67,7 @@
 .next {
   cursor: pointer;
   position: absolute;
-  bottom: 0;
+  top: 50%;
   width: auto;
   padding: 0 16px;
   margin-top: -50px;
@@ -116,6 +116,11 @@ img.demo {
   .modal {
     .next, .prev, .close {
       font-size: 35px;
+    }
+
+    .prev, .next {
+      bottom: 0;
+      top: initial;
     }
   }
 }

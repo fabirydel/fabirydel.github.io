@@ -31,21 +31,21 @@
   body {
     #header {
       h1 {
-        font-size: 20px;
+        font-size: 16px;
       }
     }
   }
 }
 
-// @media screen and (max-width: 850px) {
-//   body {
-//     #header {
-//       h1 {
-//         font-size: 23px;
-//       }
-//     }
-//   }
-// }
+@media screen and (max-width: 850px) {
+  body {
+    #header {
+      h1 {
+        font-size: 18px;
+      }
+    }
+  }
+}
 
 // @media screen and (max-width: 650px) {
 //   .gallery-body {
