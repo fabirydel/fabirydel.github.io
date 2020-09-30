@@ -28,24 +28,24 @@
 }
 
 @media screen and (max-width: 1280px) {
-  .gallery-body {
+  body {
     #header {
       h1 {
-        font-size: 19px;
+        font-size: 20px;
       }
     }
   }
 }
 
-@media screen and (max-width: 850px) {
-  .gallery-body {
-    #header {
-      h1 {
-        font-size: 23px;
-      }
-    }
-  }
-}
+// @media screen and (max-width: 850px) {
+//   body {
+//     #header {
+//       h1 {
+//         font-size: 23px;
+//       }
+//     }
+//   }
+// }
 
 // @media screen and (max-width: 650px) {
 //   .gallery-body {

@@ -435,6 +435,12 @@ table td {
   line-height: 1;
 }
 
+@media screen and (max-width: 1280px) {
+  .default.page-content {
+    padding-top: 40px;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .post-title {
       font-size: 36px;
