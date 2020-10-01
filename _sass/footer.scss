@@ -126,8 +126,8 @@ body.loading #footer-header {
   left: 0;
   max-height: calc(80vh - 4em);
   overflow-y: auto;
-  padding: 32px;
-  padding-top: 64px;
+  padding: 24px;
+  padding-top: 48px;
   position: fixed;
   transform: translateY(100vh);
   transition: transform 0.5s ease;
@@ -170,6 +170,7 @@ body.loading #footer-header {
   right: 36px;
   font-weight: 300;
   z-index: 2;
+  top: 0;
 }
 
 .footer>.close:hover {
@@ -225,11 +226,11 @@ footer {
   }
 
   h2 {
-    font-size: 1.25em;
+    font-size: 18px;
     font-weight: 300;
     letter-spacing: .1em;
     line-height: 1.5;
-    margin: 0 0 1em 0;
+    margin: 0 0 10px 0;
     text-transform: uppercase;
     color: white;
   }
@@ -238,9 +239,10 @@ footer {
   form {
     display: flex;
     flex-direction: column;
-    margin: 0 0 2em 0;
+    margin: 0 0 10px 0;
 
     .name-email {
+      display: flex;
       justify-content: space-between;
     }
   }
@@ -418,20 +420,15 @@ footer {
 
   /* form */
   form .field {
-    margin: 0 0 1.3em 0;
+    margin-bottom: 20px;
   }
 
   form .field.half {
-    padding: 0 0 0 0.65em;
-    width: 46%;
-
-    &.right {
-      float: right;
-    }
+    width: 50%;
   }
 
   form .field.half.first {
-    padding: 0 0.65em 0 0;
+    margin-right: 20px
   }
 
   form>.actions {
@@ -440,18 +437,6 @@ footer {
     .btn {
       padding: 0;
       width: 100%;
-    }
-  }
-
-  @media screen and (max-width: 736px) {
-    form .field.half {
-      padding: 0;
-      width: 47%;
-      display: inline-block;
-    }
-
-    form .field.half.first {
-      padding: 0;
     }
   }
 
