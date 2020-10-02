@@ -158,8 +158,8 @@ pre>code {
 
 /** Wrapper */
 .wrapper {
-  max-width: -webkit-calc(800px - (30px * 2));
-  max-width: calc(800px - (30px * 2));
+  max-width: -webkit-calc(80vw - (30px * 2));
+  max-width: calc(80vw - (30px * 2));
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
@@ -392,11 +392,6 @@ table td {
 }
 
 /** Page content */
-.page-content {
-  padding: 2em 0 60px 0;
-  flex: 1;
-}
-
 .page-heading {
   font-size: 32px;
 }
