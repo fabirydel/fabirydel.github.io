@@ -42,6 +42,10 @@
   background: #333;
 }
 
+.page-content {
+  padding-bottom: 60px;
+}
+
 .header-img-container {
   height: 400px;
   padding-top: 23px;
@@ -159,6 +163,10 @@
       margin-top: -150px;
     }
 
+    .page-content {
+      padding-bottom: 45px;
+    }
+
     .gallery-page-wrapper {
       padding: 0 100px;
     }
@@ -209,10 +217,10 @@
       padding-top: 34px;
 
       .header-label {
-        font-size: 38px;
+        font-size: 32px;
 
         a {
-          font-size: 32px;
+          font-size: 28px;
         }
       }
     }

@@ -396,43 +396,15 @@ table td {
   font-size: 32px;
 }
 
-.post-list-heading {
-  font-size: 28px;
-}
-
-.post-list {
-  margin-left: 0;
-  list-style: none;
-}
-
-.post-list>li {
-  margin-bottom: 30px;
-}
-
-.post-meta {
-  font-size: 14px;
-  color: #828282;
-}
-
-.post-link {
-  display: block;
-  font-size: 24px;
-}
-
-/** Posts */
-.post-header {
-  margin-bottom: 30px;
-}
-
-.post-title {
-  font-size: 42px;
-  letter-spacing: -1px;
-  line-height: 1;
-}
-
 @media screen and (max-width: 1280px) {
   .default.page-content {
-    padding-top: 40px;
+    padding-top: 32px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .default.page-content {
+    padding-top: 36px;
   }
 }
 
