@@ -29,6 +29,9 @@
         <span class="page-title">{{ page.title }}</span>
         {% if next %}<a href="{{ next.url }}" class="icon fa-chevron-right"></a>{% endif %}
       </div>
+      <div class="map-img" onclick="openMapModal()">
+        <img src="/images/maps/{{ page.mapPath }}.jpg" onMouseOver="this.style.transform='scale(4) translateY({{ page.mapPositionY }}%) translateX({{ page.mapPositionX }}%)'" onMouseOut="this.style.transform='scale(1) translateY(0) translateX(0)'"/>
+      </div>
     </div>
 
     <section id="city-page" class="city-page">
@@ -49,5 +52,6 @@
   </body>
 
   {% include gallery_modal.html %}
+  {% include map_modal.html mapGoogle=page.mapGoogle %}
 
 </html>

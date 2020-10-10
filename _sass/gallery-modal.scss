@@ -27,6 +27,11 @@
   height: calc(100% - 80px);
 }
 
+.map-modal-content {
+  border-radius: 3px;
+  overflow: hidden;
+}
+
 /* The Close Button */
 .close {
   color: white;

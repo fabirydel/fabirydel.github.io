@@ -157,6 +157,35 @@
   }
 }
 
+.map-img {
+  position: absolute;
+  display: inline-block;
+  top: 50px;
+  right: 200px;
+  width: 150px;
+  height: 150px;
+  z-index: 1;
+  cursor: pointer;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #1f232599;
+  overflow: hidden;
+  -webkit-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+
+  &:hover {
+    width: 200px;
+    height: 200px;
+  }
+
+  img {
+    border-radius: 50%;
+    -webkit-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    transform: scale(1) translateY(0) translateX(0);
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .gallery-body {
     .city-page {
@@ -173,6 +202,10 @@
 
     .header-img-container {
       padding-top: 30px;
+
+      .map-img {
+        right: 100px;
+      }
     }
 
     .photo-container {
@@ -216,6 +249,17 @@
       height: 325px;
       padding-top: 34px;
 
+      .map-img {
+        right: 50px;
+        width: 100px;
+        height: 100px;
+
+        &:hover {
+          width: 140px;
+          height: 140px;
+        }
+      }
+
       .header-label {
         font-size: 32px;
 
@@ -235,6 +279,19 @@
 
     .landscape {
       max-height: 150px;
+    }
+
+    .header-img-container {
+      .map-img {
+        right: 25px;
+        width: 70px;
+        height: 70px;
+
+        &:hover {
+          width: 100px;
+          height: 100px;
+        }
+      }
     }
   }
 }
