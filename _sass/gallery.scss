@@ -170,7 +170,7 @@
 .map-img {
   -webkit-transition: .5s ease-in-out;
   border-radius: 50%;
-  box-shadow: 0px 0px 5px #1f2224;
+  box-shadow: 0px 0px 6px 2px #1f2224;
   cursor: pointer;
   display: inline-block;
   height: 150px;
@@ -193,7 +193,7 @@
   img {
     -webkit-transition: .5s ease-in-out;
     border-radius: 50%;
-    transform: scale(1) translateY(0) translateX(0);
+    transform: scale(1) translateY(0%) translateX(0%);
     transition: .5s ease-in-out;
   }
 }
