@@ -4,8 +4,8 @@
   {% for image in image_files %}
     {% assign path = "thumb/" | append: page.namePath %}
     {% if image.path contains path %}
-    {% assign mod3 = image_index | modulo: 3 %}
-      {% if mod3 == 0 %}
+    {% assign mod2 = image_index | modulo: 2 %}
+      {% if mod2 == 0 %}
 
         <div class="photo-container photo-container-left">
           <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }})" />
@@ -23,27 +23,8 @@
   {% for image in image_files %}
     {% assign path = "thumb/" | append: page.namePath %}
     {% if image.path contains path %}
-    {% assign mod3 = image_index | modulo: 3 %}
-      {% if mod3 == 1 %}
-
-        <div class="photo-container photo-container-center">
-          <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }})" />
-        </div>
-
-      {% endif %}
-      {% assign image_index = image_index | plus: 1 %}
-    {% endif %}
-  {% endfor %}
-</div>
-
-<div class="gallery-column">
-  {% assign image_files = site.static_files | where: "image", true %}
-  {% assign image_index = 0 %}
-  {% for image in image_files %}
-    {% assign path = "thumb/" | append: page.namePath %}
-    {% if image.path contains path %}
-    {% assign mod3 = image_index | modulo: 3 %}
-      {% if mod3 == 2 %}
+    {% assign mod2 = image_index | modulo: 2 %}
+      {% if mod2 == 1 %}
 
         <div class="photo-container photo-container-right">
           <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }})" />

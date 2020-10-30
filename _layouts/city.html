@@ -4,7 +4,7 @@
   {% include head.html %}
   {% include header.html %}
 
-  <body class="gallery-body">
+  <body>
 
     {% if page.collection %}
         {% assign links = site[page.collection]  %}
@@ -22,31 +22,34 @@
       {% assign tmpprev = link %}
     {% endfor %}
 
-    <div class="header-img-container">
-      <img class="header-img" style="object-position: 0 {{ page.position }}" src="/images/thumb/{{ page.headerImagePath }}"/>
-      <div class="header-label center">
-        {% if prev %}<a href="{{ prev.url }}" class="icon fa-chevron-left"></a>{% endif %}
-        <span class="page-title">{{ page.title }}</span>
-        {% if next %}<a href="{{ next.url }}" class="icon fa-chevron-right"></a>{% endif %}
-      </div>
-      <div class="map-img" onclick="openMapModal()">
-        <img src="/images/maps/{{ page.mapPath }}.jpg" onMouseOver="this.style.transform='scale(4) translateY({{ page.mapPositionY }}%) translateX({{ page.mapPositionX }}%)'" onMouseOut="this.style.transform='scale(1) translateY(0) translateX(0)'"/>
-      </div>
-    </div>
-
-    <section id="city-page" class="city-page">
-      <main class="page-content" aria-label="Content">
-        <div class="gallery-page-wrapper">
-          <article class="city">
-            <div class="gallery-container">
-              {{ content }}
-
-              {% include gallery.html %}
-            </div>
-          </article>
+    <div class="gallery-body">
+      <div class="header-img-container">
+        <!-- <img class="header-img" style="object-position: 0 {{ page.position }}" src="/images/thumb/{{ page.headerImagePath }}"/> -->
+        <div class="header-label">
+          <span class="page-title">{{ page.title }}</span>
+          <div class="map-img" onclick="openMapModal()">
+            <!-- <img src="/images/maps/{{ page.mapPath }}.jpg" onMouseOver="this.style.transform='scale(4) translateY({{ page.mapPositionY }}%) translateX({{ page.mapPositionX }}%)'" onMouseOut="this.style.transform='scale(1) translateY(0) translateX(0)'"/> -->
+            <img src="/images/maps/{{ page.mapPath }}.jpg"/>
+          </div>
+          {% if prev %}<a href="{{ prev.url }}" class="icon">Previous</a>{% endif %}
+          {% if next %}<a href="{{ next.url }}" class="icon">Next</a>{% endif %}
         </div>
-      </main>
-    </section>
+      </div>
+
+      <section id="city-page" class="city-page">
+        <main class="page-content" aria-label="Content">
+          <div class="gallery-page-wrapper">
+            <article class="city">
+              <div class="gallery-container">
+                {{ content }}
+
+                {% include gallery.html %}
+              </div>
+            </article>
+          </div>
+        </main>
+      </section>
+    </div>
 
     {% include footer.html %}
   </body>

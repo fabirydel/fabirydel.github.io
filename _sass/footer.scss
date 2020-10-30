@@ -23,6 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: "oswald", sans-serif;
 }
 
 body.loading #footer-header {
@@ -129,6 +130,7 @@ body.loading #footer-header {
   transform: translateY(100vh);
   transition: transform 0.5s ease;
   z-index: 4;
+  font-family: "oswald", sans-serif;
 }
 
 .footer.active {
@@ -460,7 +462,7 @@ footer {
     padding: 0 1em;
     text-decoration: none;
     width: calc(100% - 26.66px);
-    font-family: "Source Sans Pro", Helvetica, sans-serif;
+    font-family: "oswald", sans-serif;
   }
 
   input:invalid,
