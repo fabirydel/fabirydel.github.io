@@ -1,10 +1,10 @@
 .default.page-content {
-  background-color: #333;
+  background-color: #f1f1f1;
   padding-top: 28px;
 }
 
 .cities-title {
-  color: white;
+  color: #333;
   display: block;
   font-family: "oswald", sans-serif;
   font-size: 36px;
@@ -15,6 +15,7 @@
 .cities-index {
   display: flex;
   overflow-x: auto;
+  padding: 10px;
   height: calc(100vh - 180px);
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
@@ -22,6 +23,7 @@
 
   .city {
     background: black;
+    box-shadow: 0px 0px 10px 1px #b5b5b5;
     flex-shrink: 0;
     justify-self: center;
     margin: 0 15px 0 0px;
@@ -42,7 +44,7 @@
     transition: .3s ease-in-out;
 
     &:hover {
-      opacity: 0.3;
+      opacity: 0.45;
       transform: scale(1.15);
     }
   }

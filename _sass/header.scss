@@ -46,11 +46,11 @@
   }
 }
 
-// @media screen and (max-width: 650px) {
-//   .gallery-body {
-//     #header {
-//       h1 {
-//       }
-//     }
-//   }
-// }
+@media screen and (max-width: 650px) {
+  body {
+    #header {
+      width: calc(100% - 20px);
+      padding: 0 10px;
+    }
+  }
+}
