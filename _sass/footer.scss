@@ -201,8 +201,13 @@ body.loading #footer-header {
 
 }
 
-@media screen and (max-width: 736px) {
-
+@media screen and (max-width: 650px) {
+  body {
+    #footer-header {
+      width: calc(100% - 20px);
+      padding: 0 10px;
+    }
+  }
 }
 
 footer {
