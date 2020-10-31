@@ -24,15 +24,10 @@
 
     <div class="gallery-body">
       <div class="header-img-container">
-        <!-- <img class="header-img" style="object-position: 0 {{ page.position }}" src="/images/thumb/{{ page.headerImagePath }}"/> -->
         <div class="header-label">
-          <span class="page-title">{{ page.title }}</span>
-          <div class="map-img" onclick="openMapModal()">
-            <!-- <img src="/images/maps/{{ page.mapPath }}.jpg" onMouseOver="this.style.transform='scale(4) translateY({{ page.mapPositionY }}%) translateX({{ page.mapPositionX }}%)'" onMouseOut="this.style.transform='scale(1) translateY(0) translateX(0)'"/> -->
-            <img src="/images/maps/{{ page.mapPath }}.jpg"/>
-          </div>
-          {% if prev %}<a href="{{ prev.url }}" class="icon">Previous</a>{% endif %}
-          {% if next %}<a href="{{ next.url }}" class="icon">Next</a>{% endif %}
+          <span class="page-title">{{ page.title }}<a class="icon fa-map-marker map-icon" onclick="openMapModal()"></a></span>
+          {% if next %}<a href="{{ next.url }}" class="city-link">Next</a>{% endif %}
+          {% if prev %}<a href="{{ prev.url }}" class="city-link">Previous</a>{% endif %}
         </div>
       </div>
 

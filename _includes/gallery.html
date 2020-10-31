@@ -2,7 +2,7 @@
   {% assign image_files = site.static_files | where: "image", true %}
   {% assign image_index = 0 %}
   {% for image in image_files %}
-    {% assign path = "thumb/" | append: page.namePath %}
+    {% assign path = "full/" | append: page.namePath %}
     {% if image.path contains path %}
     {% assign mod2 = image_index | modulo: 2 %}
       {% if mod2 == 0 %}
@@ -21,7 +21,7 @@
   {% assign image_files = site.static_files | where: "image", true %}
   {% assign image_index = 0 %}
   {% for image in image_files %}
-    {% assign path = "thumb/" | append: page.namePath %}
+    {% assign path = "full/" | append: page.namePath %}
     {% if image.path contains path %}
     {% assign mod2 = image_index | modulo: 2 %}
       {% if mod2 == 1 %}

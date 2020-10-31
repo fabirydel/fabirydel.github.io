@@ -1,50 +1,8 @@
-@keyframes slideInFromLeft {
-  0% {
-      transform: translateX(-12%);
-      opacity: 0;
-  }
-  100% {
-      transform: translateX(0);
-      opacity: 1;
-  }
-}
-@keyframes slideInFromRight {
-  0% {
-      transform: translateX(12%);
-      opacity: 0;
-  }
-  100% {
-      transform: translateX(0);
-      opacity: 1;
-  }
-}
-@keyframes slideInFromCenter {
-  0% {
-      transform: scale(0.85);
-      opacity: 0;
-  }
-  100% {
-      transform: scale(1);
-      opacity: 1;
-  }
-}
-// @keyframes growFromCenter {
-//   0% {
-//       transform: scale(0.3);
-//       opacity: 0;
-//   }
-//   100% {
-//       transform: scale(1);
-//       opacity: 0.9;
-//   }
-// }
-
 body {
   width: 100%;
 }
 
 .city-page {
-  // margin-top: -100px;
   flex-grow: 1;
   z-index: 1;
   flex-grow: 1;
@@ -67,8 +25,6 @@ body {
 }
 
 .header-img-container {
-  // height: 400px;
-  // padding-top: 23px;
   position: relative;
   display: flex;
   min-width: 220px;
@@ -83,18 +39,25 @@ body {
   }
 
   .header-label {
-    color: #333;
     font-family: "oswald", sans-serif;
     font-size: 36px;
     text-align: left;
     margin: 40px 10px 0 25px;
     color: #333;
 
+    .page-title {
+      display: inline-block;
+    }
+
     a {
       color: #333;
+      -webkit-transition: .3s ease-in-out;
+    }
+
+    .city-link {
       font-size: 25px;
       display: block;
-      -webkit-transition: .3s ease-in-out;
+      width: min-content;
 
       &:hover {
         text-decoration: none;
@@ -103,23 +66,22 @@ body {
         transition: .3s ease-in-out;
       }
     }
+
+    .map-icon {
+      display: inline;
+      margin-left: 10px;
+      font-size: inherit;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: none;
+        color: #d95040;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+      }
+    }
   }
 }
-
-// .header-img-container:after {
-//   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.3) 20%, #f1f1f1 95%); /* FF3.6+ */
-//   background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.3) 20%, #f1f1f1 95%); /* IE10+ */
-//   background: -o-linear-gradient(top, rgba(0, 0, 0, 0.3) 20%, #f1f1f1 95%); /* Opera 11.10+ */
-//   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333), color-stop(100%,rgba(0, 0, 0, 0.15))); /* Chrome,Safari4+ */
-//   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.3) 20%, #f1f1f1 95%); /* Chrome10+,Safari5.1+ */
-//   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 20%, #f1f1f1 95%); /* W3C */
-//   content: '';
-//   display: inline-block;
-//   height: 102%;
-//   left: 0; top: 0;
-//   position: absolute;
-//   width: 100%;
-// }
 
 .gallery-page-wrapper {
   padding-top: 10px;
@@ -129,7 +91,6 @@ body {
 .gallery-container {
   display: inline-grid;
   grid-template-columns: 50% 50%;
-  // max-width: 1100px;
   width: 100%;
 }
 
@@ -145,29 +106,12 @@ body {
   margin: 10px;
 }
 
-.photo-container-left {
-  animation: 0.5s ease-out 0s 1 slideInFromLeft;
-}
-
-.photo-container-right {
-  animation: 0.5s ease-out 0s 1 slideInFromRight;
-}
-
-.photo-container-center {
-  animation: 0.5s ease-out 0s 1 slideInFromCenter;
-}
-
 .photo {
   -webkit-transition: .3s ease-in;
   border-radius: 2px;
   cursor: pointer;
   object-fit: cover;
   width: 100%;
-  // max-height: 375px;
-
-  &.landscape {
-    // max-height: 200px;
-  }
 
   &:hover {
     -webkit-transition: .3s ease-in-out;
@@ -176,107 +120,18 @@ body {
   }
 }
 
-.map-img {
-  -webkit-transition: .5s ease-in-out;
-  border-radius: 50%;
-  box-shadow: 0px 0px 3px 1px #1f2224;
-  cursor: pointer;
-  display: block;
-  height: 25px;
-  object-fit: cover;
-  overflow: hidden;
-  transition: .5s ease-in-out;
-  width: 25px;
-  margin-left: 5px;
-  // animation: 0.5s ease-out 0s 1 growFromCenter;
-  display: inline-block;
-
-  &:hover {
-    box-shadow: 0px 0px 4px 1.5px #1f2224;
-  }
-
-  img {
-    -webkit-transition: .5s ease-in-out;
-    border-radius: 50%;
-    // transform: scale(1) translateY(0%) translateX(0%);
-    transition: .5s ease-in-out;
-    display: block;
-  }
-}
-
 @media screen and (max-width: 1280px) {
   .gallery-body {
-    .city-page {
-      // margin-top: -150px;
-    }
-
     .page-content {
       padding-bottom: 45px;
     }
 
     .gallery-page-wrapper {
-      padding: 0 100px;
     }
 
     .header-img-container {
-      // padding-top: 30px;
-
-      .map-img {
-        right: 100px;
-      }
-    }
-
-    .photo-container {
-      margin: 3.5px;
-    }
-  }
-}
-
-@media screen and (max-width: 850px) {
-  .gallery-body {
-    .city-page {
-      height: calc(100vh - 263px);
-    }
-
-    .page-content {
-      height: 100%;
-      position: relative;
-      padding: 0;
-    }
-
-    .gallery-page-wrapper {
-      padding: 0 50px;
-      position: relative;
-      height: 100%;
-
-      .city {
-        height: 100%;
-        overflow: auto;
-      }
-    }
-
-    .landscape {
-      // max-height: 175px;
-    }
-
-    .photo-container {
-      margin: 2.5px;
-    }
-
-    .header-img-container {
-      // height: 325px;
-      // padding-top: 34px;
-
-      .map-img {
-        right: 50px;
-        width: 100px;
-        height: 100px;
-
-        &:hover {
-          width: 140px;
-          height: 140px;
-        }
-      }
+      min-width: 195px;
+      max-width: 250px;
 
       .header-label {
         font-size: 32px;
@@ -286,28 +141,61 @@ body {
         }
       }
     }
+
+    .photo-container {
+      margin: 7.5px;
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .gallery-body {
+    .city-page {
+      padding: 30px 5px 0 0;
+    }
+
+    .page-content {
+      padding-bottom: 37px;
+    }
+
+    .photo-container {
+      margin: 5px;
+    }
+
+    .header-img-container {
+      min-width: 160px;
+      max-width: 190px;
+
+      .header-label {
+        .map-icon {
+          margin-left: 5px;
+        }
+
+        font-size: 30px;
+
+        a {
+          font-size: 25px;
+        }
+      }
+    }
   }
 }
 
 @media screen and (max-width: 650px) {
   .gallery-body {
-    .gallery-page-wrapper {
-      padding: 0 25px;
-    }
-
-    .landscape {
-      // max-height: 150px;
-    }
-
     .header-img-container {
-      .map-img {
-        right: 25px;
-        width: 70px;
-        height: 70px;
+      min-width: 130px;
+      max-width: 150px;
 
-        &:hover {
-          width: 100px;
-          height: 100px;
+      .header-label {
+        .map-icon {
+          margin-left: 4px;
+        }
+
+        font-size: 26px;
+
+        a {
+          font-size: 24px;
         }
       }
     }
