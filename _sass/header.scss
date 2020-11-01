@@ -39,18 +39,12 @@
 @media screen and (max-width: 850px) {
   body {
     #header {
+      width: calc(100% - 20px);
+      padding: 0 10px;
+
       h1 {
         font-size: 18px;
       }
-    }
-  }
-}
-
-@media screen and (max-width: 650px) {
-  body {
-    #header {
-      width: calc(100% - 20px);
-      padding: 0 10px;
     }
   }
 }

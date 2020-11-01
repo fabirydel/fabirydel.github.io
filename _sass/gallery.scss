@@ -1,13 +1,13 @@
 body {
   width: 100%;
-  background: #f1f1f1;
+  background: #f9f9f9;
 }
 
 .city-page {
   flex-grow: 1;
   z-index: 1;
   flex-grow: 1;
-  padding: 30px 10px 0 0;
+  padding: 30px 10px 0 10px;
 }
 
 .city {
@@ -15,7 +15,7 @@ body {
 }
 
 .gallery-body {
-  background: #f1f1f1;
+  background: #f9f9f9;
   display: flex;
   flex-direction: row;
 }
@@ -43,7 +43,7 @@ body {
     font-family: "oswald", sans-serif;
     font-size: 36px;
     text-align: left;
-    margin: 40px 10px 0 25px;
+    margin: 40px 0 0 25px;
     color: #333;
     width: min-content;
     position: fixed;
@@ -103,6 +103,10 @@ body {
   vertical-align: top;
 }
 
+.column-thumb {
+  display: none;
+}
+
 .photo-container {
   background: white;
   border-radius: 2px;
@@ -129,9 +133,6 @@ body {
       padding-bottom: 45px;
     }
 
-    .gallery-page-wrapper {
-    }
-
     .header-img-container {
       min-width: 195px;
       max-width: 250px;
@@ -153,12 +154,22 @@ body {
 
 @media screen and (max-width: 850px) {
   .gallery-body {
+    flex-direction: column;
+
     .city-page {
-      padding: 30px 5px 0 0;
+      padding: 30px 5px 0 5px;
     }
 
     .page-content {
       padding-bottom: 37px;
+
+      .column-thumb {
+        display: flex;
+      }
+
+      .column-full {
+        display: none;
+      }
     }
 
     .photo-container {
@@ -166,18 +177,23 @@ body {
     }
 
     .header-img-container {
-      min-width: 160px;
-      max-width: 190px;
+      max-width: inherit;
+      min-width: inherit;
 
       .header-label {
+        width: 100%;
+        background: #f9f9f9;
+        z-index: 3;
+        margin: 35px 10px 0 10px;
+
         .map-icon {
           margin-left: 5px;
         }
 
-        font-size: 24px;
+        font-size: 26px;
 
         .city-link {
-          font-size: 20px;
+          font-size: 22px;
         }
       }
     }
@@ -187,20 +203,16 @@ body {
 @media screen and (max-width: 650px) {
   .gallery-body {
     .header-img-container {
-      min-width: 110px;
-      max-width: 150px;
-
       .header-label {
-        margin: 40px 10px 0 10px;
 
         .map-icon {
           margin-left: 4px;
         }
 
-        font-size: 20px;
+        font-size: 23px;
 
         .city-link {
-          font-size: 18px;
+          font-size: 20px;
         }
       }
     }
