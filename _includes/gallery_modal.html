@@ -1,12 +1,12 @@
-<div id="myModal" class="modal" onclick="closeModal()">
-  <a class="close cursor icon fa fa-times" onclick="closeModal()"></a>
+<div id="myModal" class="modal" onclick="closeModal('myModal')">
+  <a class="close cursor icon fa fa-times" onclick="closeModal('myModal')"></a>
   <div class="modal-content">
 
     {% assign image_files = site.static_files | where: "image", true %}
     {% for image in image_files %}
       {% assign path = "full/" | append: page.namePath %}
       {% if image.path contains path %}
-        <div class="slide" onclick="closeModal()">
+        <div class="slide" onclick="closeModal('myModal')">
           <img src="{{ image.path }}" onclick="ignore(event)" class="center">
         </div>
       {% endif %}

@@ -1,0 +1,13 @@
+<div id="myLandscapeModal" class="modal" onclick="closeModal('myLandscapeModal')">
+  <a class="close cursor icon fa fa-times" onclick="closeModal('myLandscapeModal')"></a>
+  <div class="modal-content">
+    {% for image_path in page.images %}
+      <div class="slide" onclick="closeModal('myLandscapeModal')">
+        <img src="/images/full/{{ image_path }}" onclick="ignore(event)" class="center">
+      </div>
+    {% endfor %}
+
+    <a class="prev icon fa-chevron-left" onclick="plusSlides(event, -1)"></a>
+    <a class="next icon fa-chevron-right" onclick="plusSlides(event, 1)"></a>
+  </div>
+</div>

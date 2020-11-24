@@ -1,11 +1,11 @@
 // Open the Modal
-function openModal(index) {
+function openModal(index, id) {
   document.body.style.top = `-${window.scrollY}px`;
   document.body.style.position = 'fixed';
-  document.getElementById("myModal").style.display = "block";
+  document.getElementById(id).style.display = "block";
   setTimeout(function() {
-    document.getElementById("myModal").style.visibility = "visible";
-    document.getElementById("myModal").style.opacity = "1";
+    document.getElementById(id).style.visibility = "visible";
+    document.getElementById(id).style.opacity = "1";
   }, 10);
 
   currentSlide(index)
@@ -23,7 +23,7 @@ function openModal(index) {
 }
 
 // Close the Modal
-function closeModal() {
+function closeModal(id) {
   const scrollY = document.body.style.top;
   document.body.style.position = '';
   document.body.style.top = '';
@@ -31,9 +31,9 @@ function closeModal() {
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
   }
 
-  document.getElementById("myModal").style.visibility = "hidden";
-  document.getElementById("myModal").style.opacity = "0";
-  setTimeout(function() { document.getElementById("myModal").style.display = "none"; }, 250);
+  document.getElementById(id).style.visibility = "hidden";
+  document.getElementById(id).style.opacity = "0";
+  setTimeout(function() { document.getElementById(id).style.display = "none"; }, 250);
 }
 
 function ignore(e) {
