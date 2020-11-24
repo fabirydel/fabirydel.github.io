@@ -128,8 +128,11 @@ body {
   }
 }
 
-.lazy {
+.photo-container! > .lazy {
   min-height: 40vh;
+}
+
+.lazy {
   content: url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==");
 }
 
