@@ -8,7 +8,19 @@
       {% if mod2 == 0 %}
 
         <div class="photo-container photo-container-left">
-          <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }}, 'myModal')" />
+          {% if image_index < 5 %}
+            <img
+              class="photo {% if image.path contains "landscape" %}landscape{% endif %}"
+              src="{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            />
+          {% else %}
+            <img
+              class="photo lazy {% if image.path contains "landscape" %}landscape{% endif %}"
+              data-src="{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            />
+          {% endif %}
         </div>
 
       {% endif %}
@@ -27,7 +39,19 @@
       {% if mod2 == 1 %}
 
         <div class="photo-container photo-container-right">
-          <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }}, 'myModal')" />
+          {% if image_index < 5 %}
+            <img
+              class="photo {% if image.path contains "landscape" %}landscape{% endif %}"
+              src="{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            />
+          {% else %}
+            <img
+              class="photo lazy {% if image.path contains "landscape" %}landscape{% endif %}"
+              data-src="{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            />
+          {% endif %}
         </div>
 
       {% endif %}
@@ -46,7 +70,19 @@
       {% if mod2 == 0 %}
 
         <div class="photo-container photo-container-left">
-          <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }}, 'myModal')" />
+          {% if image_index < 5 %}
+            <img
+              class="photo {% if image.path contains "landscape" %}landscape{% endif %}"
+              src="{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            />
+          {% else %}
+            <img
+              class="photo lazy {% if image.path contains "landscape" %}landscape{% endif %}"
+              data-src="{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            />
+          {% endif %}
         </div>
 
       {% endif %}
@@ -64,8 +100,20 @@
     {% assign mod2 = image_index | modulo: 2 %}
       {% if mod2 == 1 %}
 
-        <div class="photo-container photo-container-right">
-          <img class="photo {% if image.path contains "landscape" %}landscape{% endif %}" src="{{ image.path }}" onclick="openModal({{ image_index }}, 'myModal')" />
+        <div class="photo-container photo-container-left">
+          {% if image_index < 5 %}
+            <img
+              class="photo {% if image.path contains "landscape" %}landscape{% endif %}"
+              src="{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            />
+          {% else %}
+            <img
+              class="photo lazy {% if image.path contains "landscape" %}landscape{% endif %}"
+              data-src="{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            />
+          {% endif %}
         </div>
 
       {% endif %}
