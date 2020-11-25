@@ -4,20 +4,29 @@
   {% for image in image_files %}
     {% assign path = "full/" | append: page.namePath %}
     {% if image.path contains path %}
-    {% assign mod2 = image_index | modulo: 2 %}
+      {% assign mod2 = image_index | modulo: 2 %}
       {% if mod2 == 0 %}
 
         <div class="photo-container photo-container-left">
+          <img
+            class="photo photo-blur"
+            data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
+            src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+            onclick="openModal({{ image_index }}, 'myModal')"
+          />
+          <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
           {% if image_index < 4 %}
             <img
-              class="photo {% if image.path contains "landscape" %}landscape{% endif %}"
-              src="{{ image.path }}"
+              class="photo photo-final photo-invisible"
+              src="/images/full/{{ page.namePath }}/{{ image.name }}"
+              data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
               onclick="openModal({{ image_index }}, 'myModal')"
             />
           {% else %}
             <img
-              class="photo lazy {% if image.path contains "landscape" %}landscape{% endif %}"
-              data-src="{{ image.path }}"
+              class="photo photo-final lazy photo-invisible"
+              data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
+              data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
               onclick="openModal({{ image_index }}, 'myModal')"
             />
           {% endif %}
@@ -39,16 +48,25 @@
       {% if mod2 == 1 %}
 
         <div class="photo-container photo-container-right">
+          <img
+            class="photo photo-blur"
+            data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
+            src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+            onclick="openModal({{ image_index }}, 'myModal')"
+          />
+          <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
           {% if image_index < 4 %}
             <img
-              class="photo {% if image.path contains "landscape" %}landscape{% endif %}"
-              src="{{ image.path }}"
+              class="photo photo-final photo-invisible"
+              src="/images/full/{{ page.namePath }}/{{ image.name }}"
+              data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
               onclick="openModal({{ image_index }}, 'myModal')"
             />
           {% else %}
             <img
-              class="photo lazy {% if image.path contains "landscape" %}landscape{% endif %}"
-              data-src="{{ image.path }}"
+              class="photo photo-final lazy photo-invisible"
+              data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
+              data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
               onclick="openModal({{ image_index }}, 'myModal')"
             />
           {% endif %}
@@ -72,13 +90,13 @@
         <div class="photo-container photo-container-left">
           {% if image_index < 4 %}
             <img
-              class="photo {% if image.path contains "landscape" %}landscape{% endif %}"
+              class="photo"
               src="{{ image.path }}"
               onclick="openModal({{ image_index }}, 'myModal')"
             />
           {% else %}
             <img
-              class="photo lazy {% if image.path contains "landscape" %}landscape{% endif %}"
+              class="photo lazy"
               data-src="{{ image.path }}"
               onclick="openModal({{ image_index }}, 'myModal')"
             />
@@ -103,13 +121,13 @@
         <div class="photo-container photo-container-left">
           {% if image_index < 4 %}
             <img
-              class="photo {% if image.path contains "landscape" %}landscape{% endif %}"
+              class="photo"
               src="{{ image.path }}"
               onclick="openModal({{ image_index }}, 'myModal')"
             />
           {% else %}
             <img
-              class="photo lazy {% if image.path contains "landscape" %}landscape{% endif %}"
+              class="photo lazy"
               data-src="{{ image.path }}"
               onclick="openModal({{ image_index }}, 'myModal')"
             />

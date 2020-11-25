@@ -8,6 +8,8 @@
   width: calc(100% - 48px);
   z-index: 5;
   font-family: "oswald", sans-serif;
+  -webkit-transition: 0.15s ease;
+  transition: 0.15s ease;
 
   h1 {
     color: #ffffff;

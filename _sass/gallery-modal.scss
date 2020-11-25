@@ -11,15 +11,14 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: #f9f9f9;
-  -webkit-transition: visibility 0.25s ease-in-out, opacity 0.25s ease-in-out;
-  transition: visibility 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  background-color: #000000c0;
+  -webkit-transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 /* Modal Content */
 .modal-content {
   position: relative;
-  background-color: #fefefe;
   margin: auto;
   padding: 0;
   width: 90%;
@@ -28,20 +27,21 @@
 }
 
 .map-modal-content {
+  border: 3px solid white;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: 0px 0px 18px 1px #b5b5b5;
+  box-shadow: 0px 0px 26px -5px #000;
 }
 
 /* The Close Button */
 .close {
-  color: #333;
+  color: #fefefe;
   position: absolute;
   top: 10px;
   right: 25px;
   font-size: 35px;
   opacity: 1;
-  transition: 0.6s ease;
+  transition: 0.3s ease;
   z-index: 1;
 }
 
@@ -49,7 +49,7 @@
 .close:focus,
 .prev:hover,
 .next:hover {
-  color: #333;
+  color: #fff;
   cursor: pointer;
   opacity: 0.75;
   text-decoration: none;
@@ -57,14 +57,15 @@
 
 /* Hide the slides by default */
 .slide {
-  background: #f9f9f9;
   display: none;
   height: 100%;
   width: 100%;
 
   img {
+    border-radius: 3px;
+    border: 3px solid white;
+    box-shadow: 0px 0px 26px -5px #000;
     max-height: calc(100vh - 80px);
-    box-shadow: 0px 0px 40px 1px #b5b5b5;
     object-fit: contain;
   }
 }
@@ -78,10 +79,10 @@
   width: auto;
   padding: 0 16px;
   margin-top: -50px;
-  color: #333;
+  color: #fefefe;
   font-weight: bold;
   font-size: 20px;
-  transition: 0.6s ease;
+  transition: 0.3s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
   opacity: 1;
@@ -102,8 +103,8 @@
   color: #333;
 }
 
-img.demo {
-  opacity: 0.6;
+.blurred {
+  filter: blur(5px);
 }
 
 .active,
