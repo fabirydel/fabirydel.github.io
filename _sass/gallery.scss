@@ -147,6 +147,10 @@ body {
   filter: blur(5px);
 }
 
+.lazy {
+  min-height: 120px;
+}
+
 .photo-final {
   left: 0;
   position: absolute;

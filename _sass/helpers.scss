@@ -48,3 +48,21 @@
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-width: 850px) {
+  .lds-ring div {
+    width: 45;
+    height: 45;
+    margin: 17px;
+    border: 4px solid #fffffff2;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .lds-ring div {
+    width: 30;
+    height: 30;
+    margin: 25px;
+    border: 3px solid #fffffff2;
+  }
+}
