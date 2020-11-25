@@ -127,6 +127,7 @@ body {
   border-radius: 2px;
   margin: 10px;
   position: relative;
+  min-height: 120px;
 }
 
 .photo {
@@ -145,10 +146,6 @@ body {
 
 .photo-blur {
   filter: blur(5px);
-}
-
-.lazy {
-  min-height: 120px;
 }
 
 .photo-final {
