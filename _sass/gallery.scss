@@ -136,12 +136,6 @@ body {
   cursor: pointer;
   object-fit: cover;
   width: 100%;
-
-  &:hover {
-    -webkit-transition: .3s ease-in-out;
-    opacity: 0.85;
-    transition: .3s ease-in-out;
-  }
 }
 
 .photo-blur {
@@ -155,8 +149,15 @@ body {
   opacity: 1;
 }
 
+.photo-final-loaded:hover {
+  -webkit-transition: .3s ease-in-out;
+  opacity: 0.85;
+  transition: .3s ease-in-out;
+}
+
 .photo-invisible {
   opacity: 0;
+  pointer-events: none;
 }
 
 .gallery-body-landscape {

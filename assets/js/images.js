@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     photos.forEach(function(photo) {
       photo.onload = function (photo) {
         photo.currentTarget.classList.remove('photo-invisible')
+        photo.currentTarget.classList.add('photo-final-loaded')
         document.querySelectorAll(`[data-to-remove="${photo.currentTarget.dataset.blurSrc}"]`).forEach(function(elem) {
           elem.remove();
         });
