@@ -131,7 +131,7 @@ body {
 }
 
 .photo {
-  -webkit-transition: .3s ease-in;
+  -webkit-transition: .1s ease-in;
   border-radius: 2px;
   cursor: pointer;
   object-fit: cover;
@@ -150,9 +150,9 @@ body {
 }
 
 .photo-final-loaded:hover {
-  -webkit-transition: .3s ease-in-out;
+  -webkit-transition: .1s ease-in-out;
   opacity: 0.85;
-  transition: .3s ease-in-out;
+  transition: .1s ease-in-out;
 }
 
 .photo-invisible {
