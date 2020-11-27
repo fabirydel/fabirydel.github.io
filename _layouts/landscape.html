@@ -22,9 +22,15 @@
       {% assign tmpprev = link %}
     {% endfor %}
 
-    <div class="gallery-body gallery-body-landscape">
-      <div class="header-img-container header-img-container-landscape">
-        <div class="header-label header-label-landscape">
+    <div class="header-img-container header-img-container-landscape header-img-container-outside" id="header-img-container-outside">
+      <div class="header-label header-label-landscape" id="header-label">
+        <span class="page-title page-title-landscape"><a class="icon fa-{{ page.icon }}"></a>{{ page.title }}<a class="icon fa-{{ page.icon }}"></a></span>
+      </div>
+    </div>
+
+    <div class="gallery-body gallery-body-landscape" id="gallery-body">
+      <div class="header-img-container header-img-container-landscape header-img-container-inside">
+        <div class="header-label header-label-landscape" id="header-label">
           <span class="page-title page-title-landscape"><a class="icon fa-{{ page.icon }}"></a>{{ page.title }}<a class="icon fa-{{ page.icon }}"></a></span>
         </div>
       </div>

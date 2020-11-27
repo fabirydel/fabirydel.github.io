@@ -171,7 +171,7 @@ body {
     padding-bottom: 37px;
 
     .gallery-page-wrapper-landscape {
-      padding-top: 75px;
+      padding-top: 70px;
     }
   }
 
@@ -182,6 +182,7 @@ body {
   .header-img-container-landscape {
     max-width: inherit;
     min-width: inherit;
+    height: 0;
 
     .header-label-landscape {
       width: 100%;
@@ -209,6 +210,22 @@ body {
       .landscape-link {
         font-size: 22px;
       }
+    }
+  }
+}
+
+.header-img-container-landscape {
+  max-width: initial;
+  width: 100%;
+  justify-content: space-evenly;
+  padding-bottom: 15px;
+
+  .header-label-landscape {
+    position: relative;
+    margin-left: 0;
+
+    a {
+      margin: 0 16px;
     }
   }
 }
@@ -246,6 +263,16 @@ body {
       }
     }
   }
+
+  .header-img-container-landscape {
+    padding-bottom: 0;
+    max-width: initial;
+
+    .header-label-landscape {
+     padding-bottom: 12px;
+      height: initial;
+    }
+  }
 }
 
 @media screen and (max-width: 850px) {
@@ -279,6 +306,16 @@ body {
       a {
         font-size: 24px;
       }
+    }
+  }
+
+  .header-img-container-landscape {
+    padding-bottom: 0;
+
+    .header-label-landscape {
+      height: initial;
+      text-align: center;
+      padding-bottom: 3px;
     }
   }
 
@@ -334,6 +371,18 @@ body {
   .gallery-body {
     .page-content .gallery-page-wrapper {
       padding-top: 100px;
+    }
+
+    .photo-container {
+      margin: 2.5px;
+    }
+  }
+
+  .gallery-body-landscape {
+    flex-direction: column;
+
+    .landscape-page {
+      padding: 23px 2.5px 0 2.5px;
     }
   }
 }
