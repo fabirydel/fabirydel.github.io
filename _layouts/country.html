@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+
+  {% include head.html %}
+  {% include header.html %}
+
+  <body>
+
+    <section>
+      <main class="default page-content" aria-label="Content">
+        <div class="wrapper">
+          <div id="country-map" data-zoom="{{ page.zoom }}" data-latlng="{{ page.latlng }}" data-cities="{{ page.cities.size }}" {% for city in page.cities %} data-city-{{ forloop.index }}="{{ city }}"{% endfor %}></div>
+        </div>
+      </main>
+    </section>
+
+    {% include footer.html %}
+  </body>
+
+  {% include gallery_modal.html %}
+  {% include map_modal.html mapGoogle=page.mapGoogle %}
+
+</html>

@@ -37,6 +37,8 @@ collections:
     output: true
   landscapes:
     output: true
+  countries:
+    output: true
 
 sass:
   style: compact # possible values: nested expanded compact compressed
