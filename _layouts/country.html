@@ -7,9 +7,34 @@
   <body>
 
     <section>
-      <main class="default page-content" aria-label="Content">
-        <div class="wrapper">
-          <div id="country-map" data-zoom="{{ page.zoom }}" data-latlng="{{ page.latlng }}" data-cities="{{ page.cities.size }}" {% for city in page.cities %} data-city-{{ forloop.index }}="{{ city }}"{% endfor %}></div>
+      <main class="default page-content country-page-content" aria-label="Content">
+        <div class="wrapper country-wrapper">
+          <div class="header-img-container header-img-container-country header-img-container-outside" id="header-img-container-outside">
+            <div class="header-label header-label-country" id="header-label">
+              <span class="page-title page-title-country">
+                <img src="/images/flags/{{ page.flag }}.png" class="country-flag">
+                {{ page.title }}
+                <img src="/images/flags/{{ page.flag }}.png" class="country-flag">
+              </span>
+            </div>
+          </div>
+
+          <div
+            id="country-map"
+            data-zoom="{{ page.zoom }}"
+            data-bounds="{{ page.bounds }}"
+            data-latlng="{{ page.latlng }}"
+
+            {% assign cities = site.cities | where:"country", page.name %}
+            data-cities="{{ cities.size }}"
+
+            {% for city in cities %}
+              data-img-{{ forloop.index }}="{{ city.indexImagePath }}"
+              data-title-{{ forloop.index }}="{{ city.title }}"
+              data-latlng-{{ forloop.index }}="{{ city.latlng }}"
+              data-path-{{ forloop.index }}="{{ city.namePath }}"
+            {% endfor %}
+          ></div>
         </div>
       </main>
     </section>

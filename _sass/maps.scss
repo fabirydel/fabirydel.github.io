@@ -1,4 +1,128 @@
+.country-page-content {
+  height: calc(100vh - 60px);
+}
+
+.country-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 #country-map {
+  height: inherit;
+  margin-bottom: 26px;
   width: 100%;
-  height: calc(100vh - 60px);;
+}
+
+.header-img-container-country {
+  display: inline-flex;
+  justify-content: space-around;
+  margin-top: 5px;
+  max-width: initial;
+  position: relative;
+  text-align: center;
+  width: 100%;
+
+  .header-label-country {
+    margin: 0;
+    position: relative;
+    text-align: center;
+    font-family: 'satisfy', sans-serif;
+    min-width: inherit;
+
+    .country-flag {
+      cursor: initial;
+      margin: -8px 0 0 0;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.my-div-icon {
+  border-radius: 50%;
+  display: flex !important;
+  flex-direction: column;
+  height: 34px !important;
+  width: 34px !important;
+
+  &:hover {
+    .map-image-title {
+      opacity: 1;
+    }
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 32px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+  }
+}
+
+.map-image {
+  border-radius: 50%;
+  width: 30px;
+  min-height: 30px;
+  height: 30px;
+  border: 2px solid white;
+  background: #ffffff80;
+}
+
+.map-image-title {
+  -webkit-transition: .3s ease-in-out;
+  align-self: center;
+  background: white;
+  border-radius: 3px;
+  font-family: "satisfy", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 17px;
+  margin-top: 6px;
+  opacity: 0;
+  padding: 0 3px;
+  transition: .3s ease-in-out;
+  width: max-content;
+  border: 1px solid #3333335e;
+}
+
+@media screen and (max-width: 1280px) {
+  .country-page-content {
+    height: calc(100vh - 64px);
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .country-page-content {
+    height: calc(100vh - 68px);
+
+    .country-wrapper {
+      margin: 0;
+      max-width: initial;
+
+      #country-map {
+        margin-bottom: 0;
+      }
+
+      .header-img-container-country {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 30px;
+
+        .header-label-country {
+          font-size: 32px;
+
+          .country-flag {
+            margin: -8px 15px 0 15px;
+            width: 30px;
+          }
+        }
+      }
+    }
+  }
 }
