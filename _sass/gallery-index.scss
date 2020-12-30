@@ -12,23 +12,12 @@
   text-align: center;
 }
 
-.cities-index {
-  display: flex;
-  overflow-x: auto;
-  height: calc(100vh - 180px);
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-
+.flexbin {
   .city {
     background: black;
     box-shadow: 0px 0px 12px -2px #b5b5b5;
-    flex-shrink: 0;
     justify-self: center;
-    margin: 0 15px 0 0px;
     overflow: hidden;
-    position: relative;
-    width: 165px;
 
     &:visited {
       color: transparent;

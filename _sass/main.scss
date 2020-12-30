@@ -158,11 +158,9 @@ pre>code {
 
 /** Wrapper */
 .wrapper {
-  max-width: -webkit-calc(100vw - 52px);
-  max-width: calc(100vw - 52px);
-  margin-right: auto;
-  margin-left: auto;
   padding: 0;
+  max-width: initial;
+  height: 100vh;
 }
 
 /** Clearfix */

@@ -4,7 +4,7 @@ layout: default
 
 <div class="home">
   <span class="cities-title">Places of the world</span>
-  <div class="cities-index">
+  <div class="flexbin">
     {% for city in site.cities %}
       <a class="city" id="{{ forloop.index }}" href="/cities/{{ city.namePath }}">
         <span class="center title {{ city.indexImageClass }}">{{ city.title }}</span>

@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   var countryMap = L.map('country-map', {
-    maxBounds: JSON.parse(country.dataset.bounds),
+    maxBounds: JSON.parse(country.dataset.bounds || '[]'),
     layers: [satellite]
   }).setView(JSON.parse(country.dataset.latlng), country.dataset.zoom);
 
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
   for (i = 1; i <= country.dataset.cities; i++) {
     cityImg = country.dataset[`img-${i}`]
     cityTitle = country.dataset[`title-${i}`]
-    cityLatLng = JSON.parse(country.dataset[`latlng-${i}`])
+    cityLatLng = country.dataset[`latlng-${i}`] != "" ? JSON.parse(country.dataset[`latlng-${i}`]) : null
     cityPath = country.dataset[`path-${i}`]
 
     var myIcon = L.divIcon({
@@ -51,11 +51,13 @@ document.addEventListener("DOMContentLoaded", function() {
       className: 'my-div-icon bounce'
     });
 
-    let marker = L.marker(cityLatLng, { riseOnHover: true, path: `/cities/${cityPath}`, icon: myIcon })
-    marker.addTo(countryMap).on('click', () =>
-      setTimeout(function() {
-        window.location.href = marker.options.path;
-      }, 0)
-    );
+    if (cityLatLng != null) {
+      let marker = L.marker(cityLatLng, { riseOnHover: true, path: `/cities/${cityPath}`, icon: myIcon })
+      marker.addTo(countryMap).on('click', () =>
+        setTimeout(function() {
+          window.location.href = marker.options.path;
+        }, 0)
+      );
+    }
   }
 });

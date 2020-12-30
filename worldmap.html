@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<div
+  id="country-map"
+  data-zoom="2"
+  data-bounds="[[-90,-180], [90,180]]"
+  data-latlng="[32.593009, -19.038898]"
+
+  {% assign cities = site.cities %}
+  data-cities="{{ cities.size }}"
+
+  {% for city in cities %}
+    data-img-{{ forloop.index }}="{{ city.indexImagePath }}"
+    data-title-{{ forloop.index }}="{{ city.title }}"
+    data-latlng-{{ forloop.index }}="{{ city.latlng }}"
+    data-path-{{ forloop.index }}="{{ city.namePath }}"
+  {% endfor %}
+></div>
