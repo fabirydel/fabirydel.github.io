@@ -67,7 +67,7 @@ body {
     font-family: "oswald", sans-serif;
     font-size: 36px;
     text-align: left;
-    margin: 40px 0 0 25px;
+    margin: 32px 0 0 25px;
     color: #333;
     width: min-content;
     min-width: 225px;
@@ -315,6 +315,14 @@ body {
       margin: 35px 0px 0 0px;
       padding: 0 10px;
 
+      .page-title {
+        font-size: 28px;
+      }
+
+      .page-title-landscape {
+        vertical-align: super;
+      }
+
       .map-icon {
         margin-left: 5px;
         margin-top: 0px;
@@ -350,7 +358,8 @@ body {
     .header-label-landscape {
       height: initial;
       text-align: center;
-      padding-bottom: 3px;
+      padding-bottom: 0;
+      margin-top: 30px;
     }
   }
 
@@ -367,14 +376,6 @@ body {
       .gallery-page-wrapper {
         padding-top: 110px;
       }
-
-      // .column-thumb {
-      //   display: flex;
-      // }
-
-      // .column-full {
-      //   display: none;
-      // }
     }
 
     .photo-container {

@@ -12,7 +12,7 @@
   transition: 0.15s ease;
 
   h1 {
-    color: #ffffff;
+    color: #f9f9f9;
     cursor: pointer;
     display: block;
     display: inline-block;
@@ -22,11 +22,77 @@
     margin: 0;
   }
 
-  a {
+  a, .dropdown-container {
     display: inline-block;
-    vertical-align: middle;
     margin-right: 20px;
+    vertical-align: middle;
   }
+
+  .dropdown-container {
+    position: relative;
+  }
+
+  .dropdown {
+    background: #1f2224;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    padding: 3px 10px;
+    position: absolute;
+    top: 36px;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    z-index: 1;
+
+    .option {
+      color: #f9f9f9;
+      cursor: pointer;
+      display: flex;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      position: relative;
+
+
+      .icon, .country-flag {
+        margin-right: 5px;
+        margin: 0px 5px 0 0;
+        width: 25px;
+        height: 25px;
+      }
+
+      &:hover {
+        color: #a0a0a1;
+        text-decoration: none;
+      }
+    }
+
+    &:after {
+      content: "";
+      border-color: transparent transparent #1f2224 transparent;
+      border-style: solid;
+      border-width: 8px;
+      position: absolute;
+      top: -16px;
+    }
+  }
+}
+
+.invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.background-layer {
+  -webkit-transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  background-color: #00000050;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  width: 100%;
+  z-index: 0;
 }
 
 @media screen and (max-width: 1280px) {
@@ -46,7 +112,7 @@
       padding: 0 10px;
 
       h1 {
-        font-size: 18px;
+        font-size: 15px;
       }
     }
   }
