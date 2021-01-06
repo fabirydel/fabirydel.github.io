@@ -7,7 +7,7 @@ body {
   flex-grow: 1;
   z-index: 1;
   flex-grow: 1;
-  padding: 30px 10px 0 10px;
+  padding: 38px 5px 37px 5px;
 }
 
 .city {
@@ -20,11 +20,6 @@ body {
   flex-direction: row;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
-}
-
-.page-content {
-  padding-top: 0;
-  padding-bottom: 40px;
 }
 
 .country-flag {
@@ -67,7 +62,7 @@ body {
     font-family: "oswald", sans-serif;
     font-size: 36px;
     text-align: left;
-    margin: 32px 0 0 25px;
+    margin: 28px 0 0 25px;
     color: #333;
     width: min-content;
     min-width: 225px;
@@ -123,8 +118,8 @@ body {
   transition: 0.15s ease;
 }
 
-.gallery-page-wrapper {
-  padding-top: 10px;
+.gallery-page-wrapper-landscape {
+  padding: 87px 5px 37px 5px;
   margin: 0 auto;
 }
 
@@ -138,12 +133,16 @@ body {
   display: inline-flex;
   flex-direction: column;
   vertical-align: top;
+
+  .photo-container:first-child {
+    margin-top: 0;
+  }
 }
 
 .photo-container {
   background: white;
   border-radius: 2px;
-  margin: 10px;
+  margin: 5px;
   position: relative;
   min-height: 120px;
 }
@@ -182,19 +181,15 @@ body {
   flex-direction: column;
 
   .landscape-page {
-    padding: 23px 5px 0 5px;
-  }
-
-  .page-content-landscape {
-    padding-bottom: 37px;
-
-    .gallery-page-wrapper-landscape {
-      padding-top: 70px;
-    }
+    padding: 80px 5px 0 5px;
   }
 
   .photo-container-landscape {
     margin: 5px;
+  }
+
+  .photo-container-landscape:first-child {
+    margin-top: 0;
   }
 
   .header-img-container-landscape {
@@ -237,12 +232,12 @@ body {
   max-width: initial;
   width: 100%;
   justify-content: space-evenly;
-  padding-bottom: 15px;
 
   .header-label-landscape {
     position: relative;
     margin-left: 0;
     width: initial;
+    font-family: 'satisfy';
 
     a {
       margin: 0 16px;
@@ -252,12 +247,11 @@ body {
 
 @media screen and (max-width: 1280px) {
   .gallery-body {
-    .page-content {
-      padding-bottom: 45px;
+    .city-page {
+      padding: 42px 5px 37px 5px;
     }
-
-    .photo-container {
-      margin: 7.5px;
+    .gallery-page-wrapper-landscape {
+      padding: 80px 5px 37px 5px;
     }
   }
 
@@ -271,6 +265,7 @@ body {
 
     .header-label {
       font-size: 32px;
+      margin-top: 32px;
       min-width: 175px;
 
       .city-link {
@@ -297,13 +292,18 @@ body {
     max-width: initial;
 
     .header-label-landscape {
-     padding-bottom: 12px;
       height: initial;
     }
   }
 }
 
 @media screen and (max-width: 850px) {
+  .gallery-body {
+    .city-page {
+      padding: 140px 5px 37px 5px;
+    }
+  }
+
   .header-img-container-outside {
     max-width: inherit;
     min-width: inherit;
@@ -312,7 +312,7 @@ body {
       width: 100%;
       background: #f9f9f9;
       z-index: 3;
-      margin: 35px 0px 0 0px;
+      margin: 30px 0px 0 0px;
       padding: 0 10px;
 
       .page-title {
@@ -330,8 +330,8 @@ body {
       }
 
       .country-flag {
-        margin-top: 8px;
         width: 25px;
+        margin-top: 10px;
       }
 
       font-size: 26px;
@@ -356,7 +356,7 @@ body {
     padding-bottom: 0;
 
     .header-label-landscape {
-      height: initial;
+      height: 42px;
       text-align: center;
       padding-bottom: 0;
       margin-top: 30px;
@@ -366,39 +366,31 @@ body {
   .gallery-body {
     flex-direction: column;
 
-    .city-page {
-      padding: 30px 5px 0 5px;
-    }
-
-    .page-content {
-      padding-bottom: 37px;
-
-      .gallery-page-wrapper {
-        padding-top: 110px;
-      }
+    .gallery-page-wrapper-landscape {
+      padding: 72px 5px 37px 5px;
     }
 
     .photo-container {
       margin: 5px;
     }
-  }
 
-  .gallery-body-landscape .page-content-landscape .gallery-page-wrapper-landscape {
-    padding-top: 50px;
+    .photo-container:first-child {
+      margin-top: 0;
+    }
   }
 }
 
 @media screen and (max-width: 650px) {
+  .gallery-body {
+    .city-page {
+      padding: 132px 5px 37px 5px;
+    }
+  }
+
   .header-img-container-outside {
     .header-label {
       .map-icon {
         margin-left: 8px;
-        margin-top: -1px;
-        font-size: 22px;
-      }
-
-      .country-flag {
-        width: 23px;
       }
 
       font-size: 23px;
@@ -410,8 +402,8 @@ body {
   }
 
   .gallery-body {
-    .page-content .gallery-page-wrapper {
-      padding-top: 100px;
+    .gallery-page-wrapper-landscape {
+      padding: 72px 2.5px 35px 2.5px;
     }
 
     .photo-container {

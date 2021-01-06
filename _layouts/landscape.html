@@ -29,25 +29,13 @@
     </div>
 
     <div class="gallery-body gallery-body-landscape" id="gallery-body">
-      <div class="header-img-container header-img-container-landscape header-img-container-inside">
-        <div class="header-label header-label-landscape" id="header-label">
-          <span class="page-title page-title-landscape"><a class="icon fa-{{ page.icon }}"></a>{{ page.title }}<a class="icon fa-{{ page.icon }}"></a></span>
+      <div class="gallery-page-wrapper gallery-page-wrapper-landscape">
+        <div class=" gallery-container gallery-container-landscape">
+          {{ content }}
+
+          {% include gallery_landscape.html %}
         </div>
       </div>
-
-      <section id="landscape-page" class="landscape-page">
-        <main class="page-content-landscape" aria-label="Content">
-          <div class="gallery-page-wrapper gallery-page-wrapper-landscape">
-            <article class="landscape">
-              <div class=" gallery-container gallery-container-landscape">
-                {{ content }}
-
-                {% include gallery_landscape.html %}
-              </div>
-            </article>
-          </div>
-        </main>
-      </section>
     </div>
 
     {% include footer.html %}
