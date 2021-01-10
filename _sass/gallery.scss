@@ -125,7 +125,7 @@ body {
 
 .gallery-container {
   display: inline-grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 33.3% 33.4% 33.3%;
   width: 100%;
 }
 
@@ -137,6 +137,10 @@ body {
   .photo-container:first-child {
     margin-top: 0;
   }
+}
+
+.two-column-grid {
+  display: none;
 }
 
 .photo-container {
@@ -294,6 +298,20 @@ body {
     .header-label-landscape {
       height: initial;
     }
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .gallery-container {
+    grid-template-columns: 50% 50%;
+  }
+
+  .three-column-grid {
+    display: none;
+  }
+
+  .two-column-grid {
+    display: grid;
   }
 }
 

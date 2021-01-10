@@ -1,139 +1,198 @@
-<div class="gallery-column column-full">
-  {% assign image_files = site.static_files | where: "image", true %}
-  {% assign image_index = 0 %}
-  {% for image in image_files %}
-    {% assign path = "full/" | append: page.namePath %}
-    {% if image.path contains path %}
+<div class="gallery-container gallery-container-landscape three-column-grid">
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+        {% assign mod2 = image_index | modulo: 3 %}
+        {% if mod2 == 0 %}
+
+          <div class="photo-container photo-container-left">
+            <img
+              class="photo photo-blur"
+              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
+              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+            />
+            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
+            {% if image_index < 4 %}
+              <img
+                class="photo photo-final photo-invisible"
+                src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% else %}
+              <img
+                class="photo photo-final lazy photo-invisible"
+                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% endif %}
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+      {% assign mod2 = image_index | modulo: 3 %}
+        {% if mod2 == 1 %}
+
+          <div class="photo-container photo-container-right">
+            <img
+              class="photo photo-blur"
+              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
+              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+            />
+            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
+            {% if image_index < 4 %}
+              <img
+                class="photo photo-final photo-invisible"
+                src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% else %}
+              <img
+                class="photo photo-final lazy photo-invisible"
+                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% endif %}
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+      {% assign mod2 = image_index | modulo: 3 %}
+        {% if mod2 == 2 %}
+
+          <div class="photo-container photo-container-right">
+            <img
+              class="photo photo-blur"
+              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
+              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+            />
+            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
+            {% if image_index < 4 %}
+              <img
+                class="photo photo-final photo-invisible"
+                src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% else %}
+              <img
+                class="photo photo-final lazy photo-invisible"
+                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% endif %}
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="gallery-container gallery-container-landscape two-column-grid">
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+        {% assign mod2 = image_index | modulo: 2 %}
+        {% if mod2 == 0 %}
+
+          <div class="photo-container photo-container-left">
+            <img
+              class="photo photo-blur"
+              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
+              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+            />
+            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
+            {% if image_index < 4 %}
+              <img
+                class="photo photo-final photo-invisible"
+                src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% else %}
+              <img
+                class="photo photo-final lazy photo-invisible"
+                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% endif %}
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
       {% assign mod2 = image_index | modulo: 2 %}
-      {% if mod2 == 0 %}
+        {% if mod2 == 1 %}
 
-        <div class="photo-container photo-container-left">
-          <img
-            class="photo photo-blur"
-            data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
-            src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-          />
-          <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
-          {% if image_index < 4 %}
+          <div class="photo-container photo-container-right">
             <img
-              class="photo photo-final photo-invisible"
-              src="/images/full/{{ page.namePath }}/{{ image.name }}"
-              data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              onclick="openModal({{ image_index }}, 'myModal')"
+              class="photo photo-blur"
+              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
+              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
             />
-          {% else %}
-            <img
-              class="photo photo-final lazy photo-invisible"
-              data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
-              data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              onclick="openModal({{ image_index }}, 'myModal')"
-            />
-          {% endif %}
-        </div>
+            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
+            {% if image_index < 4 %}
+              <img
+                class="photo photo-final photo-invisible"
+                src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% else %}
+              <img
+                class="photo photo-final lazy photo-invisible"
+                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
+                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
+                onclick="openModal({{ image_index }}, 'myModal')"
+              />
+            {% endif %}
+          </div>
 
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
       {% endif %}
-      {% assign image_index = image_index | plus: 1 %}
-    {% endif %}
-  {% endfor %}
+    {% endfor %}
+  </div>
 </div>
-
-<div class="gallery-column column-full">
-  {% assign image_files = site.static_files | where: "image", true %}
-  {% assign image_index = 0 %}
-  {% for image in image_files %}
-    {% assign path = "full/" | append: page.namePath %}
-    {% if image.path contains path %}
-    {% assign mod2 = image_index | modulo: 2 %}
-      {% if mod2 == 1 %}
-
-        <div class="photo-container photo-container-right">
-          <img
-            class="photo photo-blur"
-            data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
-            src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-          />
-          <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
-          {% if image_index < 4 %}
-            <img
-              class="photo photo-final photo-invisible"
-              src="/images/full/{{ page.namePath }}/{{ image.name }}"
-              data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              onclick="openModal({{ image_index }}, 'myModal')"
-            />
-          {% else %}
-            <img
-              class="photo photo-final lazy photo-invisible"
-              data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
-              data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              onclick="openModal({{ image_index }}, 'myModal')"
-            />
-          {% endif %}
-        </div>
-
-      {% endif %}
-      {% assign image_index = image_index | plus: 1 %}
-    {% endif %}
-  {% endfor %}
-</div>
-
-<!-- <div class="gallery-column column-thumb">
-  {% assign image_files = site.static_files | where: "image", true %}
-  {% assign image_index = 0 %}
-  {% for image in image_files %}
-    {% assign path = "thumb/" | append: page.namePath %}
-    {% if image.path contains path %}
-    {% assign mod2 = image_index | modulo: 2 %}
-      {% if mod2 == 0 %}
-
-        <div class="photo-container photo-container-left">
-          {% if image_index < 4 %}
-            <img
-              class="photo"
-              src="{{ image.path }}"
-              onclick="openModal({{ image_index }}, 'myModal')"
-            />
-          {% else %}
-            <img
-              class="photo lazy"
-              data-src="{{ image.path }}"
-              onclick="openModal({{ image_index }}, 'myModal')"
-            />
-          {% endif %}
-        </div>
-
-      {% endif %}
-      {% assign image_index = image_index | plus: 1 %}
-    {% endif %}
-  {% endfor %}
-</div>
-
-<div class="gallery-column column-thumb">
-  {% assign image_files = site.static_files | where: "image", true %}
-  {% assign image_index = 0 %}
-  {% for image in image_files %}
-    {% assign path = "thumb/" | append: page.namePath %}
-    {% if image.path contains path %}
-    {% assign mod2 = image_index | modulo: 2 %}
-      {% if mod2 == 1 %}
-
-        <div class="photo-container photo-container-left">
-          {% if image_index < 4 %}
-            <img
-              class="photo"
-              src="{{ image.path }}"
-              onclick="openModal({{ image_index }}, 'myModal')"
-            />
-          {% else %}
-            <img
-              class="photo lazy"
-              data-src="{{ image.path }}"
-              onclick="openModal({{ image_index }}, 'myModal')"
-            />
-          {% endif %}
-        </div>
-
-      {% endif %}
-      {% assign image_index = image_index | plus: 1 %}
-    {% endif %}
-  {% endfor %}
-</div> -->

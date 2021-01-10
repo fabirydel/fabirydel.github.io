@@ -1,99 +1,179 @@
-<div class="gallery-column gallery-column-landscape column-full">
-  {% assign image_index = 0 %}
-  {% for image_path in page.images %}
-    {% assign mod2 = image_index | modulo: 2 %}
-    {% if mod2 == 0 %}
+<div class="gallery-container gallery-container-landscape three-column-grid">
+  <div class="gallery-column gallery-column-landscape column-full">
+    {% assign image_index = 0 %}
+    {% for image_path in page.images %}
+      {% assign mod2 = image_index | modulo: 3 %}
+      {% if mod2 == 0 %}
 
-      <div class="photo-container photo-container-landscape photo-container-left">
-        <img
-          class="photo photo-landscape photo-blur"
-          data-to-remove="/images/blur/{{ image_path }}"
-          src="/images/blur/{{ image_path }}"
-        />
-        <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
-        {% if image_index < 4 %}
+        <div class="photo-container photo-container-landscape photo-container-left">
           <img
-            class="photo photo-landscape photo-final photo-invisible"
-            src="/images/full/{{ image_path }}"
-            data-blur-src="/images/blur/{{ image_path }}"
-            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            class="photo photo-landscape photo-blur"
+            data-to-remove="/images/blur/{{ image_path }}"
+            src="/images/blur/{{ image_path }}"
           />
-        {% else %}
-          <img
-            class="photo photo-landscape photo-final lazy photo-invisible"
-            data-src="/images/full/{{ image_path }}"
-            data-blur-src="/images/blur/{{ image_path }}"
-            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-          />
-        {% endif %}
-      </div>
+          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
+          {% if image_index < 4 %}
+            <img
+              class="photo photo-landscape photo-final photo-invisible"
+              src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% else %}
+            <img
+              class="photo photo-landscape photo-final lazy photo-invisible"
+              data-src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% endif %}
+        </div>
 
-    {% endif %}
-    {% assign image_index = image_index | plus: 1 %}
-  {% endfor %}
+      {% endif %}
+      {% assign image_index = image_index | plus: 1 %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column gallery-column-landscape column-full">
+    {% assign image_index = 0 %}
+    {% for image_path in page.images %}
+      {% assign mod2 = image_index | modulo: 3 %}
+      {% if mod2 == 1 %}
+
+        <div class="photo-container photo-container-landscape photo-container-right">
+          <img
+            class="photo photo-landscape photo-blur"
+            data-to-remove="/images/blur/{{ image_path }}"
+            src="/images/blur/{{ image_path }}"
+          />
+          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
+          {% if image_index < 4 %}
+            <img
+              class="photo photo-landscape photo-final photo-invisible"
+              src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% else %}
+            <img
+              class="photo photo-landscape photo-final lazy photo-invisible"
+              data-src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% endif %}
+        </div>
+
+      {% endif %}
+      {% assign image_index = image_index | plus: 1 %}
+    {% endfor %}
+  </div>
+
+
+  <div class="gallery-column gallery-column-landscape column-full">
+    {% assign image_index = 0 %}
+    {% for image_path in page.images %}
+      {% assign mod2 = image_index | modulo: 3 %}
+      {% if mod2 == 2 %}
+
+        <div class="photo-container photo-container-landscape photo-container-right">
+          <img
+            class="photo photo-landscape photo-blur"
+            data-to-remove="/images/blur/{{ image_path }}"
+            src="/images/blur/{{ image_path }}"
+          />
+          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
+          {% if image_index < 4 %}
+            <img
+              class="photo photo-landscape photo-final photo-invisible"
+              src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% else %}
+            <img
+              class="photo photo-landscape photo-final lazy photo-invisible"
+              data-src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% endif %}
+        </div>
+
+      {% endif %}
+      {% assign image_index = image_index | plus: 1 %}
+    {% endfor %}
+  </div>
 </div>
 
-<div class="gallery-column gallery-column-landscape column-full">
-  {% assign image_index = 0 %}
-  {% for image_path in page.images %}
-    {% assign mod2 = image_index | modulo: 2 %}
-    {% if mod2 == 1 %}
+<div class="gallery-container gallery-container-landscape two-column-grid">
+  <div class="gallery-column gallery-column-landscape column-full">
+    {% assign image_index = 0 %}
+    {% for image_path in page.images %}
+      {% assign mod2 = image_index | modulo: 2 %}
+      {% if mod2 == 0 %}
 
-      <div class="photo-container photo-container-landscape photo-container-right">
-        <img
-          class="photo photo-landscape photo-blur"
-          data-to-remove="/images/blur/{{ image_path }}"
-          src="/images/blur/{{ image_path }}"
-        />
-        <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
-        {% if image_index < 4 %}
+        <div class="photo-container photo-container-landscape photo-container-left">
           <img
-            class="photo photo-landscape photo-final photo-invisible"
-            src="/images/full/{{ image_path }}"
-            data-blur-src="/images/blur/{{ image_path }}"
-            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            class="photo photo-landscape photo-blur"
+            data-to-remove="/images/blur/{{ image_path }}"
+            src="/images/blur/{{ image_path }}"
           />
-        {% else %}
+          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
+          {% if image_index < 4 %}
+            <img
+              class="photo photo-landscape photo-final photo-invisible"
+              src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% else %}
+            <img
+              class="photo photo-landscape photo-final lazy photo-invisible"
+              data-src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% endif %}
+        </div>
+
+      {% endif %}
+      {% assign image_index = image_index | plus: 1 %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column gallery-column-landscape column-full">
+    {% assign image_index = 0 %}
+    {% for image_path in page.images %}
+      {% assign mod2 = image_index | modulo: 2 %}
+      {% if mod2 == 1 %}
+
+        <div class="photo-container photo-container-landscape photo-container-right">
           <img
-            class="photo photo-landscape photo-final lazy photo-invisible"
-            data-src="/images/full/{{ image_path }}"
-            data-blur-src="/images/blur/{{ image_path }}"
-            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            class="photo photo-landscape photo-blur"
+            data-to-remove="/images/blur/{{ image_path }}"
+            src="/images/blur/{{ image_path }}"
           />
-        {% endif %}
-      </div>
+          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
+          {% if image_index < 4 %}
+            <img
+              class="photo photo-landscape photo-final photo-invisible"
+              src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% else %}
+            <img
+              class="photo photo-landscape photo-final lazy photo-invisible"
+              data-src="/images/full/{{ image_path }}"
+              data-blur-src="/images/blur/{{ image_path }}"
+              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+            />
+          {% endif %}
+        </div>
 
-    {% endif %}
-    {% assign image_index = image_index | plus: 1 %}
-  {% endfor %}
+      {% endif %}
+      {% assign image_index = image_index | plus: 1 %}
+    {% endfor %}
+  </div>
 </div>
-
-<!-- <div class="gallery-column gallery-column-landscape column-thumb">
-  {% assign image_index = 0 %}
-  {% for image_path in page.images %}
-    {% assign mod2 = image_index | modulo: 2 %}
-    {% if mod2 == 0 %}
-
-      <div class="photo-container photo-container-landscape photo-container-left">
-        <img class="photo photo-landscape" src="/images/thumb/{{ image_path }}" onclick="openModal({{ image_index }}, 'myLandscapeModal')" />
-      </div>
-
-    {% endif %}
-    {% assign image_index = image_index | plus: 1 %}
-  {% endfor %}
-</div>
-
-<div class="gallery-column gallery-column-landscape column-thumb">
-  {% assign image_index = 0 %}
-  {% for image_path in page.images %}
-    {% assign mod2 = image_index | modulo: 2 %}
-    {% if mod2 == 1 %}
-
-      <div class="photo-container photo-container-landscape photo-container-left">
-        <img class="photo photo-landscape" src="/images/thumb/{{ image_path }}" onclick="openModal({{ image_index }}, 'myLandscapeModal')" />
-      </div>
-
-    {% endif %}
-    {% assign image_index = image_index | plus: 1 %}
-  {% endfor %}
-</div> -->
