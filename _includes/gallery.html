@@ -8,28 +8,14 @@
         {% assign mod2 = image_index | modulo: 3 %}
         {% if mod2 == 0 %}
 
-          <div class="photo-container photo-container-left">
-            <img
-              class="photo photo-blur"
-              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-            />
-            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
-            {% if image_index < 4 %}
-              <img
-                class="photo photo-final photo-invisible"
-                src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% else %}
-              <img
-                class="photo photo-final lazy photo-invisible"
-                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% endif %}
+          <div class="photo-container photo-container-left" data-index="{{ image_index }}">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
           </div>
 
         {% endif %}
@@ -48,27 +34,13 @@
         {% if mod2 == 1 %}
 
           <div class="photo-container photo-container-right">
-            <img
-              class="photo photo-blur"
-              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-            />
-            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
-            {% if image_index < 4 %}
-              <img
-                class="photo photo-final photo-invisible"
-                src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% else %}
-              <img
-                class="photo photo-final lazy photo-invisible"
-                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% endif %}
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
           </div>
 
         {% endif %}
@@ -87,27 +59,13 @@
         {% if mod2 == 2 %}
 
           <div class="photo-container photo-container-right">
-            <img
-              class="photo photo-blur"
-              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-            />
-            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
-            {% if image_index < 4 %}
-              <img
-                class="photo photo-final photo-invisible"
-                src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% else %}
-              <img
-                class="photo photo-final lazy photo-invisible"
-                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% endif %}
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
           </div>
 
         {% endif %}
@@ -128,27 +86,13 @@
         {% if mod2 == 0 %}
 
           <div class="photo-container photo-container-left">
-            <img
-              class="photo photo-blur"
-              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-            />
-            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
-            {% if image_index < 4 %}
-              <img
-                class="photo photo-final photo-invisible"
-                src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% else %}
-              <img
-                class="photo photo-final lazy photo-invisible"
-                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% endif %}
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
           </div>
 
         {% endif %}
@@ -167,27 +111,13 @@
         {% if mod2 == 1 %}
 
           <div class="photo-container photo-container-right">
-            <img
-              class="photo photo-blur"
-              data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"
-              src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-            />
-            <div class="lds-ring" data-to-remove="/images/blur/{{ page.namePath }}/{{ image.name }}"><div></div><div></div><div></div><div></div></div>
-            {% if image_index < 4 %}
-              <img
-                class="photo photo-final photo-invisible"
-                src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% else %}
-              <img
-                class="photo photo-final lazy photo-invisible"
-                data-src="/images/full/{{ page.namePath }}/{{ image.name }}"
-                data-blur-src="/images/blur/{{ page.namePath }}/{{ image.name }}"
-                onclick="openModal({{ image_index }}, 'myModal')"
-              />
-            {% endif %}
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
           </div>
 
         {% endif %}

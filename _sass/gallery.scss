@@ -147,8 +147,43 @@ body {
   background: white;
   border-radius: 2px;
   margin: 5px;
-  position: relative;
   min-height: 120px;
+  overflow: hidden;
+  position: relative;
+
+  .placeholder {
+    filter: blur(10px);
+    position: relative;
+    transform: scale(1);
+    width: 100%;
+    z-index: 1;
+  }
+
+  .picture {
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 1s linear;
+    z-index: 2;
+  }
+
+  .picture.loaded {
+    opacity: 1;
+  }
+
+  .image-container {
+    -webkit-transition: .3s ease-in-out;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    object-fit: cover;
+    transition: .3s ease-in-out;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
 }
 
 .photo {

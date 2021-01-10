@@ -7,8 +7,27 @@ layout: default
     {% assign count = site.cities.size %}
     {% assign cities = site.cities | sample:count %}
     {% for city in cities %}
-      <a class="city" id="{{ forloop.index }}" href="/cities/{{ city.namePath }}">
-        <img src="/images/thumb/{{ city.indexImagePath }}"/>
+      <a class="city city-link-image" id="{{ forloop.index }}" href="/cities/{{ city.namePath }}">
+        <!-- <img src="/images/thumb/{{ city.indexImagePath }}"/> -->
+
+
+        <div class="image-container {% if forloop.index < 9 %}active-picture{% endif %} {% if forloop.index > 8 %}lazy-picture{% endif %}" data-large="/images/full/{{ city.indexImagePath }}">
+          <img class="placeholder" src="/images/blur/{{ city.indexImagePath }}" class="img-small">
+        </div>
+
+           <!--  <img
+              class="photo-blur"
+              data-to-remove="/images/blur/{{ city.indexImagePath }}"
+              src="/images/blur/{{ city.indexImagePath }}"
+            />
+            <div class="lds-ring" data-to-remove="/images/blur/{{ city.indexImagePath }}"><div></div><div></div><div></div><div></div></div>
+              <img
+                class="photo-final photo-invisible"
+                src="/images/full/{{ city.indexImagePath }}"
+                data-blur-src="/images/blur/{{ city.indexImagePath }}"
+              /> -->
+
+
         <span class="center title {{ city.indexImageClass }}">{{ city.title }}</span>
       </a>
     {% endfor %}

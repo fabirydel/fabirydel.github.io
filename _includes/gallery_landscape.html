@@ -6,27 +6,13 @@
       {% if mod2 == 0 %}
 
         <div class="photo-container photo-container-landscape photo-container-left">
-          <img
-            class="photo photo-landscape photo-blur"
-            data-to-remove="/images/blur/{{ image_path }}"
-            src="/images/blur/{{ image_path }}"
-          />
-          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
-          {% if image_index < 4 %}
-            <img
-              class="photo photo-landscape photo-final photo-invisible"
-              src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% else %}
-            <img
-              class="photo photo-landscape photo-final lazy photo-invisible"
-              data-src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% endif %}
+          <div
+            class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+            data-large="/images/full/{{ image_path }}"
+            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+          >
+            <img class="placeholder" src="/images/blur/{{ image_path }}" class="img-small">
+          </div>
         </div>
 
       {% endif %}
@@ -41,27 +27,13 @@
       {% if mod2 == 1 %}
 
         <div class="photo-container photo-container-landscape photo-container-right">
-          <img
-            class="photo photo-landscape photo-blur"
-            data-to-remove="/images/blur/{{ image_path }}"
-            src="/images/blur/{{ image_path }}"
-          />
-          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
-          {% if image_index < 4 %}
-            <img
-              class="photo photo-landscape photo-final photo-invisible"
-              src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% else %}
-            <img
-              class="photo photo-landscape photo-final lazy photo-invisible"
-              data-src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% endif %}
+          <div
+            class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+            data-large="/images/full/{{ image_path }}"
+            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+          >
+            <img class="placeholder" src="/images/blur/{{ image_path }}" class="img-small">
+          </div>
         </div>
 
       {% endif %}
@@ -77,27 +49,13 @@
       {% if mod2 == 2 %}
 
         <div class="photo-container photo-container-landscape photo-container-right">
-          <img
-            class="photo photo-landscape photo-blur"
-            data-to-remove="/images/blur/{{ image_path }}"
-            src="/images/blur/{{ image_path }}"
-          />
-          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
-          {% if image_index < 4 %}
-            <img
-              class="photo photo-landscape photo-final photo-invisible"
-              src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% else %}
-            <img
-              class="photo photo-landscape photo-final lazy photo-invisible"
-              data-src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% endif %}
+          <div
+            class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+            data-large="/images/full/{{ image_path }}"
+            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+          >
+            <img class="placeholder" src="/images/blur/{{ image_path }}" class="img-small">
+          </div>
         </div>
 
       {% endif %}
@@ -114,27 +72,13 @@
       {% if mod2 == 0 %}
 
         <div class="photo-container photo-container-landscape photo-container-left">
-          <img
-            class="photo photo-landscape photo-blur"
-            data-to-remove="/images/blur/{{ image_path }}"
-            src="/images/blur/{{ image_path }}"
-          />
-          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
-          {% if image_index < 4 %}
-            <img
-              class="photo photo-landscape photo-final photo-invisible"
-              src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% else %}
-            <img
-              class="photo photo-landscape photo-final lazy photo-invisible"
-              data-src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% endif %}
+          <div
+            class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+            data-large="/images/full/{{ image_path }}"
+            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+          >
+            <img class="placeholder" src="/images/blur/{{ image_path }}" class="img-small">
+          </div>
         </div>
 
       {% endif %}
@@ -149,27 +93,13 @@
       {% if mod2 == 1 %}
 
         <div class="photo-container photo-container-landscape photo-container-right">
-          <img
-            class="photo photo-landscape photo-blur"
-            data-to-remove="/images/blur/{{ image_path }}"
-            src="/images/blur/{{ image_path }}"
-          />
-          <div class="lds-ring" data-to-remove="/images/blur/{{ image_path }}"><div></div><div></div><div></div><div></div></div>
-          {% if image_index < 4 %}
-            <img
-              class="photo photo-landscape photo-final photo-invisible"
-              src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% else %}
-            <img
-              class="photo photo-landscape photo-final lazy photo-invisible"
-              data-src="/images/full/{{ image_path }}"
-              data-blur-src="/images/blur/{{ image_path }}"
-              onclick="openModal({{ image_index }}, 'myLandscapeModal')"
-            />
-          {% endif %}
+          <div
+            class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+            data-large="/images/full/{{ image_path }}"
+            onclick="openModal({{ image_index }}, 'myLandscapeModal')"
+          >
+            <img class="placeholder" src="/images/blur/{{ image_path }}" class="img-small">
+          </div>
         </div>
 
       {% endif %}
