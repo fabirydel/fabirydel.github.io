@@ -120,7 +120,6 @@ body {
 
 .gallery-page-wrapper-landscape {
   padding: 87px 5px 37px 5px;
-  margin: 0 auto;
 }
 
 .gallery-container {
@@ -161,6 +160,7 @@ body {
 
   .picture {
     height: 100%;
+    width: 100%;
     object-fit: cover;
     opacity: 0;
     position: absolute;
