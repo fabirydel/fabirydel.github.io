@@ -25,13 +25,15 @@
     <div class="header-img-container header-img-container-outside" id="header-img-container-outside">
       <div class="header-label" id="header-label">
         <span class="page-title">{{ page.title }}
-          <a class="icon fa-map-marker-alt map-icon" onclick="openMapModal()"></a>
-          <a class="country-link" href="/countries/{{ page.country }}">
-            <div class="tooltip country-flag-container">
-              <img src="/images/flags/{{ page.country }}.png" class="country-flag">
-              <span class="tooltiptext">{{ page.country | capitalize}}</span>
-            </div>
-          </a>
+          <div class="links-container">
+            <a class="icon fa-map-marker-alt map-icon" onclick="openMapModal()"></a>
+            <a class="country-link" href="/countries/{{ page.country }}">
+              <div class="tooltip country-flag-container">
+                <img src="/images/flags/{{ page.country }}.png" class="country-flag">
+                <span class="tooltiptext">{{ page.country | capitalize}}</span>
+              </div>
+            </a>
+          </div>
         </span>
         {% if next %}<a href="{{ next.url }}" class="city-link">Next</a>{% endif %}
         {% if prev %}<a href="{{ prev.url }}" class="city-link">Previous</a>{% endif %}

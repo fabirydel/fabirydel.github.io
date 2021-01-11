@@ -22,13 +22,19 @@ body {
   transition: 0.3s ease;
 }
 
+.links-container {
+  display: inline-flex;
+}
+
+.country-link {
+  display: inline-flex;
+}
+
 .country-flag {
   border-radius: 50%;
-  cursor: pointer;
-  display: inline;
   width: 30px;
+  height: 30px;
   margin-left: 8px;
-  margin-top: 16px;
   cursor: pointer;
 
   &:hover {
@@ -39,9 +45,8 @@ body {
 }
 
 .country-flag-container {
-  position: absolute;
   display: inline-flex;
-  width: fit-content;
+  margin: auto;
 }
 
 .header-img-container {
