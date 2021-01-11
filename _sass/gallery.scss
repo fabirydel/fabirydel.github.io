@@ -99,7 +99,8 @@ body {
     .map-icon {
       font-size: 30px;
       cursor: pointer;
-      display: inline;
+      display: inline-flex;
+      height: 43px;
 
       &:hover {
         text-decoration: none;
@@ -299,10 +300,6 @@ body {
     }
   }
 
-  .header-img-container .header-label .map-icon {
-    margin-top: 0;
-  }
-
   .header-img-container-outside {
     min-width: 195px;
     max-width: 250px;
@@ -314,10 +311,6 @@ body {
 
       .city-link {
         font-size: 25px;
-      }
-
-      .country-flag {
-        margin-top: 12px;
       }
     }
 
@@ -382,14 +375,14 @@ body {
       }
 
       .map-icon {
-        margin-left: 5px;
-        margin-top: 0px;
+        margin-left: 3px;
         font-size: 26px;
+        height: 38px;
       }
 
       .country-flag {
         width: 25px;
-        margin-top: 10px;
+        height: 25px;
       }
 
       font-size: 26px;
@@ -447,10 +440,6 @@ body {
 
   .header-img-container-outside {
     .header-label {
-      .map-icon {
-        margin-left: 8px;
-      }
-
       font-size: 23px;
 
       .city-link {
