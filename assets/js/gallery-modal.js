@@ -2,6 +2,7 @@
 function openModal(index, id) {
   document.getElementById("gallery-body").style.top = `-${window.scrollY}px`;
   document.getElementById("gallery-body").style.position = 'fixed';
+  document.getElementById("gallery-body").style.width = '100%';
   document.getElementById(id).style.display = "block";
   setTimeout(function() {
     document.getElementById(id).style.visibility = "visible";
