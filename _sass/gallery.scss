@@ -24,6 +24,7 @@ body {
 
 .links-container {
   display: inline-flex;
+  vertical-align: text-bottom;
 }
 
 .country-link {
@@ -36,6 +37,7 @@ body {
   height: 30px;
   margin-left: 8px;
   cursor: pointer;
+  margin-top: 5px;
 
   &:hover {
     opacity: 0.8;
@@ -46,7 +48,7 @@ body {
 
 .country-flag-container {
   display: inline-flex;
-  margin: auto;
+  position: relative;
 }
 
 .header-img-container {
@@ -76,6 +78,8 @@ body {
     .page-title {
       display: inline-block;
       width: 100%;
+      line-height: 40px;
+      margin-top: 11px;
     }
 
     a {
@@ -368,6 +372,7 @@ body {
 
       .page-title {
         font-size: 28px;
+        margin-top: 0;
       }
 
       .page-title-landscape {
@@ -383,6 +388,7 @@ body {
       .country-flag {
         width: 25px;
         height: 25px;
+        margin-top: 8px;
       }
 
       font-size: 26px;
