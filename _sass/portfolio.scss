@@ -1,0 +1,117 @@
+.portfolio-gallery {
+  width: 100%;
+
+  .grid-container {
+    display: inline-grid;
+    grid-template-columns: 33.3% 33.4% 33.3%;
+    width: 100%;
+
+    .gallery-column {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+
+      .photo-container {
+        margin: 10px auto;
+        width: 85%;
+        height: 450px;
+        overflow: initial;
+
+        .picture, .placeholder {
+          height: initial;
+          width: initial;
+          max-height: 330px;
+          align-self: center;
+        }
+
+        .photo {
+          height: 100%;
+          background: #f9f9f9;
+        }
+
+        .placeholder-container {
+          max-height: 330px;
+          height: 100%;
+          display: flex;
+
+          .placeholder {
+            height: 100%;
+            margin: 0 auto;
+          }
+
+          .placeholder-landscape {
+            width: 100%;
+            height: initial;
+          }
+        }
+
+        .photo-title {
+          color: #333;
+          position: absolute;
+          bottom: 15px;
+          text-align: center;
+          width: 100%;
+          font-family: Mrseaves;
+        }
+
+        .photo-place {
+          bottom: 0;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .two-column-grid {
+      display: none;
+    }
+
+    .one-column-grid {
+      display: none;
+    }
+  }
+}
+
+
+@media screen and (max-width: 1150px) {
+  .portfolio-gallery {
+    .grid-container {
+      grid-template-columns: 50% 50%;
+    }
+
+    .three-column-grid {
+      display: none;
+    }
+
+    .two-column-grid {
+      display: grid;
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .portfolio-gallery {
+    .grid-container {
+      .gallery-column {
+        .photo-container {
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .portfolio-gallery {
+    .grid-container {
+      grid-template-columns: 100%;
+    }
+
+    .two-column-grid {
+      display: none;
+    }
+
+    .one-column-grid {
+      display: grid;
+    }
+  }
+}

@@ -9,7 +9,10 @@ layout: default
     {% for city in cities %}
       <a class="city city-link-image" id="{{ forloop.index }}" href="/cities/{{ city.namePath }}">
 
-        <div class="image-container {% if forloop.index < 9 %}active-picture{% endif %} {% if forloop.index > 8 %}lazy-picture{% endif %}" data-large="/images/full/{{ city.indexImagePath }}">
+        <div
+          class="image-container {% if forloop.index < 9 %}active-picture{% endif %} {% if forloop.index > 8 %}lazy-picture{% endif %}"
+          data-large="/images/full/{{ city.indexImagePath }}"
+        >
           <img class="placeholder" src="/images/blur/{{ city.indexImagePath }}" class="img-small">
         </div>
 

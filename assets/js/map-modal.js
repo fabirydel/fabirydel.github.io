@@ -7,7 +7,7 @@ function openMapModal(index) {
     document.getElementById("mapModal").style.visibility = "visible";
     document.getElementById("mapModal").style.opacity = "1";
   }, 10);
-  blur();
+  blurMap();
 }
 
 // Close the Modal
@@ -18,21 +18,21 @@ function closeMapModal() {
   if (scrollY) {
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
   }
-  deblur();
+  deblurMap();
 
   document.getElementById("mapModal").style.visibility = "hidden";
   document.getElementById("mapModal").style.opacity = "0";
   setTimeout(function() { document.getElementById("mapModal").style.display = "none"; }, 250);
 }
 
-function blur() {
+function blurMap() {
   document.getElementById('header').style.filter = "blur(2px)";
   document.getElementById('footer-header').style.filter = "blur(2px)";
   document.getElementById('gallery-body').style.filter = "blur(5px)";
   document.getElementById('header-img-container-outside').style.filter = 'blur(5px)';
 }
 
-function deblur() {
+function deblurMap() {
   document.getElementById('header').style.filter = "";
   document.getElementById('footer-header').style.filter = "";
   document.getElementById('gallery-body').style.filter = "";
