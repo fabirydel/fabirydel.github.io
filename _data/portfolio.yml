@@ -60,6 +60,11 @@
   title: Snowy Stream
   place: Bariloche - Argentina
 
+- path: bruges/05_IMG_9073_landscape.jpg
+  title: The Giants
+  place: Bruges - Belgium
+  landscape: true
+
 - path: bled/02_IMG_2704bis_landscape.jpg
   title: The Church in the Lake
   place: Bled - Slovenia

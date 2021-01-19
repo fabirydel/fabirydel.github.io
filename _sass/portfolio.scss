@@ -13,10 +13,18 @@
       vertical-align: middle;
 
       .photo-container {
-        margin: 10px auto;
-        width: 85%;
+        box-shadow: none;
         height: 450px;
+        margin: 10px auto;
         overflow: initial;
+        width: 85%;
+
+        .image-container-landscape {
+          .placeholder-container .placeholder, .picture.loaded {
+            width: 100%;
+            height: initial;
+          }
+        }
 
         .picture, .placeholder {
           height: initial;
@@ -28,31 +36,27 @@
         .photo {
           height: 100%;
           background: #f9f9f9;
+          overflow: initial;
         }
 
         .placeholder-container {
-          max-height: 330px;
-          height: 100%;
           display: flex;
+          height: 100%;
+          max-height: 330px;
 
           .placeholder {
             height: 100%;
             margin: 0 auto;
           }
-
-          .placeholder-landscape {
-            width: 100%;
-            height: initial;
-          }
         }
 
         .photo-title {
-          color: #333;
-          position: absolute;
           bottom: 15px;
+          color: #333;
+          font-family: Mrseaves;
+          position: absolute;
           text-align: center;
           width: 100%;
-          font-family: Mrseaves;
         }
 
         .photo-place {
