@@ -83,7 +83,7 @@
       }
 
       .two-column-grid {
-        display: grid;
+        display: inline-flex;
       }
     }
   }
@@ -111,7 +111,7 @@
       }
 
       .one-column-grid {
-        display: grid;
+        display: inline-flex;
       }
     }
   }
