@@ -3,114 +3,84 @@
   place: Kinderdijk - Netherlands
   landscape: true
 
-- path: amsterdam/06_IMG_0418.jpg
-  title: Narrow Houses
-  place: Amsterdam - Netherlands
-
 - path: ljubljana/IMG_1816-Edit.jpg
   title: Dragon at the Bridge
   place: Ljubljana - Slovenia
   landscape: true
 
-- path: almodovar_del_rio/01_IMG_2300.jpg
-  title: Highgarden Castle
-  place: Almodovar del Rio - Spain
+- path: hallstatt/IMG_7912.jpg
+  title: Snowy Town by the Lake
+  place: Hallstatt - Austrian
   landscape: true
 
 - path: bled/01_IMG_2855.jpg
   title: Castle at Night
   place: Bled - Slovenia
 
-- path: amsterdam/07_IMG_0422_landscape.jpg
-  title: Damrak
-  place: Amsterdam - Netherlands
+- path: almodovar_del_rio/01_IMG_2300.jpg
+  title: Highgarden Castle
+  place: Almodovar del Rio - Spain
   landscape: true
 
-- path: arboras/IMG_4133.jpg
-  title: French Fields
-  place: Arboras - France
+- path: jamnik/01_IMG_4719.jpg
+  title: Church in the Mountains
+  place: Jamnik - Slovenian
+  landscape: true
 
 - path: arboras/IMG_4368.jpg
   title: Autumn Shine
   place: Arboras - France
 
-- path: arboras/IMG_4772.jpg
-  title: Dusk
-  place: Arboras - France
+- path: lagamas/IMG_4864.jpg
+  title: Church by the Red Vines
+  place: Lagamas - France
+
+- path: cabo_polonio/IMG_4078.jpg
+  title: Walking Towards the Sunset
+  place: Cabo Polonio - Uruguay
+
+- path: montpeyroux/IMG_3843.jpg
+  title: Autumn Road
+  place: Montpeyroux - France
+
+- path: amsterdam/06_IMG_0418.jpg
+  title: Narrow Houses
+  place: Amsterdam - Netherlands
+
+- path: gavarnie/IMG_1970.jpg
+  title: The Inmensity Ahead
+  place: Cirque de Gavarnie - France
+
+- path: rio/IMG_7891.jpg
+  title: A Wonder of a Sunset
+  place: Rio de Janeiro - Brazil
   landscape: true
-
-- path: arboras/IMG_9888.jpg
-  title: Vines by the Road
-  place: Arboras - France
-
-- path: arboras/IMG_9615.jpg
-  title: Vineyard Way
-  place: Arboras - France
-
-- path: arboras/IMG_4747.jpg
-  title: Road to Town
-  place: Arboras - France
-
-- path: arboras/IMG_4407.jpg
-  title: Hidden Path Through the Vines
-  place: Arboras - France
-
-- path: arboras/IMG_4395.jpg
-  title: Beyond the Vines
-  place: Arboras - France
-
-- path: arboras/IMG_4391.jpg
-  title: Way out of Town
-  place: Arboras - France
 
 - path: bariloche/01_IMG_9960bis.jpg
   title: Snowy Stream
   place: Bariloche - Argentina
-
-- path: bariloche/IMG_0837-edit.jpg
-  title: Mountain Shore
-  place: Bariloche - Argentina
-
-- path: bled/IMG_3054.jpg
-  title: Misty Mountain Lake
-  place: Bled - Slovenia
-
-- path: bled/IMG_3567.jpg
-  title: Night at the Lake
-  place: Bled - Slovenia
-
-- path: bled/17_IMG_3359_landscape.jpg
-  title: A Faitytale Land
-  place: Bled - Slovenia
-  landscape: true
-
-- path: bled/11_IMG_3212.jpg
-  title: Ripples
-  place: Bled - Slovenia
 
 - path: bled/02_IMG_2704bis_landscape.jpg
   title: The Church in the Lake
   place: Bled - Slovenia
   landscape: true
 
+- path: lac_de_gaube/IMG_1801.jpg
+  title: Mountain Shore
+  place: Lac de Gaube - France
+
 - path: brussels/10_IMG_7410_landscape.jpg
   title: Tunnel
   place: Brussels - Belgium
   landscape: true
 
-- path: cabo_polonio/IMG_3896bis.jpg
-  title: La Juanita y La Nena
-  place: Cabo Polonio - Uruguay
-  landscape: true
+- path: arboras/IMG_4133.jpg
+  title: French Fields
+  place: Arboras - France
 
-- path: cabo_polonio/IMG_4078.jpg
-  title: Walking Towards the Sunset
-  place: Cabo Polonio - Uruguay
-
-- path: cabo_polonio/IMG_4094.jpg
-  title: Big Bang
-  place: Cabo Polonio - Uruguay
-  landscape: true
+- path: puy_en_velay/11_IMG_1771.jpg
+  title: Through a Statue's Head
+  place: Le Puy en Velay - France
 
 - path: cabo_polonio/IMG_4173.jpg
   title: Sunset Whirlwind
@@ -129,6 +99,11 @@
   title: Monument and Dome
   place: Clermont Ferrand - France
 
+- path: bled/17_IMG_3359_landscape.jpg
+  title: A Faitytale Land
+  place: Bled - Slovenia
+  landscape: true
+
 - path: colonia_del_sacramento/IMG_6068bis.jpg
   title: Cobblestone Street
   place: Colonia del Sacramento - Uruguay
@@ -137,32 +112,36 @@
   title: Mirrored Town
   place: Dinant - Belgium
 
+- path: montevideo/IMG_9212.jpg
+  title: Electric Storm
+  place: Montevideo - Uruguay
+  landscape: true
+
 - path: gavarnie/IMG_2419.jpg
   title: Mountain Horse
-  place: Cirque de Gavarnie - France
-
-- path: gavarnie/IMG_1970.jpg
-  title: The Inmensity Ahead
-  place: Cirque de Gavarnie - France
-
-- path: gavarnie/IMG_2320.jpg
-  title: Mountaing Wall
   place: Cirque de Gavarnie - France
 
 - path: gaztelugatxe/IMG_8043.jpg
   title: Serpent Road Chapel
   place: San Juan de Gaztelugatze - Spain
 
+- path: arboras/IMG_4391.jpg
+  title: Way out of Town
+  place: Arboras - France
+
 - path: gaztelugatxe/IMG_8020.jpg
   title: Basque Islet
   place: San Juan de Gaztelugatze - Spainn
-  place: Cazorla - Spain
   landscape: true
 
 - path: gedre/IMG_0885-2.jpg
   title: Pyrenees Cattle
   place: Gèdre - France
-  place: Cazorla - Spain
+  landscape: true
+
+- path: ukanc/01_IMG_4340.jpg
+  title: Morning Blue
+  place: Ukanc - Slovenia
   landscape: true
 
 - path: gedre/IMG_0802.jpg
@@ -171,79 +150,100 @@
 
 - path: gibraltar/IMG_4547.jpg
   title: Barbary Macaque
-  place: Gibraltar
+  place: Gibraltar - Gibraltar
+
+- path: lagamas/IMG_4916.jpg
+  title: Church in Autumn
+  place: Lagamas - France
 
 - path: hallstatt/IMG_7908-Edit.jpg
   title: Snow Covered Lake Town
   place: Hallstatt - Austrian
-  place: Cazorla - Spain
-  landscape: true
-
-- path: hallstatt/IMG_7912.jpg
-  title: Snowy Town by the Lake
-  place: Hallstatt - Austrian
-  place: Cazorla - Spain
   landscape: true
 
 - path: jamnik/02_IMG_4571.jpg
   title: Lonely Cold Cabin
   place: Jamnik - Slovenia
 
-- path: jamnik/01_IMG_4719.jpg
-  title: Church in the Mountains
-  place: Jamnik - Slovenian
-  place: Cazorla - Spain
+- path: cabo_polonio/IMG_4094.jpg
+  title: Big Bang
+  place: Cabo Polonio - Uruguay
   landscape: true
+
+- path: arboras/IMG_4772.jpg
+  title: Dusk
+  place: Arboras - France
+  landscape: true
+
+- path: luz_saint_sauveur/IMG_3153.jpg
+  title: Town Valley
+  place: Luz saint Sauveur - France
+  landscape: true
+
+- path: bariloche/IMG_0837-edit.jpg
+  title: Mountain Shore
+  place: Bariloche - Argentina
 
 - path: jose_ignacio/07_IMG_2712.jpg
   title: City in the Horizon
   place: José Ignacio - Uruguayn
-  place: Cazorla - Spain
   landscape: true
 
 - path: kinderdijk/02_IMG_0949.jpg
   title: A Look Through the Window
   place: Kinderdijk - Netherlands
 
+- path: salzburg/IMG_8249_landscape.jpg
+  title: Night in Salzburg
+  place: Salzburg - Austria
+  landscape: true
+
 - path: la_iruela/IMG_6380.jpg
   title: Shephard
   place: La Iruela - Spainn
-  place: Cazorla - Spain
   landscape: true
 
 - path: lac_de_gaube/IMG_1330.jpg
   title: Bridge of Spain
   place: Pont de Spagne - France
 
+- path: solis/IMG_4776bis.jpg
+  title: Danger
+  place: Solis - Uruguay
+
 - path: lac_de_gaube/IMG_1437bis.jpg
   title: Couple at the Lake
   place: Lac de Gaube - France
 
-- path: lac_de_gaube/IMG_1571.jpg
-  title: Green Mountain Lake
-  place: Lac de Gaube - France
+- path: bled/11_IMG_3212.jpg
+  title: Ripples
+  place: Bled - Slovenia
 
-- path: lac_de_gaube/IMG_1801.jpg
-  title: Mountain Shore
-  place: Lac de Gaube - France
+- path: gavarnie/IMG_2320.jpg
+  title: Mountaing Wall
+  place: Cirque de Gavarnie - France
 
-- path: lagamas/IMG_4864.jpg
-  title: Church by the Red Vines
-  place: Lagamas - France
-
-- path: lagamas/IMG_4916.jpg
-  title: Church in Autumn
-  place: Lagamas - France
-
-- path: luz_saint_sauveur/IMG_3153.jpg
-  title: Town Valley
-  place: Luz saint Sauveur - France
-  place: Cazorla - Spain
+- path: amsterdam/07_IMG_0422_landscape.jpg
+  title: Damrak
+  place: Amsterdam - Netherlands
   landscape: true
+
+- path: rio/IMG_7853.jpg
+  title: Blend
+  place: Rio de Janeiro - Brazil
+
+- path: arboras/IMG_4747.jpg
+  title: Road to Town
+  place: Arboras - France
 
 - path: luz_saint_sauveur/IMG_2715-Edit-Edit.jpg
   title: Night's Gleam
   place: Luz saint Sauveur - France
+
+- path: salzburg/01_IMG_7053-HDR_landscape.jpg
+  title: Mountainous Castle
+  place: Salzburg - Austria
+  landscape: true
 
 - path: madrid/01_IMG_9894.jpg
   title: Market Gallery
@@ -254,32 +254,44 @@
   place: Madrid - Spain
   landscape: true
 
-- path: montevideo/IMG_9212.jpg
-  title: Electric Storm
-  place: Montevideo - Uruguay
-  landscape: true
-
 - path: montevideo/IMG_9351.jpg
   title: Purple Sunset
   place: Montevideo - Uruguay
   landscape: true
 
-- path: montpeyroux/IMG_3843.jpg
-  title: Autumn Road
-  place: Montpeyroux - France
+- path: solis/IMG_4792.jpg
+  title: Sand Tracks
+  place: Solis - Uruguay
 
 - path: montpeyroux/IMG_3875.jpg
   title: Endless Road
   place: Montpeyroux - France
 
+- path: bled/IMG_3567.jpg
+  title: Night at the Lake
+  place: Bled - Slovenia
+
 - path: oma/IMG_8318.jpg
   title: Wait For Me
   place: Oma - Spain
+
+- path: tromouse/IMG_1114.jpg
+  title: Mountain Sheep
+  place: Cirque de Tromouse - France
 
 - path: piriapolis/IMG_2994.jpg
   title: Cloudy Sunset
   place: Piriápolis - Uruguay
   landscape: true
+
+- path: cabo_polonio/IMG_3896bis.jpg
+  title: La Juanita y La Nena
+  place: Cabo Polonio - Uruguay
+  landscape: true
+
+- path: arboras/IMG_9615.jpg
+  title: Vineyard Way
+  place: Arboras - France
 
 - path: punta_del_este/IMG_2076.jpg
   title: Gorriti
@@ -290,34 +302,21 @@
   title: Rocher St. Michel D'Aiguilhe
   place: Le Puy en Velay - France
 
-- path: puy_en_velay/11_IMG_1771.jpg
-  title: Through a Statue's Head
-  place: Le Puy en Velay - France
-
-- path: rio/IMG_6965b.jpg
-  title: Jungle Traintracks
-  place: Rio de Janeiro - Brazil
-
 - path: rio/IMG_7117.jpg
-  title: After The Ball
+  title: Picado
   place: Rio de Janeiro - Brazil
 
-- path: rio/IMG_7255.jpg
-  title: Copacabana
-  place: Rio de Janeiro - Brazil
+- path: lac_de_gaube/IMG_1571.jpg
+  title: Green Mountain Lake
+  place: Lac de Gaube - France
 
-- path: rio/IMG_7891.jpg
-  title: A Wonder of a Sunset
-  place: Rio de Janeiro - Brazil
-  landscape: true
-
-- path: rio/IMG_7853.jpg
-  title: Blend
-  place: Rio de Janeiro - Brazil
+- path: arboras/IMG_9888.jpg
+  title: Vines by the Road
+  place: Arboras - France
 
 - path: rio/IMG_7062b.jpg
   title: Cidade Maravilhosa
-  place: Brazil
+  place: Rio de Janeiro - Brazil
 
 - path: ronda/IMG_5328.jpg
   title: Open Skies
@@ -329,66 +328,63 @@
   place: Salzburg - Austria
   landscape: true
 
-- path: salzburg/IMG_8249_landscape.jpg
-  title: Night in Salzburg
-  place: Salzburg - Austria
-  landscape: true
-
-- path: salzburg/01_IMG_7053-HDR_landscape.jpg
-  title: Mountainous Castle
-  place: Salzburg - Austria
-  landscape: true
-
 - path: segovia/IMG_1032.jpg
   title: Aquaduct
   place: Segovia - Spain
   landscape: true
 
+- path: arboras/IMG_4395.jpg
+  title: Beyond the Vines
+  place: Arboras - France
+
 - path: solis/IMG_4920.jpg
-  title: Fishing for the Sun
+  title: Fishermen
   place: Solis - Uruguay
 
-- path: solis/IMG_4792.jpg
-  title: Sand Tracks
-  place: Solis - Uruguay
-
-- path: solis/IMG_4776bis.jpg
-  title: Danger Flag
-  place: Solis - Uruguay
+- path: rio/IMG_7255.jpg
+  title: Copacabana
+  place: Rio de Janeiro - Brazil
 
 - path: st_gilgan/01_IMG_8885-2.jpg
   title: Set Sail
   place: St. Gilgen - Austria
+
+- path: arboras/IMG_4407.jpg
+  title: Hidden Path Through the Vines
+  place: Arboras - France
 
 - path: tentes/01_IMG_3446bis.jpg
   title: Heart-Shaped Lake
   place: Col de Tentes - France
   landscape: true
 
-- path: tromouse/IMG_1114.jpg
-  title: Mountain Sheep
-  place: Cirque de Tromouse
-
 - path: tromouse/IMG_1041.jpg
-  title: Bell Sheep
-  place: Cirque de Tromouse
+  title: 95024
+  place: Cirque de Tromouse - France
+
+- path: ronda/IMG_5313.jpg
+  title: Light the Way
+  place: Ronda - Spain
 
 - path: tulum/IMG_1089.jpg
   title: Mayan Ruin
   place: Tulum - Mexico
   landscape: true
 
-- path: ukanc/01_IMG_4340.jpg
-  title: Morning Blue Mist
-  place: Ukanc - Slovenia
-  landscape: true
+- path: bled/IMG_3054.jpg
+  title: Misty Mountain Lake
+  place: Bled - Slovenia
 
 - path: vianden/04_IMG_7047_landscape.jpg
-  title: Hill Castle
+  title: Round the Castle
   place: Vianden - Luzembourg
   landscape: true
 
+- path: rio/IMG_6965b.jpg
+  title: Jungle Traint Tacks
+  place: Rio de Janeiro - Brazil
+
 - path: vienna/IMG_6823-Edit_landscape.jpg
-  title: Sunshine Castle
+  title: Liechtenstein Castle
   place: Vienna - Austria
   landscape: true

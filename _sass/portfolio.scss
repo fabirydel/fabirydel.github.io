@@ -1,5 +1,6 @@
 .portfolio-gallery {
   width: 100%;
+  padding-bottom: 64px;
 
   .grid-container {
     display: inline-grid;
@@ -76,14 +77,14 @@
   .portfolio-gallery {
     .grid-container {
       grid-template-columns: 50% 50%;
-    }
 
-    .three-column-grid {
-      display: none;
-    }
+      .three-column-grid {
+        display: none;
+      }
 
-    .two-column-grid {
-      display: grid;
+      .two-column-grid {
+        display: grid;
+      }
     }
   }
 }
@@ -104,14 +105,14 @@
   .portfolio-gallery {
     .grid-container {
       grid-template-columns: 100%;
-    }
 
-    .two-column-grid {
-      display: none;
-    }
+      .two-column-grid {
+        display: none;
+      }
 
-    .one-column-grid {
-      display: grid;
+      .one-column-grid {
+        display: grid;
+      }
     }
   }
 }
