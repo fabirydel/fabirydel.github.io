@@ -25,7 +25,7 @@
   a, .dropdown-container {
     display: inline-block;
     margin-right: 20px;
-    vertical-align: middle;
+    vertical-align: super;
   }
 
   .dropdown-container {
@@ -119,6 +119,34 @@
 
       h1 {
         font-size: 15px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  body {
+    #header {
+      a, .dropdown-container {
+        margin-right: 10px;
+      }
+
+      h1 {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  body {
+    #header {
+      a, .dropdown-container {
+        margin-right: 5px;
+      }
+
+      h1 {
+        font-size: 12px;
       }
     }
   }

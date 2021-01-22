@@ -5,27 +5,46 @@
   {% include header.html %}
 
   <body>
+    <div id="blurable">
 
-    {% if page.collection %}
-        {% assign links = site[page.collection]  %}
-    {% endif %}
-
-    {% for link in links %}
-      {% if link.title == page.title %}
-        {% unless forloop.first %}
-          {% assign prev = tmpprev %}
-        {% endunless %}
-        {% unless forloop.last %}
-          {% assign next = links[forloop.index] %}
-        {% endunless %}
+      {% if page.collection %}
+          {% assign links = site[page.collection]  %}
       {% endif %}
-      {% assign tmpprev = link %}
-    {% endfor %}
 
-    <div class="header-img-container header-img-container-outside" id="header-img-container-outside">
-      <div class="header-label" id="header-label">
-        <span class="page-title">{{ page.title }}
-          <div class="links-container">
+      {% for link in links %}
+        {% if link.title == page.title %}
+          {% unless forloop.first %}
+            {% assign prev = tmpprev %}
+          {% endunless %}
+          {% unless forloop.last %}
+            {% assign next = links[forloop.index] %}
+          {% endunless %}
+        {% endif %}
+        {% assign tmpprev = link %}
+      {% endfor %}
+
+      <div class="header-img-container header-img-container-outside" id="header-img-container-outside">
+        <div class="header-label" id="header-label">
+          <span class="page-title">{{ page.title }}
+            <div class="links-container">
+              <a class="icon fa-map-marker-alt map-icon" onclick="openMapModal()"></a>
+              <a class="country-link" href="/countries/{{ page.country }}">
+                <div class="tooltip country-flag-container">
+                  <img src="/images/flags/{{ page.country }}.png" class="country-flag">
+                  <span class="tooltiptext">{{ page.country | capitalize}}</span>
+                </div>
+              </a>
+            </div>
+          </span>
+          {% if next %}<a href="{{ next.url }}" class="city-link">Next</a>{% endif %}
+          {% if prev %}<a href="{{ prev.url }}" class="city-link">Previous</a>{% endif %}
+        </div>
+      </div>
+
+      <div class="gallery-body" id="gallery-body">
+        <div class="header-img-container header-img-container-inside">
+          <div class="header-label" id="header-label">
+          <span class="page-title">{{ page.title }}
             <a class="icon fa-map-marker-alt map-icon" onclick="openMapModal()"></a>
             <a class="country-link" href="/countries/{{ page.country }}">
               <div class="tooltip country-flag-container">
@@ -33,39 +52,22 @@
                 <span class="tooltiptext">{{ page.country | capitalize}}</span>
               </div>
             </a>
+          </span>
+            {% if next %}<a href="{{ next.url }}" class="city-link">Next</a>{% endif %}
+            {% if prev %}<a href="{{ prev.url }}" class="city-link">Previous</a>{% endif %}
           </div>
-        </span>
-        {% if next %}<a href="{{ next.url }}" class="city-link">Next</a>{% endif %}
-        {% if prev %}<a href="{{ prev.url }}" class="city-link">Previous</a>{% endif %}
-      </div>
-    </div>
-
-    <div class="gallery-body" id="gallery-body">
-      <div class="header-img-container header-img-container-inside">
-        <div class="header-label" id="header-label">
-        <span class="page-title">{{ page.title }}
-          <a class="icon fa-map-marker-alt map-icon" onclick="openMapModal()"></a>
-          <a class="country-link" href="/countries/{{ page.country }}">
-            <div class="tooltip country-flag-container">
-              <img src="/images/flags/{{ page.country }}.png" class="country-flag">
-              <span class="tooltiptext">{{ page.country | capitalize}}</span>
-            </div>
-          </a>
-        </span>
-          {% if next %}<a href="{{ next.url }}" class="city-link">Next</a>{% endif %}
-          {% if prev %}<a href="{{ prev.url }}" class="city-link">Previous</a>{% endif %}
         </div>
+
+        <section id="city-page" class="city-page">
+          <div class="gallery-page-wrapper">
+            <article class="city">
+              {{ content }}
+
+              {% include gallery.html %}
+            </article>
+          </div>
+        </section>
       </div>
-
-      <section id="city-page" class="city-page">
-        <div class="gallery-page-wrapper">
-          <article class="city">
-            {{ content }}
-
-            {% include gallery.html %}
-          </article>
-        </div>
-      </section>
     </div>
 
     {% include footer.html %}

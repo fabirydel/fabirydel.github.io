@@ -5,37 +5,37 @@
   {% include header.html %}
 
   <body>
-
-    {% if page.collection %}
-        {% assign links = site[page.collection]  %}
-    {% endif %}
-
-    {% for link in links %}
-      {% if link.title == page.title %}
-        {% unless forloop.first %}
-          {% assign prev = tmpprev %}
-        {% endunless %}
-        {% unless forloop.last %}
-          {% assign next = links[forloop.index] %}
-        {% endunless %}
+    <div id="blurable">
+      {% if page.collection %}
+          {% assign links = site[page.collection]  %}
       {% endif %}
-      {% assign tmpprev = link %}
-    {% endfor %}
 
-    <div class="header-img-container header-img-container-landscape header-img-container-outside" id="header-img-container-outside">
-      <div class="header-label header-label-landscape" id="header-label">
-        <span class="page-title page-title-landscape"><a class="icon fa-{{ page.icon }}"></a>{{ page.title }}<a class="icon fa-{{ page.icon }}"></a></span>
+      {% for link in links %}
+        {% if link.title == page.title %}
+          {% unless forloop.first %}
+            {% assign prev = tmpprev %}
+          {% endunless %}
+          {% unless forloop.last %}
+            {% assign next = links[forloop.index] %}
+          {% endunless %}
+        {% endif %}
+        {% assign tmpprev = link %}
+      {% endfor %}
+
+      <div class="header-img-container header-img-container-landscape header-img-container-outside" id="header-img-container-outside">
+        <div class="header-label header-label-landscape" id="header-label">
+          <span class="page-title page-title-landscape"><a class="icon fa-{{ page.icon }}"></a>{{ page.title }}<a class="icon fa-{{ page.icon }}"></a></span>
+        </div>
+      </div>
+
+      <div class="gallery-body gallery-body-landscape" id="gallery-body">
+        <div class="gallery-page-wrapper gallery-page-wrapper-landscape">
+          {{ content }}
+
+          {% include gallery_landscape.html %}
+        </div>
       </div>
     </div>
-
-    <div class="gallery-body gallery-body-landscape" id="gallery-body">
-      <div class="gallery-page-wrapper gallery-page-wrapper-landscape">
-        {{ content }}
-
-        {% include gallery_landscape.html %}
-      </div>
-    </div>
-
     {% include footer.html %}
   </body>
 

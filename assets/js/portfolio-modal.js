@@ -1,6 +1,6 @@
 // Open the Modal
 function openPorfolioModal(index, id) {
-  let porfolioGallery = document.getElementById("pageContent")
+  let porfolioGallery = document.getElementById("blurable")
   porfolioGallery.style.top = `-${window.scrollY}px`;
   porfolioGallery.style.position = 'fixed';
   porfolioGallery.style.width = '100%';
@@ -27,7 +27,7 @@ function openPorfolioModal(index, id) {
 
 // Close the Modal
 function closePortfolioModal(id) {
-  let porfolioGallery = document.getElementById("pageContent")
+  let porfolioGallery = document.getElementById("blurable")
   const scrollY = porfolioGallery.style.top;
   porfolioGallery.style.position = '';
   porfolioGallery.style.top = '';
@@ -44,14 +44,14 @@ function closePortfolioModal(id) {
 }
 
 function blurPortfolio() {
-  let porfolioGallery = document.getElementById("pageContent")
+  let porfolioGallery = document.getElementById("blurable")
   document.getElementById('header').style.filter = 'blur(2px)';
   document.getElementById('footer-header').style.filter = 'blur(2px)';
   porfolioGallery.style.filter = 'blur(5px)';
 }
 
 function deblurPortfolio() {
-  let porfolioGallery = document.getElementById("pageContent")
+  let porfolioGallery = document.getElementById("blurable")
   document.getElementById('header').style.filter = '';
   document.getElementById('footer-header').style.filter = '';
   porfolioGallery.style.filter = '';
