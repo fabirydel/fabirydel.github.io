@@ -7,45 +7,51 @@
   </nav>
 </div>
 
-<div id="footer-background" onclick="closeFooter()">
+<div id="footer-background">
   <footer id="footer" class="footer">
     <div class="inner split">
       <div>
-        <section>
-          <h2>Hey there, my name is Fabian</h2>
-          <p>I am a software developer who loves to travel, so I combine both and travel while working, which has led me to discover a passion for travel photography along the way. Here's where I share the images I've captured during my travels.</p>
+        <section class="footer-info">
+          <img class="profile" src="/images/IMG_0773.jpg">
+          <div class="info">
+            <h2>Hey there, my name is Fabian</h2>
+            <p>I am a software developer who loves to travel, so I combine both and travel while working, which has led me to discover a passion for travel photography along the way. Here's where I share the images I've captured during my travels.</p>
+          </div>
         </section>
-        <section>
+<!--         <section>
           <h2 class="follow-me">Follow me on</h2>
           <ul class="icons">
               <a href="https://www.instagram.com/fabirydel" class="icon fa-instagram">
                 <span class="label">Instagram</span>
               </a>
           </ul>
-        </section>
+        </section> -->
       </div>
       <div>
         <section>
           <h2>Get in touch</h2>
-          <form action="mailto:fabirydel@gmail.com" method="post" enctype="text/plain">
+          <form name="gform" id="gform" enctype="text/plain" action="https://docs.google.com/forms/d/e/1FAIpQLSeUV_hcaW3vODbQe8G9tBt5AGaM8DltX3oIToG9aq2khvHkQQ/formResponse?" target="hidden_iframe" onsubmit="submitForm()">
             <div class="name-email">
               <div class="field half first">
-                <input type="text" name="name" id="name" placeholder="Name"/>
+                <input type="text" name="entry.1666646602" id="entry.1666646602" onchange="inputUpdated()" placeholder="Name"/>
               </div>
               <div class="field half right">
-                <input type="text" name="email" id="email" placeholder="Email"/>
+                <input type="text" name="entry.739886106" id="entry.739886106" onchange="inputUpdated()" placeholder="Email"/>
               </div>
             </div>
             <div class="field">
-              <textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
+              <textarea name="entry.628106078" id="entry.628106078" rows="4" onchange="inputUpdated()" placeholder="Message"></textarea>
             </div>
             <ul class="actions">
-              <li class="btn-container"><input class="btn" type="submit" value="Send" class="special"/></li>
+              <li class="btn-container"><input disabled class="btn" type="submit" value="Send" id="submit" class="special"/></li>
             </ul>
+            <span id="confirmation">Message sent!</span>
           </form>
+          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {}"></iframe>
+
         </section>
       </div>
     </div>
-    <span class="close cursor" onclick="closeFooter()">&times;</span>
+    <a class="close cursor icon fa fa-times" onclick="expandFooter()"></a>
   </footer>
 </div>
