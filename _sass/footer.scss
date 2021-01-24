@@ -82,7 +82,7 @@ body.loading #footer-header {
   -ms-transition: background-color 0.5s ease;
   -webkit-transition: background-color 0.5s ease;
   border: 0;
-  color: #ffffff;
+  color: #f9f9f9;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
@@ -100,7 +100,7 @@ body.loading #footer-header {
 }
 
 #footer-header nav>ul>li .about:hover {
-  color: #ffffff !important;
+  color: #f9f9f9 !important;
 }
 
 #footer-header nav>ul>li .about.active {
@@ -138,13 +138,13 @@ body.loading #footer-header {
   bottom: 2em;
   color: #a0a0a1;
   left: 0;
-  max-height: calc(80vh - 4em);
+  max-height: calc(81vh - 4em);
   overflow-y: auto;
   padding: 24px;
   position: fixed;
   transform: translateY(100vh);
   transition: transform 0.5s ease;
-  z-index: 4;
+  z-index: 6;
   font-family: "oswald", sans-serif;
 
   .footer-info {
@@ -155,6 +155,34 @@ body.loading #footer-header {
       margin-right: 24px;
       width: 200px;
       height: 200px;
+    }
+  }
+
+  .get-in-touch {
+    display: inline;
+  }
+
+  .or-at {
+    display: inline;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: .05em;
+    line-height: 1.5;
+    margin-left: 5px;
+    color: #f9f9f9;
+
+    .email {
+      text-decoration: underline;
+    }
+
+    a {
+      color: #f9f9f9;
+      margin-left: 5px;
+      font-size: 11px;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
@@ -273,7 +301,7 @@ footer {
     line-height: 1.5;
     margin: 0 0 10px 0;
     text-transform: uppercase;
-    color: white;
+    color: #f9f9f9;
   }
 
   p,
@@ -287,6 +315,10 @@ footer {
       display: flex;
       justify-content: space-between;
     }
+  }
+
+  form {
+    margin: 10px 0 10px 0;
   }
 
 
@@ -483,7 +515,7 @@ footer {
   }
 
   label {
-    color: #ffffff;
+    color: #f9f9f9;
     display: block;
     font-size: 0.9em;
     font-weight: 300;
@@ -573,7 +605,7 @@ footer {
     border: 0;
     border-radius: 0;
     box-shadow: inset 0 0 0 2px #36383c;
-    color: #ffffff !important;
+    color: #f9f9f9 !important;
     cursor: pointer;
     display: inline-block;
     font-size: 0.9em;
@@ -663,7 +695,7 @@ footer {
   button.special:hover,
   .button.special:hover {
     background-color: #47c5ab;
-    color: #ffffff !important;
+    color: #f9f9f9 !important;
   }
 
   input[type="submit"].special:hover:active,
