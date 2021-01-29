@@ -9,12 +9,12 @@
   landscape: true
 
 - path: hallstatt/IMG_7912.jpg
-  title: Snowy Town by the Lake
+  title: Snowy Lake Town
   place: Hallstatt - Austria
   landscape: true
 
 - path: bled/01_IMG_2855.jpg
-  title: Castle at Night
+  title: Castle Blue
   place: Bled - Slovenia
 
 - path: almodovar_del_rio/01_IMG_2300.jpg
@@ -23,7 +23,7 @@
   landscape: true
 
 - path: jamnik/01_IMG_4719.jpg
-  title: Church in the Mountains
+  title: The Church Of St Primoz
   place: Jamnik - Slovenian
   landscape: true
 
@@ -32,11 +32,11 @@
   place: Arboras - France
 
 - path: lagamas/IMG_4864.jpg
-  title: Church by the Red Vines
+  title: By the Red Vines
   place: Lagamas - France
 
 - path: cabo_polonio/IMG_4078.jpg
-  title: Walking Towards the Sunset
+  title: Walk in the Light
   place: Cabo Polonio - Uruguay
 
 - path: montpeyroux/IMG_3843.jpg
@@ -57,7 +57,7 @@
   landscape: true
 
 - path: bariloche/01_IMG_9960bis.jpg
-  title: Snowy Stream
+  title: White Woods
   place: Bariloche - Argentina
 
 - path: bruges/05_IMG_9073_landscape.jpg
@@ -66,7 +66,7 @@
   landscape: true
 
 - path: bled/02_IMG_2704bis_landscape.jpg
-  title: The Church in the Lake
+  title: Serene Island Church
   place: Bled - Slovenia
   landscape: true
 
@@ -84,15 +84,15 @@
   place: Arboras - France
 
 - path: puy_en_velay/11_IMG_1771.jpg
-  title: Through a Statue's Head
+  title: Our Lady's View
   place: Le Puy en Velay - France
 
 - path: cabo_polonio/IMG_4173.jpg
-  title: Sunset Whirlwind
+  title: Whirlwind Sky
   place: Cabo Polonio - Uruguay
 
 - path: cadiz/IMG_3906.jpg
-  title: Old Town Street
+  title: Pillar
   place: Cádiz - Spain
 
 - path: cazorla/IMG_6048.jpg
@@ -101,20 +101,20 @@
   landscape: true
 
 - path: clermont_ferrant/02_IMG_1141.jpg
-  title: Monument and Dome
+  title: Puy de Dome
   place: Clermont Ferrand - France
 
 - path: bled/17_IMG_3359_landscape.jpg
-  title: A Faitytale Land
+  title: Faitytale Land
   place: Bled - Slovenia
   landscape: true
 
 - path: colonia_del_sacramento/IMG_6068bis.jpg
-  title: Cobblestone Street
+  title: Cobblestone Road
   place: Colonia del Sacramento - Uruguay
 
 - path: dinant/01_IMG_7906.jpg
-  title: Mirrored Town
+  title: Mirrored
   place: Dinant - Belgium
 
 - path: montevideo/IMG_9212.jpg
@@ -127,11 +127,11 @@
   place: Cirque de Gavarnie - France
 
 - path: gaztelugatxe/IMG_8043.jpg
-  title: Serpent Road Chapel
+  title: Up the Serpent Road
   place: San Juan de Gaztelugatze - Spain
 
 - path: arboras/IMG_4391.jpg
-  title: Way out of Town
+  title: The Way to the Pic
   place: Arboras - France
 
 - path: gaztelugatxe/IMG_8020.jpg
@@ -150,7 +150,7 @@
   landscape: true
 
 - path: gedre/IMG_0802.jpg
-  title: Bell Cow
+  title: Follow the Bell
   place: Gèdre - France
 
 - path: gibraltar/IMG_4547.jpg
@@ -158,11 +158,11 @@
   place: Gibraltar - Gibraltar
 
 - path: lagamas/IMG_4916.jpg
-  title: Church in Autumn
+  title: Autumn Leaves
   place: Lagamas - France
 
 - path: hallstatt/IMG_7908-Edit.jpg
-  title: Snow Covered Lake Town
+  title: An Night in Hallstatt Town
   place: Hallstatt - Austria
   landscape: true
 
@@ -181,21 +181,21 @@
   landscape: true
 
 - path: luz_saint_sauveur/IMG_3153.jpg
-  title: Town Valley
-  place: Luz saint Sauveur - France
+  title: Down in the Foggy Valley
+  place: Luz Saint Sauveur - France
   landscape: true
 
 - path: bariloche/IMG_0837-edit.jpg
-  title: Mountain Shore
+  title: North-East Shore
   place: Bariloche - Argentina
 
 - path: jose_ignacio/07_IMG_2712.jpg
-  title: City in the Horizon
+  title: Horizon
   place: José Ignacio - Uruguayn
   landscape: true
 
 - path: kinderdijk/02_IMG_0949.jpg
-  title: A Look Through the Window
+  title: The Mill's Window
   place: Kinderdijk - Netherlands
 
 - path: salzburg/IMG_8249_landscape.jpg
@@ -234,19 +234,19 @@
   landscape: true
 
 - path: rio/IMG_7853.jpg
-  title: Blend
+  title: Carioca City
   place: Rio de Janeiro - Brazil
 
 - path: arboras/IMG_4747.jpg
-  title: Road to Town
+  title: All Roads Lead Home
   place: Arboras - France
 
 - path: luz_saint_sauveur/IMG_2715-Edit-Edit.jpg
   title: Night's Gleam
-  place: Luz saint Sauveur - France
+  place: Luz Saint Sauveur - France
 
 - path: salzburg/01_IMG_7053-HDR_landscape.jpg
-  title: Mountainous Castle
+  title: The Fortress
   place: Salzburg - Austria
   landscape: true
 
@@ -265,7 +265,7 @@
   landscape: true
 
 - path: solis/IMG_4792.jpg
-  title: Sand Tracks
+  title: Tracks in the Sand
   place: Solis - Uruguay
 
 - path: montpeyroux/IMG_3875.jpg
@@ -281,11 +281,11 @@
   place: Oma - Spain
 
 - path: tromouse/IMG_1114.jpg
-  title: Mountain Sheep
+  title: Bell Sheep
   place: Cirque de Tromouse - France
 
 - path: piriapolis/IMG_2994.jpg
-  title: Cloudy Sunset
+  title: Sol
   place: Piriápolis - Uruguay
   landscape: true
 
@@ -355,7 +355,7 @@
   place: St. Gilgen - Austria
 
 - path: arboras/IMG_4407.jpg
-  title: Hidden Path Through the Vines
+  title: Hidden Path
   place: Arboras - France
 
 - path: tentes/01_IMG_3446bis.jpg
