@@ -30,6 +30,8 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+google_analytics: 261389612
+
 collections:
   cities:
     output: true
