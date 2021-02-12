@@ -95,6 +95,10 @@
   title: Pillar
   place: Cádiz - Spain
 
+- path: oxford/IMG_5815.jpg
+  title: Sigh
+  place: Oxford - England
+
 - path: cazorla/IMG_6048.jpg
   title: Sprawling Town
   place: Cazorla - Spain
@@ -194,6 +198,11 @@
   place: José Ignacio - Uruguayn
   landscape: true
 
+- path: oxford/IMG_5801-Pano.jpg
+  title: Radcliffe
+  place: Oxford - England
+  landscape: true
+
 - path: kinderdijk/02_IMG_0949.jpg
   title: The Mill's Window
   place: Kinderdijk - Netherlands
@@ -271,6 +280,11 @@
 - path: montpeyroux/IMG_3875.jpg
   title: Endless Road
   place: Montpeyroux - France
+
+- path: oxford/02_IMG_5291.jpg
+  title: Mysterious Woods
+  place: Oxford - England
+  landscape: true
 
 - path: bled/IMG_3567.jpg
   title: Night at the Lake
