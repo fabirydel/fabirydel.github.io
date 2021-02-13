@@ -60,6 +60,10 @@
   title: White Woods
   place: Bariloche - Argentina
 
+- path: navacelles/02_IMG_9637.jpg
+  title: Bridge Over Calm Water
+  place: Cirque de Navacelles - France
+
 - path: bruges/05_IMG_9073_landscape.jpg
   title: The Giants
   place: Bruges - Belgium
@@ -77,6 +81,11 @@
 - path: brussels/10_IMG_7410_landscape.jpg
   title: Tunnel
   place: Brussels - Belgium
+  landscape: true
+
+- path: navacelles/IMG_9730.jpg
+  title: Flows and Streams
+  place: Cirque de Navacelles - France
   landscape: true
 
 - path: arboras/IMG_4133.jpg
@@ -242,6 +251,10 @@
   place: Amsterdam - Netherlands
   landscape: true
 
+- path: navacelles/03_IMG_9742.jpg
+  title: Tricklet
+  place: Cirque de Navacelles - France
+
 - path: rio/IMG_7853.jpg
   title: Carioca City
   place: Rio de Janeiro - Brazil
@@ -293,6 +306,11 @@
 - path: oma/IMG_8318.jpg
   title: Wait For Me
   place: Oma - Spain
+
+- path: navacelles/IMG_9691.jpg
+  title: Above the Grove
+  place: Cirque de Navacelles - France
+  landscape: true
 
 - path: tromouse/IMG_1114.jpg
   title: Bell Sheep
