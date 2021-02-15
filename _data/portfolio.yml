@@ -122,6 +122,11 @@
   place: Bled - Slovenia
   landscape: true
 
+- path: rocky_valley/IMG_8027.jpg
+  title: Trevillet Mill
+  place: Rocky Valley - England
+  landscape: true
+
 - path: colonia_del_sacramento/IMG_6068bis.jpg
   title: Cobblestone Road
   place: Colonia del Sacramento - Uruguay
@@ -156,6 +161,10 @@
   title: Pyrenees Cattle
   place: Gèdre - France
   landscape: true
+
+- path: arboras/IMG_4407.jpg
+  title: Hidden Path
+  place: Arboras - France
 
 - path: ukanc/01_IMG_4340.jpg
   title: Morning Blue
@@ -208,7 +217,7 @@
   landscape: true
 
 - path: oxford/IMG_5801-Pano.jpg
-  title: Radcliffe
+  title: Radcliffe Camera
   place: Oxford - England
   landscape: true
 
@@ -226,9 +235,9 @@
   place: La Iruela - Spain
   landscape: true
 
-- path: lac_de_gaube/IMG_1330.jpg
-  title: Bridge of Spain
-  place: Pont de Spagne - France
+- path: st_nectans_glen/IMG_7962.jpg
+  title: The Waterfall
+  place: Saint Nectans Glen - England
 
 - path: solis/IMG_4776bis.jpg
   title: Danger
@@ -266,6 +275,10 @@
 - path: luz_saint_sauveur/IMG_2715-Edit-Edit.jpg
   title: Night's Gleam
   place: Luz Saint Sauveur - France
+
+- path: lac_de_gaube/IMG_1330.jpg
+  title: Bridge of Spain
+  place: Pont de Spagne - France
 
 - path: salzburg/01_IMG_7053-HDR_landscape.jpg
   title: The Fortress
@@ -355,6 +368,10 @@
   title: Cidade Maravilhosa
   place: Rio de Janeiro - Brazil
 
+- path: st_nectans_glen/IMG_7940.jpg
+  title: Stream of Dreams
+  place: Saint Nectans Glen - England
+
 - path: ronda/IMG_5328.jpg
   title: Open Skies
   place: Ronda - Spain
@@ -385,10 +402,6 @@
 - path: st_gilgan/01_IMG_8885-2.jpg
   title: Set Sail
   place: St. Gilgen - Austria
-
-- path: arboras/IMG_4407.jpg
-  title: Hidden Path
-  place: Arboras - France
 
 - path: tentes/01_IMG_3446bis.jpg
   title: Heart-Shaped Lake
