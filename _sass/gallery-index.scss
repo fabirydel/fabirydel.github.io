@@ -3,7 +3,7 @@
   padding-top: 28px;
 }
 
-.cities-title {
+.locations-title {
   color: #333;
   display: block;
   font-family: "satisfy", sans-serif;
@@ -20,7 +20,7 @@
   padding: 1px 2px 34px 1px;
   margin: 0 !important;
 
-  .city {
+  .location {
     background: white;
     justify-self: center;
     overflow: hidden;
@@ -30,7 +30,7 @@
     }
   }
 
-  .city-link-image {
+  .location-link-image {
     min-width: 320px;
   }
 
@@ -129,12 +129,12 @@
       z-index: 1;
     }
 
-    .city-link-image {
+    .location-link-image {
       min-width: 150px;
     }
   }
 
-  .cities-title {
+  .locations-title {
     margin: 5px 0;
     font-size: 28px;
   }

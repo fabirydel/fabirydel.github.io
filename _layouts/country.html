@@ -23,14 +23,14 @@
           data-bounds="{{ page.bounds }}"
           data-latlng="{{ page.latlng }}"
 
-          {% assign cities = site.cities | where:"country", page.name %}
-          data-cities="{{ cities.size }}"
+          {% assign locations = site.locations | where:"country", page.name %}
+          data-locations="{{ locations.size }}"
 
-          {% for city in cities %}
-            data-img-{{ forloop.index }}="{{ city.indexImagePath }}"
-            data-title-{{ forloop.index }}="{{ city.title }}"
-            data-latlng-{{ forloop.index }}="{{ city.latlng }}"
-            data-path-{{ forloop.index }}="{{ city.namePath }}"
+          {% for location in locations %}
+            data-img-{{ forloop.index }}="{{ location.indexImagePath }}"
+            data-title-{{ forloop.index }}="{{ location.title }}"
+            data-latlng-{{ forloop.index }}="{{ location.latlng }}"
+            data-path-{{ forloop.index }}="{{ location.namePath }}"
           {% endfor %}
         >
         </div>

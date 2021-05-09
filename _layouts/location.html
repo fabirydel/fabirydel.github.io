@@ -36,8 +36,8 @@
               </a>
             </div>
           </span>
-          {% if next %}<a href="{{ next.url }}" class="city-link">Next</a>{% endif %}
-          {% if prev %}<a href="{{ prev.url }}" class="city-link">Previous</a>{% endif %}
+          {% if next %}<a href="{{ next.url }}" class="location-link">Next</a>{% endif %}
+          {% if prev %}<a href="{{ prev.url }}" class="location-link">Previous</a>{% endif %}
         </div>
       </div>
 
@@ -53,14 +53,14 @@
               </div>
             </a>
           </span>
-            {% if next %}<a href="{{ next.url }}" class="city-link">Next</a>{% endif %}
-            {% if prev %}<a href="{{ prev.url }}" class="city-link">Previous</a>{% endif %}
+            {% if next %}<a href="{{ next.url }}" class="location-link">Next</a>{% endif %}
+            {% if prev %}<a href="{{ prev.url }}" class="location-link">Previous</a>{% endif %}
           </div>
         </div>
 
-        <section id="city-page" class="city-page">
+        <section id="location-page" class="location-page">
           <div class="gallery-page-wrapper">
-            <article class="city">
+            <article class="location">
               {{ content }}
 
               {% include gallery.html %}

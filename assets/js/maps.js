@@ -35,24 +35,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
   L.control.layers(baseMaps).addTo(countryMap);
 
-  for (i = 1; i <= country.dataset.cities; i++) {
-    cityImg = country.dataset[`img-${i}`]
-    cityTitle = country.dataset[`title-${i}`]
-    cityLatLng = country.dataset[`latlng-${i}`] != "" ? JSON.parse(country.dataset[`latlng-${i}`]) : null
-    cityPath = country.dataset[`path-${i}`]
+  for (i = 1; i <= country.dataset.locations; i++) {
+    locationImg = country.dataset[`img-${i}`]
+    locationTitle = country.dataset[`title-${i}`]
+    locationLatLng = country.dataset[`latlng-${i}`] != "" ? JSON.parse(country.dataset[`latlng-${i}`]) : null
+    locationPath = country.dataset[`path-${i}`]
 
     var myIcon = L.divIcon({
       iconSize: [30, 30],
       html: `
-      <img class="map-image" src="../images/thumb/${cityImg}">
-      <span class="map-image-title">${cityTitle}</span>
+      <img class="map-image" src="../images/thumb/${locationImg}">
+      <span class="map-image-title">${locationTitle}</span>
       `,
       iconAnchor: [20, 40],
       className: 'my-div-icon bounce'
     });
 
-    if (cityLatLng != null) {
-      let marker = L.marker(cityLatLng, { riseOnHover: true, path: `/cities/${cityPath}`, icon: myIcon })
+    if (locationLatLng != null) {
+      let marker = L.marker(locationLatLng, { riseOnHover: true, path: `/locations/${locationPath}`, icon: myIcon })
       marker.addTo(countryMap).on('click', () =>
         setTimeout(function() {
           window.location.href = marker.options.path;

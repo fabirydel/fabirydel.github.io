@@ -3,14 +3,14 @@ body {
   background: #f9f9f9;
 }
 
-.city-page {
+.location-page {
   flex-grow: 1;
   z-index: 1;
   flex-grow: 1;
   padding: 41px 5px 40px 5px;
 }
 
-.city {
+.location {
   text-align: center;
 }
 
@@ -88,7 +88,7 @@ body {
       -webkit-transition: .3s ease-in-out;
     }
 
-    .city-link {
+    .location-link {
       font-size: 25px;
       display: block;
       width: min-content;
@@ -157,7 +157,6 @@ body {
   background: white;
   border-radius: 2px;
   margin: 8px;
-  min-height: 120px;
   position: relative;
 
   .placeholder {
@@ -311,7 +310,7 @@ body {
 
 @media screen and (max-width: 1280px) {
   .gallery-body {
-    .city-page {
+    .location-page {
       padding: 42px 5px 37px 5px;
     }
     .gallery-page-wrapper-landscape {
@@ -328,7 +327,7 @@ body {
       margin-top: 32px;
       min-width: 175px;
 
-      .city-link {
+      .location-link {
         font-size: 25px;
       }
     }
@@ -369,7 +368,7 @@ body {
 
 @media screen and (max-width: 850px) {
   .gallery-body {
-    .city-page {
+    .location-page {
       padding: 140px 5px 37px 5px;
     }
   }
@@ -408,7 +407,7 @@ body {
 
       font-size: 26px;
 
-      .city-link {
+      .location-link {
         font-size: 22px;
       }
     }
@@ -454,7 +453,7 @@ body {
 
 @media screen and (max-width: 650px) {
   .gallery-body {
-    .city-page {
+    .location-page {
       padding: 132px 5px 37px 5px;
     }
   }
@@ -463,7 +462,7 @@ body {
     .header-label {
       font-size: 23px;
 
-      .city-link {
+      .location-link {
         font-size: 20px;
       }
     }
