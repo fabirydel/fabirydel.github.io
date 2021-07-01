@@ -60,6 +60,10 @@
   title: White Woods
   place: Bariloche - Argentina
 
+- path: taynuilt/IMG_4997.jpg
+  title: Fashion Statement
+  place: Taynuilt - Scotland
+
 - path: navacelles/02_IMG_9637.jpg
   title: Bridge Over Calm Water
   place: Cirque de Navacelles - France
@@ -127,6 +131,11 @@
   place: Rocky Valley - England
   landscape: true
 
+- path: salen/IMG_8995-Edit.jpg
+  title: Early Rise
+  place: Isle of Mull - Scotland
+  landscape: true
+
 - path: colonia_del_sacramento/IMG_6068bis.jpg
   title: Cobblestone Road
   place: Colonia del Sacramento - Uruguay
@@ -143,6 +152,11 @@
 - path: gavarnie/IMG_2419.jpg
   title: Mountain Horse
   place: Cirque de Gavarnie - France
+
+- path: ben_tianavaig/IMG_2812.jpg
+  title: Pastel Skies
+  place: Isle of Skye - Scotland
+  landscape: true
 
 - path: gaztelugatxe/IMG_8043.jpg
   title: Up the Serpent Road
@@ -188,6 +202,10 @@
   place: Hallstatt - Austria
   landscape: true
 
+- path: etive_mor_waterfall/IMG_4416.jpg
+  title: Sunlight Stream
+  place: Etive Mor Waterfall - Scotland
+
 - path: jamnik/02_IMG_4571.jpg
   title: Lonely Cold Cabin
   place: Jamnik - Slovenia
@@ -216,14 +234,13 @@
   place: José Ignacio - Uruguayn
   landscape: true
 
-- path: oxford/IMG_5801-Pano.jpg
-  title: Radcliffe Camera
-  place: Oxford - England
-  landscape: true
-
 - path: kinderdijk/02_IMG_0949.jpg
   title: The Mill's Window
   place: Kinderdijk - Netherlands
+
+- path: lagangharb/IMG_4339.jpg
+  title: Mountain For Scale
+  place: The Lagangharb - Scotland
 
 - path: salzburg/IMG_8249_landscape.jpg
   title: Night in Salzburg
@@ -275,6 +292,11 @@
 - path: luz_saint_sauveur/IMG_2715-Edit-Edit.jpg
   title: Night's Gleam
   place: Luz Saint Sauveur - France
+
+- path: glenfinnan_viaduct/IMG_4666_2.jpg
+  title: All Aboard
+  place: Glenfinnan Viaduct - Scotland
+  landscape: true
 
 - path: lac_de_gaube/IMG_1330.jpg
   title: Bridge of Spain
@@ -360,6 +382,11 @@
   title: Green Mountain Lake
   place: Lac de Gaube - France
 
+- path: old_man_of_storr/IMG_2529-Pano.jpg
+  title: The Old Man
+  place: Old Man of Storr - Scotland
+  landscape: true
+
 - path: arboras/IMG_9888.jpg
   title: Vines by the Road
   place: Arboras - France
@@ -385,6 +412,11 @@
 - path: segovia/IMG_1032.jpg
   title: Aquaduct
   place: Segovia - Spain
+  landscape: true
+
+- path: old_man_of_storr/IMG_2577-Pano-Edit.jpg
+  title: Forgotten Land
+  place: Isle of Skye - Scotland
   landscape: true
 
 - path: arboras/IMG_4395.jpg
@@ -427,7 +459,7 @@
 
 - path: vianden/04_IMG_7047_landscape.jpg
   title: Round the Castle
-  place: Vianden - Luzembourg
+  place: Vianden - Luxembourg
   landscape: true
 
 - path: rio/IMG_6965b.jpg
