@@ -1,0 +1,13 @@
+<div id="myPortfolioModal" class="modal" onclick="closeModal('myPortfolioModal')">
+  <a class="close cursor icon fa fa-times" onclick="closeModal('myPortfolioModal')"></a>
+  <div class="modal-content">
+    {% for image in site.data.portfolio %}
+      <div class="slide" onclick="closeModal('myPortfolioModal')">
+        <img src="/images/full/{{ image.path }}" onclick="ignore(event)" class="center">
+      </div>
+    {% endfor %}
+
+    <a class="prev icon fa-chevron-left" onclick="plusSlides(event, -1)"></a>
+    <a class="next icon fa-chevron-right" onclick="plusSlides(event, 1)"></a>
+  </div>
+</div>

@@ -45,14 +45,18 @@ function blur() {
   document.getElementById('header').style.filter = 'blur(2px)';
   document.getElementById('footer-header').style.filter = 'blur(2px)';
   document.getElementById('gallery-body').style.filter = 'blur(5px)';
-  document.getElementById('header-img-container-outside').style.filter = 'blur(5px)';
+  if (document.getElementById('header-img-container-outside')) {
+    document.getElementById('header-img-container-outside').style.filter = 'blur(5px)';
+  }
 }
 
 function deblur() {
   document.getElementById('header').style.filter = '';
   document.getElementById('footer-header').style.filter = '';
   document.getElementById('gallery-body').style.filter = '';
-  document.getElementById('header-img-container-outside').style.filter = '';
+  if (document.getElementById('header-img-container-outside')) {
+    document.getElementById('header-img-container-outside').style.filter = '';
+  }
 }
 
 function ignore(e) {

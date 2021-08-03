@@ -1,29 +1,28 @@
 ---
-layout: default
+layout: portfolio
 title: Portfolio
 ---
 
 <div class="portfolio-gallery">
-  <div class="grid-container">
-    <div class="gallery-column column-full three-column-grid">
+  <div class="gallery-container gallery-container-landscape four-column-grid portfolio-grid">
+    <div class="gallery-column gallery-column-landscape column-full">
       {% assign image_index = 0 %}
       {% for image in site.data.portfolio %}
-        {% assign mod3 = image_index | modulo: 3 %}
-        {% if mod3 == 0 %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 0 %}
 
-          <div class="photo-container photo-container-left" data-index="{{ image_index }}">
+          <div class="photo-container photo-container-landscape photo-container-left">
             <div
-              class="photo image-container {% if image.landscape  %}image-container-landscape{% endif %} {% if image_index < 3 %}active-picture{% endif %} {% if image_index > 2 %}lazy-picture{% endif %}"
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
               data-large="/images/full/{{ image.path }}"
-              onclick="openPorfolioModal({{ image_index }}, 'myModal')"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
             >
-              <div class="placeholder-container">
-                <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
               </div>
             </div>
-
-            <span class="photo-title">{{ image.title }}</span>
-            <span class="photo-title photo-place">{{ image.place }}</span>
           </div>
 
         {% endif %}
@@ -31,25 +30,24 @@ title: Portfolio
       {% endfor %}
     </div>
 
-    <div class="gallery-column column-full three-column-grid">
+    <div class="gallery-column gallery-column-landscape column-full">
       {% assign image_index = 0 %}
       {% for image in site.data.portfolio %}
-        {% assign mod3 = image_index | modulo: 3 %}
-        {% if mod3 == 1 %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 1 %}
 
-          <div class="photo-container photo-container-left" data-index="{{ image_index }}">
+          <div class="photo-container photo-container-landscape photo-container-right">
             <div
-              class="photo image-container {% if image.landscape  %}image-container-landscape{% endif %} {% if image_index < 3 %}active-picture{% endif %} {% if image_index > 2 %}lazy-picture{% endif %}"
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
               data-large="/images/full/{{ image.path }}"
-              onclick="openPorfolioModal({{ image_index }}, 'myModal')"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
             >
-              <div class="placeholder-container">
-                <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
               </div>
             </div>
-
-            <span class="photo-title">{{ image.title }}</span>
-            <span class="photo-title photo-place">{{ image.place }}</span>
           </div>
 
         {% endif %}
@@ -57,25 +55,24 @@ title: Portfolio
       {% endfor %}
     </div>
 
-    <div class="gallery-column column-full three-column-grid">
+    <div class="gallery-column gallery-column-landscape column-full">
       {% assign image_index = 0 %}
       {% for image in site.data.portfolio %}
-        {% assign mod3 = image_index | modulo: 3 %}
-        {% if mod3 == 2 %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 2 %}
 
-          <div class="photo-container photo-container-left" data-index="{{ image_index }}">
+          <div class="photo-container photo-container-landscape photo-container-right">
             <div
-              class="photo image-container {% if image.landscape  %}image-container-landscape{% endif %} {% if image_index < 3 %}active-picture{% endif %} {% if image_index > 2 %}lazy-picture{% endif %}"
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
               data-large="/images/full/{{ image.path }}"
-              onclick="openPorfolioModal({{ image_index }}, 'myModal')"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
             >
-              <div class="placeholder-container">
-                <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
               </div>
             </div>
-
-            <span class="photo-title">{{ image.title }}</span>
-            <span class="photo-title photo-place">{{ image.place }}</span>
           </div>
 
         {% endif %}
@@ -83,25 +80,154 @@ title: Portfolio
       {% endfor %}
     </div>
 
-    <div class="gallery-column column-full two-column-grid">
+    <div class="gallery-column gallery-column-landscape column-full">
+      {% assign image_index = 0 %}
+      {% for image in site.data.portfolio %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 3 %}
+
+          <div class="photo-container photo-container-landscape photo-container-right">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endfor %}
+    </div>
+  </div>
+
+
+  <div class="gallery-container gallery-container-landscape three-column-grid portfolio-grid">
+    <div class="gallery-column gallery-column-landscape column-full">
+      {% assign image_index = 0 %}
+      {% for image in site.data.portfolio %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 0 %}
+
+          <div class="photo-container photo-container-landscape photo-container-left">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endfor %}
+    </div>
+
+    <div class="gallery-column gallery-column-landscape column-full">
+      {% assign image_index = 0 %}
+      {% for image in site.data.portfolio %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 1 %}
+
+          <div class="photo-container photo-container-landscape photo-container-right">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endfor %}
+    </div>
+
+    <div class="gallery-column gallery-column-landscape column-full">
+      {% assign image_index = 0 %}
+      {% for image in site.data.portfolio %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 2 %}
+
+          <div class="photo-container photo-container-landscape photo-container-right">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endfor %}
+    </div>
+
+    <div class="gallery-column gallery-column-landscape column-full">
+      {% assign image_index = 0 %}
+      {% for image in site.data.portfolio %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 3 %}
+
+          <div class="photo-container photo-container-landscape photo-container-right">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image.path }}"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="gallery-container gallery-container-landscape two-column-grid potfolio-grid">
+    <div class="gallery-column gallery-column-landscape column-full">
       {% assign image_index = 0 %}
       {% for image in site.data.portfolio %}
         {% assign mod2 = image_index | modulo: 2 %}
         {% if mod2 == 0 %}
 
-          <div class="photo-container photo-container-left" data-index="{{ image_index }}">
+          <div class="photo-container photo-container-landscape photo-container-left">
             <div
-              class="photo image-container {% if image.landscape  %}image-container-landscape{% endif %} {% if image_index < 3 %}active-picture{% endif %} {% if image_index > 2 %}lazy-picture{% endif %}"
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
               data-large="/images/full/{{ image.path }}"
-              onclick="openPorfolioModal({{ image_index }}, 'myModal')"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
             >
-              <div class="placeholder-container">
-                <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
               </div>
             </div>
-
-            <span class="photo-title">{{ image.title }}</span>
-            <span class="photo-title photo-place">{{ image.place }}</span>
           </div>
 
         {% endif %}
@@ -109,51 +235,27 @@ title: Portfolio
       {% endfor %}
     </div>
 
-    <div class="gallery-column column-full two-column-grid">
+    <div class="gallery-column gallery-column-landscape column-full">
       {% assign image_index = 0 %}
       {% for image in site.data.portfolio %}
         {% assign mod2 = image_index | modulo: 2 %}
         {% if mod2 == 1 %}
 
-          <div class="photo-container photo-container-left" data-index="{{ image_index }}">
+          <div class="photo-container photo-container-landscape photo-container-right">
             <div
-              class="photo image-container {% if image.landscape  %}image-container-landscape{% endif %} {% if image_index < 3 %}active-picture{% endif %} {% if image_index > 2 %}lazy-picture{% endif %}"
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
               data-large="/images/full/{{ image.path }}"
-              onclick="openPorfolioModal({{ image_index }}, 'myModal')"
+              onclick="openModal({{ image_index }}, 'myPortfolioModal')"
             >
-              <div class="placeholder-container">
-                <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
+              <div class="text-container">
+                <span class="photo-title">{{ image.title }}</span>
+                <span class="photo-title photo-place">{{ image.place }}</span>
               </div>
             </div>
-
-            <span class="photo-title">{{ image.title }}</span>
-            <span class="photo-title photo-place">{{ image.place }}</span>
           </div>
 
         {% endif %}
-        {% assign image_index = image_index | plus: 1 %}
-      {% endfor %}
-    </div>
-
-    <div class="gallery-column column-full one-column-grid">
-      {% assign image_index = 0 %}
-      {% for image in site.data.portfolio %}
-
-        <div class="photo-container photo-container-left" data-index="{{ image_index }}">
-          <div
-            class="photo image-container {% if image.landscape  %}image-container-landscape{% endif %} {% if image_index < 3 %}active-picture{% endif %} {% if image_index > 2 %}lazy-picture{% endif %}"
-            data-large="/images/full/{{ image.path }}"
-            onclick="openPorfolioModal({{ image_index }}, 'myModal')"
-          >
-            <div class="placeholder-container">
-              <img class="placeholder" src="/images/blur/{{ image.path }}" class="img-small">
-            </div>
-          </div>
-
-          <span class="photo-title">{{ image.title }}</span>
-          <span class="photo-title photo-place">{{ image.place }}</span>
-        </div>
-
         {% assign image_index = image_index | plus: 1 %}
       {% endfor %}
     </div>

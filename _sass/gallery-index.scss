@@ -17,7 +17,7 @@
 }
 
 .flexbin {
-  padding: 1px 2px 34px 1px;
+  padding: 4px 2px 34px 1px;
   margin: 0 !important;
 
   .location {
@@ -65,35 +65,42 @@
     height: 100%;
     object-fit: cover;
     transition: .3s ease-in-out;
-    opacity: 0.85;
+    opacity: 1;
     display: flex;
     justify-content: space-around;
     flex-flow: column;
+    cursor: pointer;
 
     &:hover {
-      opacity: 1;
+      opacity: 0.85;
       transform: scale(1.2);
     }
   }
 
-  .image-container:hover + span {
-    opacity: 0;
+  .image-container:hover + .text-container {
+    opacity: 0.9;
   }
 
-  .title {
-    -webkit-transition: .3s ease-in-out;
-    color: white;
-    font-family: "satisfy", sans-serif;
-    font-size: 36px;
-    max-width: 95%;
-    opacity: 0.95;
-    pointer-events: none;
+  .text-container {
+    opacity: 0;
+    padding-right: 6px;
     position: absolute;
-    text-align: center;
-    text-shadow: 0px 0 #0000004a, 0 1px #0000004a, -2px 0 #0000004a, 0 -1px #0000004a;
+    text-align: right;
     transition: .3s ease-in-out;
-    width: 100%;
-    z-index: 1;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+
+    .title, .place {
+      color: white;
+      font-family: "oswald", sans-serif;
+      font-size: 27px;
+      pointer-events: none;
+      text-shadow: 0px 0 #0000004a, 0 1px #0000004a, -2px 0 #0000004a, 0 -1px #0000004a;
+      width: 100%;
+      display: block;
+      z-index: 1;
+    }
   }
 
   .medium {
@@ -109,11 +116,83 @@
   background: transparent;
 }
 
+.image-container:hover {
+  transform: scale(1.1);
+
+  .text-container {
+    opacity: 0;
+  }
+}
+
+.portfolio-gallery {
+  .image-container {
+    --transition-duration: 400ms;
+    --transition-easing: ease-out;
+
+    transition: transform
+      var(--transition-duration)
+      var(--transition-easing);
+
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      background: rgba(white, 0.35);
+      width: 50%;
+      height: 100%;
+      top: 0%;
+      z-index: 5;
+      left: -125%;
+      filter: blur(12px);
+      transform: skew(45deg);
+      position: absolute;
+      transition: left
+        var(--transition-duration)
+        var(--transition-easing);
+    }
+
+    &:hover {
+      &::before {
+        left: 150%;
+      }
+    }
+  }
+}
+
+.text-container {
+  opacity: 0.85;
+  padding-right: 6px;
+  position: absolute;
+  text-align: right;
+  transition: .3s ease-in-out;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 3;
+
+  .photo-title, .photo-place {
+    color: white;
+    font-family: "oswald", sans-serif;
+    font-size: 22px;
+    pointer-events: none;
+    text-shadow: 0px 0 #0000004a, 0 1px #0000004a, -2px 0 #0000004a, 0 -1px #0000004a;
+    width: 100%;
+    display: block;
+    z-index: 1;
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .flexbin {
-    .title {
-      font-size: 24px;
+    .text-container {
+      .photo-title, .photo-place {
+        font-size: 24px;
+      }
     }
+  }
+
+  .text-container .title {
+    font-size: 24px;
   }
 }
 
@@ -123,7 +202,7 @@
       opacity: 0.7;
     }
 
-    .title {
+    .text-container .title {
       font-size: 16px;
       opacity: 1;
       z-index: 1;
@@ -131,6 +210,12 @@
 
     .location-link-image {
       min-width: 150px;
+    }
+  }
+
+  .text-container {
+    .photo-title, .photo-place {
+      font-size: 16px;
     }
   }
 

@@ -23,7 +23,6 @@ $flexbin-space-phone: $flexbin-space !default;
     &:after {
         content: '';
         flex-grow: 999999999; // avoid final row zoom too much to fit width
-        min-width: $row-height; // avoid small gap in final row (< $row-height)
         height: 0;
     }
 
