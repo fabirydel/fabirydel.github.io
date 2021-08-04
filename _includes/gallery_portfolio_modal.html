@@ -3,7 +3,17 @@
   <div class="modal-content">
     {% for image in site.data.portfolio %}
       <div class="slide" onclick="closeModal('myPortfolioModal')">
-        <img src="/images/full/{{ image.path }}" onclick="ignore(event)" class="center">
+        <div class="image-modal-container center">
+          <div class="modal-text-container text-container modal-text-container-dummy">
+            <span class="photo-title">{{ image.title }}</span>
+            <span class="photo-title photo-place">{{ image.place }}</span>
+          </div>
+          <img src="/images/full/{{ image.path }}" onclick="ignore(event)">
+          <div class="modal-text-container text-container">
+            <span class="photo-title">{{ image.title }}</span>
+            <span class="photo-title photo-place">{{ image.place }}</span>
+          </div>
+        </div>
       </div>
     {% endfor %}
 

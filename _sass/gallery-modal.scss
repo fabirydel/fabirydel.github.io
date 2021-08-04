@@ -118,10 +118,65 @@
   opacity: 1;
 }
 
+#myPortfolioModal {
+  .image-modal-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border: none;
+    box-shadow: none;
+    max-width: 100%;
+
+    img {
+      object-fit: contain;
+      max-height: calc(100vh - 80px);
+      max-width: 85%;
+      border-radius: 3px;
+      border: 3px solid white;
+      box-shadow: 0px 0px 26px -5px #000;
+    }
+
+    .modal-text-container {
+      opacity: 0.85;
+      padding-left: 7px;
+      transition: .3s ease-in-out;
+      pointer-events: none;
+      z-index: 3;
+      position: relative;
+      text-align: left;
+      height: 60px;
+    }
+
+    .modal-text-container-dummy {
+      opacity: 0;
+    }
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .modal {
     .next, .prev, .close {
       font-size: 28px;
+    }
+  }
+
+  #myPortfolioModal {
+    .image-modal-container {
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        max-height: calc(90vh - 80px);
+      }
+
+      .modal-text-container-dummy {
+        display: none;
+      }
+
+      .modal-text-container {
+        text-align: center;
+      }
     }
   }
 }
