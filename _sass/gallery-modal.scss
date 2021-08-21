@@ -188,8 +188,12 @@
     }
 
     .prev, .next {
-      bottom: 0;
+      bottom: 5px;
       top: initial;
+    }
+
+    .slide img {
+      max-height: calc(90vh - 80px);
     }
   }
 
