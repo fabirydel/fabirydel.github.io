@@ -23,9 +23,17 @@
   place: Bled - Slovenia
   landscape: true
 
+- path: penwith/IMG_0594.jpg
+  title: Enys Dodnan Arch
+  place: Lands End - England
+
 - path: bled/IMG_3054.jpg
   title: Misty Mountain Lake
   place: Bled - Slovenia
+
+- path: avignon/IMG_20180628_180947-2.jpg
+  title: Sur Le Pont D'Avignon
+  place: Avignon - France
 
 - path: bled/IMG_3567.jpg
   title: Night at the Lake
@@ -72,6 +80,11 @@
   place: Hallstatt - Austria
   landscape: true
 
+- path: puimoisson1/IMG_5808.jpg
+  title: Lavander Fields For Ever
+  place: Puimoisson - France
+  landscape: true
+
 - path: luz_saint_sauveur/IMG_2715-Edit-Edit.jpg
   title: Night's Gleam
   place: Luz Saint Sauveur - France
@@ -79,6 +92,11 @@
 - path: salzburg/IMG_8249_landscape.jpg
   title: Night in Salzburg
   place: Salzburg - Austria
+  landscape: true
+
+- path: valensole/24_IMG_6130_2.jpg
+  title: Lonely Big Tree
+  place: Valensole - France
   landscape: true
 
 - path: innsbruck/02_IMG_9436-HDR-Edit.jpg
@@ -89,6 +107,11 @@
 - path: montevideo/IMG_9351.jpg
   title: Purple Sunset
   place: Montevideo - Uruguay
+  landscape: true
+
+- path: puimoisson2/IMG_6803.jpg
+  title: Lavander Waves
+  place: Puimoisson - France
   landscape: true
 
 - path: salen/IMG_8995-Edit.jpg
@@ -109,6 +132,11 @@
   title: Pastel Skies
   place: Isle of Skye - Scotland
   landscape: true
+
+- path: puimoisson1/IMG_5816.jpg
+  title: A Bee's Shine
+  place: Puimoisson - France
+
 
 - path: cabo_polonio/IMG_4094.jpg
   title: Big Bang
@@ -146,10 +174,6 @@
   title: Electric Storm
   place: Montevideo - Uruguay
   landscape: true
-
-- path: penwith/IMG_0594.jpg
-  title: Enys Dodnan Arch
-  place: Lands End - England
 
 ############################## ORANGE ##############################
 
@@ -224,14 +248,14 @@
   place: Col de Tentes - France
   landscape: true
 
-- path: arboras/IMG_4395.jpg
-  title: Beyond the Vines
-  place: Arboras - France
-
 ############################## ORANGE-GREEN ##############################
 
 - path: arboras/IMG_9615.jpg
   title: Vineyard Way
+  place: Arboras - France
+
+- path: arboras/IMG_4395.jpg
+  title: Beyond the Vines
   place: Arboras - France
 
 - path: eilean_donan/08_IMG_3059.jpg
@@ -241,10 +265,6 @@
 - path: gavarnie/IMG_1970.jpg
   title: The Inmensity Ahead
   place: Cirque de Gavarnie - France
-
-- path: arboras/IMG_4407.jpg
-  title: Hidden Path
-  place: Arboras - France
 
 - path: navacelles/03_IMG_9742.jpg
   title: Tricklet
@@ -288,6 +308,10 @@
   title: Round the Castle
   place: Vianden - Luxembourg
   landscape: true
+
+- path: arboras/IMG_4407.jpg
+  title: Hidden Path
+  place: Arboras - France
 
 - path: taynuilt/IMG_4997.jpg
   title: Fashion Statement
