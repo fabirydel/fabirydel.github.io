@@ -26,7 +26,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
-  background: #1f2224;
+  background: #f9f9f9;
   bottom: 0;
   height: 2em;
   left: 0;
@@ -39,7 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: "oswald", sans-serif;
+  font-family: "poppins", sans-serif;
 }
 
 body.loading #footer-header {
@@ -50,11 +50,19 @@ body.loading #footer-header {
 }
 
 #footer-header h1 {
-  color: #a0a0a1;
+  color: #1f2224;
   display: inline-block;
   font-size: 14px;
   overflow: auto;
   margin: 0;
+
+  h1 {
+    font-weight: 200;
+
+    strong {
+      font-weight: 500;
+    }
+  }
 }
 
 #footer-header h1 a {
@@ -82,25 +90,25 @@ body.loading #footer-header {
   -ms-transition: background-color 0.5s ease;
   -webkit-transition: background-color 0.5s ease;
   border: 0;
-  color: #f9f9f9;
+  color: #1f2224;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
   letter-spacing: 0.1em;
-  overflow: auto;
+  overflow: hidden;
   padding: 0;
   text-transform: uppercase;
   transition: background-color 0.5s ease;
 }
 
 #footer-header nav>ul>li .about.icon:before {
-  color: #505051;
+  color: #1f2224;
   float: right;
   margin-left: 0.75em;
 }
 
 #footer-header nav>ul>li .about:hover {
-  color: #f9f9f9 !important;
+  opacity: 0.8 !important;
 }
 
 #footer-header nav>ul>li .about.active {
@@ -134,9 +142,9 @@ body.loading #footer-header {
   -webkit-overflow-scrolling: touch;
   -webkit-transform: translateY(100vh);
   -webkit-transition: -webkit-transform 0.5s ease;
-  background: rgba(36, 38, 41, 0.975);
+  background: #f9f9f9;
   bottom: 2em;
-  color: #a0a0a1;
+  color: #1f2224;
   left: 0;
   max-height: calc(81vh - 4em);
   overflow-y: auto;
@@ -145,7 +153,7 @@ body.loading #footer-header {
   transform: translateY(100vh);
   transition: transform 0.5s ease;
   z-index: 6;
-  font-family: "oswald", sans-serif;
+  font-family: "poppins", sans-serif;
 
   .footer-info {
     display: flex;
@@ -169,14 +177,13 @@ body.loading #footer-header {
     letter-spacing: .05em;
     line-height: 1.5;
     margin-left: 5px;
-    color: #f9f9f9;
 
     .email {
       text-decoration: underline;
     }
 
     a {
-      color: #f9f9f9;
+      color: #1f2224;
       margin-left: 5px;
       font-size: 11px;
 
@@ -264,6 +271,14 @@ body.loading #footer-header {
         height: 20px;
       }
     }
+
+    .instagram-image-light {
+      display: none
+    }
+
+    .instagram-image-dark {
+      display: block
+    }
   }
 }
 
@@ -313,7 +328,7 @@ footer {
 
   h2,
   p {
-    color: #a0a0a1;
+    color: #1f2224;
     font-weight: 300;
     letter-spacing: .025em;
     line-height: 1.65;
@@ -322,11 +337,9 @@ footer {
   h2 {
     font-size: 18px;
     font-weight: 300;
-    letter-spacing: .1em;
     line-height: 1.5;
     margin: 0 0 10px 0;
     text-transform: uppercase;
-    color: #f9f9f9;
   }
 
   p,
@@ -540,7 +553,6 @@ footer {
   }
 
   label {
-    color: #f9f9f9;
     display: block;
     font-size: 0.9em;
     font-weight: 300;
@@ -553,7 +565,7 @@ footer {
     -webkit-appearance: none;
     -ms-appearance: none;
     appearance: none;
-    background: #34363b;
+    background: #dbdbdb;
     border: 0;
     border-radius: 0;
     color: #a0a0a1;
@@ -562,7 +574,7 @@ footer {
     padding: 0 1em;
     text-decoration: none;
     width: calc(100% - 26.66px);
-    font-family: "oswald", sans-serif;
+    font-family: "poppins", sans-serif;
   }
 
   input:invalid,
@@ -630,7 +642,7 @@ footer {
     border: 0;
     border-radius: 0;
     box-shadow: inset 0 0 0 2px #36383c;
-    color: #f9f9f9 !important;
+    color: #1f2224 !important;
     cursor: pointer;
     display: inline-block;
     font-size: 0.9em;
@@ -652,6 +664,7 @@ footer {
   .button:hover {
     box-shadow: inset 0 0 0 2px #f9f9f9;
     color: #f9f9f9 !important;
+    background-color: #1f2224;
   }
 
   input[type="submit"]:hover:active,
@@ -748,6 +761,56 @@ footer {
     opacity: 0.35;
   }
 }
+
+#footer-header.nighttime {
+  background: #1f2224;
+
+  h1 {
+    color: #f9f9f9;
+  }
+
+  nav>ul>li .about {
+    color: #f9f9f9;
+  }
+
+  nav>ul>li .about.icon:before {
+    color: #f9f9f9;
+  }
+
+  nav>ul>li .about.active {
+    background-color: #242629;
+  }
+}
+
+#footer.nighttime {
+  background: #1f2224;
+  color: #f9f9f9;
+
+
+  .or-at {
+    a {
+      color: #f9f9f9;
+    }
+  }
+
+  textarea, input {
+    background: #34363b;
+    color: #f9f9f9 !important;
+  }
+
+  h2, p {
+    color: #f9f9f9;
+  }
+
+  .instagram-image-light {
+    display: block
+  }
+
+  .instagram-image-dark {
+    display: none
+  }
+}
+
 
 @media screen and (max-width: 980px) {
   .footer {

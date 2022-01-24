@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   var countryMap = L.map('country-map', {
     maxBounds: JSON.parse(country.dataset.bounds || '[]'),
-    layers: [outdoors]
+    layers: [satellite]
   }).setView(JSON.parse(country.dataset.latlng), country.dataset.zoom);
 
   L.control.layers(baseMaps).addTo(countryMap);

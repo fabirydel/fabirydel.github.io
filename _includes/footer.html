@@ -2,12 +2,12 @@
   <h1><strong>Photography by</strong> Fabian Rydel</h1>
   <nav>
     <ul>
-      <li><span id="#about" onclick="expandFooter()" class="about icon fa-info-circle">About</span></li>
+      <li><span id="#about" onclick="toggleFooter()" class="about icon fa-info-circle">About</span></li>
     </ul>
   </nav>
 </div>
 
-<div id="footer-background" onclick="expandFooter()"></div>
+<div id="footer-background" onclick="toggleFooter()"></div>
 <footer id="footer" class="footer">
   <div class="inner split">
     <div>
@@ -21,7 +21,8 @@
             <h2 class="follow-me">Follow me on</h2>
             <ul class="icons">
               <a href="https://www.instagram.com/fabi.rydel" class="instagram-icon">
-                <img class="instagram-image" src="/images/instagram_icon.png">
+                <img class="instagram-image instagram-image-dark" src="/images/instagram_icon.png">
+                <img class="instagram-image instagram-image-light" src="/images/instagram_icon_white.png">
               </a>
             </ul>
           </section>
@@ -31,7 +32,8 @@
         <h2 class="follow-me">Follow me on</h2>
         <ul class="icons">
           <a href="https://www.instagram.com/fabi.rydel" class="instagram-icon">
-            <img class="instagram-image" src="/images/instagram_icon.png">
+            <img class="instagram-image instagram-image-dark" src="/images/instagram_icon.png">
+            <img class="instagram-image instagram-image-light" src="/images/instagram_icon_white.png">
           </a>
         </ul>
       </section>
@@ -64,5 +66,5 @@
       </section>
     </div>
   </div>
-  <a class="close cursor icon fa fa-times" onclick="expandFooter()"></a>
+  <a class="close cursor icon fa fa-times" onclick="toggleFooter()"></a>
 </footer>

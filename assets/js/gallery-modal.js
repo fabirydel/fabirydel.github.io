@@ -1,5 +1,7 @@
 // Open the Modal
 function openModal(index, id) {
+  document.getElementById("header").classList.remove("freeze")
+  document.getElementById("header").classList.add("freeze")
   document.getElementById("gallery-body").style.top = `-${window.scrollY}px`;
   document.getElementById("gallery-body").style.position = 'fixed';
   document.getElementById("gallery-body").style.width = '100%';
@@ -26,6 +28,7 @@ function openModal(index, id) {
 
 // Close the Modal
 function closeModal(id) {
+  document.getElementById("header").classList.remove("freeze")
   const scrollY = document.getElementById("gallery-body").style.top;
   document.getElementById("gallery-body").style.position = '';
   document.getElementById("gallery-body").style.top = '';

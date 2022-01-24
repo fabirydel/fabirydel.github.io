@@ -1,18 +1,24 @@
 #header {
-  background: #1f2224;
+  background: #f9f9f9;
   top: 0;
   left: 0;
-  padding: 0 25px;
+  padding: 20px 25px;
   position: fixed;
   user-select: none;
   width: calc(100% - 48px);
   z-index: 5;
-  font-family: "oswald", sans-serif;
+  font-family: "poppins", sans-serif;
+  font-weight: 500;
   -webkit-transition: 0.15s ease;
-  transition: 0.15s ease;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
+
+  &.hide {
+    top: -74px;
+  }
 
   h1 {
-    color: #f9f9f9;
+    color: #1f2224;
     cursor: pointer;
     display: block;
     display: inline-block;
@@ -22,14 +28,27 @@
     margin: 0;
   }
 
-  a, .dropdown-container {
+  a, .option-container {
     display: inline-block;
     margin-right: 20px;
     vertical-align: super;
   }
 
-  .dropdown-container {
+  .option-container {
     position: relative;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .theme-container {
+    border: 1px solid #1f2224;
+    color: #1f2224;
+    border-radius: 50%;
+    width: 26px;
+    text-align: center;
+    cursor: pointer;
   }
 
   .dropdown {
@@ -81,6 +100,35 @@
       }
     }
   }
+
+  .right-options {
+    float: right;
+  }
+
+  .header-name {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    h1 {
+      font-size: 29px;
+      font-weight: 100;
+    }
+  }
+
+  &.nighttime {
+    background: #1f2224;
+
+    h1 {
+      color: #f9f9f9;
+    }
+
+    .theme-container {
+      border: 1px solid #f9f9f9;
+      color: #f9f9f9;
+    }
+  }
 }
 
 .invisible {
@@ -115,10 +163,22 @@
   body {
     #header {
       width: calc(100% - 20px);
-      padding: 0 10px;
+      padding: 15px 10px;
 
       h1 {
         font-size: 15px;
+      }
+
+     .header-name h1 {
+        font-size: 25px;
+      }
+
+      .theme-container {
+        width: 24px;
+
+        .icon {
+          font-size: 13px;
+        }
       }
     }
   }
@@ -127,12 +187,16 @@
 @media screen and (max-width: 650px) {
   body {
     #header {
-      a, .dropdown-container {
+      a, .option-container {
         margin-right: 10px;
       }
 
       h1 {
         font-size: 13px;
+      }
+
+     .header-name h1 {
+        font-size: 21px;
       }
     }
   }
@@ -141,12 +205,16 @@
 @media screen and (max-width: 360px) {
   body {
     #header {
-      a, .dropdown-container {
+      a, .option-container {
         margin-right: 5px;
       }
 
       h1 {
         font-size: 12px;
+      }
+
+     .header-name h1 {
+        font-size: 17px;
       }
     }
   }

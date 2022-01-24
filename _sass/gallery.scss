@@ -7,7 +7,7 @@ body {
   flex-grow: 1;
   z-index: 1;
   flex-grow: 1;
-  padding: 41px 5px 40px 5px;
+  padding: 71px 5px 28px 5px;
 }
 
 .location {
@@ -67,14 +67,17 @@ body {
   }
 
   .header-label {
-    font-family: "oswald", sans-serif;
+    font-family: 'poppins';
     font-size: 36px;
     text-align: left;
-    margin: 28px 0 0 25px;
-    color: #333;
+    color: #1f2224;
     width: min-content;
     min-width: 225px;
     position: fixed;
+    top: 72px;
+    padding-left: 10px;
+    transition: all 0.75s ease;
+    -webkit-transition: all 0.75s ease;
 
     .page-title {
       display: inline-block;
@@ -84,7 +87,7 @@ body {
     }
 
     a {
-      color: #333;
+      color: #1f2224;
       -webkit-transition: .3s ease-in-out;
     }
 
@@ -114,6 +117,10 @@ body {
         transition: .3s ease-in-out;
       }
     }
+
+    &.hide {
+      top: 0;
+    }
   }
 }
 
@@ -123,18 +130,17 @@ body {
 
 .header-img-container-outside {
   z-index: 3;
-  background: #f9f9f9;
   position: fixed;
   -webkit-transition: 0.15s ease;
   transition: 0.15s ease;
 }
 
 .gallery-page-wrapper-landscape {
-  padding: 91px 5px 37px 5px;
+  padding: 135px 5px 28px 5px;
 }
 
 .portfolio-wrapper {
-  padding: 38px 3px 37px 3px;
+  padding: 71px 3px 28px 3px;
 }
 
 .gallery-container {
@@ -252,15 +258,14 @@ body {
   }
 
   .header-img-container-landscape {
-    max-width: inherit;
-    min-width: inherit;
+    // max-width: inherit;
+    // min-width: inherit;
     height: 0;
 
     .header-label-landscape {
       width: 100%;
       background: #f9f9f9;
       z-index: 3;
-      margin: 0 10px 0 10px;
       text-align: center;
       height: 78px;
       padding-top: 25px;
@@ -295,12 +300,17 @@ body {
   max-width: initial;
   width: 100%;
   justify-content: space-evenly;
+  margin-top: 70px;
+  pointer-events: none;
 
   .header-label-landscape {
     position: relative;
     margin-left: 0;
     width: initial;
     font-family: 'satisfy';
+    background: #f9f9f9;
+    width: 100%;
+    top: 0;
 
     .page-title-landscape {
       display: inline-flex;
@@ -314,25 +324,50 @@ body {
         }
       }
     }
+
+    &.hide {
+      top: -74px;
+    }
   }
 }
 
 .worldmap-layout {
-  padding: 31px 0px 32px 0px;
+  padding: 71px 0px 28px 0px;
+}
+
+#blurable.nighttime {
+  .gallery-body {
+    background: #1f2224;
+  }
+
+  .header-label {
+    color: #f9f9f9;
+
+    a {
+      color: #f9f9f9;
+    }
+  }
+
+  .header-img-container-outside {
+    .header-label {
+      background: #1f2224;
+      color: #f9f9f9;
+    }
+  }
 }
 
 @media screen and (max-width: 1280px) {
   .gallery-body {
     .location-page {
-      padding: 42px 5px 37px 5px;
+      padding: 71px 5px 28px 5px;
     }
 
     .gallery-page-wrapper-landscape {
-      padding: 80px 5px 37px 5px;
+      padding: 131px 5px 28px 5px;
     }
 
     .portfolio-wrapper {
-      padding: 41px 3px 37px 3px;
+      padding: 63px 3px 28px 3px;
     }
   }
 
@@ -342,7 +377,6 @@ body {
 
     .header-label {
       font-size: 32px;
-      margin-top: 32px;
       min-width: 175px;
 
       .location-link {
@@ -400,24 +434,24 @@ body {
 
   .gallery-body {
     .location-page {
-      padding: 140px 5px 37px 5px;
+      padding: 193px 5px 28px 5px;
     }
   }
 
   .header-img-container-outside {
-    max-width: inherit;
-    min-width: inherit;
+    // max-width: inherit;
+    // min-width: inherit;
 
     .header-label {
       width: 100%;
       background: #f9f9f9;
       z-index: 3;
-      margin: 30px 0px 0 0px;
-      padding: 0 10px;
+      padding: 10px;
+      margin-top: -11px;
 
       .page-title {
         font-size: 28px;
-        margin-top: 2px;
+        margin-top: 5px;
       }
 
       .page-title-landscape {
@@ -444,24 +478,32 @@ body {
     }
 
     .header-label-landscape {
-      margin: 35px 10px 0 10px;
-      padding-top: 0;
+      padding-top: 8px;
       height: 50px;
+      margin-top: 0;
 
       a {
         font-size: 24px;
       }
+
+      &.hide {
+        top: -63px;
+      }
     }
+  }
+
+  .header-img-container {
+    max-width: inherit;
+    width: 100%;
   }
 
   .header-img-container-landscape {
     padding-bottom: 0;
+    margin-top: 54px;
 
     .header-label-landscape {
-      height: 42px;
       text-align: center;
       padding-bottom: 0;
-      margin-top: 30px;
     }
   }
 
@@ -469,11 +511,11 @@ body {
     flex-direction: column;
 
     .gallery-page-wrapper-landscape {
-      padding: 72px 5px 37px 5px;
+      padding: 113px 5px 28px 5px;
     }
 
     .portfolio-wrapper {
-      padding: 41px 4px 37px 4px;
+      padding: 63px 4px 28px 4px;
     }
 
     .photo-container {
@@ -489,7 +531,7 @@ body {
 @media screen and (max-width: 650px) {
   .gallery-body {
     .location-page {
-      padding: 132px 5px 37px 5px;
+      padding: 183px 5px 28px 5px;
     }
   }
 
@@ -509,11 +551,11 @@ body {
 
   .gallery-body {
     .gallery-page-wrapper-landscape {
-      padding: 72px 2.5px 35px 2.5px;
+      padding: 72px 2.5px 28px 2.5px;
     }
 
     .portfolio-wrapper {
-      padding: 36px 2.5px 34px 2.5px;
+      padding: 60px 2.5px 28px 2.5px;
     }
 
     .photo-container {
