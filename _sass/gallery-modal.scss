@@ -154,6 +154,94 @@
   }
 }
 
+#countries-modal, #categories-modal {
+  .options-modal-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #f9f9f9;
+    border-radius: 5px;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+
+    .title {
+      text-align: center;
+      display: block;
+      font-family: 'poppins';
+      font-size: 22px;
+      padding: 5px 0;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .options-container {
+      max-height: 300px;
+      overflow: auto;
+      display: grid;
+      grid-template-columns: 25% 25% 25% 25%;
+      grid-template-rows: auto;
+      border-radius: 0 0 5px 5px;
+
+      .option-container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        color: #1f2224;
+        padding: 10px 20px;
+        text-decoration: none;
+
+        .country-flag, .category-logo {
+          border: 1px solid #999999;
+          border-radius: 50%;
+          padding: 10px;
+          margin: 0;
+          -webkit-transition: .3s ease-in-out;
+          transition: .3s ease-in-out;
+        }
+
+        .category-logo {
+          width: 22px;
+        }
+
+        &:hover .country-flag, &:hover .category-logo  {
+          background-color: #1f2224;
+          color: #f9f9f9;
+          opacity: 1;
+        }
+
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  &.nighttime {
+    .options-modal-container {
+      background: #1f2224;
+    }
+
+    .options-container, .title {
+      background: #1f2224;
+      color: #f9f9f9;
+
+      .option-container {
+        color: #f9f9f9;
+
+        .country-flag {
+          border: 1px solid #999999;
+        }
+
+        &:hover .country-flag, &:hover .category-logo  {
+          background-color: #f9f9f9;
+          color: #1f2224;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .modal {
     .next, .prev, .close {

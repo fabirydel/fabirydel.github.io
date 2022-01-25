@@ -1,0 +1,16 @@
+<div id="countries-modal" class="modal" onclick="closeCountriesModal('country-modal')">
+  <a class="close cursor icon fa fa-times" onclick="closeCountriesModal('country-modal')"></a>
+  <div class="modal-content">
+
+    <div class="options-modal-container">
+      <span class="title">Countries</span>
+      <div class="options-container">
+        {% for country in site.countries %}
+          <a class="option-container" href="/countries/{{ country.name }}">
+            <img src="/images/flags/{{ country.flag }}.png" class="country-flag">
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

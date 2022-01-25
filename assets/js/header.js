@@ -7,6 +7,16 @@ function toggleNighttime () {
   document.getElementById("header").classList.toggle("nighttime")
   document.getElementById("footer").classList.toggle("nighttime")
   document.getElementById("footer-header").classList.toggle("nighttime")
+  document.getElementById("countries-modal").classList.toggle("nighttime")
+  document.getElementById("categories-modal").classList.toggle("nighttime")
+
+  var themeButtons = document.getElementsByClassName("theme");
+  if (themeButtons) {
+    for (i = 0; i < themeButtons.length; i++) {
+      themeButtons[i].classList.toggle("fa-moon");
+      themeButtons[i].classList.toggle("fa-sun");
+    }
+  }
 }
 
 function toggleTheme () {
@@ -64,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
         header.classList.add("hide");
         if (headerLabels) {
           for (i = 0; i < headerLabels.length; i++) {
-            console.log()
             headerLabels[i].classList.add("hide");
           }
         }

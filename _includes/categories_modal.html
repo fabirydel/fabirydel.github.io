@@ -1,0 +1,16 @@
+<div id="categories-modal" class="modal" onclick="closeCategoriesModal()">
+  <a class="close cursor icon fa fa-times" onclick="closeCategoriesModal()"></a>
+  <div class="modal-content">
+
+    <div class="options-modal-container">
+      <span class="title">Categories</span>
+      <div class="options-container">
+        {% for landscape in site.landscapes %}
+          <a class="option-container" href="/landscapes/{{ landscape.namePath }}">
+            <span class="category-logo icon fa-{{ landscape.icon }}"></span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
