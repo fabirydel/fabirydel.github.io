@@ -1,47 +1,51 @@
 <div id="header">
-  <a href="/">
-    <h1>Portfolio</h1>
-  </a>
-
-  <a href="/worldmap">
-    <h1>Locations</h1>
-  </a>
-
+  <div class="option-container theme-container theme-small" onclick="toggleTheme()">
+    <span id="#theme" class="theme icon fa-moon"></span>
+  </div>
   <a class="header-name">
     <h1>Fabian Rydel</h1>
   </a>
+  <div class="header-options">
+    <a href="/">
+      <h1>Portfolio</h1>
+    </a>
 
-  <div class="right-options">
-    <div class="option-container">
-      <h1 onclick="toggleDropdown('landscapes')">Categories</h1>
-      <div class="dropdown invisible" id="dropdown-landscapes">
-        <div class="dropdown-options">
-          <div onclick="toggleDropdown('landscapes')" class="background-layer"></div>
-          {% for landscape in site.landscapes %}
-            <a class="option" href="/landscapes/{{ landscape.namePath }}">
-              <span class="icon fa-{{ landscape.icon }}"></span>
-              <span>{{ landscape.title }}</span>
-            </a>
-          {% endfor %}
+    <a href="/worldmap">
+      <h1>Locations</h1>
+    </a>
+
+    <div class="right-options">
+      <div class="option-container">
+        <h1 onclick="toggleDropdown('landscapes')">Categories</h1>
+        <div class="dropdown invisible" id="dropdown-landscapes">
+          <div class="dropdown-options">
+            <div onclick="toggleDropdown('landscapes')" class="background-layer"></div>
+            {% for landscape in site.landscapes %}
+              <a class="option" href="/landscapes/{{ landscape.namePath }}">
+                <span class="icon fa-{{ landscape.icon }}"></span>
+                <span>{{ landscape.title }}</span>
+              </a>
+            {% endfor %}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="option-container">
-      <h1 onclick="toggleDropdown('countries')">Countries</h1>
-      <div class="dropdown invisible" id="dropdown-countries">
-        <div class="dropdown-options">
-          <div onclick="toggleDropdown('countries')" class="background-layer"></div>
-          {% for country in site.countries %}
-            <a class="option" href="/countries/{{ country.name }}">
-              <img src="/images/flags/{{ country.flag }}.png" class="country-flag">
-              <span>{{ country.title }}</span>
-            </a>
-          {% endfor %}
+      <div class="option-container">
+        <h1 onclick="toggleDropdown('countries')">Countries</h1>
+        <div class="dropdown invisible" id="dropdown-countries">
+          <div class="dropdown-options">
+            <div onclick="toggleDropdown('countries')" class="background-layer"></div>
+            {% for country in site.countries %}
+              <a class="option" href="/countries/{{ country.name }}">
+                <img src="/images/flags/{{ country.flag }}.png" class="country-flag">
+                <span>{{ country.title }}</span>
+              </a>
+            {% endfor %}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="option-container theme-container" onclick="toggleTheme()">
-      <span id="#theme" class="theme icon fa-moon"></span>
+      <div class="option-container theme-container theme-big" onclick="toggleTheme()">
+        <span id="#theme" class="theme icon fa-moon"></span>
+      </div>
     </div>
   </div>
 </div>

@@ -21,6 +21,8 @@ body {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
   width: 100%;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
 }
 
 .links-container {
@@ -168,11 +170,13 @@ body {
 }
 
 .photo-container {
-  background: white;
+  background: #f9f9f9;
   border-radius: 2px;
   margin: 4px;
   position: relative;
   overflow: hidden;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
 
   .placeholder {
     filter: blur(10px);
@@ -332,7 +336,7 @@ body {
 }
 
 .worldmap-layout {
-  padding: 71px 0px 28px 0px;
+  padding: 72px 0px 28px 0px;
 }
 
 #blurable.nighttime {
@@ -354,6 +358,10 @@ body {
       color: #f9f9f9;
     }
   }
+
+  .photo-container {
+    background: #1f2224;
+  }
 }
 
 @media screen and (max-width: 1280px) {
@@ -364,6 +372,10 @@ body {
 
     .gallery-page-wrapper-landscape {
       padding: 131px 5px 28px 5px;
+    }
+
+    .worldmap-layout {
+      padding: 72px 0px 28px 0px;
     }
 
     .portfolio-wrapper {
@@ -439,9 +451,6 @@ body {
   }
 
   .header-img-container-outside {
-    // max-width: inherit;
-    // min-width: inherit;
-
     .header-label {
       width: 100%;
       background: #f9f9f9;
@@ -514,6 +523,10 @@ body {
       padding: 113px 5px 28px 5px;
     }
 
+    .worldmap-layout {
+      padding: 81px 0px 28px 0px;
+    }
+
     .portfolio-wrapper {
       padding: 63px 4px 28px 4px;
     }
@@ -556,6 +569,10 @@ body {
 
     .portfolio-wrapper {
       padding: 60px 2.5px 28px 2.5px;
+    }
+
+    .worldmap-layout {
+      padding: 72px 0px 28px 0px;
     }
 
     .photo-container {

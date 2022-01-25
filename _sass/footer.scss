@@ -19,10 +19,8 @@
   -webkit-transform: translateY(0);
   -ms-transform: translateY(0);
   transform: translateY(0);
-  -moz-transition: -moz-transform 0.15s ease;
-  -webkit-transition: -webkit-transform 0.15s ease;
-  -ms-transition: -ms-transform 0.15s ease;
-  transition: transform 0.15s ease;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
@@ -86,9 +84,6 @@ body.loading #footer-header {
 }
 
 #footer-header nav>ul>li .about {
-  -moz-transition: background-color 0.5s ease;
-  -ms-transition: background-color 0.5s ease;
-  -webkit-transition: background-color 0.5s ease;
   border: 0;
   color: #1f2224;
   cursor: pointer;
@@ -98,13 +93,16 @@ body.loading #footer-header {
   overflow: hidden;
   padding: 0;
   text-transform: uppercase;
-  transition: background-color 0.5s ease;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
 }
 
 #footer-header nav>ul>li .about.icon:before {
   color: #1f2224;
   float: right;
   margin-left: 0.75em;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
 }
 
 #footer-header nav>ul>li .about:hover {
@@ -113,6 +111,8 @@ body.loading #footer-header {
 
 #footer-header nav>ul>li .about.active {
   background-color: #242629;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
 }
 
 @media screen and (max-width: 736px) {
@@ -154,6 +154,8 @@ body.loading #footer-header {
   transition: transform 0.5s ease;
   z-index: 6;
   font-family: "poppins", sans-serif;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
 
   .footer-info {
     display: flex;

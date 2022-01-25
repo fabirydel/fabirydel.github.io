@@ -18,6 +18,8 @@
   }
 
   h1 {
+    transition: all 0.75s ease;
+    -webkit-transition: all 0.75s ease;
     color: #1f2224;
     cursor: pointer;
     display: block;
@@ -43,12 +45,20 @@
   }
 
   .theme-container {
+    transition: all 0.75s ease;
+    -webkit-transition: all 0.75s ease;
     border: 1px solid #1f2224;
     color: #1f2224;
     border-radius: 50%;
     width: 26px;
     text-align: center;
     cursor: pointer;
+  }
+
+  .header-options {
+    background: #f9f9f9;
+    transition: all 0.75s ease;
+    -webkit-transition: all 0.75s ease;
   }
 
   .dropdown {
@@ -106,10 +116,13 @@
   }
 
   .header-name {
+    transition: all 0.75s ease;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
+    background: #f9f9f9;
 
     h1 {
       font-size: 29px;
@@ -117,8 +130,20 @@
     }
   }
 
+  .theme-small {
+    display: none;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+  }
+
   &.nighttime {
     background: #1f2224;
+
+    .header-name, .header-options {
+      background: #1f2224;
+      color: #f9f9f9;
+    }
 
     h1 {
       color: #f9f9f9;
@@ -169,7 +194,7 @@
         font-size: 15px;
       }
 
-     .header-name h1 {
+      .header-name h1 {
         font-size: 25px;
       }
 
@@ -179,6 +204,30 @@
         .icon {
           font-size: 13px;
         }
+      }
+
+      .theme-big {
+        display: none;
+      }
+
+      .theme-small {
+        display: block;
+      }
+
+      .header-name {
+        top: 100%;
+        width: 100%;
+      }
+
+      .header-options {
+        position: absolute;
+        width: calc(100% - 20px);
+        margin-top: 35px;
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%, -50%);
+        padding-left: 10px;
+        padding-right: 10px;
       }
     }
   }
