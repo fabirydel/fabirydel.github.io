@@ -8,7 +8,7 @@ function toggleNighttime () {
   document.getElementById("footer").classList.toggle("nighttime")
   document.getElementById("footer-header").classList.toggle("nighttime")
   document.getElementById("countries-modal").classList.toggle("nighttime")
-  document.getElementById("categories-modal").classList.toggle("nighttime")
+  document.getElementById("landscapes-modal").classList.toggle("nighttime")
 
   var themeButtons = document.getElementsByClassName("theme");
   if (themeButtons) {

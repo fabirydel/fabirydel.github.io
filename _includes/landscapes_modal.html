@@ -1,0 +1,18 @@
+<div id="landscapes-modal" class="modal" onclick="closeLandscapesModal()">
+  <a class="close cursor icon fa fa-times" onclick="closeLandscapesModal()"></a>
+  <div class="modal-content">
+
+    <div class="options-modal-container">
+      <span class="title">Landscapes</span>
+      <div class="options-container">
+        {% for landscape in site.landscapes %}
+          <a class="option-container tooltip" href="/landscapes/{{ landscape.namePath }}">
+            <!-- <span class="category-logo icon fa-{{ landscape.icon }}"></span> -->
+            <span class="landscape-logo emoji-logo icon">{{ landscape.emoji }}</span>
+            <span class="tooltiptext">{{ landscape.title | capitalize}}</span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

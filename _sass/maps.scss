@@ -27,7 +27,7 @@
     margin: 0;
     position: relative;
     text-align: center;
-    font-family: 'satisfy', sans-serif;
+    font-family: 'poppins', sans-serif;
     min-width: inherit;
     width: inherit;
 
@@ -81,9 +81,9 @@
   align-self: center;
   background: white;
   border-radius: 3px;
-  font-family: "satisfy", sans-serif;
+  font-family: "poppins", sans-serif;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 500;
   line-height: 17px;
   margin-top: 6px;
   opacity: 0;
@@ -101,7 +101,7 @@
 
 @media screen and (max-width: 850px) {
   #country-map {
-    height: calc(100vh - 113px);
+    height: calc(100vh - 110px);
   }
 
   .default.page-content.country-page-content {

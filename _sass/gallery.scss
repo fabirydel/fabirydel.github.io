@@ -7,7 +7,7 @@ body {
   flex-grow: 1;
   z-index: 1;
   flex-grow: 1;
-  padding: 71px 5px 28px 5px;
+  padding: 72px 5px 28px 5px;
 }
 
 .location {
@@ -71,6 +71,7 @@ body {
     font-size: 36px;
     text-align: left;
     color: #1f2224;
+    background: #f9f9f9;
     width: min-content;
     min-width: 225px;
     position: fixed;
@@ -83,7 +84,7 @@ body {
       display: inline-block;
       width: 100%;
       line-height: 40px;
-      margin-top: 11px;
+      margin-top: 4px;
     }
 
     a {
@@ -132,11 +133,6 @@ body {
 .header-img-container-outside {
   z-index: 3;
   position: fixed;
-
-  .header-label {
-    transition: all 0.75s ease;
-    -webkit-transition: all 0.75s ease;
-  }
 }
 
 .gallery-page-wrapper-landscape {
@@ -264,8 +260,6 @@ body {
   }
 
   .header-img-container-landscape {
-    // max-width: inherit;
-    // min-width: inherit;
     height: 0;
 
     .header-label-landscape {
@@ -368,7 +362,7 @@ body {
 @media screen and (max-width: 1280px) {
   .gallery-body {
     .location-page {
-      padding: 71px 5px 28px 5px;
+      padding: 74px 5px 28px 5px;
     }
 
     .gallery-page-wrapper-landscape {
@@ -376,11 +370,11 @@ body {
     }
 
     .worldmap-layout {
-      padding: 72px 0px 28px 0px;
+      padding: 74px 0px 28px 0px;
     }
 
     .portfolio-wrapper {
-      padding: 63px 3px 28px 3px;
+      padding: 74px 3px 28px 3px;
     }
   }
 
@@ -569,11 +563,11 @@ body {
     }
 
     .portfolio-wrapper {
-      padding: 60px 2.5px 28px 2.5px;
+      padding: 80px 2.5px 28px 2.5px;
     }
 
     .worldmap-layout {
-      padding: 72px 0px 28px 0px;
+      padding: 80px 0px 28px 0px;
     }
 
     .photo-container {

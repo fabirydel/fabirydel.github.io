@@ -22,7 +22,6 @@
     -webkit-transition: all 0.75s ease;
     color: #1f2224;
     cursor: pointer;
-    display: block;
     display: inline-block;
     font-size: 14px;
     letter-spacing: 1px;
@@ -127,6 +126,7 @@
     h1 {
       font-size: 29px;
       font-weight: 100;
+      cursor: default;
     }
   }
 

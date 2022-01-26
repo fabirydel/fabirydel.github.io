@@ -6,8 +6,9 @@
       <span class="title">Countries</span>
       <div class="options-container">
         {% for country in site.countries %}
-          <a class="option-container" href="/countries/{{ country.name }}">
+          <a class="tooltip option-container" href="/countries/{{ country.name }}">
             <img src="/images/flags/{{ country.flag }}.png" class="country-flag">
+            <span class="tooltiptext">{{ country.name | capitalize}}</span>
           </a>
         {% endfor %}
       </div>

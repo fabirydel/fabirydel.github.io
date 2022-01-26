@@ -1,19 +1,19 @@
 // Open the Modal
-function openCategoriesModal() {
+function openLandscapesModal() {
   let blurable = document.getElementById("blurable")
   blurable.style.top = `-${window.scrollY}px`;
   blurable.style.position = 'fixed';
   blurable.style.width = '100%';
-  document.getElementById("categories-modal").style.display = "block";
+  document.getElementById("landscapes-modal").style.display = "block";
   setTimeout(function() {
-    document.getElementById("categories-modal").style.visibility = "visible";
-    document.getElementById("categories-modal").style.opacity = "1";
+    document.getElementById("landscapes-modal").style.visibility = "visible";
+    document.getElementById("landscapes-modal").style.opacity = "1";
   }, 10);
   blurPortfolio();
 }
 
 // Close the Modal
-function closeCategoriesModal() {
+function closeLandscapesModal() {
   let blurable = document.getElementById("blurable")
   const scrollY = blurable.style.top;
   blurable.style.position = '';
@@ -23,10 +23,10 @@ function closeCategoriesModal() {
   }
   deblurPortfolio();
 
-  document.getElementById("categories-modal").style.visibility = "hidden";
-  document.getElementById("categories-modal").style.opacity = "0";
+  document.getElementById("landscapes-modal").style.visibility = "hidden";
+  document.getElementById("landscapes-modal").style.opacity = "0";
   setTimeout(function() {
-    document.getElementById("categories-modal").style.display = "none";
+    document.getElementById("landscapes-modal").style.display = "none";
   }, 250);
 }
 
