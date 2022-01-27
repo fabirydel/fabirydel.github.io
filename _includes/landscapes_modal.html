@@ -9,6 +9,7 @@
           <a class="option-container tooltip" href="/landscapes/{{ landscape.namePath }}">
             <!-- <span class="category-logo icon fa-{{ landscape.icon }}"></span> -->
             <span class="landscape-logo emoji-logo icon">{{ landscape.emoji }}</span>
+            <span class="title">{{ landscape.title | capitalize}}</span>
             <span class="tooltiptext">{{ landscape.title | capitalize}}</span>
           </a>
         {% endfor %}

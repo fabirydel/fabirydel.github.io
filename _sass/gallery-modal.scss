@@ -193,6 +193,10 @@
         padding: 10px 20px;
         text-decoration: none;
 
+        .title {
+          display: none;
+        }
+
         .country-flag, .landscape-logo {
           border: 1px solid #999999;
           border-radius: 50%;
@@ -213,7 +217,7 @@
 
         .emoji-logo, .country-flag {
           width: 40px;
-          height: 40px;
+          height: auto;
           font-size: 26px;
         }
 
@@ -335,6 +339,16 @@
       .options-container {
         height: 245px;
         grid-template-columns: 33.3% 33.3% 33.3%;
+
+        .option-container {
+          .tooltiptext {
+            display: none;
+          }
+
+          .title {
+            display: initial;
+          }
+        }
 
         .option-container:nth-child(4n) .tooltiptext {
           left: 41px;
