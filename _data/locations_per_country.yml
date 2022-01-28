@@ -1,0 +1,170 @@
+netherlands:
+  locations:
+    - amsterdam
+    - kinderdijk
+    - volendam
+    - edam
+    - leiden
+    - hague
+    - zaanse_schans
+    - rotterdam
+
+slovenia:
+  locations:
+    - ojstrica_and_mala_osojnica
+    - bohinj
+    - bled
+    - ljubljana
+    - predjama
+    - ratitovec
+    - jamnik
+    - podhom
+    - maribor
+    - ukanc
+    - velika_planina
+    - kranj
+
+argentina:
+  locations:
+    - bariloche
+
+brazil:
+  locations:
+    - rio
+
+uruguay:
+  locations:
+    - montevideo
+    - colonia_del_sacramento
+    - jose_ignacio
+    - piriapolis
+    - punta_del_este
+    - villa_serrana
+    - solis
+    - cabo_polonio
+    - santa_teresa
+
+belgium:
+  locations:
+    - ghent
+    - antwerp
+    - bruges
+    - brussels
+    - liege
+    - namur
+    - dinant
+    - namur
+
+france:
+  locations:
+    - lille
+    - rouen
+    - strasbourg
+    - colmar
+    - ribeauville
+    - riqewihr
+    - annecy
+    - lyon
+    - clermont_ferrant
+    - polignac
+    - puy_en_velay
+    - grenoble_and_col_de_larzelier
+    - bourg_doisins
+    - avignon
+    - puimoisson1
+    - puimoisson2
+    - valensole
+    - iles_du_frioul
+    - marseille
+    - arboras
+    - montpeyroux
+    - lagamas
+    - navacelles
+    - gorge_dheric
+    - lac_de_gaube
+    - gavarnie
+    - tentes
+    - tromouse
+    - luz_saint_sauveur
+    - gedre
+    - grust
+
+luxembourg:
+  locations:
+    - luxembourg
+    - vianden
+
+gibraltar:
+  locations:
+    - gibraltar
+
+spain:
+  locations:
+    - cadiz
+    - cordoba
+    - sevilla
+    - madrid
+    - toledo
+    - segovia
+    - marbella_arcos
+    - ronda
+    - almodovar_del_rio
+    - cazorla
+    - valencia
+    - cuenca
+    - bilbao
+    - oma
+    - gaztelugatxe
+    - zumaia
+
+mexico:
+  locations:
+    - tulum
+
+england:
+  locations:
+    - oxford
+    - old_harry_rocks
+    - amsterdam
+    - durdle_door
+    - corfe_castle
+    - st_nectans_glen
+    - rocky_valley
+    - padstow
+    - park_head
+    - penwith
+    - st_michaels_mount
+    - porthoustock
+    - whitby
+    - bassenthwaite
+    - fleetwith_pike
+
+scotland:
+  locations:
+    - etive_mor_watterfall
+    - lagangharb
+    - taynuilt
+    - meeting_of_the_three_waters
+    - glencoe_lochan
+    - durat_castle
+    - salen
+    - aros_waterfall
+    - lunga
+    - glenfinnan_viaduct
+    - loch_duntelchaig
+    - eilean_donan
+    - glenbrittle
+    - sligachan
+    - ben_tianavaig
+    - fairy_glen
+    - old_man_of_storr
+
+austria:
+  locations:
+    - graz
+    - vienna
+    - hallstatt
+    - salzburg
+    - innsbruck
+    - st_gilgan
+    - amsterdam

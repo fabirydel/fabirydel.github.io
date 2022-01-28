@@ -1,0 +1,20 @@
+<div id="myModal" class="modal" onclick="closeModal('myModal')">
+  <a class="close cursor icon fa fa-times" onclick="closeModal('myModal')"></a>
+  <div class="modal-content">
+
+    {% for image in images %}
+      {% assign full_path = "full/" | append: page.namePath %}
+      {% assign image_path = image.path | split: '/' %}
+
+      {% if country_locations contains image_path[3] and image.path contains full_path %}
+        {% assign path = "full/" | append: page.namePath %}
+        <div class="slide" onclick="closeModal('myModal')">
+          <img src="{{ image.path }}" onclick="ignore(event)" class="center">
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <a class="prev icon fa-chevron-left" onclick="plusSlides(event, -1)"></a>
+    <a class="next icon fa-chevron-right" onclick="plusSlides(event, 1)"></a>
+  </div>
+</div>

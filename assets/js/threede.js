@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-  document.querySelector('.cube').addEventListener('mouseenter', startInteraction);
-  document.querySelector('.cube').addEventListener('mouseleave', stopInteraction);
+  if (document.querySelector('.cube')) document.querySelector('.cube').addEventListener('mouseenter', startInteraction);
+  if (document.querySelector('.cube')) document.querySelector('.cube').addEventListener('mouseleave', stopInteraction);
 });
 
 

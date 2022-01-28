@@ -25,12 +25,27 @@
         >
         </div>
       </div>
+
+      {% assign image_files = site.static_files | where: "image", true %}
+      {% assign amount = image_files | size %}
+      {% assign images = image_files | sample: amount %}
+      {% assign country_locations = site.data.locations_per_country[page.name].locations %}
+
+      <div class="gallery-body gallery-body-country" id="gallery-body">
+        <div class="gallery-page-wrapper">
+          {{ content }}
+
+          {% include country_gallery.html %}
+        </div>
+      </div>
     </main>
 
     {% include footer.html %}
   </body>
 
+  {% include gallery_country_modal.html %}
   {% include countries_modal.html %}
   {% include landscapes_modal.html %}
+  {% include floating_circle_country.html %}
 
 </html>

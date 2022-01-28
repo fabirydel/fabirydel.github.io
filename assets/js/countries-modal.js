@@ -9,7 +9,7 @@ function openCountriesModal() {
     document.getElementById("countries-modal").style.visibility = "visible";
     document.getElementById("countries-modal").style.opacity = "1";
   }, 10);
-  blurPortfolio();
+  blurEverything();
 }
 
 // Close the Modal
@@ -21,7 +21,7 @@ function closeCountriesModal() {
   if (scrollY) {
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
   }
-  deblurPortfolio();
+  deblurEverything();
 
   document.getElementById("countries-modal").style.visibility = "hidden";
   document.getElementById("countries-modal").style.opacity = "0";
@@ -30,14 +30,14 @@ function closeCountriesModal() {
   }, 250);
 }
 
-function blurPortfolio() {
+function blurEverything() {
   let blurable = document.getElementById("blurable")
   document.getElementById('header').style.filter = 'blur(2px)';
   document.getElementById('footer-header').style.filter = 'blur(2px)';
   blurable.style.filter = 'blur(5px)';
 }
 
-function deblurPortfolio() {
+function deblurEverything() {
   let blurable = document.getElementById("blurable")
   document.getElementById('header').style.filter = '';
   document.getElementById('footer-header').style.filter = '';

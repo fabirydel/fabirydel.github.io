@@ -6,7 +6,7 @@
   width: 200px;
   height: 250px;
   transform-style: preserve-3d;
-  transform: rotateX(-10deg) rotateY(10deg);
+  transform: rotateX(-15deg) rotateY(15deg) translate(-50%, -50%);
   box-shadow: -3vw 2.5vw 2vw rgba(0, 0, 0, .3);
 }
 
@@ -58,7 +58,7 @@
 .cube .face:nth-child(1), .cube .face:nth-child(3), .cube .face:nth-child(5), .cube .face:nth-child(6) {
   width: 30px;
   height: 250px;
-  filter: brightness(45%);
+  filter: brightness(60%);
 }
 
 .cube .face:nth-child(1), .cube .face:nth-child(6) {

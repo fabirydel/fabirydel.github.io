@@ -23,6 +23,11 @@ body {
   -webkit-transition: all 0.75s ease;
 }
 
+.gallery-body-country {
+  display: block;
+  margin-top: 5px;
+}
+
 .links-container {
   display: inline-flex;
   vertical-align: text-bottom;
@@ -135,11 +140,7 @@ body {
   position: fixed;
 }
 
-.gallery-page-wrapper-landscape {
-  padding: 135px 5px 28px 5px;
-}
-
-.portfolio-wrapper {
+.portfolio-wrapper, .gallery-page-wrapper-landscape {
   padding: 71px 3px 28px 3px;
 }
 
@@ -259,76 +260,76 @@ body {
     margin-top: 0;
   }
 
-  .header-img-container-landscape {
-    height: 0;
+  // .header-img-container-landscape {
+  //   height: 0;
 
-    .header-label-landscape {
-      width: 100%;
-      background: #f9f9f9;
-      z-index: 3;
-      text-align: center;
-      height: 78px;
-      padding-top: 25px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
+  //   .header-label-landscape {
+  //     width: 100%;
+  //     background: #f9f9f9;
+  //     z-index: 3;
+  //     text-align: center;
+  //     height: 78px;
+  //     padding-top: 25px;
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: space-around;
 
-      .page-title-landscape {
-        display: flex;
-        justify-content: center;
-        font-family: "satisfy", sans-serif;
-      }
+  //     .page-title-landscape {
+  //       display: flex;
+  //       justify-content: center;
+  //       font-family: "satisfy", sans-serif;
+  //     }
 
-      a {
-        margin: 0 16px;
-        display: flex;
-        place-self: flex-end;
+  //     a {
+  //       margin: 0 16px;
+  //       display: flex;
+  //       place-self: flex-end;
 
-        &:hover {
-          text-decoration: none;
-        }
-      }
+  //       &:hover {
+  //         text-decoration: none;
+  //       }
+  //     }
 
-      .landscape-link {
-        font-size: 22px;
-      }
-    }
-  }
+  //     .landscape-link {
+  //       font-size: 22px;
+  //     }
+  //   }
+  // }
 }
 
-.header-img-container-landscape {
-  max-width: initial;
-  width: 100%;
-  justify-content: space-evenly;
-  margin-top: 70px;
+// .header-img-container-landscape {
+//   max-width: initial;
+//   width: 100%;
+//   justify-content: space-evenly;
+//   margin-top: 70px;
 
-  .header-label-landscape {
-    position: relative;
-    margin-left: 0;
-    width: initial;
-    font-family: 'satisfy';
-    background: #f9f9f9;
-    width: 100%;
-    top: 0;
+//   .header-label-landscape {
+//     position: relative;
+//     margin-left: 0;
+//     width: initial;
+//     font-family: 'satisfy';
+//     background: #f9f9f9;
+//     width: 100%;
+//     top: 0;
 
-    .page-title-landscape {
-      display: inline-flex;
-      Justify-content: center;
+//     .page-title-landscape {
+//       display: inline-flex;
+//       Justify-content: center;
 
-      a {
-        margin: 0 16px;
+//       a {
+//         margin: 0 16px;
 
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
+//         &:hover {
+//           text-decoration: none;
+//         }
+//       }
+//     }
 
-    &.hide {
-      top: -74px;
-    }
-  }
-}
+//     &.hide {
+//       top: -74px;
+//     }
+//   }
+// }
 
 .worldmap-layout {
   padding: 72px 0px 28px 0px;
@@ -365,15 +366,11 @@ body {
       padding: 74px 5px 28px 5px;
     }
 
-    .gallery-page-wrapper-landscape {
-      padding: 131px 5px 28px 5px;
-    }
-
     .worldmap-layout {
       padding: 74px 0px 28px 0px;
     }
 
-    .portfolio-wrapper {
+    .portfolio-wrapper, .gallery-page-wrapper-landscape {
       padding: 74px 3px 28px 3px;
     }
   }
@@ -391,24 +388,24 @@ body {
       }
     }
 
-    .header-label-landscape {
-      height: 82px;
+    // .header-label-landscape {
+    //   height: 82px;
 
-      a {
-        font-size: 28px;
-        margin: 0 12px;
-      }
-    }
+    //   a {
+    //     font-size: 28px;
+    //     margin: 0 12px;
+    //   }
+    // }
   }
 
-  .header-img-container-landscape {
-    padding-bottom: 0;
-    max-width: initial;
+  // .header-img-container-landscape {
+  //   padding-bottom: 0;
+  //   max-width: initial;
 
-    .header-label-landscape {
-      height: initial;
-    }
-  }
+  //   .header-label-landscape {
+  //     height: initial;
+  //   }
+  // }
 }
 
 @media screen and (max-width: 1150px) {
@@ -458,9 +455,9 @@ body {
         margin-top: 5px;
       }
 
-      .page-title-landscape {
-        vertical-align: super;
-      }
+      // .page-title-landscape {
+      //   vertical-align: super;
+      // }
 
       .map-icon {
         margin-left: 3px;
@@ -481,19 +478,19 @@ body {
       }
     }
 
-    .header-label-landscape {
-      padding-top: 8px;
-      height: 50px;
-      margin-top: 0;
+    // .header-label-landscape {
+    //   padding-top: 8px;
+    //   height: 50px;
+    //   margin-top: 0;
 
-      a {
-        font-size: 24px;
-      }
+    //   a {
+    //     font-size: 24px;
+    //   }
 
-      &.hide {
-        top: -63px;
-      }
-    }
+    //   &.hide {
+    //     top: -63px;
+    //   }
+    // }
   }
 
   .header-img-container {
@@ -501,28 +498,24 @@ body {
     width: 100%;
   }
 
-  .header-img-container-landscape {
-    padding-bottom: 0;
-    margin-top: 54px;
+  // .header-img-container-landscape {
+  //   padding-bottom: 0;
+  //   margin-top: 54px;
 
-    .header-label-landscape {
-      text-align: center;
-      padding-bottom: 0;
-    }
-  }
+  //   .header-label-landscape {
+  //     text-align: center;
+  //     padding-bottom: 0;
+  //   }
+  // }
 
   .gallery-body {
     flex-direction: column;
-
-    .gallery-page-wrapper-landscape {
-      padding: 113px 5px 28px 5px;
-    }
 
     .worldmap-layout {
       padding: 81px 0px 28px 0px;
     }
 
-    .portfolio-wrapper {
+    .portfolio-wrapper, .gallery-page-wrapper-landscape {
       padding: 63px 4px 28px 4px;
     }
 
@@ -558,11 +551,7 @@ body {
   }
 
   .gallery-body {
-    .gallery-page-wrapper-landscape {
-      padding: 72px 2.5px 28px 2.5px;
-    }
-
-    .portfolio-wrapper {
+    .portfolio-wrapper, .gallery-page-wrapper-landscape {
       padding: 80px 2.5px 28px 2.5px;
     }
 

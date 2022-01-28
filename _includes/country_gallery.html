@@ -1,0 +1,135 @@
+<div class="gallery-container gallery-container-country three-column-grid">
+  <div class="gallery-column column-full">
+    {% assign image_index = 0 %}
+    {% for image in images | where:  %}
+      {% assign full_path = "full/" | append: page.namePath %}
+      {% assign image_path = image.path | split: '/' %}
+
+      {% if country_locations contains image_path[3] and image.path contains full_path %}
+        {% assign mod2 = image_index | modulo: 3 %}
+        {% if mod2 == 0 %}
+
+          <div class="photo-container" data-index="{{ image_index }}">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image_path[3] }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image_path[3] }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_index = 0 %}
+    {% for image in images %}
+      {% assign full_path = "full/" | append: page.namePath %}
+      {% assign image_path = image.path | split: '/' %}
+
+      {% if country_locations contains image_path[3] and image.path contains full_path %}
+        {% assign mod2 = image_index | modulo: 3 %}
+        {% if mod2 == 1 %}
+
+          <div class="photo-container" data-index="{{ image_index }}">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image_path[3] }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image_path[3] }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_index = 0 %}
+    {% for image in images %}
+      {% assign full_path = "full/" | append: page.namePath %}
+      {% assign image_path = image.path | split: '/' %}
+
+      {% if country_locations contains image_path[3] and image.path contains full_path %}
+        {% assign mod2 = image_index | modulo: 3 %}
+        {% if mod2 == 2 %}
+
+          <div class="photo-container" data-index="{{ image_index }}">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image_path[3] }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image_path[3] }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="gallery-container gallery-container-landscape two-column-grid">
+  <div class="gallery-column column-full">
+    {% assign image_index = 0 %}
+    {% for image in images %}
+      {% assign full_path = "full/" | append: page.namePath %}
+      {% assign image_path = image.path | split: '/' %}
+
+      {% if country_locations contains image_path[3] and image.path contains full_path %}
+        {% assign mod2 = image_index | modulo: 2 %}
+        {% if mod2 == 0 %}
+
+          <div class="photo-container" data-index="{{ image_index }}">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image_path[3] }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image_path[3] }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_index = 0 %}
+    {% for image in images %}
+      {% assign full_path = "full/" | append: page.namePath %}
+      {% assign image_path = image.path | split: '/' %}
+
+      {% if country_locations contains image_path[3] and image.path contains full_path %}
+      {% assign mod2 = image_index | modulo: 2 %}
+        {% if mod2 == 1 %}
+
+          <div class="photo-container" data-index="{{ image_index }}">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ image_path[3] }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ image_path[3] }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+

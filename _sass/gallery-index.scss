@@ -3,15 +3,6 @@
   padding-top: 28px;
 }
 
-.locations-title {
-  color: #333;
-  display: block;
-  font-family: "satisfy", sans-serif;
-  font-size: 36px;
-  margin: 20px 0;
-  text-align: center;
-}
-
 .non-displayed {
   display: none;
 }
@@ -21,7 +12,7 @@
   margin: 0 !important;
 
   .location {
-    background: white;
+    background: #f9f9f9;
     justify-self: center;
     overflow: hidden;
 
@@ -70,11 +61,6 @@
     justify-content: space-around;
     flex-flow: column;
     cursor: pointer;
-
-    &:hover {
-      // opacity: 0.85;
-      // transform: scale(1.2);
-    }
   }
 
   .image-container:hover + .text-container {
@@ -124,41 +110,6 @@
   }
 }
 
-// .portfolio-gallery {
-//   .image-container {
-//     --transition-duration: 400ms;
-//     --transition-easing: ease-out;
-
-//     transition: transform
-//       var(--transition-duration)
-//       var(--transition-easing);
-
-//     overflow: hidden;
-
-//     &::before {
-//       content: '';
-//       background: rgba(white, 0.35);
-//       width: 50%;
-//       height: 100%;
-//       top: 0%;
-//       z-index: 5;
-//       left: -125%;
-//       filter: blur(12px);
-//       transform: skew(45deg);
-//       position: absolute;
-//       transition: left
-//         var(--transition-duration)
-//         var(--transition-easing);
-//     }
-
-//     &:hover {
-//       &::before {
-//         left: 150%;
-//       }
-//     }
-//   }
-// }
-
 .text-container {
   opacity: 0;
   padding-right: 6px;
@@ -180,6 +131,10 @@
     display: block;
     z-index: 1;
   }
+}
+
+.default.page-content.nighttime {
+  background-color: #1f2224;
 }
 
 @media screen and (max-width: 1280px) {
@@ -217,10 +172,5 @@
     .photo-title, .photo-place {
       font-size: 16px;
     }
-  }
-
-  .locations-title {
-    margin: 5px 0;
-    font-size: 28px;
   }
 }

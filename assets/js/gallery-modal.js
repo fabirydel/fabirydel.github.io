@@ -1,10 +1,13 @@
 // Open the Modal
 function openModal(index, id) {
-  document.getElementById("header").classList.remove("freeze")
   document.getElementById("header").classList.add("freeze")
-  document.getElementById("gallery-body").style.top = `-${window.scrollY}px`;
+
+  const mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
+  const headerHeight = document.querySelector('#header').offsetHeight;
+  document.getElementById("gallery-body").style.top = `-${window.scrollY - mapHeight - headerHeight}px`;
   document.getElementById("gallery-body").style.position = 'fixed';
   document.getElementById("gallery-body").style.width = '100%';
+
   document.getElementById(id).style.display = "block";
   setTimeout(function() {
     document.getElementById(id).style.visibility = "visible";
@@ -30,10 +33,12 @@ function openModal(index, id) {
 function closeModal(id) {
   document.getElementById("header").classList.remove("freeze")
   const scrollY = document.getElementById("gallery-body").style.top;
+  const headerHeight = document.querySelector('#header').offsetHeight;
+  const mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
   document.getElementById("gallery-body").style.position = '';
   document.getElementById("gallery-body").style.top = '';
   if (scrollY) {
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    window.scrollTo(0, (parseInt(scrollY) - mapHeight - headerHeight) * -1);
   }
   deblur();
 
@@ -48,18 +53,16 @@ function blur() {
   document.getElementById('header').style.filter = 'blur(2px)';
   document.getElementById('footer-header').style.filter = 'blur(2px)';
   document.getElementById('gallery-body').style.filter = 'blur(5px)';
-  if (document.getElementById('header-img-container-outside')) {
-    document.getElementById('header-img-container-outside').style.filter = 'blur(5px)';
-  }
+  if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.filter = 'blur(2px)';
+  if (document.getElementById('header-img-container-outside')) document.getElementById('header-img-container-outside').style.filter = 'blur(5px)';
 }
 
 function deblur() {
   document.getElementById('header').style.filter = '';
   document.getElementById('footer-header').style.filter = '';
   document.getElementById('gallery-body').style.filter = '';
-  if (document.getElementById('header-img-container-outside')) {
-    document.getElementById('header-img-container-outside').style.filter = '';
-  }
+  if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.filter = '';
+  if (document.getElementById('header-img-container-outside')) document.getElementById('header-img-container-outside').style.filter = '';
 }
 
 function ignore(e) {

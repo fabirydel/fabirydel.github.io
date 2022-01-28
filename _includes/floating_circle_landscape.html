@@ -1,0 +1,14 @@
+{% for landscape in site.landscapes %}
+  {% if landscape.namePath == page.namePath %}
+    {% assign my_landscape = landscape %}
+  {% endif %}
+{% endfor %}
+<div id="floating-circle" onclick="toggleCircle()">
+  <input type="checkbox" id="menu-toggle"/>
+  <span class="landscape-logo emoji-logo icon circle-logo">{{ my_landscape.emoji }}</span>
+  <ul id="text-container" class="closed">
+    <li>
+      <a id="text" href="#">{{ page.namePath | capitalize}}</a>
+    </li>
+  </ul>
+</div>

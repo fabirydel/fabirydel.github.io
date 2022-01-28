@@ -9,6 +9,7 @@ function toggleNighttime () {
   document.getElementById("footer-header").classList.toggle("nighttime")
   document.getElementById("countries-modal").classList.toggle("nighttime")
   document.getElementById("landscapes-modal").classList.toggle("nighttime")
+  document.getElementById("floating-circle").classList.toggle("nighttime")
 
   var themeButtons = document.getElementsByClassName("theme");
   if (themeButtons) {
@@ -93,3 +94,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   window.addEventListener("scroll", checkScroll);
 });
+
+function toggleCircle() {
+  const circle = document.getElementById('text-container');
+  if (circle.classList.contains('closed')) {
+    document.getElementById('text-container').style.width = `${document.getElementById('text').offsetWidth}px`;
+    document.getElementById('text-container').style.paddingRight = '10px';
+    circle.classList.remove('closed');
+  } else {
+    circle.classList.add('closed');
+  }
+}
