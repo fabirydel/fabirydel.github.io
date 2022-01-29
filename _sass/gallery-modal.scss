@@ -296,6 +296,7 @@
 
       .modal-text-container {
         text-align: center;
+        margin-top: 5px;
       }
     }
   }
@@ -315,10 +316,6 @@
     .slide img {
       max-height: calc(90vh - 80px);
     }
-  }
-
-  .modal-content {
-    width: 95%;
   }
 
   .slide {

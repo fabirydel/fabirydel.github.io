@@ -8,6 +8,7 @@
         {% for country in site.countries %}
           <a class="tooltip option-container" href="/countries/{{ country.name }}">
             <img src="/images/flags/{{ country.flag }}.png" class="country-flag">
+            <span class="title">{{ country.name | capitalize}}</span>
             <span class="tooltiptext">{{ country.name | capitalize}}</span>
           </a>
         {% endfor %}

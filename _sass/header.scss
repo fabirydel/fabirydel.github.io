@@ -14,7 +14,7 @@
   -webkit-transition: all 0.75s ease;
 
   &.hide {
-    top: -74px;
+    top: -114px;
   }
 
   h1 {
@@ -216,16 +216,14 @@
 
       .header-name {
         top: 100%;
+        left: 0;
         width: 100%;
+        position: relative;
+        transform: initial;
       }
 
       .header-options {
-        position: absolute;
         width: calc(100% - 20px);
-        margin-top: 35px;
-        left: 50%;
-        top: 100%;
-        transform: translate(-50%, -50%);
         padding-left: 10px;
         padding-right: 10px;
       }

@@ -5,7 +5,9 @@ function openModal(index, id) {
   const mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
   const headerHeight = document.querySelector('#header').offsetHeight;
   const scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
-debugger;
+  if (document.querySelector('.country-wrapper') && mapHeight + headerHeight > window.scrollY) {
+    document.querySelector('.country-wrapper').style.marginTop = `${-window.scrollY}px`;
+  }
   document.getElementById("gallery-body").style.top = `${-window.scrollY + mapHeight  + scrollHeader}px`;
   document.getElementById("gallery-body").style.position = 'fixed';
   document.getElementById("gallery-body").style.width = '100%';
@@ -39,6 +41,7 @@ function closeModal(id) {
   const scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
   const mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
 
+  if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.marginTop = '';
   document.getElementById("gallery-body").style.position = '';
   document.getElementById("gallery-body").style.top = '';
   if (scrollY) {

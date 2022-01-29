@@ -107,12 +107,8 @@
 }
 
 @media screen and (max-width: 850px) {
-  #country-map {
-    height: calc(100vh - 110px);
-  }
-
   .default.page-content.country-page-content {
-    padding-top: 81px;
+    padding-top: 113px;
 
     .country-wrapper {
       margin: 0;
@@ -137,5 +133,11 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .default.page-content.country-page-content {
+    padding-top: 94px;
   }
 }
