@@ -1,7 +1,7 @@
 <div class="gallery-container gallery-container-country three-column-grid">
   <div class="gallery-column column-full">
     {% assign image_index = 0 %}
-    {% for image in images | where:  %}
+    {% for image in images %}
       {% assign full_path = "full/" | append: page.namePath %}
       {% assign image_path = image.path | split: '/' %}
 

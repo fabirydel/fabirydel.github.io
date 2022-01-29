@@ -6,22 +6,6 @@
 
   <body>
     <div id="blurable">
-      {% if page.collection %}
-          {% assign links = site[page.collection]  %}
-      {% endif %}
-
-      {% for link in links %}
-        {% if link.title == page.title %}
-          {% unless forloop.first %}
-            {% assign prev = tmpprev %}
-          {% endunless %}
-          {% unless forloop.last %}
-            {% assign next = links[forloop.index] %}
-          {% endunless %}
-        {% endif %}
-        {% assign tmpprev = link %}
-      {% endfor %}
-
       <div class="gallery-body gallery-body-landscape" id="gallery-body">
         <div class="gallery-page-wrapper gallery-page-wrapper-landscape">
           {{ content }}

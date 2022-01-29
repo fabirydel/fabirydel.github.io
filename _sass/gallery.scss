@@ -25,7 +25,7 @@ body {
 
 .gallery-body-country {
   display: block;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .links-container {
@@ -100,14 +100,21 @@ body {
 
     .location-link {
       font-size: 25px;
-      display: block;
-      width: min-content;
+      display: flex;
+      line-height: 25px;
 
       &:hover {
         text-decoration: none;
         margin-left: 5px;
         -webkit-transition: .3s ease-in-out;
         transition: .3s ease-in-out;
+      }
+
+      .location-link-text {
+        font-size: 14px;
+        margin-left: 5px;
+        line-height: 28px;
+        text-transform: capitalize;
       }
     }
 
@@ -259,77 +266,7 @@ body {
   .photo-container-landscape:first-child {
     margin-top: 0;
   }
-
-  // .header-img-container-landscape {
-  //   height: 0;
-
-  //   .header-label-landscape {
-  //     width: 100%;
-  //     background: #f9f9f9;
-  //     z-index: 3;
-  //     text-align: center;
-  //     height: 78px;
-  //     padding-top: 25px;
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: space-around;
-
-  //     .page-title-landscape {
-  //       display: flex;
-  //       justify-content: center;
-  //       font-family: "satisfy", sans-serif;
-  //     }
-
-  //     a {
-  //       margin: 0 16px;
-  //       display: flex;
-  //       place-self: flex-end;
-
-  //       &:hover {
-  //         text-decoration: none;
-  //       }
-  //     }
-
-  //     .landscape-link {
-  //       font-size: 22px;
-  //     }
-  //   }
-  // }
 }
-
-// .header-img-container-landscape {
-//   max-width: initial;
-//   width: 100%;
-//   justify-content: space-evenly;
-//   margin-top: 70px;
-
-//   .header-label-landscape {
-//     position: relative;
-//     margin-left: 0;
-//     width: initial;
-//     font-family: 'satisfy';
-//     background: #f9f9f9;
-//     width: 100%;
-//     top: 0;
-
-//     .page-title-landscape {
-//       display: inline-flex;
-//       Justify-content: center;
-
-//       a {
-//         margin: 0 16px;
-
-//         &:hover {
-//           text-decoration: none;
-//         }
-//       }
-//     }
-
-//     &.hide {
-//       top: -74px;
-//     }
-//   }
-// }
 
 .worldmap-layout {
   padding: 72px 0px 28px 0px;
@@ -387,25 +324,7 @@ body {
         font-size: 25px;
       }
     }
-
-    // .header-label-landscape {
-    //   height: 82px;
-
-    //   a {
-    //     font-size: 28px;
-    //     margin: 0 12px;
-    //   }
-    // }
   }
-
-  // .header-img-container-landscape {
-  //   padding-bottom: 0;
-  //   max-width: initial;
-
-  //   .header-label-landscape {
-  //     height: initial;
-  //   }
-  // }
 }
 
 @media screen and (max-width: 1150px) {
@@ -448,16 +367,12 @@ body {
       background: #f9f9f9;
       z-index: 3;
       padding: 10px;
-      margin-top: -11px;
+      top: 112px;
 
       .page-title {
         font-size: 28px;
         margin-top: 5px;
       }
-
-      // .page-title-landscape {
-      //   vertical-align: super;
-      // }
 
       .map-icon {
         margin-left: 3px;
@@ -477,20 +392,6 @@ body {
         font-size: 22px;
       }
     }
-
-    // .header-label-landscape {
-    //   padding-top: 8px;
-    //   height: 50px;
-    //   margin-top: 0;
-
-    //   a {
-    //     font-size: 24px;
-    //   }
-
-    //   &.hide {
-    //     top: -63px;
-    //   }
-    // }
   }
 
   .header-img-container {
@@ -498,25 +399,15 @@ body {
     width: 100%;
   }
 
-  // .header-img-container-landscape {
-  //   padding-bottom: 0;
-  //   margin-top: 54px;
-
-  //   .header-label-landscape {
-  //     text-align: center;
-  //     padding-bottom: 0;
-  //   }
-  // }
-
   .gallery-body {
     flex-direction: column;
 
     .worldmap-layout {
-      padding: 81px 0px 28px 0px;
+      padding: 113px 0px 28px 0px;
     }
 
     .portfolio-wrapper, .gallery-page-wrapper-landscape {
-      padding: 63px 4px 28px 4px;
+      padding: 113px 4px 28px 4px;
     }
 
     .photo-container {
@@ -539,6 +430,7 @@ body {
   .header-img-container-outside {
     .header-label {
       font-size: 23px;
+      top: 100px;
 
       .page-title {
         margin-top: 0;
@@ -552,11 +444,11 @@ body {
 
   .gallery-body {
     .portfolio-wrapper, .gallery-page-wrapper-landscape {
-      padding: 80px 2.5px 28px 2.5px;
+      padding: 102px 2.5px 28px 2.5px;
     }
 
     .worldmap-layout {
-      padding: 80px 0px 28px 0px;
+      padding: 102px 0px 28px 0px;
     }
 
     .photo-container {

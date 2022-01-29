@@ -7,20 +7,22 @@
   <body>
     <div id="blurable">
 
-      {% if page.collection %}
-          {% assign links = site[page.collection]  %}
-      {% endif %}
-
-      {% for link in links %}
-        {% if link.title == page.title %}
-          {% unless forloop.first %}
-            {% assign prev = tmpprev %}
-          {% endunless %}
-          {% unless forloop.last %}
-            {% assign next = links[forloop.index] %}
-          {% endunless %}
+      {% assign country_locations = site.data.locations_per_country[page.country].locations %}
+      {% for location in country_locations %}
+        {% if location == page.namePath %}
+          {% if forloop.first %}
+            {% assign prev_index = country_locations.size %}
+          {% else %}
+            {% assign prev_index = forloop.index0 | minus: 1 %}
+          {% endif %}
+          {% assign prev = country_locations[prev_index] %}
+          {% if forloop.last %}
+            {% assign next_index = 1 %}
+          {% else %}
+            {% assign next_index = forloop.index0 | plus: 1 %}
+          {% endif %}
+          {% assign next = country_locations[next_index] %}
         {% endif %}
-        {% assign tmpprev = link %}
       {% endfor %}
 
       <div class="header-img-container header-img-container-outside" id="header-img-container-outside">
@@ -31,13 +33,19 @@
               <a class="country-link" href="/countries/{{ page.country }}">
                 <div class="tooltip country-flag-container">
                   <img src="/images/flags/{{ page.country }}.png" class="country-flag">
-                  <span class="tooltiptext">{{ page.country | capitalize}}</span>
+                  <span class="tooltiptext">{{ page.country | capitalize }}</span>
                 </div>
               </a>
             </div>
           </span>
-          {% if next %}<a href="{{ next.url }}" class="location-link">Next</a>{% endif %}
-          {% if prev %}<a href="{{ prev.url }}" class="location-link">Previous</a>{% endif %}
+          <a href="/locations/{{ next }}" class="location-link">
+            <span>Next</span>
+            <span class="location-link-text">({{ next | replace: '_', ' ' }})</span>
+          </a>
+          <a href="/locations/{{ prev }}" class="location-link">
+            <span>Previous</span>
+            <span class="location-link-text">({{ prev | replace: '_', ' ' }})</span>
+          </a>
         </div>
       </div>
 
@@ -49,12 +57,18 @@
             <a class="country-link" href="/countries/{{ page.country }}">
               <div class="tooltip country-flag-container">
                 <img src="/images/flags/{{ page.country }}.png" class="country-flag">
-                <span class="tooltiptext">{{ page.country | capitalize}}</span>
+                <span class="tooltiptext">{{ page.country | capitalize }}</span>
               </div>
             </a>
           </span>
-            {% if next %}<a href="{{ next.url }}" class="location-link">Next</a>{% endif %}
-            {% if prev %}<a href="{{ prev.url }}" class="location-link">Previous</a>{% endif %}
+          <a href="/locations/{{ next }}" class="location-link">
+            <span>Next</span>
+            <span class="location-link-text">({{ next | replace: '_', ' ' }})</span>
+          </a>
+          <a href="/locations/{{ prev }}" class="location-link">
+            <span>Previous</span>
+            <span class="location-link-text">({{ prev | replace: '_', ' ' }})</span>
+          </a>
           </div>
         </div>
 

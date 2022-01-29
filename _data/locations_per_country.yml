@@ -1,28 +1,28 @@
 netherlands:
   locations:
     - amsterdam
-    - kinderdijk
-    - volendam
     - edam
-    - leiden
     - hague
-    - zaanse_schans
+    - kinderdijk
+    - leiden
     - rotterdam
+    - volendam
+    - zaanse_schans
 
 slovenia:
   locations:
-    - ojstrica_and_mala_osojnica
-    - bohinj
     - bled
+    - bohinj
+    - jamnik
+    - kranj
     - ljubljana
+    - maribor
+    - ojstrica_and_mala_osojnica
+    - podhom
     - predjama
     - ratitovec
-    - jamnik
-    - podhom
-    - maribor
     - ukanc
     - velika_planina
-    - kranj
 
 argentina:
   locations:
@@ -34,60 +34,60 @@ brazil:
 
 uruguay:
   locations:
-    - montevideo
+    - cabo_polonio
     - colonia_del_sacramento
     - jose_ignacio
+    - montevideo
     - piriapolis
     - punta_del_este
-    - villa_serrana
-    - solis
-    - cabo_polonio
     - santa_teresa
+    - solis
+    - villa_serrana
 
 belgium:
   locations:
-    - ghent
     - antwerp
     - bruges
     - brussels
+    - dinant
+    - ghent
     - liege
     - namur
-    - dinant
     - namur
 
 france:
   locations:
-    - lille
-    - rouen
-    - strasbourg
-    - colmar
-    - ribeauville
-    - riqewihr
     - annecy
-    - lyon
-    - clermont_ferrant
-    - polignac
-    - puy_en_velay
-    - grenoble_and_col_de_larzelier
-    - bourg_doisins
+    - arboras
     - avignon
+    - bourg_doisins
+    - clermont_ferrant
+    - colmar
+    - gavarnie
+    - gedre
+    - gorge_dheric
+    - grenoble_and_col_de_larzelier
+    - grust
+    - iles_du_frioul
+    - lac_de_gaube
+    - lagamas
+    - lille
+    - luz_saint_sauveur
+    - lyon
+    - marseille
+    - montpeyroux
+    - navacelles
+    - polignac
     - puimoisson1
     - puimoisson2
-    - valensole
-    - iles_du_frioul
-    - marseille
-    - arboras
-    - montpeyroux
-    - lagamas
-    - navacelles
-    - gorge_dheric
-    - lac_de_gaube
-    - gavarnie
+    - puy_en_velay
+    - ribeauville
+    - riqewihr
+    - rouen
+    - strasbourg
     - tentes
     - tromouse
-    - luz_saint_sauveur
-    - gedre
-    - grust
+    - valensole
 
 luxembourg:
   locations:
@@ -100,21 +100,21 @@ gibraltar:
 
 spain:
   locations:
-    - cadiz
-    - cordoba
-    - sevilla
-    - madrid
-    - toledo
-    - segovia
-    - marbella_arcos
-    - ronda
     - almodovar_del_rio
-    - cazorla
-    - valencia
-    - cuenca
     - bilbao
-    - oma
+    - cadiz
+    - cazorla
+    - cordoba
+    - cuenca
     - gaztelugatxe
+    - madrid
+    - marbella_arcos
+    - oma
+    - ronda
+    - segovia
+    - sevilla
+    - toledo
+    - valencia
     - zumaia
 
 mexico:
@@ -123,48 +123,46 @@ mexico:
 
 england:
   locations:
-    - oxford
-    - old_harry_rocks
-    - amsterdam
-    - durdle_door
+    - bassenthwaite
     - corfe_castle
-    - st_nectans_glen
-    - rocky_valley
+    - durdle_door
+    - fleetwith_pike
+    - old_harry_rocks
+    - oxford
     - padstow
     - park_head
     - penwith
-    - st_michaels_mount
     - porthoustock
+    - rocky_valley
+    - st_michaels_mount
+    - st_nectans_glen
     - whitby
-    - bassenthwaite
-    - fleetwith_pike
 
 scotland:
   locations:
-    - etive_mor_watterfall
-    - lagangharb
-    - taynuilt
-    - meeting_of_the_three_waters
-    - glencoe_lochan
-    - durat_castle
-    - salen
     - aros_waterfall
-    - lunga
-    - glenfinnan_viaduct
-    - loch_duntelchaig
-    - eilean_donan
-    - glenbrittle
-    - sligachan
     - ben_tianavaig
+    - durat_castle
+    - eilean_donan
+    - etive_mor_watterfall
     - fairy_glen
+    - glenbrittle
+    - glencoe_lochan
+    - glenfinnan_viaduct
+    - lagangharb
+    - loch_duntelchaig
+    - lunga
+    - meeting_of_the_three_waters
     - old_man_of_storr
+    - salen
+    - sligachan
+    - taynuilt
 
 austria:
   locations:
     - graz
-    - vienna
     - hallstatt
-    - salzburg
     - innsbruck
+    - salzburg
     - st_gilgan
-    - amsterdam
+    - vienna

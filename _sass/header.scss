@@ -14,7 +14,7 @@
   -webkit-transition: all 0.75s ease;
 
   &.hide {
-    top: -114px;
+    top: -75px;
   }
 
   h1 {
@@ -194,6 +194,10 @@
         font-size: 15px;
       }
 
+      &.hide {
+        top: -113px;
+      }
+
       .header-name h1 {
         font-size: 25px;
       }
@@ -212,6 +216,7 @@
 
       .theme-small {
         display: block;
+        top: 25px;
       }
 
       .header-name {
@@ -226,6 +231,10 @@
         width: calc(100% - 20px);
         padding-left: 10px;
         padding-right: 10px;
+
+        .option-container-countries {
+          margin-right: 0;
+        }
       }
     }
   }
@@ -244,6 +253,10 @@
 
      .header-name h1 {
         font-size: 21px;
+      }
+
+      &.hide {
+        top: -103px;
       }
     }
   }
