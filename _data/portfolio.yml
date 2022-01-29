@@ -2,546 +2,787 @@
 
 - path: bled/01_IMG_2855.jpg
   title: Castle Blue
-  place: Bled - Slovenia
+  place: Bled
+  location: bled
+  country: slovenia
 
 - path: jamnik/02_IMG_4571.jpg
   title: Lonely Cold Cabin
-  place: Jamnik - Slovenia
+  place: Jamnik
+  location: jamnik
+  country: slovenia
 
 - path: ljubljana/IMG_1816-Edit.jpg
   title: Dragon at the Bridge
-  place: Ljubljana - Slovenia
+  place: Ljubljana
+  location: ljubljana
+  country: slovenia
   landscape: true
 
 - path: ukanc/01_IMG_4340.jpg
   title: Morning Blue
-  place: Ukanc - Slovenia
+  place: Ukanc
+  location: ukanc
+  country: slovenia
   landscape: true
 
 - path: bled/17_IMG_3359_landscape.jpg
   title: Faitytale Land
-  place: Bled - Slovenia
+  place: Bled
+  location: bled
+  country: slovenia
   landscape: true
 
 - path: penwith/IMG_0594.jpg
   title: Enys Dodnan Arch
-  place: Lands End - England
+  place: Lands End
+  location: puimoisson1
+  country: england
 
 - path: bled/IMG_3054.jpg
   title: Misty Mountain Lake
-  place: Bled - Slovenia
+  place: Bled
+  location: bled
+  country: slovenia
 
 - path: avignon/IMG_20180628_180947-2.jpg
   title: Sur Le Pont D'Avignon
-  place: Avignon - France
+  place: Avignon
+  location: avignon
+  country: france
 
 - path: bled/IMG_3567.jpg
   title: Night at the Lake
-  place: Bled - Slovenia
+  place: Bled
+  location: bled
+  country: slovenia
 
 - path: st_gilgan/01_IMG_8885-2.jpg
   title: Set Sail
-  place: St. Gilgen - Austria
+  place: St. Gilgen
+  location: st_gilgan
+  country: austria
 
 - path: bariloche/01_IMG_9960bis.jpg
   title: White Woods
-  place: Bariloche - Argentina
+  place: Bariloche
+  location: bariloche
+  country: argentina
 
 - path: jamnik/01_IMG_4719.jpg
   title: The Church Of St Primoz
-  place: Jamnik - Slovenian
+  place: Jamnik
+  location: jamnik
+  country: slovenia
   landscape: true
 
 - path: bariloche/IMG_0837-edit.jpg
   title: North-East Shore
-  place: Bariloche - Argentina
+  place: Bariloche
+  location: bariloche
+  country: argentina
 
 - path: rio/IMG_7062b.jpg
   title: Cidade Maravilhosa
-  place: Rio de Janeiro - Brazil
+  place: Rio de Janeiro
+  location: rio
+  country: brazil
 
 - path: bled/11_IMG_3212.jpg
   title: Ripples
-  place: Bled - Slovenia
+  place: Bled
+  location: bled
+  country: slovenia
 
 - path: bled/02_IMG_2704bis_landscape.jpg
   title: Serene Island Church
-  place: Bled - Slovenia
+  place: Bled
+  location: bled
+  country: slovenia
   landscape: true
 
 - path: rio/IMG_7255.jpg
   title: Copacabana
-  place: Rio de Janeiro - Brazil
+  place: Rio de Janeiro
+  location: rio
+  country: brazil
 
-############################## BLUE - ORANGE ##############################
+############################## BLUE
 
 - path: hallstatt/IMG_7912.jpg
   title: Snowy Lake Town
-  place: Hallstatt - Austria
+  place: Hallstatt
+  location: hallstatt
+  country: austria
   landscape: true
 
 - path: puimoisson1/IMG_5808.jpg
   title: Lavander Fields For Ever
-  place: Puimoisson - France
+  place: Puimoisson
+  location: puimoisson1
+  country: france
   landscape: true
 
 - path: luz_saint_sauveur/IMG_2715-Edit-Edit.jpg
   title: Night's Gleam
-  place: Luz Saint Sauveur - France
+  place: Luz Saint Sauveur
+  location: luz_saint_sauveur
+  country: france
 
 - path: salzburg/IMG_8249_landscape.jpg
   title: Night in Salzburg
-  place: Salzburg - Austria
+  place: Salzburg
+  location: salzburg
+  country: austria
   landscape: true
 
 - path: valensole/24_IMG_6130_2.jpg
   title: Lone Tree
-  place: Valensole - France
+  place: Valensole
+  location: valensole
+  country: france
   landscape: true
 
 - path: innsbruck/02_IMG_9436-HDR-Edit.jpg
   title: Powerline
-  place: Innsbruck - Austria
+  place: Innsbruck
+  location: innsbruck
+  country: austria
   landscape: true
 
 - path: montevideo/IMG_9351.jpg
   title: Purple Sunset
-  place: Montevideo - Uruguay
+  place: Montevideo
+  location: montevideo
+  country: uruguay
   landscape: true
 
 - path: puimoisson2/IMG_6803.jpg
   title: Lavander Waves
-  place: Puimoisson - France
+  place: Puimoisson
+  location: puimoisson2
+  country: france
   landscape: true
 
 - path: salen/IMG_8995-Edit.jpg
   title: Early Rise
-  place: Isle of Mull - Scotland
+  place: Isle of Mull
+  location: salen
+  country: scotland
   landscape: true
 
 - path: cabo_polonio/IMG_4173.jpg
   title: Whirlwind Sky
-  place: Cabo Polonio - Uruguay
+  place: Cabo Polonio
+  location: cabo_polonio
+  country: uruguay
 
 - path: arboras/IMG_4772.jpg
   title: Dusk
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
   landscape: true
 
 - path: ben_tianavaig/IMG_2812.jpg
   title: Pastel Skies
-  place: Isle of Skye - Scotland
+  place: Isle of Skye
+  location: ben_tianavaig
+  country: scotland
   landscape: true
 
 - path: puimoisson1/IMG_5816.jpg
   title: A Bee's Shine
-  place: Puimoisson - France
-
+  place: Puimoisson
+  location: puimoisson1
+  country: france
 
 - path: cabo_polonio/IMG_4094.jpg
   title: Big Bang
-  place: Cabo Polonio - Uruguay
+  place: Cabo Polonio
+  location: cabo_polonio
+  country: uruguay
   landscape: true
 
 - path: jose_ignacio/07_IMG_2712.jpg
   title: Horizon
-  place: José Ignacio - Uruguayn
+  place: José Ignacio
+  location: jose_ignacio
+  country: uruguay
   landscape: true
 
 - path: durdle_door/16_IMG_1460-Edit.jpg
   title: Hold the Door
-  place: Durdle Door - Scotland
+  place: Durdle Door
+  location: durdle_door
+  country: scotland
   landscape: true
 
 - path: old_harry_rocks/04_IMG_1219.jpg
   title: Toothpick
-  place: Old Harry Rocks - England
+  place: Old Harry Rocks
+  location: old_harry_rocks
+  country: england
 
 - path: salzburg/IMG_7615-HDR.jpg
   title: Flight
-  place: Salzburg - Austria
+  place: Salzburg
+  location: salzburg
+  country: austria
   landscape: true
 
 - path: oxford/IMG_5815.jpg
   title: Sigh
-  place: Oxford - England
+  place: Oxford
+  location: Oxford
+  country: england
 
 - path: padstow/IMG_7499.jpg
   title: Double Crossing
-  place: Padstow - England
+  place: Padstow
+  location: puimoisson1
+  country: england
 
 - path: montevideo/IMG_9212.jpg
   title: Electric Storm
-  place: Montevideo - Uruguay
+  place: Montevideo
+  location: montevideo
+  country: uruguay
   landscape: true
 
 ############################## ORANGE ##############################
 
 - path: rio/IMG_7853.jpg
   title: Carioca City
-  place: Rio de Janeiro - Brazil
+  place: Rio de Janeiro
+  location: rio
+  country: brazil
 
 - path: loch_duntelchaig/IMG_7619.jpg
   title: Sunrise Flock
   place: Loch Duntelchaig
+  location: loch_duntelchaig
+  country: scotland
   landscape: true
 
 - path: arboras/IMG_4368.jpg
   title: Autumn Shine
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
 
 - path: lagamas/IMG_4864.jpg
   title: By the Red Vines
-  place: Lagamas - France
+  place: Lagamas
+  location: lagamas
+  country: france
 
 - path: solis/IMG_4920.jpg
   title: Fishermen
-  place: Solis - Uruguay
+  place: Solis
+  location: solis
+  country: uruguay
 
 - path: cabo_polonio/IMG_4078.jpg
   title: Walk in the Light
-  place: Cabo Polonio - Uruguay
+  place: Cabo Polonio
+  location: cabo_polonio
+  country: uruguay
 
 - path: kinderdijk/IMG_1011.jpg
   title: Windmills at Sunset
-  place: Kinderdijk - Netherlands
+  place: Kinderdijk
+  location: kinderdijk
+  country: netherlands
   landscape: true
 
 - path: old_harry_rocks/01_IMG_0889.jpg
   title: Parting The Clouds
-  place: Old Harry Rocks - England
+  place: Old Harry Rocks
+  location: old_harry_rocks
+  country: england
   landscape: true
 
 - path: rio/IMG_7891.jpg
   title: A Wonder of a Sunset
-  place: Rio de Janeiro - Brazil
+  place: Rio de Janeiro
+  location: rio
+  country: brazil
   landscape: true
 
 - path: piriapolis/IMG_2994.jpg
   title: Sol
-  place: Piriápolis - Uruguay
+  place: Piriápolis
+  location: piriapolis
+  country: uruguay
   landscape: true
 
 - path: montpeyroux/IMG_3843.jpg
   title: Autumn Road
-  place: Montpeyroux - France
+  place: Montpeyroux
+  location: montpeyroux
+  country: france
 
 - path: punta_del_este/IMG_2076.jpg
   title: Gorriti
-  place: Punta del Este - Uruguay
+  place: Punta del Este
+  location: punta_del_este
+  country: uruguay
   landscape: true
 
 - path: durdle_door/06_IMG_1367.jpg
   title: Cliffside Beauty
-  place: Durdle Door - England
+  place: Durdle Door
+  location: durdle_door
+  country: england
 
 - path: lagangharb/IMG_4339.jpg
   title: Mountain For Scale
-  place: The Lagangharb - Scotland
+  place: The Lagangharb
+  location: lagangharb
+  country: scotland
 
 - path: arboras/IMG_4747.jpg
   title: All Roads Lead Home
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
 
 - path: tentes/01_IMG_3446bis.jpg
   title: Heart-Shaped Lake
-  place: Col de Tentes - France
+  place: Col de Tentes
+  location: tentes
+  country: france
   landscape: true
 
 ############################## ORANGE-GREEN ##############################
 
 - path: arboras/IMG_9615.jpg
   title: Vineyard Way
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
 
 - path: arboras/IMG_4395.jpg
   title: Beyond the Vines
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
 
 - path: eilean_donan/08_IMG_3059.jpg
   title: Scottish Seat
-  place: Eilean Donan - Scotland
+  place: Eilean Donan
+  location: eilean_donan
+  country: scotland
 
 - path: gavarnie/IMG_1970.jpg
   title: The Inmensity Ahead
-  place: Cirque de Gavarnie - France
+  place: Cirque de Gavarnie
+  location: gavarnie
+  country: france
 
 - path: navacelles/03_IMG_9742.jpg
   title: Tricklet
-  place: Cirque de Navacelles - France
+  place: Cirque de Navacelles
+  location: navacelles
+  country: france
 
 - path: montpeyroux/IMG_3875.jpg
   title: Endless Road
-  place: Montpeyroux - France
+  place: Montpeyroux
+  location: montpeyroux
+  country: france
 
 - path: oma/IMG_8318.jpg
   title: Wait For Me
-  place: Oma - Spain
+  place: Oma
+  location: oma
+  country: spain
 
 - path: gedre/IMG_0802.jpg
   title: Follow the Bell
-  place: Gèdre - France
+  place: Gèdre
+  location: gedre
+  country: france
 
 - path: old_man_of_storr/IMG_2577-Pano-Edit.jpg
   title: Forgotten Land
-  place: Isle of Skye - Scotland
+  place: Isle of Skye
+  location: old_man_of_storr
+  country: scotland
   landscape: true
 
 - path: lac_de_gaube/IMG_1330.jpg
   title: Bridge of Spain
-  place: Pont de Spagne - France
+  place: Pont de Spagne
+  location: lac_de_gaube
+  country: france
 
 - path: navacelles/IMG_9691.jpg
   title: Above the Grove
-  place: Cirque de Navacelles - France
+  place: Cirque de Navacelles
+  location: navacelles
+  country: france
   landscape: true
 
 - path: arboras/IMG_4391.jpg
   title: The Way to the Pic
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
 
 - path: st_nectans_glen/IMG_7940.jpg
   title: Stream of Dreams
-  place: St. Nectan's Glen - England
+  place: St. Nectan's Glen
+  location: st_nectans_glen
+  country: england
 
 - path: vianden/04_IMG_7047_landscape.jpg
   title: Round the Castle
-  place: Vianden - Luxembourg
+  place: Vianden
+  location: vianden
+  country: luxembourg
   landscape: true
 
 - path: arboras/IMG_4407.jpg
   title: Hidden Path
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
 
 - path: taynuilt/IMG_4997.jpg
   title: Fashion Statement
-  place: Taynuilt - Scotland
+  place: Taynuilt
+  location: taynuilt
+  country: scotland
 
 ############################## GREEN ##############################
 
 - path: glenbrittle/IMG_3926.jpg
   title: Glenbrittle
-  place: Isle of Skye - Scotland
+  place: Isle of Skye
+  location: glenbrittle
+  country: scotland
 
 - path: puy_en_velay/03_IMG_1358.jpg
   title: Rocher St. Michel D'Aiguilhe
-  place: Le Puy en Velay - France
+  place: Le Puy en Velay
+  location: puimoisson1
+  country: france
 
 - path: navacelles/IMG_9730.jpg
   title: Flows and Streams
-  place: Cirque de Navacelles - France
+  place: Cirque de Navacelles
+  location: navacelles
+  country: france
   landscape: true
 
 - path: lac_de_gaube/IMG_1571.jpg
   title: Green Mountain Lake
-  place: Lac de Gaube - France
+  place: Lac de Gaube
+  location: lac_de_gaube
+  country: france
 
 - path: gedre/IMG_0885-2.jpg
   title: Pyrenees Cattle
-  place: Gèdre - France
+  place: Gèdre
+  location: gedre
+  country: france
   landscape: true
 
 - path: rocky_valley/IMG_8027.jpg
   title: Trevillet Mill
-  place: Rocky Valley - England
+  place: Rocky Valley
+  location: rocky_valley
+  country: england
   landscape: true
 
 - path: navacelles/02_IMG_9637.jpg
   title: Bridge Over Calm Water
-  place: Cirque de Navacelles - France
+  place: Cirque de Navacelles
+  location: navacelles
+  country: france
 
 - path: bruges/05_IMG_9073_landscape.jpg
   title: The Giants
-  place: Bruges - Belgium
+  place: Bruges
+  location: bruges
+  country: belgium
   landscape: true
 
 - path: lac_de_gaube/IMG_1801.jpg
   title: Mountain Shore
-  place: Lac de Gaube - France
+  place: Lac de Gaube
+  location: lac_de_gaube
+  country: france
 
 - path: st_nectans_glen/IMG_7962.jpg
   title: The Waterfall
-  place: St. Nectan's Glen - England
+  place: St. Nectan's Glen
+  location: st_nectans_glen
+  country: england
 
 - path: rio/IMG_6965b.jpg
   title: Jungle Traint Tacks
-  place: Rio de Janeiro - Brazil
+  place: Rio de Janeiro
+  location: rio
+  country: brazil
 
 - path: almodovar_del_rio/01_IMG_2300.jpg
   title: Highgarden Castle
-  place: Almodovar del Rio - Spain
+  place: Almodovar del Rio
+  location: almodovar_del_rio
+  country: spain
   landscape: true
 
 ############################## ##############################
 
 - path: brussels/10_IMG_7410_landscape.jpg
   title: Tunnel
-  place: Brussels - Belgium
+  place: Brussels
+  location: brussels
+  country: belgium
   landscape: true
 
 - path: arboras/IMG_4133.jpg
   title: French Fields
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
 
 - path: puy_en_velay/11_IMG_1771.jpg
   title: Our Lady's View
-  place: Le Puy en Velay - France
+  place: Le Puy en Velay
+  location: puimoisson1
+  country: france
 
 - path: cadiz/IMG_3906.jpg
   title: Pillar
-  place: Cádiz - Spain
+  place: Cádiz
+  location: cadiz
+  country: spain
 
 - path: cazorla/IMG_6048.jpg
   title: Sprawling Town
-  place: Cazorla - Spain
+  place: Cazorla
+  location: cazorla
+  country: spain
   landscape: true
 
 - path: clermont_ferrant/02_IMG_1141.jpg
   title: Puy de Dome
-  place: Clermont Ferrand - France
+  place: Clermont Ferrant
+  location: clermont_ferrant
+  country: france
 
 - path: corfe_castle/20_IMG_2292-Pano.jpg
   title: Crown of Dorset
-  place: Corfe Castle - England
+  place: Corfe Castle
+  location: corfe_castle
+  country: england
   landscape: true
 
 - path: amsterdam/06_IMG_0418.jpg
   title: Narrow Houses
-  place: Amsterdam - Netherlands
+  place: Amsterdam
+  location: amsterdam
+  country: netherlands
 
 - path: colonia_del_sacramento/IMG_6068bis.jpg
   title: Cobblestone Road
-  place: Colonia del Sacramento - Uruguay
+  place: Colonia del Sacramento
+  location: colonia_del_sacramento
+  country: uruguay
 
 - path: dinant/01_IMG_7906.jpg
   title: Mirrored
-  place: Dinant - Belgium
+  place: Dinant
+  location: dinant
+  country: belgium
 
 - path: gavarnie/IMG_2419.jpg
   title: Mountain Horse
-  place: Cirque de Gavarnie - France
-
-- path: gaztelugatxe/IMG_8043.jpg
-  title: Up the Serpent Road
-  place: San Juan de Gaztelugatze - Spain
+  place: Cirque de Gavarnie
+  location: gavarnie
+  country: france
 
 - path: gaztelugatxe/IMG_8020.jpg
   title: Basque Islet
-  place: San Juan de Gaztelugatze - Spain
+  place: San Juan de Gaztelugatze
+  location: gaztelugatxe
+  country: spain
   landscape: true
 
 - path: gibraltar/IMG_4547.jpg
   title: Barbary Macaque
-  place: Gibraltar - Gibraltar
+  place: Gibraltar
+  location: gibraltar
+  country: gibraltar
 
 - path: lagamas/IMG_4916.jpg
   title: Autumn Leaves
-  place: Lagamas - France
+  place: Lagamas
+  location: lagamas
+  country: france
 
 - path: etive_mor_waterfall/IMG_4416.jpg
   title: Sunlight Stream
-  place: Etive Mor Waterfall - Scotland
+  place: Etive Mor Waterfall
+  location: etive_mor_waterfall
+  country: scotland
 
 - path: luz_saint_sauveur/IMG_3153.jpg
   title: Down in the Foggy Valley
-  place: Luz Saint Sauveur - France
+  place: Luz Saint Sauveur
+  location: luz_saint_sauveur
+  country: france
   landscape: true
 
 - path: kinderdijk/02_IMG_0949.jpg
   title: The Mill's Window
-  place: Kinderdijk - Netherlands
+  place: Kinderdijk
+  location: kinderdijk
+  country: netherlands
 
 - path: la_iruela/IMG_6380.jpg
   title: Shephard
-  place: La Iruela - Spain
+  place: La Iruela
+  location: la_iruela
+  country: spain
   landscape: true
 
 - path: solis/IMG_4776bis.jpg
   title: Danger
-  place: Solis - Uruguay
+  place: Solis
+  location: solis
+  country: uruguay
 
 - path: lac_de_gaube/IMG_1437bis.jpg
   title: Couple at the Lake
-  place: Lac de Gaube - France
+  place: Lac de Gaube
+  location: lac_de_gaube
+  country: france
 
 - path: gavarnie/IMG_2320.jpg
   title: Mountaing Wall
-  place: Cirque de Gavarnie - France
+  place: Cirque de Gavarnie
+  location: gavarnie
+  country: france
+
+- path: gaztelugatxe/IMG_8043.jpg
+  title: Up the Serpent Road
+  place: San Juan de Gaztelugatze
+  location: gaztelugatxe
+  country: spain
 
 - path: amsterdam/07_IMG_0422_landscape.jpg
   title: Damrak
-  place: Amsterdam - Netherlands
+  place: Amsterdam
+  location: amsterdam
+  country: netherlands
   landscape: true
 
 - path: glenfinnan_viaduct/IMG_4666_2.jpg
   title: All Aboard
-  place: Glenfinnan Viaduct - Scotland
+  place: Glenfinnan Viaduct
+  location: glenfinnan_viaduct
+  country: scotland
   landscape: true
 
 - path: salzburg/01_IMG_7053-HDR_landscape.jpg
   title: The Fortress
-  place: Salzburg - Austria
+  place: Salzburg
+  location: salzburg
+  country: austria
   landscape: true
 
 - path: madrid/01_IMG_9894.jpg
   title: Market Gallery
-  place: Madrid - Sapin
+  place: Madrid
+  location: madrid
+  country: spain
 
 - path: madrid/IMG_0195bis.jpg
   title: Plaza de Toros
-  place: Madrid - Spain
+  place: Madrid
+  location: madrid
+  country: spain
   landscape: true
 
 - path: solis/IMG_4792.jpg
   title: Tracks in the Sand
-  place: Solis - Uruguay
+  place: Solis
+  location: solis
+  country: uruguay
 
 - path: tromouse/IMG_1114.jpg
   title: Bell Sheep
-  place: Cirque de Tromouse - France
+  place: Cirque de Tromouse
+  location: tromouse
+  country: france
 
 - path: cabo_polonio/IMG_3896bis.jpg
   title: La Juanita y La Nena
-  place: Cabo Polonio - Uruguay
+  place: Cabo Polonio
+  location: cabo_polonio
+  country: uruguay
   landscape: true
 
 - path: rio/IMG_7117.jpg
   title: Picado
-  place: Rio de Janeiro - Brazil
+  place: Rio de Janeiro
+  location: rio
+  country: brazil
 
 - path: old_man_of_storr/IMG_2529-Pano.jpg
   title: The Old Man
-  place: Old Man of Storr - Scotland
+  place: Old Man of Storr
+  location: old_man_of_storr
+  country: scotland
   landscape: true
 
 - path: arboras/IMG_9888.jpg
   title: Vines by the Road
-  place: Arboras - France
+  place: Arboras
+  location: arboras
+  country: france
 
 - path: ronda/IMG_5328.jpg
   title: Open Skies
-  place: Ronda - Spain
+  place: Ronda
+  location: ronda
+  country: spain
   landscape: true
 
 - path: segovia/IMG_1032.jpg
   title: Aquaduct
-  place: Segovia - Spain
+  place: Segovia
+  location: segovia
+  country: spain
   landscape: true
 
 - path: tromouse/IMG_1041.jpg
   title: 95024
-  place: Cirque de Tromouse - France
+  place: Cirque de Tromouse
+  location: tromouse
+  country: france
 
 - path: vienna/IMG_6823-Edit_landscape.jpg
   title: Liechtenstein Castle
-  place: Vienna - Austria
+  place: Vienna
+  location: vienna
+  country: austria
   landscape: true
 
 - path: eilean_donan/10_IMG_3394.jpg
   title: Eilean Donan Castle
-  place: Eilean Donan - Scotland
+  place: Eilean Donan
+  location: eilean_donan
+  country: scotland
   landscape: true
 
 - path: lunga/01_IMG_0032.jpg
   title: Puffins
-  place: Lunga - Scotland
+  place: Lunga
+  location: lunga
+  country: scotland

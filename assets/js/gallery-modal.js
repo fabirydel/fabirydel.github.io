@@ -4,7 +4,9 @@ function openModal(index, id) {
 
   const mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
   const headerHeight = document.querySelector('#header').offsetHeight;
-  document.getElementById("gallery-body").style.top = `-${window.scrollY - mapHeight - headerHeight}px`;
+  const scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
+debugger;
+  document.getElementById("gallery-body").style.top = `${-window.scrollY + mapHeight  + scrollHeader}px`;
   document.getElementById("gallery-body").style.position = 'fixed';
   document.getElementById("gallery-body").style.width = '100%';
 
@@ -34,11 +36,13 @@ function closeModal(id) {
   document.getElementById("header").classList.remove("freeze")
   const scrollY = document.getElementById("gallery-body").style.top;
   const headerHeight = document.querySelector('#header').offsetHeight;
+  const scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
   const mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
+
   document.getElementById("gallery-body").style.position = '';
   document.getElementById("gallery-body").style.top = '';
   if (scrollY) {
-    window.scrollTo(0, (parseInt(scrollY) - mapHeight - headerHeight) * -1);
+    window.scrollTo(0, (parseInt(scrollY) - mapHeight - scrollHeader) * -1);
   }
   deblur();
 

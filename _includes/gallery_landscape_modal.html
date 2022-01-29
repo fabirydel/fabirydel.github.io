@@ -2,7 +2,7 @@
   <a class="close cursor icon fa fa-times" onclick="closeModal('myLandscapeModal')"></a>
   <div class="modal-content">
     {% for image_path in page.images %}
-      <div class="slide" onclick="closeModal('myLandscapeModal')">
+      <div class="slide">
         <img src="/images/full/{{ image_path }}" onclick="ignore(event)" class="center">
       </div>
     {% endfor %}

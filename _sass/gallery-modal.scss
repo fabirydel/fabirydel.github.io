@@ -222,8 +222,6 @@
         }
 
         &:hover .country-flag, &:hover .landscape-logo  {
-          // background-color: #1f2224;
-          // color: #f9f9f9;
           opacity: 1;
         }
 
@@ -259,11 +257,6 @@
         .country-flag {
           border: 1px solid #999999;
         }
-
-        // &:hover .country-flag, &:hover .landscape-logo  {
-        //   background-color: #f9f9f9;
-        //   color: #1f2224;
-        // }
       }
     }
   }

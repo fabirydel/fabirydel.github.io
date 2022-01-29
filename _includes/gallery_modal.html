@@ -6,7 +6,7 @@
     {% for image in image_files %}
       {% assign path = "full/" | append: page.namePath %}
       {% if image.path contains path %}
-        <div class="slide" onclick="closeModal('myModal')">
+        <div class="slide">
           <img src="{{ image.path }}" onclick="ignore(event)" class="center">
         </div>
       {% endif %}
