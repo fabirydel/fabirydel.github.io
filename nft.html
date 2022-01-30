@@ -3,16 +3,87 @@ layout: worldmap
 title: Worldmap
 ---
 
-<div class="nft-container">
-  <h1 class="nft-title">Thank you for purchasing NFT_NAME!</h1>
-  <div id="nft-image-container">
-    <section class="cube">
-      <div class="face"></div>
-      <div class="face"></div>
-      <div class="face"></div>
-      <div class="face"></div>
-      <div class="face"></div>
-      <div class="face"></div>
-    </section>
+<div class='nft-page'>
+  <h1 class='nft-title'>Thank you for purchasing NFT_NAME</h1>
+  <div class='nft-container'>
+    <div id='nft-image-container' ontouchmove="interact(event)">
+      <!-- <div class='sparkler-light'>
+        <div class='spark' style='--spark-rotate: 10deg; --spark-delay: 223ms'></div>
+        <div class='spark' style='--spark-rotate: 20deg; --spark-delay: 844ms'></div>
+        <div class='spark' style='--spark-rotate: 30deg; --spark-delay: 130ms'></div>
+        <div class='spark' style='--spark-rotate: 40deg; --spark-delay: 747ms'></div>
+        <div class='spark' style='--spark-rotate: 50deg; --spark-delay: 928ms'></div>
+        <div class='spark' style='--spark-rotate: 60deg; --spark-delay: 392ms'></div>
+        <div class='spark' style='--spark-rotate: 70deg; --spark-delay: 483ms'></div>
+        <div class='spark' style='--spark-rotate: 80deg; --spark-delay: 621ms'></div>
+        <div class='spark' style='--spark-rotate: 90deg; --spark-delay: 814ms'></div>
+        <div class='spark' style='--spark-rotate: 100deg; --spark-delay: 802ms'></div>
+        <div class='spark' style='--spark-rotate: 110deg; --spark-delay: 837ms'></div>
+        <div class='spark' style='--spark-rotate: 120deg; --spark-delay: 238ms'></div>
+        <div class='spark' style='--spark-rotate: 130deg; --spark-delay: 642ms'></div>
+        <div class='spark' style='--spark-rotate: 140deg; --spark-delay: 58ms'></div>
+        <div class='spark' style='--spark-rotate: 150deg; --spark-delay: 404ms'></div>
+        <div class='spark' style='--spark-rotate: 160deg; --spark-delay: 576ms'></div>
+        <div class='spark' style='--spark-rotate: 170deg; --spark-delay: 944ms'></div>
+        <div class='spark' style='--spark-rotate: 180deg; --spark-delay: 635ms'></div>
+        <div class='spark' style='--spark-rotate: 190deg; --spark-delay: 205ms'></div>
+        <div class='spark' style='--spark-rotate: 200deg; --spark-delay: 91ms'></div>
+        <div class='spark' style='--spark-rotate: 210deg; --spark-delay: 829ms'></div>
+        <div class='spark' style='--spark-rotate: 220deg; --spark-delay: 969ms'></div>
+        <div class='spark' style='--spark-rotate: 230deg; --spark-delay: 861ms'></div>
+        <div class='spark' style='--spark-rotate: 240deg; --spark-delay: 201ms'></div>
+        <div class='spark' style='--spark-rotate: 250deg; --spark-delay: 173ms'></div>
+        <div class='spark' style='--spark-rotate: 260deg; --spark-delay: 967ms'></div>
+        <div class='spark' style='--spark-rotate: 270deg; --spark-delay: 548ms'></div>
+        <div class='spark' style='--spark-rotate: 280deg; --spark-delay: 392ms'></div>
+        <div class='spark' style='--spark-rotate: 290deg; --spark-delay: 273ms'></div>
+        <div class='spark' style='--spark-rotate: 300deg; --spark-delay: 6ms'></div>
+        <div class='spark' style='--spark-rotate: 310deg; --spark-delay: 1ms'></div>
+        <div class='spark' style='--spark-rotate: 320deg; --spark-delay: 854ms'></div>
+        <div class='spark' style='--spark-rotate: 330deg; --spark-delay: 159ms'></div>
+        <div class='spark' style='--spark-rotate: 340deg; --spark-delay: 60ms'></div>
+        <div class='spark' style='--spark-rotate: 350deg; --spark-delay: 986ms'></div>
+        <div class='spark' style='--spark-rotate: 360deg; --spark-delay: 559ms'></div>
+      </div> -->
+
+      <section class='cube nft-flat-container'>
+        <div class='face'></div>
+        <div class='face'></div>
+        <div class='face'></div>
+        <div class='face'></div>
+        <div class='face'></div>
+        <div class='face'></div>
+        <img src="https://fabirydel.com/images/full/bled/01_IMG_2855.jpg">
+        <img src="https://fabirydel.com/images/full/bled/01_IMG_2855.jpg">
+        <img src="https://fabirydel.com/images/full/bled/01_IMG_2855.jpg">
+        <img src="https://fabirydel.com/images/full/bled/01_IMG_2855.jpg">
+      </section>
+    </div>
+
+    <button onclick="flatten()">TOGGLE</button>
+<!--
+  <div class="nft-flat-container">
+    <img src="https://fabirydel.com/images/full/bled/01_IMG_2855.jpg">
+    <img src="https://fabirydel.com/images/full/bled/01_IMG_2855.jpg">
+    <img src="https://fabirydel.com/images/full/bled/01_IMG_2855.jpg">
+    <img src="https://fabirydel.com/images/full/bled/01_IMG_2855.jpg">
+  </div> -->
+<!--
+    <div class='options-container'>
+      <div class='options'>
+        <div class="option">
+          <input type="checkbox" checked id="toggle-sparks" onclick="document.querySelector('.sparkler-light').classList.toggle('spark-hidden')">
+          <label for="toggle-sparks">Toggle sparks</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" checked id="toggle-cube-shadow" onclick="document.querySelector('.cube').classList.toggle('no-shadow')">
+          <label for="toggle-cube-shadow">Toggle shadow</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" checked id="toggle-glowing-light" onclick="document.querySelector('.sparkler-light').classList.toggle('hidden-after')">
+          <label for="toggle-cube-shadow">Toggle glowing light</label>
+        </div>
+      </div>
+    </div> -->
   </div>
 </div>

@@ -8,7 +8,8 @@
   overflow: hidden;
   padding: 5px;
   position: fixed;
-  transition: all .5s ease;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
   z-index: 8;
 
   & > * {
