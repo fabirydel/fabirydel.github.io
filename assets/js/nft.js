@@ -32,9 +32,10 @@ function stopInteraction() {
 }
 
 function flatten() {
+  document.querySelector('.trigger').disabled = true;
+
   const sides = document.getElementsByClassName('face');
   const cube = document.getElementsByClassName('cube');
-
 
   sides[0].classList.toggle('flat-side-height'); // top face
   sides[2].classList.toggle('flat-side-width'); // side face
@@ -60,7 +61,14 @@ function flatten() {
 
     cube[0].classList.toggle('animate');
     cube[0].classList.toggle('active');
+    document.querySelector('.trigger').disabled = false;
   }, 750);
+}
+
+function expand() {
+  const cube = document.getElementsByClassName('cube');
+
+  cube[0].classList.toggle('expand')
 }
 
 // var canvas = document.createElement("canvas");
