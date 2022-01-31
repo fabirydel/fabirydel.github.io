@@ -1,16 +1,45 @@
 :root {
-  --main-width: 280px;
-  --main-height: 350px;
+  --main-width: 200px;
+  --main-height: 250px;
   --side-height: 40px;
   --side-height-half: var(--side-height) / 2;
+  --shadow-color: #939393;
+}
+
+.nft-body {
+  height: 100%;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: 0 0;
+  overscroll-behavior-y: contain; // prevent refresh
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: scroll;
+
+  #blurable {
+    position: fixed;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.nighttime {
+  --shadow-color: #090a0a;
 }
 
 .nft-page {
   .nft-title {
     font-family: 'poppins';
+    font-size: 30px;
     font-weight: 100;
     text-align: center;
-    font-size: 30px;
   }
 
   .nft-container {
@@ -26,48 +55,50 @@
   }
 
   #nft-image-container {
-    height: 500px;
-    width: 100%;
-    position: relative;
-    display: inline-block;
     // border: 1px dotted #1f222473;
-    border-radius: 5px;
     // margin: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
   }
 }
 
 .cube {
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  // box-shadow: -3vw 2.5vw 2vw rgba(0, 0, 0, .3);
   display: inline-block;
-  width: var(--main-width);
   height: var(--main-height);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform-origin: 0 0;
   transform-style: preserve-3d;
   transform: rotateX(-15deg) rotateY(15deg) translate(-50%, -50%);
-  box-shadow: -3vw 2.5vw 2vw rgba(0, 0, 0, .3);
-  transform-origin: 0 0;
+  width: var(--main-width);
 }
 
 .cube .face {
-  box-shadow: 0px 0px 1px #1f2224;
-  position: absolute;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  user-select: none;
   backface-visibility: hidden;
-  background: #1f2224 url(https://fabirydel.com/images/full/bled/01_IMG_2855.jpg);
-  background-size: cover;
-  transition: all 0.75s ease;
-  overflow: hidden;
-  width: 100%;
+  background-size: cover !important;
+  background: #1f2224 url(/images/full/bled/01_IMG_2855.jpg);
+  box-shadow: 0px 0px 1px #1f2224;
+  display: flex;
   height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  transition: all 0.75s ease;
+  user-select: none;
+  width: 100%;
+  z-index: 1;
 }
 
 .cube .face:nth-child(1) {
-  transform: rotateX(90deg) translateZ(calc(var(--side-height-half))) translateY(calc(var(--side-height-half))) scaleY(-1);
   background-position: top;
+  transform: rotateX(90deg) translateZ(calc(var(--side-height-half))) translateY(calc(var(--side-height-half))) scaleY(-1);
 }
 
 .cube .face:nth-child(2) {
@@ -75,8 +106,8 @@
 }
 
 .cube .face:nth-child(3) {
-  transform: rotateY(90deg) translateZ(calc(var(--main-width) - var(--side-height-half))) translateX(calc(-1 * var(--side-height-half))) scaleX(-1);
   background-position: right;
+  transform: rotateY(90deg) translateZ(calc(var(--main-width) - var(--side-height-half))) translateX(calc(-1 * var(--side-height-half))) scaleX(-1);
 }
 
 .cube .face:nth-child(4) {
@@ -84,24 +115,65 @@
 }
 
 .cube .face:nth-child(5) {
-  transform: rotateY(-90deg) translateZ(calc(var(--side-height-half))) translateX(calc(var(--side-height-half))) scaleX(-1);
   background-position: left;
+  transform: rotateY(-90deg) translateZ(calc(var(--side-height-half))) translateX(calc(var(--side-height-half))) scaleX(-1);
 }
 
 .cube .face:nth-child(6) {
-  transform: rotateX(-90deg) rotate(180deg) translateZ(calc(var(--main-height) - var(--side-height-half))) translateY(calc(var(--side-height-half))) scaleX(-1);
   background-position: bottom;
+  transform: rotateX(-90deg) rotate(180deg) translateZ(calc(var(--main-height) - var(--side-height-half))) translateY(calc(var(--side-height-half))) scaleX(-1);
 }
 
 .cube .face:nth-child(1), .cube .face:nth-child(3), .cube .face:nth-child(5), .cube .face:nth-child(6) {
-  width: var(--side-height);
-  height: var(--main-height);
   filter: brightness(60%);
+  height: var(--main-height);
+  width: var(--side-height);
 }
 
 .cube .face:nth-child(1), .cube .face:nth-child(6) {
   height: var(--side-height);
   width: 100%;
+}
+
+.cube:after {
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 70px;
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transition: all 0.75s ease;
+  width: 9%; /* Add a 10th of the width you want (scaled up later) */
+
+
+  /* Transform: rotateX to create depth, scale to 10x to make left/right more blurry than top/bottom */
+  -moz-transform: rotateX(80deg) scale(10, .75);
+  -ms-transform: rotateX(80deg) scale(10, .75);
+  -o-transform: rotateX(80deg) scale(10, .75);
+  -webkit-transform: rotateX(80deg) scale(10, .75);
+  transform: rotateX(80deg) scale(10, .75);
+
+  /* Apply shadow & background */
+  -moz-box-shadow: 0 0 20px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 25px var(--shadow-color);
+  -ms-box-shadow: 0 0 20px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 25px var(--shadow-color);
+  -o-box-shadow: 0 0 20px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 25px var(--shadow-color);
+  -webkit-box-shadow: 0 0 20px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 25px var(--shadow-color);
+  background: var(--shadow-color);
+  box-shadow: 0 0 20px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 25px var(--shadow-color);
+
+  /* Change opacity of entire element to tint shadow */
+  -moz-opacity:.65;
+  filter:alpha(opacity=65);
+  opacity:.65;
+}
+
+.cube.flat-front:after {
+  height: 50px;
+  left: 0%;
+  top: 80%;
+  transform: rotateX(0deg) scale(10, 4);
+  width: 7%;
 }
 
 // .sparkler-light {
@@ -223,24 +295,29 @@
 
 .nft-flat-container img {
   position: absolute;
-  width: 100%;
   transition: 0.5s;
+  width: 100%;
+  z-index: 1;
 }
+
 .nft-flat-container.active.expand img:nth-child(10) {
-  transform: translate(160px, -160px);
   opacity: 1;
+  transform: translate(160px, -160px);
 }
+
 .nft-flat-container.active.expand img:nth-child(9) {
-  transform: translate(120px, -120px);
   opacity: 0.8;
+  transform: translate(120px, -120px);
 }
+
 .nft-flat-container.active.expand img:nth-child(8) {
-  transform: translate(80px, -80px);
   opacity: 0.6;
+  transform: translate(80px, -80px);
 }
+
 .nft-flat-container.active.expand img:nth-child(7) {
-  transform: translate(40px, -40px);
   opacity: 0.4;
+  transform: translate(40px, -40px);
 }
 
 
@@ -256,6 +333,7 @@
   .sparkler-light::after {
     box-shadow: 0px 0px 100px 40px #f9f9f9;
   }
+
 }
 
 .spark-hidden .spark{

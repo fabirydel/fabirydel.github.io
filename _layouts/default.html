@@ -4,7 +4,7 @@
   {% include head.html %}
   {% include header.html %}
 
-  <body>
+  <body class="{% if page.style %}{{ page.style }}{% endif %}">
     <div id="blurable">
       <div class="gallery-body gallery-body-landscape" id="gallery-body">
         <div class="gallery-page-wrapper gallery-page-wrapper-landscape">

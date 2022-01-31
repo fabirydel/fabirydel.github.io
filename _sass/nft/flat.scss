@@ -1,0 +1,56 @@
+.flat-front {
+  transform: rotate(-30deg) skew(25deg) scale(0.8) translate(-50%, -50%) !important;
+  transition: all 0.75s ease;
+  top: 55% !important;
+}
+
+.flat-side-height {
+  height: 0px !important;
+}
+
+.flat-side-width {
+  width: 0px !important;
+}
+
+.flat-hide {
+  opacity: 0 !important;
+}
+
+.animate {
+  transition: all 0.75s ease;
+}
+
+.nft-flat-container img {
+  position: absolute;
+  transition: 0.5s;
+  width: 100%;
+  z-index: 1;
+}
+
+.nft-flat-container.active.expand img:nth-child(10) {
+  opacity: 1;
+  transform: translate(160px, -160px);
+}
+
+.nft-flat-container.active.expand img:nth-child(9) {
+  opacity: 0.8;
+  transform: translate(120px, -120px);
+}
+
+.nft-flat-container.active.expand img:nth-child(8) {
+  opacity: 0.6;
+  transform: translate(80px, -80px);
+}
+
+.nft-flat-container.active.expand img:nth-child(7) {
+  opacity: 0.4;
+  transform: translate(40px, -40px);
+}
+
+.nft-flat-container.flat-front:after {
+  height: 50px;
+  left: 0%;
+  top: 80%;
+  transform: rotateX(0deg) scale(10, 4);
+  width: 7%;
+}
