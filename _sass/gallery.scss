@@ -25,7 +25,7 @@ body {
 
 .gallery-body-country {
   display: block;
-  margin-top: 10px;
+  margin-top: 5pxpx;
 }
 
 .links-container {
@@ -357,7 +357,7 @@ body {
 
   .gallery-body {
     .location-page {
-      padding: 193px 5px 28px 5px;
+      padding: 218px 5px 28px 5px;
     }
   }
 
@@ -366,7 +366,7 @@ body {
       width: 100%;
       background: #f9f9f9;
       z-index: 3;
-      padding: 10px;
+      padding: 0 10px 5px 10px;
       top: 112px;
 
       .page-title {
@@ -390,6 +390,10 @@ body {
 
       .location-link {
         font-size: 22px;
+      }
+
+      &.hide {
+        padding-top: 5px;
       }
     }
   }
@@ -423,7 +427,7 @@ body {
 @media screen and (max-width: 650px) {
   .gallery-body {
     .location-page {
-      padding: 183px 5px 28px 5px;
+      padding: 201px 5px 28px 5px;
     }
   }
 
