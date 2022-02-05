@@ -1,18 +1,18 @@
 /* The Modal (background) */
 .modal {
-  display: none;
-  visibility: hidden;
-  opacity: 0;
-  position: fixed;
-  z-index: 10;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: #000000c0;
   -webkit-transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  background-color: #000000c0;
+  display: none;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
   transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  visibility: hidden;
+  width: 100%;
+  z-index: 10;
 }
 
 /* Modal Content */
@@ -75,20 +75,20 @@
 /* Next & previous buttons */
 .prev,
 .next {
+  -webkit-user-select: none;
+  border-radius: 0 3px 3px 0;
+  color: #fefefe;
   cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -50px;
+  opacity: 1;
+  padding: 0 16px;
   position: absolute;
   top: 50%;
-  width: auto;
-  padding: 0 16px;
-  margin-top: -50px;
-  color: #fefefe;
-  font-weight: bold;
-  font-size: 20px;
   transition: 0.3s ease;
-  border-radius: 0 3px 3px 0;
   user-select: none;
-  opacity: 1;
-  -webkit-user-select: none;
+  width: auto;
 }
 
 /* Position the "next button" to the right */
@@ -103,10 +103,10 @@
 
 /* Caption text */
 .caption-container {
-  text-align: center;
   background-color: black;
-  padding: 2px 16px;
   color: #333;
+  padding: 2px 16px;
+  text-align: center;
 }
 
 .blurred {
@@ -120,32 +120,32 @@
 
 #myPortfolioModal, #myLandscapeModal {
   .image-modal-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
     align-items: flex-end;
     border: none;
     box-shadow: none;
+    display: flex;
+    justify-content: center;
     max-width: 100%;
+    position: relative;
 
     img {
-      object-fit: contain;
-      max-height: calc(100vh - 80px);
-      max-width: 85%;
       border-radius: 3px;
       border: 3px solid white;
       box-shadow: 0px 0px 26px -5px #000;
+      max-height: calc(100vh - 80px);
+      max-width: 85%;
+      object-fit: contain;
     }
 
     .modal-text-container {
+      height: 60px;
       opacity: 0.85;
       padding-left: 7px;
-      transition: .3s ease-in-out;
       pointer-events: none;
-      z-index: 3;
       position: relative;
       text-align: left;
-      height: 60px;
+      transition: .3s ease-in-out;
+      z-index: 3;
     }
 
     .modal-text-container-dummy {
@@ -156,41 +156,41 @@
 
 #countries-modal, #landscapes-modal {
   .options-modal-container {
+    -webkit-transition: .3s ease-in-out;
+    background: var(--white);
+    border-radius: 5px;
+    left: 50%;
     position: absolute;
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
-    background: #f9f9f9;
-    border-radius: 5px;
-    -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
 
     .title {
-      text-align: center;
+      border-radius: 5px 5px 0 0;
       display: block;
       font-family: 'poppins';
       font-size: 22px;
       padding: 5px 0;
-      border-radius: 5px 5px 0 0;
+      text-align: center;
     }
 
     .options-container {
-      max-height: 330px;
-      overflow: auto;
+      border-radius: 0 0 5px 5px;
       display: grid;
       grid-template-columns: 25% 25% 25% 25%;
       grid-template-rows: auto;
-      border-radius: 0 0 5px 5px;
+      max-height: 330px;
+      overflow: auto;
       padding-bottom: 10px;
 
       .option-container {
-        position: relative;
+        align-items: center;
+        color: var(--black);
         display: flex;
         flex-direction: column;
-        text-align: center;
-        align-items: center;
-        color: #1f2224;
         padding: 10px 20px;
+        position: relative;
+        text-align: center;
         text-decoration: none;
 
         .title {
@@ -198,11 +198,11 @@
         }
 
         .country-flag, .landscape-logo {
-          border: 1px solid #999999;
-          border-radius: 50%;
-          padding: 10px;
-          margin: 0;
           -webkit-transition: .3s ease-in-out;
+          border-radius: 50%;
+          border: 1px solid #999999;
+          margin: 0;
+          padding: 10px;
           transition: .3s ease-in-out;
         }
 
@@ -216,9 +216,9 @@
         }
 
         .emoji-logo, .country-flag {
-          width: 40px;
-          height: auto;
           font-size: 26px;
+          height: 40px;
+          width: 40px;
         }
 
         &:hover .country-flag, &:hover .landscape-logo  {
@@ -244,15 +244,15 @@
 
   &.nighttime {
     .options-modal-container {
-      background: #1f2224;
+      background: var(--black);
     }
 
     .options-container, .title {
-      background: #1f2224;
-      color: #f9f9f9;
+      background: var(--black);
+      color: var(--white);
 
       .option-container {
-        color: #f9f9f9;
+        color: var(--white);
 
         .country-flag {
           border: 1px solid #999999;
@@ -283,8 +283,8 @@
 
   #myPortfolioModal {
     .image-modal-container {
-      flex-direction: column;
       align-items: center;
+      flex-direction: column;
 
       img {
         max-height: calc(90vh - 80px);
@@ -295,8 +295,8 @@
       }
 
       .modal-text-container {
-        text-align: center;
         margin-top: 5px;
+        text-align: center;
       }
     }
   }
@@ -327,10 +327,19 @@
   #countries-modal, #landscapes-modal {
     .options-modal-container {
       .options-container {
-        height: 245px;
         grid-template-columns: 33.3% 33.3% 33.3%;
+        height: 245px;
 
         .option-container {
+          padding: 5px 15px;
+
+          .emoji-logo, .country-flag {
+            font-size: 20px;
+            height: 30px;
+            padding: 5px;
+            width: 30px;
+          }
+
           .tooltiptext {
             display: none;
           }
@@ -345,8 +354,8 @@
           right: initial;
 
           &:after {
-            right: initial;
             left: 10px;
+            right: initial;
           }
         }
 
@@ -355,8 +364,8 @@
           right: 36px;
 
           &:after {
-            right: 10px;
             left: initial;
+            right: 10px;
           }
         }
       }

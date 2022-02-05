@@ -83,7 +83,7 @@
 //     left: 35%;
 //     top: 35%;
 //     background-color: transparent;
-//     box-shadow: 0px 0px 130px 85px #1f2224;
+//     box-shadow: 0px 0px 130px 85px var(--black);
 //     animation: sparkler-light-pulsating 2s infinite linear;
 //   }
 // }
@@ -104,7 +104,7 @@
 //   height: 135px;
 //   border-radius: 0.1rem;
 //   opacity: 0;
-//   background-color: #1f222494;
+//   background-color: var(--black)94;
 //   transform-origin: bottom center;
 //   animation: sparkler-sparkle 0.5s infinite linear;
 //   animation-delay: var(--spark-delay);
@@ -163,11 +163,11 @@
 
 // #blurable.nighttime {
 //   .spark::after {
-//     background-color: #f9f9f9b0;
+//     background-color: var(--white)b0;
 //   }
 
 //   .sparkler-light::after {
-//     box-shadow: 0px 0px 100px 40px #f9f9f9;
+//     box-shadow: 0px 0px 100px 40px var(--white);
 //   }
 // }
 

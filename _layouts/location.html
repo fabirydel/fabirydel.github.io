@@ -11,13 +11,13 @@
       {% for location in country_locations %}
         {% if location == page.namePath %}
           {% if forloop.first %}
-            {% assign prev_index = country_locations.size %}
+            {% assign prev_index = country_locations.size | minus: 1 %}
           {% else %}
             {% assign prev_index = forloop.index0 | minus: 1 %}
           {% endif %}
           {% assign prev = country_locations[prev_index] %}
           {% if forloop.last %}
-            {% assign next_index = 1 %}
+            {% assign next_index = 0 %}
           {% else %}
             {% assign next_index = forloop.index0 | plus: 1 %}
           {% endif %}
@@ -26,6 +26,7 @@
       {% endfor %}
 
       <div class="header-img-container header-img-container-outside" id="header-img-container-outside">
+        <div class="dummy-header-background"></div>
         <div class="header-label" id="header-label">
           <span class="page-title">{{ page.title }}
             <div class="links-container">
@@ -42,33 +43,33 @@
             <span>Next</span>
             <span class="location-link-text">({{ next | replace: '_', ' ' }})</span>
           </a>
-          <a href="/locations/{{ prev }}" class="location-link">
-            <span>Previous</span>
-            <span class="location-link-text">({{ prev | replace: '_', ' ' }})</span>
-          </a>
+            <a href="/locations/{{ prev }}" class="location-link">
+              <span>Previous</span>
+              <span class="location-link-text">({{ prev | replace: '_', ' ' }})</span>
+            </a>
         </div>
       </div>
 
       <div class="gallery-body" id="gallery-body">
         <div class="header-img-container header-img-container-inside">
           <div class="header-label" id="header-label">
-          <span class="page-title">{{ page.title }}
-            <a class="icon fa-map-marker-alt map-icon" onclick="openMapModal()"></a>
-            <a class="country-link" href="/countries/{{ page.country }}">
-              <div class="tooltip country-flag-container">
-                <img src="/images/flags/{{ page.country }}.png" class="country-flag">
-                <span class="tooltiptext">{{ page.country | capitalize }}</span>
-              </div>
+            <span class="page-title">{{ page.title }}
+              <a class="icon fa-map-marker-alt map-icon" onclick="openMapModal()"></a>
+              <a class="country-link" href="/countries/{{ page.country }}">
+                <div class="tooltip country-flag-container">
+                  <img src="/images/flags/{{ page.country }}.png" class="country-flag">
+                  <span class="tooltiptext">{{ page.country | capitalize }}</span>
+                </div>
+              </a>
+            </span>
+            <a href="/locations/{{ next }}" class="location-link">
+              <span>Next</span>
+              <span class="location-link-text">({{ next | replace: '_', ' ' }})</span>
             </a>
-          </span>
-          <a href="/locations/{{ next }}" class="location-link">
-            <span>Next</span>
-            <span class="location-link-text">({{ next | replace: '_', ' ' }})</span>
-          </a>
-          <a href="/locations/{{ prev }}" class="location-link">
-            <span>Previous</span>
-            <span class="location-link-text">({{ prev | replace: '_', ' ' }})</span>
-          </a>
+            <a href="/locations/{{ prev }}" class="location-link">
+              <span>Previous</span>
+              <span class="location-link-text">({{ prev | replace: '_', ' ' }})</span>
+            </a>
           </div>
         </div>
 

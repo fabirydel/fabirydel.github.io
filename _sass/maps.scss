@@ -1,11 +1,11 @@
 .default.page-content.country-page-content {
-  padding: 72px 0 32px 0px;
+  padding: var(--header-height) 0 32px 0px;
 }
 
 .country-wrapper {
   display: flex;
   flex-direction: column;
-  height: initial%;
+  height: initial;
 }
 
 #country-map, .world-map {
@@ -108,8 +108,6 @@
 
 @media screen and (max-width: 850px) {
   .default.page-content.country-page-content {
-    padding-top: 113px;
-
     .country-wrapper {
       margin: 0;
       max-width: initial;
@@ -138,11 +136,5 @@
 
   .worldmap-layout .world-map {
     height: calc(100vh - 145px) !important;
-  }
-}
-
-@media screen and (max-width: 650px) {
-  .default.page-content.country-page-content {
-    padding-top: 102px;
   }
 }

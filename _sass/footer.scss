@@ -1,43 +1,43 @@
 #footer-background {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  z-index: 5;
-  pointer-events: none;
-  transition: .15s ease-in-out;
   -webkit-transition: .15s ease-in-out;
+  background: transparent;
+  height: 100%;
+  pointer-events: none;
+  position: fixed;
+  transition: .15s ease-in-out;
+  width: 100%;
+  z-index: 5;
 
   &.visible {
-    pointer-events: initial;
     background: #000000c7;
+    pointer-events: initial;
   }
 }
 
 #footer-header {
   -moz-transform: translateY(0);
-  -webkit-transform: translateY(0);
-  -ms-transform: translateY(0);
-  transform: translateY(0);
-  transition: all 0.75s ease;
-  -webkit-transition: all 0.75s ease;
   -moz-user-select: none;
+  -ms-transform: translateY(0);
   -ms-user-select: none;
+  -webkit-transform: translateY(0);
+  -webkit-transition: all 0.75s ease;
   -webkit-user-select: none;
-  background: #f9f9f9;
+  align-items: center;
+  background: var(--white);
   bottom: 0;
+  display: flex;
+  font-family: "poppins", sans-serif;
   height: 2em;
+  justify-content: space-between;
   left: 0;
   line-height: 1em;
   padding: 0 24px;
   position: fixed;
+  transform: translateY(0);
+  transition: all 0.75s ease;
   user-select: none;
   width: calc(100% - 48px);
   z-index: 7;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: "poppins", sans-serif;
 }
 
 body.loading #footer-header {
@@ -48,10 +48,10 @@ body.loading #footer-header {
 }
 
 #footer-header h1 {
-  color: #1f2224;
+  color: var(--black);
   display: inline-block;
   font-size: 14px;
-  overflow: auto;
+  font-weight: 200;
   margin: 0;
 
   h1 {
@@ -84,8 +84,9 @@ body.loading #footer-header {
 }
 
 #footer-header nav>ul>li .about {
+  -webkit-transition: all 0.75s ease;
   border: 0;
-  color: #1f2224;
+  color: var(--black);
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
@@ -94,11 +95,10 @@ body.loading #footer-header {
   padding: 0;
   text-transform: uppercase;
   transition: all 0.75s ease;
-  -webkit-transition: all 0.75s ease;
 }
 
 #footer-header nav>ul>li .about.icon:before {
-  color: #1f2224;
+  color: var(--black);
   float: right;
   margin-left: 0.75em;
   transition: all 0.75s ease;
@@ -142,9 +142,9 @@ body.loading #footer-header {
   -webkit-overflow-scrolling: touch;
   -webkit-transform: translateY(100vh);
   -webkit-transition: -webkit-transform 0.5s ease;
-  background: #f9f9f9;
+  background: var(--white);
   bottom: 2em;
-  color: #1f2224;
+  color: var(--black);
   left: 0;
   max-height: calc(81vh - 4em);
   overflow-y: auto;
@@ -185,7 +185,7 @@ body.loading #footer-header {
     }
 
     a {
-      color: #1f2224;
+      color: var(--black);
       margin-left: 5px;
       font-size: 11px;
 
@@ -330,7 +330,7 @@ footer {
 
   h2,
   p {
-    color: #1f2224;
+    color: var(--black);
     font-weight: 300;
     letter-spacing: .025em;
     line-height: 1.65;
@@ -588,7 +588,7 @@ footer {
   input:focus,
   select:focus,
   textarea:focus {
-    box-shadow: inset 0 0 0 2px #f9f9f9;
+    box-shadow: inset 0 0 0 2px var(--white);
   }
 
   input,
@@ -644,7 +644,7 @@ footer {
     border: 0;
     border-radius: 0;
     box-shadow: inset 0 0 0 2px #36383c;
-    color: #1f2224 !important;
+    color: var(--black) !important;
     cursor: pointer;
     display: inline-block;
     font-size: 0.9em;
@@ -664,9 +664,9 @@ footer {
   input[type="button"]:hover,
   button:hover,
   .button:hover {
-    box-shadow: inset 0 0 0 2px #f9f9f9;
-    color: #f9f9f9 !important;
-    background-color: #1f2224;
+    box-shadow: inset 0 0 0 2px var(--white);
+    color: var(--white) !important;
+    background-color: var(--black);
   }
 
   input[type="submit"]:hover:active,
@@ -675,7 +675,7 @@ footer {
   button:hover:active,
   .button:hover:active {
     background-color: rgba(52, 165, 142, 0.15);
-    color: #f9f9f9 !important;
+    color: var(--white) !important;
   }
 
   input[type="submit"].icon,
@@ -725,7 +725,7 @@ footer {
   input[type="button"].special,
   button.special,
   .button.special {
-    background-color: #f9f9f9;
+    background-color: var(--white);
     box-shadow: none;
   }
 
@@ -735,7 +735,7 @@ footer {
   button.special:hover,
   .button.special:hover {
     background-color: #47c5ab;
-    color: #f9f9f9 !important;
+    color: var(--white) !important;
   }
 
   input[type="submit"].special:hover:active,
@@ -765,18 +765,18 @@ footer {
 }
 
 #footer-header.nighttime {
-  background: #1f2224;
+  background: var(--black);
 
   h1 {
-    color: #f9f9f9;
+    color: var(--white);
   }
 
   nav>ul>li .about {
-    color: #f9f9f9;
+    color: var(--white);
   }
 
   nav>ul>li .about.icon:before {
-    color: #f9f9f9;
+    color: var(--white);
   }
 
   nav>ul>li .about.active {
@@ -785,23 +785,23 @@ footer {
 }
 
 #footer.nighttime {
-  background: #1f2224;
-  color: #f9f9f9;
+  background: var(--black);
+  color: var(--white);
 
 
   .or-at {
     a {
-      color: #f9f9f9;
+      color: var(--white);
     }
   }
 
   textarea, input {
     background: #34363b;
-    color: #f9f9f9 !important;
+    color: var(--white) !important;
   }
 
   h2, p {
-    color: #f9f9f9;
+    color: var(--white);
   }
 
   .instagram-image-light {

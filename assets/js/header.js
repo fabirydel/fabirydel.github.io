@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var direction = 0;
   var prevDirection = 0;
 
+  var dummyHeaderBackground = document.querySelector(".dummy-header-background");
   var header = document.getElementById("header");
   var headerLabels = document.getElementsByClassName("header-label");
 
@@ -73,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //replace 52 with the height of your header in px
 
         header.classList.add("hide");
+        dummyHeaderBackground.classList.add("hide");
         if (headerLabels) {
           for (i = 0; i < headerLabels.length; i++) {
             headerLabels[i].classList.add("hide");
@@ -82,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
       else if (direction === 1) {
         header.classList.remove("hide");
+        dummyHeaderBackground.classList.remove("hide");
         if (headerLabels) {
           for (i = 0; i < headerLabels.length; i++) {
             headerLabels[i].classList.remove("hide");

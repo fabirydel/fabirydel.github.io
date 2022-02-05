@@ -1,0 +1,31 @@
+:root {
+  --header-height: 72.33px;
+  --header-label-height: 0px;
+
+  --white: #f9f9f9;
+  --black: #1f2224;
+}
+
+@media screen and (max-width: 1280px) {
+  :root {
+    --header-height: 74.33px;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  :root {
+  }
+}
+
+@media screen and (max-width: 850px) {
+  :root {
+    --header-height: 113.33px;
+    --header-label-height: 101px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  :root {
+    --header-height: 102.33px;
+  }
+}

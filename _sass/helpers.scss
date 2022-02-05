@@ -7,9 +7,9 @@
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-  background-color: #1f2224;
+  background-color: var(--black);
   border-radius: 3px;
-  color: #f9f9f9;
+  color: var(--white);
   font-size: 14px;
   left: 13px;
   line-height: 20px;
@@ -27,7 +27,7 @@
 /* Tooltip arrow */
 .tooltip .tooltiptext::after {
   content: "";
-  border-color: transparent transparent #1f2224 transparent;
+  border-color: transparent transparent var(--black) transparent;
   border-style: solid;
   border-width: 5px;
   left: 10px;
@@ -56,9 +56,9 @@
 
 .lds-ring div {
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #f9f9f9 transparent transparent transparent;
+  border-color: var(--white) transparent transparent transparent;
   border-radius: 50%;
-  border: 5px solid #f9f9f9;
+  border: 5px solid var(--white);
   box-sizing: border-box;
   display: block;
   height: 64px;
@@ -81,18 +81,18 @@
 
 .nighttime {
   .tooltip .tooltiptext {
-    background-color: #f9f9f9;
-    color: #1f2224;
+    background-color: var(--white);
+    color: var(--black);
   }
 
   /* Tooltip arrow */
   .tooltip .tooltiptext::after {
-    border-color: transparent transparent #f9f9f9 transparent;
+    border-color: transparent transparent var(--white) transparent;
   }
 
   .lds-ring div {
-    border-color: #1f2224 transparent transparent transparent;
-    border: 5px solid #1f2224;
+    border-color: var(--black) transparent transparent transparent;
+    border: 5px solid var(--black);
   }
 }
 
