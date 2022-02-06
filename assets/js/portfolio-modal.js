@@ -45,9 +45,9 @@ function closePortfolioModal(id) {
 
 function blurPortfolio() {
   let porfolioGallery = document.getElementById("blurable")
-  document.getElementById('header').style.filter = 'blur(2px)';
-  document.getElementById('footer-header').style.filter = 'blur(2px)';
-  porfolioGallery.style.filter = 'blur(5px)';
+  document.getElementById('header').style.filter = 'blur(4px)';
+  document.getElementById('footer-header').style.filter = 'blur(4px)';
+  porfolioGallery.style.filter = 'blur(4px)';
 }
 
 function deblurPortfolio() {

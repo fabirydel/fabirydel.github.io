@@ -26,10 +26,10 @@ function closeMapModal() {
 }
 
 function blurMap() {
-  document.getElementById('header').style.filter = "blur(2px)";
-  document.getElementById('footer-header').style.filter = "blur(2px)";
-  document.getElementById('gallery-body').style.filter = "blur(5px)";
-  document.getElementById('header-img-container-outside').style.filter = 'blur(5px)';
+  document.getElementById('header').style.filter = "blur(4px)";
+  document.getElementById('footer-header').style.filter = "blur(4px)";
+  document.getElementById('gallery-body').style.filter = "blur(4px)";
+  document.getElementById('header-img-container-outside').style.filter = 'blur(4px)';
 }
 
 function deblurMap() {

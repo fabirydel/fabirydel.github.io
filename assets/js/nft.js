@@ -2,9 +2,8 @@ document.addEventListener("DOMContentLoaded", function() {
   if (document.querySelector('#nft-image-container')) document.querySelector('#nft-image-container').addEventListener('mouseenter', startInteraction);
   if (document.querySelector('#nft-image-container')) document.querySelector('#nft-image-container').addEventListener('mouseleave', stopInteraction);
 
-  // document.querySelector('#nft-image-container').prepend(canvas);
-
-  // loop();
+  const nftHeight = document.querySelector('.for-display .cube').offsetHeight
+  document.querySelector('.for-display').style.height = `${nftHeight}px`;
 });
 
 function interact(event) {
@@ -16,7 +15,7 @@ function interact(event) {
   const midX = (x - window.innerWidth / 2) * 0.2;
   const midY = (y + window.innerHeight / 2) * 0.2;
 
-  const cube = document.querySelector('.cube');
+  const cube = document.querySelector('.modal-cube');
   const valY = midY > 0 ? Math.min(midY, 30) : Math.max(midY, -30)
   const valX = midX > 0 ? Math.min(midX, 30) : Math.max(midX, -30)
 
@@ -32,10 +31,13 @@ function stopInteraction() {
 }
 
 function flatten() {
-  document.querySelector('.trigger').disabled = true;
+  const sides = document.getElementsByClassName('modal-face');
+  const cube = document.getElementsByClassName('modal-cube');
 
-  const sides = document.getElementsByClassName('face');
-  const cube = document.getElementsByClassName('cube');
+  document.querySelector('.trigger').disabled = true;
+  if (cube[0].classList.contains('expand')) {
+    expand();
+  }
 
   sides[0].classList.toggle('flat-side-height'); // top face
   sides[2].classList.toggle('flat-side-width'); // side face
@@ -66,81 +68,85 @@ function flatten() {
 }
 
 function expand() {
-  const cube = document.getElementsByClassName('cube');
+  const cube = document.getElementsByClassName('modal-cube');
 
   cube[0].classList.toggle('expand')
 }
 
-// var canvas = document.createElement("canvas");
-// var c = canvas.getContext("2d");
-// var w = canvas.width = window.innerWidth;
-// var h = canvas.height = window.innerHeight;
+/////////////////////// MODAL STUF ///////////////////////
 
-// var particles = {};
-// var particleIndex = 0;
-// var particleNum = 30;
+// Open the Modal
+function openNftModal() {
+  document.querySelector("body").classList.add("nft-body");
+  document.querySelector('.for-display').classList.add('hide');
 
-// function particle() {
-//   this.x = Math.random() * canvas.width;
-//   this.y = Math.random() * canvas.height;
-//   this.vx = Math.random() * 10 - 5;
-//   this.vy = Math.random() * 10 - 5;
-//   this.gravity = 0.1;
-//   particleIndex++;
-//   particles[particleIndex] = this;
-//   this.id = particleIndex;
-//   this.life = 0;
-//   this.maxLife = Math.random() * 90;
-//   this.shadeR = Math.floor(Math.random() * 255+150) + 50;
-//   this.shadeG = Math.floor(Math.random() * 150) + 50;
-//   this.shadeB = Math.floor(Math.random() * 0);
-//   this.color = 'rgba(' + this.shadeR + ',' + this.shadeG + ',' + this.shadeB + ',' + Math.random() * 0.7 + ')';
-//   this.size = Math.random() * 3;
-// }
-// particle.prototype.draw = function() {
-//   this.x += this.vx;
-//   this.y += this.vy;
-//   if (Math.random() < 0.1) {
-//     this.vx = Math.random() * 10 - 5;
-//     this.vy = -2;
-//   }
+  let blurable = document.getElementById("blurable");
+  blurable.style.top = `-${window.scrollY}px`;
+  blurable.style.position = 'fixed';
+  blurable.style.width = '100%';
+  document.getElementById("nft-modal").style.display = "block";
+  setTimeout(function() {
+    document.getElementById("nft-modal").style.visibility = "visible";
+    document.getElementById("nft-modal").style.opacity = "1";
+  }, 10);
+  blurEverything();
 
-//   this.life++;
-//   if (this.life >= this.maxLife) {
-//     delete particles[this.id];
-//   }
+  if (!document.querySelector('#nft-modal .cube').classList.contains('animation-done')) {
+    setTimeout(function() {
+      flatten();
+    }, 1000);
 
-//   c.beginPath();
-//   c.arc(this.x, this.y, this.size, 0, 2 * Math.PI, false);
-//   c.fillStyle = this.color;
-//   c.fill();
-// };
+    setTimeout(function() {
+      expand();
+    }, 2000);
 
-// function drawParticle() {
-//  c.clearRect(0, 0,w,h);
-//   for (var i = 0; i < particleNum; i++) {
-//     new particle();
-//   }
-//   for (var i in particles) {
-//     particles[i].draw();
-//   }
-// }
+    setTimeout(function() {
+      expand();
+    }, 3000);
 
-// window.requestAnimFrame = (function() {
-//   return window.requestAnimationFrame ||
-//     window.webkitRequestAnimationFrame ||
-//     window.mozRequestAnimationFrame ||
-//     window.oRequestAnimationFrame ||
-//     window.msRequestAnimationFrame ||
-//     function(callback) {
-//       window.setTimeout(callback, 1000 / 60);
-//     };
-// })();
+    setTimeout(function() {
+      flatten();
+      document.querySelector('#nft-modal .cube').classList.add('animation-done')
+    }, 4000);
+  }
+}
 
+// Close the Modal
+function closeNftModal() {
+  document.querySelector("body").classList.remove("nft-body");
+  document.querySelector('.for-display').classList.remove('hide');
 
-// function loop() {
+  let blurable = document.getElementById("blurable");
+  const scrollY = blurable.style.top;
+  blurable.style.position = '';
+  blurable.style.top = '';
+  if (scrollY) {
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  }
+  deblurEverything();
 
-//   requestAnimFrame(loop);
+  document.getElementById("nft-modal").style.visibility = "hidden";
+  document.getElementById("nft-modal").style.opacity = "0";
+  setTimeout(function() {
+    document.getElementById("nft-modal").style.display = "none";
+  }, 250);
+}
 
-//   drawParticle();
-// }
+function blurEverything() {
+  let blurable = document.getElementById("blurable")
+  document.getElementById('header').style.filter = 'blur(4px)';
+  document.getElementById('footer-header').style.filter = 'blur(4px)';
+  blurable.style.filter = 'blur(4px)';
+}
+
+function deblurEverything() {
+  let blurable = document.getElementById("blurable")
+  document.getElementById('header').style.filter = '';
+  document.getElementById('footer-header').style.filter = '';
+  if (blurable) blurable.style.filter = '';
+}
+
+function ignore(e) {
+  e.stopPropagation();
+}
+

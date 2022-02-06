@@ -3,13 +3,14 @@ function toggleDropdown (name) {
 }
 
 function toggleNighttime () {
-  document.getElementById("blurable") ? document.getElementById("blurable").classList.toggle("nighttime") : null;
-  document.getElementById("header") ? document.getElementById("header").classList.toggle("nighttime") : null;
-  document.getElementById("footer") ? document.getElementById("footer").classList.toggle("nighttime") : null;
-  document.getElementById("footer-header") ? document.getElementById("footer-header").classList.toggle("nighttime") : null;
-  document.getElementById("countries-modal") ? document.getElementById("countries-modal").classList.toggle("nighttime") : null;
-  document.getElementById("landscapes-modal") ? document.getElementById("landscapes-modal").classList.toggle("nighttime") : null;
-  document.getElementById("floating-circle") ? document.getElementById("floating-circle").classList.toggle("nighttime") : null;
+  document.getElementById('blurable') ? document.getElementById('blurable').classList.toggle('nighttime') : null;
+  document.querySelector('body').classList.toggle('nighttime');
+  document.getElementById('header') ? document.getElementById('header').classList.toggle('nighttime') : null;
+  document.getElementById('footer') ? document.getElementById('footer').classList.toggle('nighttime') : null;
+  document.getElementById('footer-header') ? document.getElementById('footer-header').classList.toggle('nighttime') : null;
+  document.getElementById('countries-modal') ? document.getElementById('countries-modal').classList.toggle('nighttime') : null;
+  document.getElementById('landscapes-modal') ? document.getElementById('landscapes-modal').classList.toggle('nighttime') : null;
+  document.getElementById('floating-circle') ? document.getElementById('floating-circle').classList.toggle('nighttime') : null;
 
   var themeButtons = document.getElementsByClassName("theme");
   if (themeButtons) {

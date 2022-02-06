@@ -79,10 +79,12 @@
 }
 
 .cube:after {
+  border-radius: 50%;
   bottom: 0;
   content: "";
   display: block;
   height: 70px;
+  overflow: hidden;
   position: absolute;
   top: 110%;
   left: 50%;

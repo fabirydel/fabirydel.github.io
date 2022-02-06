@@ -57,11 +57,11 @@ function closeModal(id) {
 }
 
 function blur() {
-  document.getElementById('header').style.filter = 'blur(2px)';
-  document.getElementById('footer-header').style.filter = 'blur(2px)';
-  document.getElementById('gallery-body').style.filter = 'blur(5px)';
-  if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.filter = 'blur(2px)';
-  if (document.getElementById('header-img-container-outside')) document.getElementById('header-img-container-outside').style.filter = 'blur(5px)';
+  document.getElementById('header').style.filter = 'blur(4px)';
+  document.getElementById('footer-header').style.filter = 'blur(4px)';
+  document.getElementById('gallery-body').style.filter = 'blur(4px)';
+  if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.filter = 'blur(4px)';
+  if (document.getElementById('header-img-container-outside')) document.getElementById('header-img-container-outside').style.filter = 'blur(4px)';
 }
 
 function deblur() {

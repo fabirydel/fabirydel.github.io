@@ -22,8 +22,8 @@ figure {
 /** Basic styling */
 body {
   font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  color: #333;
-  background-color: var(--white);
+  color: var(--black);
+  background: var(--white);
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern"1;
   -moz-font-feature-settings: "kern"1;
@@ -33,6 +33,13 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  transition: all 0.75s ease;
+  -webkit-transition: all 0.75s ease;
+
+  &.nighttime {
+    background: var(--black);
+    color: var(--white);
+  }
 }
 
 /** Set `margin-bottom` to maintain vertical rhythm */

@@ -4,6 +4,12 @@
 
   --white: #f9f9f9;
   --black: #1f2224;
+
+  --main-width: 200px;
+  --main-height: 250px;
+  --side-height: 40px;
+  --side-height-half: var(--side-height) / 2;
+  --shadow-color: #939393;
 }
 
 @media screen and (max-width: 1280px) {
@@ -21,6 +27,9 @@
   :root {
     --header-height: 113.33px;
     --header-label-height: 101px;
+
+    --main-width: 200px;
+    --main-height: 250px;
   }
 }
 

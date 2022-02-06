@@ -2,7 +2,7 @@ function toggleFooter () {
   document.getElementById("footer").classList.toggle('active')
   document.getElementById("footer-background").classList.toggle('visible')
 
-  if (document.getElementById('header').style.filter == 'blur(2px)') {
+  if (document.getElementById('header').style.filter == 'blur(4px)') {
     document.getElementById("header").classList.remove("freeze")
     const scrollY = document.getElementById("blurable").style.top;
     document.getElementById('header').style.filter = '';
@@ -16,8 +16,8 @@ function toggleFooter () {
     document.getElementById("blurable").style.top = `-${window.scrollY}px`;
     document.getElementById("blurable").style.width = '100%';
     document.getElementById("blurable").style.position = 'fixed';
-    document.getElementById('header').style.filter = 'blur(2px)';
-    document.getElementById('blurable').style.filter = 'blur(5px)';
+    document.getElementById('header').style.filter = 'blur(4px)';
+    document.getElementById('blurable').style.filter = 'blur(4px)';
   }
 }
 

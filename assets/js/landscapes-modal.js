@@ -32,9 +32,9 @@ function closeLandscapesModal() {
 
 function blurPortfolio() {
   let blurable = document.getElementById("blurable")
-  document.getElementById('header').style.filter = 'blur(2px)';
-  document.getElementById('footer-header').style.filter = 'blur(2px)';
-  blurable.style.filter = 'blur(5px)';
+  document.getElementById('header').style.filter = 'blur(4px)';
+  document.getElementById('footer-header').style.filter = 'blur(4px)';
+  blurable.style.filter = 'blur(4px)';
 }
 
 function deblurPortfolio() {
