@@ -46,6 +46,35 @@
 
 .cube .face:nth-child(2) {
   transform: translateZ(var(--side-height));
+
+  &:after {
+    content: '';
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    opacity: 0.75;
+    background-size: 300% 300%;
+    background-image: -webkit-linear-gradient(
+        top left,
+        rgba(255, 255, 255, 0.0) 0%,
+        rgba(255, 255, 255, 0.0) 45%,
+        rgba(255, 255, 255, 0.4) 48%,
+        rgba(255, 255, 255, 0.7) 50%,
+        rgba(255, 255, 255, 0.4) 52%,
+        rgba(255, 255, 255, 0.0) 57%,
+        rgba(255, 255, 255, 0.0) 100%
+    );
+    -webkit-animation-name: ShineAnimation;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: cubic-bezier(.12,.89,.98,.47);
+    animation-name: ShineAnimation;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(.12,.89,.98,.47);
+  }
 }
 
 .cube .face:nth-child(3) {
@@ -81,7 +110,7 @@
 .cube:after {
   border-radius: 50%;
   bottom: 0;
-  content: "";
+  content: '';
   display: block;
   height: 70px;
   overflow: hidden;
@@ -107,9 +136,20 @@
   box-shadow: 0 0 20px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 10px var(--shadow-color), 0 0 5px var(--shadow-color), 0 0 15px var(--shadow-color), 0 0 25px var(--shadow-color);
 
   /* Change opacity of entire element to tint shadow */
-  -moz-opacity:.65;
-  filter:alpha(opacity=65);
-  opacity:.65;
+  -moz-opacity: 0.65;
+  filter: alpha(opacity=65);
+  opacity: 0.65;
+}
+
+@-webkit-keyframes ShineAnimation{
+  from {
+    background-repeat: no-repeat;
+    background-position: -300px -300px;
+  }
+  to {
+    background-repeat: no-repeat;
+    background-position: 300px 300px;
+  }
 }
 
 @media screen and (max-width: 850px) {
