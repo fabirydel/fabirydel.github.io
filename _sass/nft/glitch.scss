@@ -22,7 +22,7 @@
   --blend-color-5: #af4949;
 }
 
-.glitch{
+.glitch {
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -124,6 +124,30 @@
         }
       }
     }
+  }
+}
+
+.story-glitch-first {
+  .glitch-item {
+    background: url('/images/static6.jpeg') no-repeat 50% 50% / cover;
+  }
+
+  .glitch-item:nth-child(n+2) {
+    animation-duration: 1.6s;
+    animation-delay: 0.8s;
+  }
+}
+
+.story-glitch-second {
+  margin-top: -30px;
+
+  .glitch-item {
+    background: url('/images/static3.jpeg') no-repeat 50% 50% / cover;
+  }
+
+  .glitch-item:nth-child(n+2) {
+    animation-duration: 3s;
+    animation-delay: 1.3s;
   }
 }
 

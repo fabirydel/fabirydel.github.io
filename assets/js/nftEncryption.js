@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const downloadBtn = document.querySelector('#download-btn');
     const cubeFaces = document.querySelectorAll('.face');
     const flatFaces = document.querySelectorAll('.flat-face');
+    const glitches = document.querySelectorAll('.story-glitch');
+    const glitchContainers = document.querySelectorAll('.encrypted-image-container');
 
     for (i = 0; i < cubeFaces.length; i++) {
       try {
@@ -58,6 +60,23 @@ document.addEventListener("DOMContentLoaded", function() {
     for (i = 0; i < images.length; i++) {
       try {
         images[i].setAttribute('src', decryptWithAES(images[i].getAttribute('src'), passphrase));
+        images[i].classList.remove('encrypted-image')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    for (i = 0; i < glitches.length; i++) {
+      try {
+        glitches[i].remove()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    for (i = 0; i < glitchContainers.length; i++) {
+      try {
+        glitchContainers[i].classList.remove('encrypted-image-container')
       } catch (error) {
         console.log(error)
       }
