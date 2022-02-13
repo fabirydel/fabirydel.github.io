@@ -20,29 +20,31 @@
   transition: all 0.75s ease;
 }
 
-.nft-flat-container img {
+.nft-flat-container .flat-face {
   position: absolute;
   transition: 0.5s;
   width: 100%;
+  height: 100%;
+  background-size: cover;
   z-index: 1;
 }
 
-.nft-flat-container.active.expand img:nth-child(10) {
+.nft-flat-container.active.expand .flat-face:nth-child(10) {
   opacity: 1;
   transform: translate(160px, -160px);
 }
 
-.nft-flat-container.active.expand img:nth-child(9) {
+.nft-flat-container.active.expand .flat-face:nth-child(9) {
   opacity: 0.8;
   transform: translate(120px, -120px);
 }
 
-.nft-flat-container.active.expand img:nth-child(8) {
+.nft-flat-container.active.expand .flat-face:nth-child(8) {
   opacity: 0.6;
   transform: translate(80px, -80px);
 }
 
-.nft-flat-container.active.expand img:nth-child(7) {
+.nft-flat-container.active.expand .flat-face:nth-child(7) {
   opacity: 0.4;
   transform: translate(40px, -40px);
 }

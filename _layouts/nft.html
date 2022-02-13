@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+  {% include head.html %}
+  {% include header.html %}
+
+  <body class="{% if page.style %}{{ page.style }}{% endif %}">
+    <div id="blurable">
+      <div class="gallery-body gallery-body-landscape" id="gallery-body">
+        <div class="gallery-page-wrapper gallery-page-wrapper-landscape">
+          {{ content }}
+
+          <div class='nft-page'>
+            <h1 class='nft-title encrypt'>{{ page.title }}</h1>
+            <div class='nft-container for-display' onclick='openNftModal()'>
+              <section class='cube nft-flat-container'>
+                <div class='face' id="{{ page.image_url}}"></div>
+                <div class='face' id="{{ page.image_url}}"></div>
+                <div class='face' id="{{ page.image_url}}"></div>
+                <div class='face' id="{{ page.image_url}}"></div>
+                <div class='face' id="{{ page.image_url}}"></div>
+                <div class='face' id="{{ page.image_url}}"></div>
+                <div class="glitch">
+                  <div class="glitch-item"></div>
+                  <div class="glitch-item"></div>
+                  <div class="glitch-item"></div>
+                  <div class="glitch-item"></div>
+                  <div class="glitch-item"></div>
+                </div>
+              </section>
+            </div>
+
+            <button class="download-full" id="download-btn" onclick="{{ page.full_link }}">Download Full Resolution Image</button>
+
+            <div class="story-details-container">
+              <div class="story">
+                <span class="title">Story time</span>
+                <p class="encrypt">{{ page.first_paragraph }}</p>
+                <img class="story-image encrypt-image" src="{{ page.story_image }}"/>
+                <p class="encrypt">{{ page.second_paragraph }}</p>
+              </div>
+              <div class="details">
+                <span class="title">Specs</span>
+                <div class="details-row">
+                  <div class="camera-icon aperture"></div>
+                  <span class="camera-text encrypt">{{ page.aperture }}</span>
+                </div>
+                <div class="details-row">
+                  <div class="camera-icon exposure"></div>
+                  <span class="camera-text encrypt">{{ page.exposure }}</span>
+                </div>
+                <div class="details-row">
+                  <div class="camera-icon iso"></div>
+                  <span class="camera-text encrypt">{{ page.iso }}</span>
+                </div>
+                <div class="details-row">
+                  <div class="camera-icon length"></div>
+                  <span class="camera-text encrypt">{{ page.length }}</span>
+                </div>
+                <div class="details-row">
+                  <div class="camera-icon camera"></div>
+                  <span class="camera-text encrypt">{{ page.camera }}</span>
+                </div>
+                <div class="details-row">
+                  <div class="camera-icon lens"></div>
+                  <span class="camera-text encrypt">{{ page.lens }}</span>
+                </div>
+                <div class="details-row">
+                  <div class="camera-icon date"></div>
+                  <span class="camera-text encrypt">{{ page.date_and_time }}</span>
+                </div>
+                <div class="details-row">
+                  <div class="camera-icon location"></div>
+                  <span class="camera-text encrypt">{{ page.location }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div id='secret-key'>{{ page.secret_key }}</div> -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {% include footer.html %}
+  </body>
+
+  {% include gallery_portfolio_modal.html %}
+  {% include countries_modal.html %}
+  {% include nft_modal.html %}
+  {% include landscapes_modal.html %}
+
+</html>

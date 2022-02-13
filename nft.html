@@ -4,15 +4,63 @@ title: NFT
 ---
 
 <div class='nft-page'>
-  <h1 class='nft-title'>Thank you for purchasing NFT_NAME</h1>
+  <h1 class='nft-title encrypt'>{{ site.data.nfts.bled.title }}</h1>
   <div class='nft-container for-display' onclick='openNftModal()'>
     <section class='cube nft-flat-container'>
-      <div class='face'></div>
-      <div class='face'></div>
-      <div class='face'></div>
-      <div class='face'></div>
-      <div class='face'></div>
-      <div class='face'></div>
+      <div class='face' id="{{ site.data.nfts.bled.image_url}}"></div>
+      <div class='face' id="{{ site.data.nfts.bled.image_url}}"></div>
+      <div class='face' id="{{ site.data.nfts.bled.image_url}}"></div>
+      <div class='face' id="{{ site.data.nfts.bled.image_url}}"></div>
+      <div class='face' id="{{ site.data.nfts.bled.image_url}}"></div>
+      <div class='face' id="{{ site.data.nfts.bled.image_url}}"></div>
     </section>
   </div>
+
+  <button class="download-full" id="download-btn" onclick="{{ site.data.nfts.bled.full_link }}">Download Full Resolution Image</button>
+
+  <div class="story-details-container">
+    <div class="story">
+      <span class="title">Story time</span>
+      <p class="encrypt">{{ site.data.nfts.bled.first_paragraph }}</p>
+      <img class="story-image encrypt-image" src="{{ site.data.nfts.bled.story_image }}"/>
+      <p class="encrypt">{{ site.data.nfts.bled.second_paragraph }}</p>
+    </div>
+    <div class="details">
+      <span class="title">Specs</span>
+      <div class="details-row">
+        <div class="camera-icon aperture"></div>
+        <span class="camera-text encrypt">{{ site.data.nfts.bled.aperture }}</span>
+      </div>
+      <div class="details-row">
+        <div class="camera-icon exposure"></div>
+        <span class="camera-text encrypt">{{ site.data.nfts.bled.exposure }}</span>
+      </div>
+      <div class="details-row">
+        <div class="camera-icon iso"></div>
+        <span class="camera-text encrypt">{{ site.data.nfts.bled.iso }}</span>
+      </div>
+      <div class="details-row">
+        <div class="camera-icon length"></div>
+        <span class="camera-text encrypt">{{ site.data.nfts.bled.length }}</span>
+      </div>
+      <div class="details-row">
+        <div class="camera-icon camera"></div>
+        <span class="camera-text encrypt">{{ site.data.nfts.bled.camera }}</span>
+      </div>
+      <div class="details-row">
+        <div class="camera-icon lens"></div>
+        <span class="camera-text encrypt">{{ site.data.nfts.bled.lens }}</span>
+      </div>
+      <div class="details-row">
+        <div class="camera-icon date"></div>
+        <span class="camera-text encrypt">{{ site.data.nfts.bled.date_and_time }}</span>
+      </div>
+      <div class="details-row">
+        <div class="camera-icon location"></div>
+        <span class="camera-text encrypt">{{ site.data.nfts.bled.location }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div id='secret-key'>{{ site.data.nfts.bled.secret_key }}</div> -->
 </div>
