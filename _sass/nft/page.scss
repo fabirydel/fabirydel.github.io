@@ -72,6 +72,8 @@
   display: flex;
   margin: auto;
   justify-content: center;
+  padding: 0 25px;
+  flex-direction: column;
 
   .title {
     display: block;
@@ -79,8 +81,9 @@
     font-weight: 200;
     padding-bottom: 15px;
     text-align: center;
-    text-decoration-thickness: from-font;
     text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 1px;
   }
 }
 
@@ -119,19 +122,18 @@
 }
 
 .story {
-  max-width: 40%;
+  max-width: 60%;
   max-height: 30%;
   text-align: justify;
   font-family: 'poppins';
+  margin: 0 auto;
 
   .story-image {
-    border-radius: 2%;
     float: left;
     height: 30%;
     margin-right: 20px;
     margin-top: 7px;
-    max-width: 40%;
-    overflow: hidden;
+    max-width: 30%;
 
     &.right {
       float: right;
@@ -140,29 +142,32 @@
     }
 
     img {
+      border-radius: 2%;
       height: 100%;
       object-fit: cover;
+      box-shadow: 0px 0px 22px -10px var(--black);
     }
   }
 
   .encrypted-image-container {
     height: 150px;
+    width: 100%;
+    max-width: 200px;
   }
 
   .encrypted-image {
     min-height: 150px;
     margin-right: 15px;
     min-height: initial;
-    height: 0;
+    height: 0 !important;
     width: 0;
     margin: 0;
-
-    &.right {
-    }
   }
 }
 
 .encrypt {
+  font-weight: 200;
+
   white-space: pre-wrap;      /* CSS3 */
   white-space: -moz-pre-wrap; /* Firefox */
   white-space: -pre-wrap;     /* Opera <7 */
@@ -200,6 +205,10 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  &.mini {
+    padding: 5px 0 20px 0;
   }
 }
 
@@ -239,8 +248,8 @@
 }
 
 .location {
-  -webkit-mask: url(/assets/icons/location4.svg) no-repeat center;
-  mask: url(/assets/icons/location4.svg) no-repeat center;
+  -webkit-mask: url(/assets/icons/location6.svg) no-repeat center;
+  mask: url(/assets/icons/location6.svg) no-repeat center;
 }
 
 .trigger {
@@ -266,18 +275,46 @@
   }
 }
 
+#nftImageModal {
+  .slide {
+    display: block;
+
+    .image-modal-container {
+      max-width: 40%;
+
+      img {
+        max-width: calc(100% - 6px);
+        max-height: 100%;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 850px) {
   .story-details-container {
     padding: 0 25px;
     flex-direction: column;
 
     .story {
-      width: initial;
-      max-width: initial;
+      width: 100%;
+      max-width: 100%;
+
+      .story-image {
+        max-width: 45%;
+      }
     }
 
     .details {
       padding: 20px 0;
+    }
+  }
+
+  #nftImageModal {
+    .slide {
+
+      .image-modal-container {
+        width: 80%;
+      }
     }
   }
 }

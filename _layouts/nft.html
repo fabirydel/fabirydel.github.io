@@ -34,10 +34,44 @@
 
             <div class="story-details-container">
               <div class="story">
-                <span class="title">Story time</span>
+                <div class="details mini">
+                  <div class="details-row">
+                    <div class="camera-icon date"></div>
+                    <span class="camera-text encrypt">{{ page.date_and_time }}</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="camera-icon location"></div>
+                    <span class="camera-text encrypt">{{ page.location }}</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="camera-icon aperture"></div>
+                    <span class="camera-text encrypt">{{ page.aperture }}</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="camera-icon exposure"></div>
+                    <span class="camera-text encrypt">{{ page.exposure }}</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="camera-icon iso"></div>
+                    <span class="camera-text encrypt">{{ page.iso }}</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="camera-icon length"></div>
+                    <span class="camera-text encrypt">{{ page.length }}</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="camera-icon camera"></div>
+                    <span class="camera-text encrypt">{{ page.camera }}</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="camera-icon lens"></div>
+                    <span class="camera-text encrypt">{{ page.lens }}</span>
+                  </div>
+                </div>
+
                 <p class="encrypt">{{ page.first_paragraph }}</p>
                 <div class="story-image encrypt-image encrypted-image-container">
-                  <img class="encrypt-image encrypted-image" src="{{ page.story_image }}"/>
+                  <img class="encrypt-image encrypted-image" src="{{ page.story_image }}" onclick="openNftImageModal(this)"/>
                   <div class="glitch story-glitch-first story-glitch">
                     <div class="glitch-item"></div>
                     <div class="glitch-item"></div>
@@ -49,7 +83,7 @@
                 <p class="encrypt">{{ page.second_paragraph }}</p>
                 {% if page.second_story_image %}
                   <div class="story-image right encrypt-image encrypted-image-container">
-                    <img class="encrypt-image encrypted-image" src="{{ page.second_story_image }}">
+                    <img class="encrypt-image encrypted-image" src="{{ page.second_story_image }}" onclick="openNftImageModal(this)">
                     <div class="glitch story-glitch-second story-glitch">
                       <div class="glitch-item"></div>
                       <div class="glitch-item"></div>
@@ -63,44 +97,7 @@
                   <p class="encrypt">{{ page.third_paragraph }}</p>
                 {% endif %}
               </div>
-              <div class="details">
-                <span class="title">Specs</span>
-                <div class="details-row">
-                  <div class="camera-icon aperture"></div>
-                  <span class="camera-text encrypt">{{ page.aperture }}</span>
-                </div>
-                <div class="details-row">
-                  <div class="camera-icon exposure"></div>
-                  <span class="camera-text encrypt">{{ page.exposure }}</span>
-                </div>
-                <div class="details-row">
-                  <div class="camera-icon iso"></div>
-                  <span class="camera-text encrypt">{{ page.iso }}</span>
-                </div>
-                <div class="details-row">
-                  <div class="camera-icon length"></div>
-                  <span class="camera-text encrypt">{{ page.length }}</span>
-                </div>
-                <div class="details-row">
-                  <div class="camera-icon camera"></div>
-                  <span class="camera-text encrypt">{{ page.camera }}</span>
-                </div>
-                <div class="details-row">
-                  <div class="camera-icon lens"></div>
-                  <span class="camera-text encrypt">{{ page.lens }}</span>
-                </div>
-                <div class="details-row">
-                  <div class="camera-icon date"></div>
-                  <span class="camera-text encrypt">{{ page.date_and_time }}</span>
-                </div>
-                <div class="details-row">
-                  <div class="camera-icon location"></div>
-                  <span class="camera-text encrypt">{{ page.location }}</span>
-                </div>
-              </div>
             </div>
-
-            <!-- <div id='secret-key'>{{ page.secret_key }}</div> -->
           </div>
 
         </div>
@@ -111,6 +108,7 @@
 
   {% include gallery_portfolio_modal.html %}
   {% include countries_modal.html %}
+  {% include nft_image_modal.html %}
   {% include nft_modal.html %}
   {% include landscapes_modal.html %}
 

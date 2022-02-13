@@ -150,3 +150,37 @@ function ignore(e) {
   e.stopPropagation();
 }
 
+
+function openNftImageModal(event) {
+  let blurable = document.getElementById("blurable");
+  blurable.style.top = `-${window.scrollY}px`;
+  blurable.style.position = 'fixed';
+  blurable.style.width = '100%';
+
+  document.getElementById('replace-me').src = event.src;
+
+  document.getElementById("nftImageModal").style.display = "block";
+  setTimeout(function() {
+    document.getElementById("nftImageModal").style.visibility = "visible";
+    document.getElementById("nftImageModal").style.opacity = "1";
+  }, 10);
+  blurEverything();
+}
+
+function closeNftImageModal() {
+  let blurable = document.getElementById("blurable");
+  const scrollY = blurable.style.top;
+  blurable.style.position = '';
+  blurable.style.top = '';
+  if (scrollY) {
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  }
+  deblurEverything();
+
+  document.getElementById("nftImageModal").style.visibility = "hidden";
+  document.getElementById("nftImageModal").style.opacity = "0";
+  setTimeout(function() {
+    document.getElementById("nftImageModal").style.display = "none";
+  }, 250);
+}
+

@@ -127,6 +127,12 @@
   }
 }
 
+.story-glitch {
+  border-radius: 2%;
+  box-shadow: 0px 0px 22px -10px var(--black);
+  margin-top: -25px;
+}
+
 .story-glitch-first {
   .glitch-item {
     background: url('/images/static6.jpeg') no-repeat 50% 50% / cover;
@@ -139,8 +145,6 @@
 }
 
 .story-glitch-second {
-  margin-top: -30px;
-
   .glitch-item {
     background: url('/images/static3.jpeg') no-repeat 50% 50% / cover;
   }
