@@ -7,19 +7,19 @@
   </div>
   <div class="header-options">
     <a href="/">
-      <h1>Portfolio</h1>
+      <h1 class="{% if page.url == '/' %} header-selected {% endif %}">Portfolio</h1>
     </a>
 
     <a href="/worldmap">
-      <h1>Locations</h1>
+      <h1 class="{% if page.url == '/worldmap.html' %} header-selected {% endif %}">Locations</h1>
     </a>
 
     <div class="right-options">
       <div class="option-container">
-        <h1 onclick="openLandscapesModal()">Categories</h1>
+        <h1 onclick="openLandscapesModal()" class="{% if page.url contains 'landscapes' %} header-selected {% endif %}">Categories</h1>
       </div>
       <div class="option-container option-container-countries">
-        <h1 onclick="openCountriesModal()">Countries</h1>
+        <h1 onclick="openCountriesModal()" class="{% if page.url contains 'countries' %} header-selected {% endif %}">Countries</h1>
       </div>
       <div class="option-container theme-container theme-big" onclick="toggleTheme()">
         <span id="#theme" class="theme icon fa-moon"></span>

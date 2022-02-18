@@ -1,27 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function() {
-//   const encryptWithAES = (text, passphrase) => {
-//     return CryptoJS.AES.encrypt(text, passphrase).toString();
-//   };
-
-//   const elements = document.querySelectorAll('.encrypt');
-//   const images = document.querySelectorAll('.encrypt-image');
-//   const downloadBtn = document.querySelector('#download-btn');
-
-//   const passphraseElement = document.querySelector('#secret-key');
-//   const passphrase = passphraseElement.textContent;
-
-//   for (i = 0; i < elements.length; i++) {
-//     elements[i].textContent = encryptWithAES(elements[i].textContent, passphrase);
-//   }
-
-//   for (i = 0; i < images.length; i++) {
-//     images[i].src = encryptWithAES(images[i].src, passphrase);
-//   }
-
-//   downloadBtn.setAttribute('onclick', encryptWithAES(downloadBtn.getAttribute('onclick'), passphrase));
-//   passphraseElement.remove();
-// });
-
 document.addEventListener("DOMContentLoaded", function() {
   if (document.querySelector('.nft-page')) {
     setTimeout(function() {

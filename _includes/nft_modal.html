@@ -1,23 +1,23 @@
 <div id="nft-modal" class="modal">
-  <a class="close cursor icon fa fa-times" onclick="closeNftModal('nft-modal')"></a>
+  <a class="close cursor icon close-button" onclick="closeNftModal('nft-modal')"></a>
   <div class="modal-content">
 
       <div id='nft-image-container' ontouchmove="interact(event)">
-        <section class='cube modal-cube nft-flat-container' onclick='expand()'>
+        <section class='cube modal-cube nft-flat-container'>
           <div id="{{ page.image_url}}" class='face modal-face'></div>
           <div id="{{ page.image_url}}" class='face modal-face'></div>
           <div id="{{ page.image_url}}" class='face modal-face'></div>
           <div id="{{ page.image_url}}" class='face modal-face'></div>
           <div id="{{ page.image_url}}" class='face modal-face'></div>
           <div id="{{ page.image_url}}" class='face modal-face'></div>
-          <div id="{{ page.image_url}}" class="encrypt-image flat-face"></div>
-          <div id="{{ page.image_url}}" class="encrypt-image flat-face"></div>
-          <div id="{{ page.image_url}}" class="encrypt-image flat-face"></div>
-          <div id="{{ page.image_url}}" class="encrypt-image flat-face"></div>
+          <div id="{{ page.image_url}}" class="flat-face"></div>
+          <div id="{{ page.image_url}}" class="flat-face"></div>
+          <div id="{{ page.image_url}}" class="flat-face"></div>
+          <div id="{{ page.image_url}}" class="flat-face"></div>
         </section>
       </div>
 
-      <button class="trigger" onclick="flatten()">TOGGLE</button>
+      <button onclick="flattenAndOrExapand()" class="trigger-animation invisible"></button>
     </div>
   </div>
 </div>

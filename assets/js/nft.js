@@ -30,11 +30,31 @@ function stopInteraction() {
   document.removeEventListener('mousemove', interact);
 }
 
+function flattenAndOrExapand() {
+  const cube = document.querySelector('.modal-cube');
+
+  if (!cube.classList.contains('active')) {
+    cube.classList.add('flattened');
+    flatten()
+  } else if (cube.classList.contains('active') && cube.classList.contains('flattened') && !cube.classList.contains('expanded')) {
+    cube.classList.add('expanded');
+    expand();
+  } else if (cube.classList.contains('active') && cube.classList.contains('flattened') && cube.classList.contains('expanded') && !cube.classList.contains('finished')) {
+    cube.classList.add('finished');
+    expand();
+  } else  if (cube.classList.contains('active') && cube.classList.contains('flattened') && cube.classList.contains('expanded') && cube.classList.contains('finished')) {
+    cube.classList.remove('finished');
+    cube.classList.remove('expanded');
+    cube.classList.remove('flattened');
+    flatten();
+  }
+}
+
 function flatten() {
   const sides = document.getElementsByClassName('modal-face');
   const cube = document.getElementsByClassName('modal-cube');
 
-  document.querySelector('.trigger').disabled = true;
+  document.querySelector('.trigger-animation').disabled = true;
   if (cube[0].classList.contains('expand')) {
     expand();
   }
@@ -63,7 +83,9 @@ function flatten() {
 
     cube[0].classList.toggle('animate');
     cube[0].classList.toggle('active');
-    document.querySelector('.trigger').disabled = false;
+    if (document.querySelector('#nft-modal .cube').classList.contains('animation-done')) {
+      document.querySelector('.trigger-animation').disabled = false;
+    }
   }, 750);
 }
 
@@ -106,7 +128,8 @@ function openNftModal() {
 
     setTimeout(function() {
       flatten();
-      document.querySelector('#nft-modal .cube').classList.add('animation-done')
+      document.querySelector('#nft-modal .cube').classList.add('animation-done');
+      document.querySelector('.trigger-animation').classList.remove('invisible');
     }, 4000);
   }
 }
@@ -134,9 +157,9 @@ function closeNftModal() {
 
 function blurEverything() {
   let blurable = document.getElementById("blurable")
-  document.getElementById('header').style.filter = 'blur(4px)';
-  document.getElementById('footer-header').style.filter = 'blur(4px)';
-  blurable.style.filter = 'blur(4px)';
+  document.getElementById('header').style.filter = 'blur(8px)';
+  document.getElementById('footer-header').style.filter = 'blur(8px)';
+  blurable.style.filter = 'blur(8px)';
 }
 
 function deblurEverything() {

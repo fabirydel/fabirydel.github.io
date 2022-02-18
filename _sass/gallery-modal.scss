@@ -23,7 +23,7 @@
 
 .map-modal-content {
   border-radius: 3px;
-  border: 3px solid white;
+  border: 3px solid var(--white);
   box-shadow: 0px 0px 26px -5px #000;
   height: calc(100% - 120px);
   left: 50%;
@@ -37,21 +37,23 @@
 
 /* The Close Button */
 .close {
-  color: #fefefe;
+  color: var(--white);
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 25px;
-  font-size: 35px;
   opacity: 1;
   transition: 0.3s ease;
   z-index: 1;
+  height: 24px;
+  width: 24px;
+  background: var(--white);
 }
 
 .close:hover,
 .close:focus,
 .prev:hover,
 .next:hover {
-  color: #fff;
+  color: var(--white);
   cursor: pointer;
   opacity: 0.75;
   text-decoration: none;
@@ -65,7 +67,7 @@
 
   img {
     border-radius: 3px;
-    border: 3px solid white;
+    border: 3px solid var(--white);
     box-shadow: 0px 0px 26px -5px #000;
     max-height: calc(100vh - 80px);
     max-width: 85%;
@@ -78,7 +80,7 @@
 .next {
   -webkit-user-select: none;
   border-radius: 0 3px 3px 0;
-  color: #fefefe;
+  color: var(--white);
   cursor: pointer;
   font-size: 20px;
   font-weight: bold;
@@ -131,7 +133,7 @@
 
     img {
       border-radius: 3px;
-      border: 3px solid white;
+      border: 3px solid var(--white);
       box-shadow: 0px 0px 26px -5px #000;
       max-height: calc(100vh - 80px);
       max-width: 85%;
@@ -295,10 +297,16 @@ body.nighttime {
   }
 }
 
+.close-button {
+  -webkit-mask: url(/assets/icons/close.svg) no-repeat center;
+  mask: url(/assets/icons/close.svg) no-repeat center;
+}
+
 @media screen and (max-width: 1280px) {
   .modal {
     .next, .prev, .close {
-      font-size: 28px;
+      height: 20px;
+      width: 20px;
     }
   }
 
@@ -330,7 +338,8 @@ body.nighttime {
     }
 
     .prev, .next {
-      bottom: 5px;
+      position: fixed;
+      bottom: 35px;
       top: initial;
     }
 
