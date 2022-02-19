@@ -12,6 +12,7 @@
 
           <div class='nft-page'>
             <h1 class='nft-title encrypt'>{{ page.title }}</h1>
+            <div class="fake-cube" onclick="openRedeemModal()" onmouseenter="hoverRedeem()" onmouseleave="leaveRedeem()"></div>
             <div class='nft-container for-display' onclick='openNftModal()'>
               <section class='cube nft-flat-container'>
                 <div class='face' id="{{ page.image_url}}"></div>
@@ -27,6 +28,7 @@
                   <div class="glitch-item"></div>
                   <div class="glitch-item"></div>
                 </div>
+                <span class="redeem">CLICK TO REDEEM</span>
               </section>
             </div>
 
@@ -69,7 +71,6 @@
                   </div>
                 </div>
 
-                <p class="encrypt">{{ page.first_paragraph }}</p>
                 <div class="story-image encrypted-image-container">
                   <img class="encrypt-image encrypted-image" src="{{ page.story_image }}" onclick="openNftImageModal(this)"/>
                   <div class="glitch story-glitch-first story-glitch">
@@ -80,7 +81,7 @@
                     <div class="glitch-item"></div>
                   </div>
                 </div>
-                <p class="encrypt">{{ page.second_paragraph }}</p>
+                <p class="encrypt">{{ page.first_paragraph }}</p>
                 {% if page.second_story_image %}
                   <div class="story-image right encrypted-image-container">
                     <img class="encrypt-image encrypted-image" src="{{ page.second_story_image }}" onclick="openNftImageModal(this)">
@@ -93,6 +94,7 @@
                     </div>
                   </div>
                   {% endif %}
+                <p class="encrypt">{{ page.second_paragraph }}</p>
                 {% if page.third_paragraph %}
                   <p class="encrypt">{{ page.third_paragraph }}</p>
                 {% endif %}

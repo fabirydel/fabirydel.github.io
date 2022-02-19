@@ -137,7 +137,7 @@
   landscape: true
 
 - path: valensole/24_IMG_6130_2.jpg
-  title: Lone Tree
+  title: Purple Tree
   place: Valensole
   location: valensole
   country: france
@@ -336,10 +336,10 @@
   location: durdle_door
   country: england
 
-- path: lagangharb/IMG_4339.jpg
+- path: lagangarbh/IMG_4339.jpg
   title: Mountain Cottage
-  place: The Lagangharb
-  location: lagangharb
+  place: The Lagangarbh
+  location: lagangarbh
   country: scotland
 
 - path: arboras/IMG_4747.jpg

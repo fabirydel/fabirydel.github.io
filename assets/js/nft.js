@@ -16,8 +16,8 @@ function interact(event) {
   const midY = (y + window.innerHeight / 2) * 0.2;
 
   const cube = document.querySelector('.modal-cube');
-  const valY = midY > 0 ? Math.min(midY, 30) : Math.max(midY, -30)
-  const valX = midX > 0 ? Math.min(midX, 30) : Math.max(midX, -30)
+  const valY = midY > 0 ? Math.min(midY, 40) : Math.max(midY, -40)
+  const valX = midX > 0 ? Math.min(midX, 40) : Math.max(midX, -40)
 
   cube.style.transform = `rotateX(${valY}deg) rotateY(${valX}deg) translate(-50%, -50%)`;
 }
@@ -84,8 +84,9 @@ function flatten() {
     cube[0].classList.toggle('animate');
     cube[0].classList.toggle('active');
     if (document.querySelector('#nft-modal .cube').classList.contains('animation-done')) {
-      document.querySelector('.trigger-animation').disabled = false;
+      // document.querySelector('.trigger-animation').disabled = false;
     }
+    document.querySelector('.trigger-animation').disabled = false;
   }, 750);
 }
 
@@ -113,7 +114,7 @@ function openNftModal() {
   }, 10);
   blurEverything();
 
-  if (!document.querySelector('#nft-modal .cube').classList.contains('animation-done')) {
+  if (document.querySelector('#nft-modal .cube').classList.contains('animation-done')) { // negate condition to activate
     setTimeout(function() {
       flatten();
     }, 1000);
@@ -129,9 +130,11 @@ function openNftModal() {
     setTimeout(function() {
       flatten();
       document.querySelector('#nft-modal .cube').classList.add('animation-done');
-      document.querySelector('.trigger-animation').classList.remove('invisible');
+      // document.querySelector('.trigger-animation').classList.remove('invisible');
     }, 4000);
   }
+
+  document.querySelector('.trigger-animation').classList.remove('invisible');
 }
 
 // Close the Modal

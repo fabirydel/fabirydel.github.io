@@ -23,16 +23,20 @@
 }
 
 .glitch {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  max-width: 100%;
+  opacity: 1;
   overflow: hidden;
+  position: relative;
   transform: translateZ(var(--side-height));
+  width: 100%;
   z-index: 1;
+  -webkit-transition: all 0.75s ease;
+  transition: all 0.75s ease;
+  text-shadow:    -0.0075em 0.0075em 0 mix(#fff, #e91e63, 94%),    0.005em 0.005em 0 mix(#fff, #e91e63, 60%),    0.01em 0.01em 0 mix(#fff, #e91e63, 62%),     0.015em 0.015em mix(#fff, #e91e63, 64%),     0.02em 0.02em 0 mix(#fff, #e91e63, 66%),     0.025em 0.025em 0 mix(#fff, #e91e63, 68%),    0.03em 0.03em 0 mix(#fff, #e91e63, 70%),    0.035em 0.035em 0 mix(#fff, #e91e63, 72%);
 
   .glitch-item{
     background: url('/images/static4.jpeg') no-repeat 50% 50% / cover;
