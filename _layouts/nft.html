@@ -12,7 +12,7 @@
 
           <div class='nft-page'>
             <h1 class='nft-title encrypt'>{{ page.title }}</h1>
-            <div class="fake-cube" onclick="openRedeemModal()" onmouseenter="hoverRedeem()" onmouseleave="leaveRedeem()"></div>
+            <div class="fake-cube" onclick="openDecryptModal()" onmouseenter="hoverDecrypt()" onmouseleave="leaveDecrypt()"></div>
             <div class='nft-container for-display' onclick='openNftModal()'>
               <section class='cube nft-flat-container'>
                 <div class='face' id="{{ page.image_url}}"></div>
@@ -28,7 +28,7 @@
                   <div class="glitch-item"></div>
                   <div class="glitch-item"></div>
                 </div>
-                <span class="redeem">CLICK TO REDEEM</span>
+                <span class="decrypt">CLICK TO DECRYPT</span>
               </section>
             </div>
 
@@ -112,6 +112,7 @@
   {% include countries_modal.html %}
   {% include nft_image_modal.html %}
   {% include nft_modal.html %}
+  {% include decrypt_modal.html %}
   {% include landscapes_modal.html %}
 
 </html>

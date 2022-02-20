@@ -1,13 +1,20 @@
-function hoverRedeem() {
-  document.querySelector('.redeem').classList.add('redeem-hovered');
+function hoverDecrypt() {
+  document.querySelector('.decrypt').classList.add('decrypt-hovered');
 }
 
-function leaveRedeem() {
-  document.querySelector('.redeem').classList.remove('redeem-hovered');
+function leaveDecrypt() {
+  document.querySelector('.decrypt').classList.remove('decrypt-hovered');
 }
 
-function openRedeemModal() {
-  let passphrase = prompt("Please enter your key", "Secret Key");
+function showError() {
+  document.querySelector('.error').classList.add('visible');
+  document.querySelector('#decrypt-text').classList.add('disabled');
+  document.querySelector('#decrypt-text').disabled = true;
+  document.querySelector('#decrypt-text').value = 'Reload page to try again';
+}
+
+function decrypt() {
+  let passphrase = document.querySelector('#decrypt-text').value;
   const elements = document.querySelectorAll('.encrypt');
   const images = document.querySelectorAll('.encrypt-image');
   const downloadBtn = document.querySelector('#download-btn');
@@ -20,7 +27,7 @@ function openRedeemModal() {
     try {
       cubeFaces[i].style.backgroundImage = decryptWithAES(cubeFaces[i].id, passphrase);
     } catch (error) {
-      console.log(error)
+      showError();
     }
   }
 
@@ -28,7 +35,7 @@ function openRedeemModal() {
     try {
       flatFaces[i].style.backgroundImage = decryptWithAES(flatFaces[i].id, passphrase);
     } catch (error) {
-      console.log(error)
+      showError();
     }
   }
 
@@ -36,7 +43,7 @@ function openRedeemModal() {
     try {
       elements[i].textContent = decryptWithAES(elements[i].textContent, passphrase);
     } catch (error) {
-      console.log(error)
+      showError();
     }
   }
 
@@ -45,7 +52,7 @@ function openRedeemModal() {
       images[i].setAttribute('src', decryptWithAES(images[i].getAttribute('src'), passphrase));
       images[i].classList.remove('encrypted-image')
     } catch (error) {
-      console.log(error)
+      showError();
     }
   }
 
@@ -53,9 +60,10 @@ function openRedeemModal() {
   if (downloadBtn.getAttribute('onclick')) {
     // Put here anything that needs successful decryption
 
+    closeDecryptModal();
     document.querySelector('.glitch').classList.add('invisible');
     document.querySelector('.fake-cube').classList.add('invisible');
-    document.querySelector('.redeem').classList.add('invisible');
+    document.querySelector('.decrypt').classList.add('invisible');
     document.querySelector('.for-display').style.pointerEvents = 'initial';
 
     for (i = 0; i < glitches.length; i++) {
@@ -74,6 +82,36 @@ function openRedeemModal() {
       }
     }
   }
+}
+
+function closeDecryptModal() {
+  let blurable = document.getElementById("blurable")
+  const scrollY = blurable.style.top;
+  blurable.style.position = '';
+  blurable.style.top = '';
+  if (scrollY) {
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  }
+  deblurEverything();
+
+  document.getElementById("decrypt-modal").style.visibility = "hidden";
+  document.getElementById("decrypt-modal").style.opacity = "0";
+  setTimeout(function() {
+    document.getElementById("decrypt-modal").style.display = "none";
+  }, 250);
+}
+
+function openDecryptModal() {
+  let blurable = document.getElementById("blurable");
+  blurable.style.top = `-${window.scrollY}px`;
+  blurable.style.position = 'fixed';
+  blurable.style.width = '100%';
+  document.getElementById("decrypt-modal").style.display = "block";
+  setTimeout(function() {
+    document.getElementById("decrypt-modal").style.visibility = "visible";
+    document.getElementById("decrypt-modal").style.opacity = "1";
+  }, 10);
+  blurEverything();
 }
 
 function decryptWithAES(ciphertext, passphrase)  {
