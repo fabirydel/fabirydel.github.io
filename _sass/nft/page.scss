@@ -201,6 +201,8 @@
       width: 24px;
       background: var(--black);
       margin-right: 10px;
+      -webkit-transition: all 0.75s ease;
+      transition: all 0.75s ease;
     }
 
     &:last-child {
@@ -209,7 +211,12 @@
   }
 
   &.mini {
-    padding: 5px 0 20px 0;
+    background: #ebebeb;
+    padding: 10px 14px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    -webkit-transition: all 0.75s ease;
+    transition: all 0.75s ease;
   }
 }
 
@@ -274,11 +281,13 @@
       box-shadow: none;
     }
   }
+  .details.mini {
+    background: #343434;
+  }
 }
 
 .decrypt {
-  -webkit-text-stroke: 1px black;
-  color: white;
+  color: var(--white);
   font-family: 'poppins';
   font-size: 30px;
   font-weight: 900;
@@ -290,7 +299,8 @@
   transform: translate(-50%, -50%) translateZ(55px);
   -webkit-transition: all 0.75s ease;
   transition: all 0.75s ease;
-  text-shadow: 0px 0px 8px #eb452b, 0px 0px 8px #efa032, 0px 0px 8px #46b59b, 0px 0px 8px #017e7f, 0px 0px 8px #052939, 0px 0px 8px #c11a2b, 0px 0px 8px #c11a2b, 0px 0px 8px #c11a2b, 0px 0px 8px #c11a2b;
+  -webkit-text-stroke: 1px #a7a7a7;
+  text-shadow: 0 0 20px black;
 }
 
 .decrypt-hovered {
