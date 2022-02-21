@@ -1,0 +1,21 @@
+---
+layout: default
+title: NFTs
+---
+<div class="nfts-page">
+  <div class="nfts-container">
+    {% for nft in site.nfts %}
+      <a class="nft-container" href="{{ nft.open_sea_link }}">
+        <img src="/images/nfts/final/for_show/{{ nft.show_url }}" class="nft-image"/>
+        <div class="nft-text-container">
+          <div class="nft-text collection">
+            {{ nft.collection_name }}
+          </div>
+          <div class="nft-text">
+            {{ nft.item }}
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>

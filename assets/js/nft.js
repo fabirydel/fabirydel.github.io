@@ -2,8 +2,10 @@ document.addEventListener("DOMContentLoaded", function() {
   if (document.querySelector('#nft-image-container')) document.querySelector('#nft-image-container').addEventListener('mouseenter', startInteraction);
   if (document.querySelector('#nft-image-container')) document.querySelector('#nft-image-container').addEventListener('mouseleave', stopInteraction);
 
-  const nftHeight = document.querySelector('.for-display .cube').offsetHeight
-  document.querySelector('.for-display').style.height = `${nftHeight}px`;
+  if (document.querySelector('.for-display .cube')) {
+    const nftHeight = document.querySelector('.for-display .cube').offsetHeight
+    document.querySelector('.for-display').style.height = `${nftHeight}px`;
+  }
 });
 
 function interact(event) {

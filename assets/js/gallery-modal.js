@@ -106,11 +106,3 @@ function showSlides(n) {
     captionText.innerHTML = dots[slideIndex].alt;
   }
 }
-
-// var aa = ["Thanks for purchasing 'Mountain Cottage'",  'ƒ/4.5', '1/180 sec', '100', '28mm',  'Canon 90D', 'EF-S18-200mm ƒ/3.5-5.6 IS', '28th May 2021, 19:45',  'Glencoe, Scotland', "window.open('https://drive.google.com/file/d/1s0893r0ei_ZmahnyLyFM9j75HYBdnWlV/view', '_blank')", "url('/images/nfts/final/IMG_4339.jpg')"]
-// for (i = 0; i < aa.length; i++) {
-//   console.log(CryptoJS.AES.encrypt(aa[i], '0QveBx2ONZ6Uvxxh').toString());
-// }
-
-
-

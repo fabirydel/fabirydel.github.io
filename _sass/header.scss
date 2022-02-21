@@ -57,22 +57,6 @@
     &.theme-big .theme:before {
       vertical-align: middle;
     }
-
-    &:hover {
-      background: var(--black);
-
-      .icon {
-        color: var(--white);
-      }
-
-      .open-seas {
-        opacity: 0;
-      }
-
-      .night {
-        opacity: 1;
-      }
-    }
   }
 
   .header-options {
@@ -200,22 +184,6 @@
     .theme-container {
       border: 1px solid var(--white);
       color: var(--white);
-
-      &:hover {
-        background: var(--white);
-
-        .icon {
-          color: var(--black);
-        }
-
-        .open-seas {
-          opacity: 1;
-        }
-
-        .night {
-          opacity: 0;
-        }
-      }
     }
 
     .open-seas {
