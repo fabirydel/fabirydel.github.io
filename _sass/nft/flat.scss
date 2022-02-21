@@ -22,7 +22,7 @@
 
 .nft-flat-container .flat-face {
   background-size: cover;
-  height: 100%;
+  height: calc(100% - 2px);
   position: absolute;
   transition: 0.5s;
   width: 100%;
