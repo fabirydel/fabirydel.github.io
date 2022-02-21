@@ -46,6 +46,10 @@
       .nft-text-container {
         .nft-text {
           color: var(--white);
+
+          &.collection {
+            color: #858585;
+          }
         }
       }
     }
