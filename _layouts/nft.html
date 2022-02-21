@@ -11,7 +11,7 @@
           {{ content }}
 
           <div class='nft-page'>
-            <h1 class='nft-title encrypt'>{{ page.title }}</h1>
+            <h1 class='nft-title encrypt truncated'>{{ page.title }}</h1>
             <div class="fake-cube" onclick="openDecryptModal()" onmouseenter="hoverDecrypt()" onmouseleave="leaveDecrypt()"></div>
             <div class='nft-container for-display' onclick='openNftModal()'>
               <section class='cube nft-flat-container'>
@@ -39,35 +39,35 @@
                 <div class="details mini">
                   <div class="details-row">
                     <div class="camera-icon date"></div>
-                    <span class="camera-text encrypt">{{ page.date_and_time }}</span>
+                    <span class="camera-text truncated encrypt">{{ page.date_and_time }}</span>
                   </div>
                   <div class="details-row">
                     <div class="camera-icon location-map"></div>
-                    <span class="camera-text encrypt">{{ page.location }}</span>
+                    <span class="camera-text truncated encrypt">{{ page.location }}</span>
                   </div>
                   <div class="details-row">
                     <div class="camera-icon aperture"></div>
-                    <span class="camera-text encrypt">{{ page.aperture }}</span>
+                    <span class="camera-text truncated encrypt">{{ page.aperture }}</span>
                   </div>
                   <div class="details-row">
                     <div class="camera-icon exposure"></div>
-                    <span class="camera-text encrypt">{{ page.exposure }}</span>
+                    <span class="camera-text truncated encrypt">{{ page.exposure }}</span>
                   </div>
                   <div class="details-row">
                     <div class="camera-icon iso"></div>
-                    <span class="camera-text encrypt">{{ page.iso }}</span>
+                    <span class="camera-text truncated encrypt">{{ page.iso }}</span>
                   </div>
                   <div class="details-row">
                     <div class="camera-icon length"></div>
-                    <span class="camera-text encrypt">{{ page.length }}</span>
+                    <span class="camera-text truncated encrypt">{{ page.length }}</span>
                   </div>
                   <div class="details-row">
                     <div class="camera-icon camera"></div>
-                    <span class="camera-text encrypt">{{ page.camera }}</span>
+                    <span class="camera-text truncated encrypt">{{ page.camera }}</span>
                   </div>
                   <div class="details-row">
                     <div class="camera-icon lens"></div>
-                    <span class="camera-text encrypt">{{ page.lens }}</span>
+                    <span class="camera-text truncated encrypt">{{ page.lens }}</span>
                   </div>
                 </div>
 

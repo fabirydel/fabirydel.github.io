@@ -50,8 +50,29 @@
     color: var(--black);
     border-radius: 50%;
     width: 26px;
+    height: 26px;
     text-align: center;
     cursor: pointer;
+
+    &.theme-big .theme:before {
+      vertical-align: middle;
+    }
+
+    &:hover {
+      background: var(--black);
+
+      .icon {
+        color: var(--white);
+      }
+
+      .open-seas {
+        opacity: 0;
+      }
+
+      .night {
+        opacity: 1;
+      }
+    }
   }
 
   .header-options {
@@ -111,6 +132,7 @@
   }
 
   .right-options {
+    display: flex;
     float: right;
   }
 
@@ -135,6 +157,32 @@
     position: absolute;
     right: 0;
     z-index: 1;
+
+    &.theme-open-seas {
+      right: 40px;
+
+      .icon {
+        height: 18px;
+        width: 18px;
+      }
+    }
+  }
+
+  .open-seas {
+    -webkit-transition: all 0.75s ease;
+    content: url('/assets/icons/openseas3.png');
+    height: 20px;
+    left: 3px;
+    opacity: 1;
+    position: absolute;
+    top: 3px;
+    transition: all 0.75s ease;
+    width: 20px;
+
+    &.night {
+      opacity: 0;
+      content: url('/assets/icons/openseas4.png');
+    }
   }
 
   &.nighttime {
@@ -152,6 +200,30 @@
     .theme-container {
       border: 1px solid var(--white);
       color: var(--white);
+
+      &:hover {
+        background: var(--white);
+
+        .icon {
+          color: var(--black);
+        }
+
+        .open-seas {
+          opacity: 1;
+        }
+
+        .night {
+          opacity: 0;
+        }
+      }
+    }
+
+    .open-seas {
+      opacity: 0;
+
+      &.night {
+        opacity: 1;
+      }
     }
   }
 }
@@ -206,6 +278,7 @@
 
       .theme-container {
         width: 24px;
+        height: 24px;
 
         .icon {
           font-size: 14px;

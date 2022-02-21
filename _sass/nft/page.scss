@@ -29,8 +29,18 @@
     font-family: 'poppins';
     font-size: 30px;
     font-weight: 100;
+    margin: 0 auto;
+    overflow: hidden;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     width: 100%;
+    transition: all 0.75s ease;
+    -webkit-transition: all 0.75s ease;
+  }
+
+  .truncated {
+    max-width: 50%;
   }
 
   .nft-container {
@@ -194,6 +204,9 @@
 
     .camera-text {
       font-family: 'poppins';
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .camera-icon {

@@ -28,6 +28,7 @@ function decrypt() {
       cubeFaces[i].style.backgroundImage = decryptWithAES(cubeFaces[i].id, passphrase);
     } catch (error) {
       showError();
+      return;
     }
   }
 
@@ -36,14 +37,7 @@ function decrypt() {
       flatFaces[i].style.backgroundImage = decryptWithAES(flatFaces[i].id, passphrase);
     } catch (error) {
       showError();
-    }
-  }
-
-  for (i = 0; i < elements.length; i++) {
-    try {
-      elements[i].textContent = decryptWithAES(elements[i].textContent, passphrase);
-    } catch (error) {
-      showError();
+      return;
     }
   }
 
@@ -53,6 +47,17 @@ function decrypt() {
       images[i].classList.remove('encrypted-image')
     } catch (error) {
       showError();
+      return;
+    }
+  }
+
+  for (i = 0; i < elements.length; i++) {
+    try {
+      elements[i].textContent = decryptWithAES(elements[i].textContent, passphrase);
+      elements[i].classList.remove('truncated');
+    } catch (error) {
+      showError();
+      return;
     }
   }
 
