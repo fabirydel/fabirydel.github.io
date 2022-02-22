@@ -10,8 +10,13 @@
   .nft-container {
     border-radius: 10px;
     border: 1px solid #cfcfcf;
-    text-align: center;
+    box-shadow: none;
     margin: 15px 10px;
+    position: relative;
+    text-align: center;
+    transform: initial;
+    transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease;
 
     .nft-image {
       height: 335px;
@@ -36,6 +41,39 @@
 
     &:hover {
       text-decoration: none;
+      box-shadow: 0px 0px 8px 0px #cfcfcf;
+      transform: translateY(-3px);
+
+      a, .nft-text {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .decrypt-key {
+    position: absolute;
+    right: 0;
+    bottom: 15px;
+    font-size: 12px;
+    width: 24px;
+    height: 24px;
+
+    .fa-key {
+      float: right;
+      margin-right: 15px;
+      color: var(--black);
+      border: 1px solid var(--black);
+      border-radius: 50%;
+      padding: 5px;
+      transition: all 0.25s ease;
+      -webkit-transition: all 0.25s ease;
+    }
+
+    &:hover {
+      .fa-key {
+        color: var(--white);
+        background: var(--black);
+      }
     }
   }
 }
