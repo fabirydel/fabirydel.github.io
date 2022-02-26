@@ -80,6 +80,21 @@
 
 .nighttime {
   .nfts-container {
+
+    .decrypt-key {
+      .fa-key {
+        color: var(--white);
+        border: 1px solid var(--white);
+      }
+
+      &:hover {
+        .fa-key {
+          color: var(--black);
+          background: var(--white);
+        }
+      }
+    }
+
     .nft-container {
       .nft-text-container {
         .nft-text {
