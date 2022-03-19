@@ -76,7 +76,7 @@
 .map-image {
   background: #ffffff80;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 2px solid var(--white);;
   height: 30px;
   min-height: 30px;
   object-fit: cover;
@@ -86,7 +86,8 @@
 .map-image-title {
   -webkit-transition: .3s ease-in-out;
   align-self: center;
-  background: white;
+  background: var(--white);;
+  color: var(--black);
   border-radius: 3px;
   font-family: "poppins", sans-serif;
   font-size: 12px;
