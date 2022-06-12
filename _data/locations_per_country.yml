@@ -177,3 +177,20 @@ austria:
     - salzburg
     - st_gilgan
     - vienna
+
+italy:
+  locations:
+    - bellagio
+    - lago_di_como
+    - perledo
+    - pusiano
+    - varenna
+    - vezio
+
+switzerland:
+  locations:
+    - isenflug
+    - lauterbrunnen
+    - murren
+    - sulsseeli
+    - sulwald

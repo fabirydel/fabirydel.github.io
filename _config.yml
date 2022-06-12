@@ -36,12 +36,12 @@ google_analytics: 261389612
 collections:
   locations:
     output: true
-  # landscapes:
-  #   output: true
-  # countries:
-  #   output: true
-  # nfts:
-  #   output: true
+  landscapes:
+    output: true
+  countries:
+    output: true
+  nfts:
+    output: true
 
 sass:
   style: compact # possible values: nested expanded compact compressed
