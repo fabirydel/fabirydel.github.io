@@ -73,7 +73,7 @@ body {
 
   .header-label {
     font-family: 'poppins';
-    font-size: 36px;
+    font-size: 30px;
     text-align: left;
     color: var(--black);
     background: var(--white);
@@ -89,6 +89,7 @@ body {
       display: inline-block;
       width: 100%;
       line-height: 40px;
+      margin-bottom: 2px;
     }
 
     a {
@@ -98,9 +99,9 @@ body {
     }
 
     .location-link {
-      font-size: 25px;
+      font-size: 21px;
       display: flex;
-      line-height: 25px;
+      line-height: 21px;
 
       &:hover {
         text-decoration: none;
@@ -110,9 +111,9 @@ body {
       }
 
       .location-link-text {
-        font-size: 14px;
+        font-size: 12px;
         margin-left: 5px;
-        line-height: 28px;
+        line-height: 23px;
         text-transform: capitalize;
       }
     }

@@ -124,7 +124,9 @@ mexico:
 england:
   locations:
     - bassenthwaite
+    - buttermere
     - corfe_castle
+    - derwentwater
     - durdle_door
     - fleetwith_pike
     - old_harry_rocks
@@ -133,6 +135,7 @@ england:
     - park_head
     - penwith
     - porthoustock
+    - raven_crag
     - rocky_valley
     - st_michaels_mount
     - st_nectans_glen
@@ -142,21 +145,29 @@ scotland:
   locations:
     - aros_waterfall
     - ben_tianavaig
+    - calgary_bay
     - durat_castle
     - eilean_donan
     - etive_mor_watterfall
     - fairy_glen
     - glenbrittle
     - glencoe_lochan
+    - glencoe_roads
     - glenfinnan_viaduct
+    - kilchurn_castle
     - lagangarbh
+    - loch_beg_bridge
     - loch_duntelchaig
+    - loch_fada
     - lunga
     - meeting_of_the_three_waters
     - old_man_of_storr
+    - ralston_cairn
     - salen
     - sligachan
     - taynuilt
+    - the_three_lakes
+    - the_three_sisters
 
 austria:
   locations:

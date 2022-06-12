@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var countryMap = L.map('country-map', {
     maxBounds: JSON.parse(country.dataset.bounds || '[]'),
     layers: [satellite],
-    scrollWheelZoom: false,
+    scrollWheelZoom: true,
     touchZoom: true
   }).setView(JSON.parse(country.dataset.latlng), country.dataset.zoom);
 
