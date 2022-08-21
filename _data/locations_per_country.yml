@@ -181,16 +181,27 @@ austria:
 italy:
   locations:
     - bellagio
+    - chapel_vitaleta
+    - genoa
     - lago_di_como
+    - manarola
     - perledo
+    - pienza
+    - podere_belvedere
     - pusiano
+    - riomaggiore
+    - san_gimignano
+    - san_quirico_dorcia
     - varenna
+    - vernazza
     - vezio
 
 switzerland:
   locations:
     - isenfluh
+    - kandersteg
     - lauterbrunnen
     - murren
+    - riffelsee
     - sulsseeli
     - sulwald
