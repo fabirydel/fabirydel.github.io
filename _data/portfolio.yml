@@ -786,3 +786,87 @@
   place: Lunga
   location: lunga
   country: scotland
+
+
+
+
+
+
+- path: chapel_vitaleta/IMG_4668.jpg
+  title: Oh Deer
+  place: Chapel Vitaleta
+  location: chapel_vitaleta
+  country: italy
+
+- path: chapel_vitaleta/IMG_4922.jpg
+  title: A Hat to Church
+  place: Chapel Vitaleta
+  location: chapel_vitaleta
+  country: italy
+
+- path: manarola/IMG_0226.jpg
+  title: "Cinque Terre #1"
+  place: Manarola
+  location: manarola
+  country: italy
+
+- path: vernazza/IMG_0258-Edit.jpg
+  title: "Cinque Terre #2"
+  place: Vernazza
+  location: vernazza
+  country: italy
+
+- path: riomaggiore/IMG_9906.jpg
+  title: "Cinque Terre #3"
+  place: Riomaggiore
+  location: riomaggiore
+  country: italy
+
+- path: pienza/IMG_5263.jpg
+  title: Gladiatore
+  place: Pienza
+  location: pienza
+  country: italy
+
+- path: san_gimignano/IMG_3362.jpg
+  title: The 10 Towers
+  place: San Gimignano
+  location: san_gimignano
+  country: italy
+
+- path: kandersteg/IMG_8053.jpg
+  title: Below the Lake
+  place: Kandersteg
+  location: kandersteg
+  country: switzerland
+
+- path: kandersteg/IMG_7874.jpg
+  title: Up the Oeschinensee
+  place: Kandersteg
+  location: kandersteg
+  country: switzerland
+
+- path: lauterbrunnen/IMG_6169.jpg
+  title: Postcard Perfect
+  place: Lauterbrunnen
+  location: lauterbrunnen
+  country: switzerland
+
+- path: lauterbrunnen/IMG_4579.jpg
+  title: Heaven-ish
+  place: Lauterbrunnen
+  location: lauterbrunnen
+  country: switzerland
+
+- path: riffelsee/IMG_6608.jpg
+  title: The Matterhorn
+  place: Riffelsee
+  location: riffelsee
+  country: switzerland
+
+- path: calgary_bay/IMG_9363.jpg
+  title: Little One
+  place: Calgary Bay
+  location: calgary_bay
+  country: scotland
+

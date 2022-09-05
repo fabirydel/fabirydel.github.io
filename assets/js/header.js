@@ -11,6 +11,7 @@ function toggleNighttime () {
   document.getElementById('countries-modal') ? document.getElementById('countries-modal').classList.toggle('nighttime') : null;
   document.getElementById('landscapes-modal') ? document.getElementById('landscapes-modal').classList.toggle('nighttime') : null;
   document.getElementById('floating-circle') ? document.getElementById('floating-circle').classList.toggle('nighttime') : null;
+  document.getElementById('stats-container') ? document.getElementById('stats-container').classList.toggle('nighttime') : null;
 
   var themeButtons = document.getElementsByClassName("theme");
   if (themeButtons) {
