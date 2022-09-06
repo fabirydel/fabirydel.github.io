@@ -274,7 +274,7 @@ body {
   }
 
   .photo-container-landscape {
-    margin: 4px;
+    margin: 2px;
   }
 
   .photo-container-landscape:first-child {
@@ -319,16 +319,17 @@ body {
 
 .stats-wrapper {
   position: relative;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   height: 400px;
 }
 
 .stats-cover {
-  width: calc(100% - 8px);
-  padding: 0 4px;
+  width: calc(100% - 4px);
+  margin: 0 2px;
   max-height: 400px;
   height: 400px;
   object-fit: cover;
+  border-radius: 2px;
 }
 
 .stats-container {
@@ -486,11 +487,16 @@ body {
     }
   }
 
-  .stats-container {
-    font-size: 14px;
+  .stats-wrapper {
+    margin-bottom: 9px;
+  }
 
-    .stat {
-      width: 
+  .stats-cover {
+    width: calc(100% - 10px);
+    margin: 0 5px;
+
+    .stats-container {
+      font-size: 14px;
     }
   }
 }
@@ -532,6 +538,15 @@ body {
     .landscape-page {
       padding: 23px 2.5px 0 2.5px;
     }
+  }
+
+  .stats-wrapper {
+    margin-bottom: 5px;
+  }
+
+  .stats-cover {
+    width: calc(100% - 5px);
+    margin: 0 2.5px;
   }
 
   .stats-container {
