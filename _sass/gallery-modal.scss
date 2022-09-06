@@ -141,8 +141,10 @@
     }
 
     .modal-text-container {
-      height: 60px;
       opacity: 0.85;
+      display: flex;
+      height: 63px;
+      flex-direction: column;
       padding-left: 7px;
       pointer-events: none;
       position: relative;
