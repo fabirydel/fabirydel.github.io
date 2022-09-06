@@ -320,12 +320,14 @@ body {
 .stats-wrapper {
   position: relative;
   margin-bottom: 8px;
+  height: 400px;
 }
 
 .stats-cover {
   width: calc(100% - 8px);
   padding: 0 4px;
   max-height: 400px;
+  height: 400px;
   object-fit: cover;
 }
 
@@ -358,8 +360,9 @@ body {
   .stat {
     font-family: 'poppins';
     text-align: center;
-    padding: 8px 40px;
+    padding: 8px 0;
     border-right: 1px solid var(--black);
+    width: 100px;
     color: var(--black);
 
     &:last-child {
@@ -487,7 +490,7 @@ body {
     font-size: 14px;
 
     .stat {
-      padding: 8px 20px;
+      width: 
     }
   }
 }
@@ -535,11 +538,20 @@ body {
     font-size: 13px;
 
     .stat {
-      padding: 8px 12px;
+      width: 70px;
 
       .stat-label {
         font-size: 11px;
       }
+    }
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .stats-container {
+    .stat {
+      width: 70px;
     }
   }
 }
