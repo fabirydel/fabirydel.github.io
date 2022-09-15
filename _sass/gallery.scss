@@ -323,6 +323,23 @@ body {
   height: 400px;
 }
 
+.stats-overlay {
+  width: calc(100% - 4px);
+  margin: 0 2px;
+  max-height: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 2px;
+  position: absolute;
+  background: var(--black);
+  opacity: 0.4;
+
+  &.nighttime {
+    background: var(--white);
+    opacity: 0.1;
+  }
+}
+
 .stats-cover {
   width: calc(100% - 4px);
   margin: 0 2px;
@@ -491,7 +508,7 @@ body {
     margin-bottom: 9px;
   }
 
-  .stats-cover {
+  .stats-cover, .stats-overlay {
     width: calc(100% - 10px);
     margin: 0 5px;
 
@@ -544,7 +561,7 @@ body {
     margin-bottom: 5px;
   }
 
-  .stats-cover {
+  .stats-cover, .stats-overlay {
     width: calc(100% - 5px);
     margin: 0 2.5px;
   }

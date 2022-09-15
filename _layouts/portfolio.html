@@ -1,40 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 
   {% include head.html %}
   {% include header.html %}
 
   <body>
-    <div id="blurable">
-      <div class="gallery-body gallery-body-landscape" id="gallery-body">
-        <div class="gallery-page-wrapper gallery-page-wrapper-landscape portfolio-wrapper">
-          <div class="stats-wrapper">
-            <img class="stats-cover" src="/images/full/old_man_of_storr/IMG_2529-Pano.jpg">
-            <div class="stats-container" id='stats-container'>
-              <div class="stat">
-                <span class="stat-icon icon fa-camera"></span>
-                <div class="stat-value">2384</div>
-                <div class="stat-label">Photos</div>
+    <div id='blurable'>
+      <div class='gallery-body gallery-body-landscape' id='gallery-body'>
+        <div class='gallery-page-wrapper gallery-page-wrapper-landscape portfolio-wrapper'>
+          <div class='stats-wrapper'>
+            <div class='stats-overlay' id='stats-overlay'></div>
+            <img class='stats-cover' src='/images/full/old_man_of_storr/IMG_2529-Pano.jpg'>
+            <div class='stats-container' id='stats-container'>
+              <div class='stat'>
+                <span class='stat-icon icon fa-camera'></span>
+                <div class='stat-value'>2384</div>
+                <div class='stat-label'>Photos</div>
               </div>
-              <div class="stat">
-                <span class="stat-icon icon fa-clock"></span>
-                <div class="stat-value">78494</div>
-                <div class="stat-label">Kilometers</div>
+              <div class='stat'>
+                <span class='stat-icon icon fa-clock'></span>
+                <div class='stat-value'>78494</div>
+                <div class='stat-label'>Kilometers</div>
               </div>
-              <div class="stat">
-                <span class="stat-icon icon fa-calendar-alt"></span>
-                <div class="stat-value">865</div>
-                <div class="stat-label">Days</div>
+              <div class='stat'>
+                <span class='stat-icon icon fa-calendar-alt'></span>
+                <div class='stat-value'>865</div>
+                <div class='stat-label'>Days</div>
               </div>
-              <div class="stat">
-                <span class="stat-icon icon fa-map-marked-alt"></span>
-                <div class="stat-value">{{ site.locations | size }}</div>
-                <div class="stat-label">Locations</div>
+              <div class='stat'>
+                <span class='stat-icon icon fa-globe-americas'></span>
+                <div class='stat-value'>{{ site.countries | size }}</div>
+                <div class='stat-label'>Countries</div>
               </div>
-              <div class="stat">
-                <span class="stat-icon icon fa-globe-americas"></span>
-                <div class="stat-value">{{ site.countries | size }}</div>
-                <div class="stat-label">Countries</div>
+              <div class='stat'>
+                <span class='stat-icon icon fa-map-marked-alt'></span>
+                <div class='stat-value'>{{ site.locations | size }}</div>
+                <div class='stat-label'>Locations</div>
               </div>
             </div>
           </div>
