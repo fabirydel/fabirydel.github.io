@@ -1,7 +1,7 @@
 /* The Modal (background) */
 .modal {
   -webkit-transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  background-color: #000000c0;
+  background-color: #1e1e1ef7;
   display: none;
   height: 100%;
   left: 0;
@@ -64,15 +64,6 @@
   display: none;
   height: 100%;
   width: 100%;
-
-  img {
-    border-radius: 3px;
-    border: 3px solid var(--white);
-    box-shadow: 0px 0px 26px -5px #000;
-    max-height: calc(100vh - 80px);
-    max-width: 85%;
-    object-fit: contain;
-  }
 }
 
 /* Next & previous buttons */
@@ -132,9 +123,8 @@
     position: relative;
 
     img {
-      border-radius: 3px;
-      border: 3px solid var(--white);
-      box-shadow: 0px 0px 26px -5px #000;
+      border-radius: 0;
+      box-shadow: 0px 0px 63px -6px #000000;
       max-height: calc(100vh - 80px);
       max-width: 85%;
       object-fit: contain;

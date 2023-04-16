@@ -180,18 +180,26 @@ austria:
 
 italy:
   locations:
+    - amalfi
+    - atrani
     - bellagio
     - chapel_vitaleta
     - genoa
     - lago_di_como
     - manarola
+    - napoli
     - perledo
     - pienza
     - podere_belvedere
+    - pompeii
     - pusiano
+    - ravello
     - riomaggiore
     - san_gimignano
     - san_quirico_dorcia
+    - scala_dei_turchi
+    - sorrento
+    - valley_of_the_temples
     - varenna
     - vernazza
     - vezio
