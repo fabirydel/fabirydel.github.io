@@ -148,7 +148,7 @@ scotland:
     - calgary_bay
     - duart_castle
     - eilean_donan
-    - etive_mor_watterfall
+    - etive_mor_waterfall
     - fairy_glen
     - glenbrittle
     - glencoe_lochan
@@ -183,8 +183,12 @@ italy:
     - amalfi
     - atrani
     - bellagio
+    - castelrotto
     - chapel_vitaleta
+    - florence
     - genoa
+    - lago_di_braies
+    - lago_di_carezza
     - lago_di_como
     - manarola
     - napoli
@@ -198,9 +202,15 @@ italy:
     - san_gimignano
     - san_quirico_dorcia
     - scala_dei_turchi
+    - siusi
     - sorrento
+    - st_giacomo_church
+    - st_john_church
+    - st_magdalene_church
+    - taormina
     - valley_of_the_temples
     - varenna
+    - venice
     - vernazza
     - vezio
 
@@ -213,3 +223,4 @@ switzerland:
     - riffelsee
     - sulsseeli
     - sulwald
+    - tarasp
