@@ -170,6 +170,7 @@ body.loading #footer-header {
 
   .get-in-touch {
     display: inline;
+        margin-bottom: -2px;
   }
 
   .or-at {
@@ -178,7 +179,7 @@ body.loading #footer-header {
     font-weight: 300;
     letter-spacing: .05em;
     line-height: 1.5;
-    margin-left: 5px;
+    margin-left: 15px;
 
     .email {
       text-decoration: underline;
@@ -226,7 +227,6 @@ body.loading #footer-header {
 
 .footer>.inner.split>div {
   margin-left: 4em;
-  width: 50%;
 }
 
 .footer>.inner.split> :first-child {
@@ -253,6 +253,7 @@ body.loading #footer-header {
 .follow-section {
   margin-top: 5px;
   display: flex;
+  align-items: center;
 
   .follow-me {
     display: inline-block;
@@ -843,6 +844,14 @@ footer {
             height: 15px;
           }
         }
+      }
+    }
+
+    .or-at {
+      margin-left: 10px;
+
+      .email {
+        font-size: 14px;
       }
     }
 
