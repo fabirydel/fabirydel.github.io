@@ -1,6 +1,8 @@
 .default.page-content {
   background-color: var(--white);
   padding-top: 28px;
+  -webkit-transition: .75s ease-in-out;
+  transition: .75s ease-in-out;
 }
 
 .non-displayed {
@@ -52,10 +54,10 @@
   }
 
   .image-container {
-    -webkit-transition: .3s ease-in-out;
+    -webkit-transition: .75s ease-in-out;
     height: 100%;
     object-fit: cover;
-    transition: .3s ease-in-out;
+    transition: .75s ease-in-out;
     opacity: 1;
     display: flex;
     justify-content: space-around;
@@ -76,6 +78,7 @@
     right: 0;
     bottom: 0;
     pointer-events: none;
+    font-weight: 200;
 
     .title, .place {
       color: white;

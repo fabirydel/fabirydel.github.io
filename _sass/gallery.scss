@@ -25,7 +25,7 @@ body {
 
 .gallery-body-country {
   display: block;
-  margin: 8px 4px 0 4px;
+  margin: 16px 4px 0 4px;
 }
 
 .links-container {
@@ -192,7 +192,7 @@ body {
 .photo-container {
   background: var(--white);
   border-radius: 2px;
-  margin: 4px;
+  margin: 8px;
   position: relative;
   overflow: hidden;
   transition: all 0.75s ease;
@@ -274,7 +274,7 @@ body {
   }
 
   .photo-container-landscape {
-    margin: 2px;
+    margin: 8px;
   }
 
   .photo-container-landscape:first-child {
@@ -319,7 +319,7 @@ body {
 
 .stats-wrapper {
   position: relative;
-  margin-bottom: 4px;
+  margin: 0 6px 16px 6px;
   height: 400px;
 }
 
@@ -505,7 +505,7 @@ body {
   }
 
   .stats-wrapper {
-    margin-bottom: 9px;
+    margin: 0 0 9px 0;
   }
 
   .stats-cover, .stats-overlay {
