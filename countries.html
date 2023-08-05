@@ -1,0 +1,16 @@
+---
+layout: countries
+title: Countries
+---
+
+<div id="country-list" class="countries-container">
+  {% for country in site.countries %}
+    <a class="country-container" href="/countries/{{ country.name }}">
+      <div class="title">
+        <span>{{ country.name | capitalize}}</span>
+        <img src="/images/flags/{{ country.flag }}.png" class="country-flag">
+      </div>
+      <img src="/images/full/{{ country.cover }}" class="country-cover">
+    </a>
+  {% endfor %}
+</div>
