@@ -121,6 +121,7 @@
   bottom: 0;
   pointer-events: none;
   z-index: 3;
+  font-weight: 200;
 
   .photo-title, .photo-place {
     color: var(--white);
@@ -131,6 +132,7 @@
     width: 100%;
     display: block;
     z-index: 1;
+    font-weight: 200;
   }
 
   .photo-place-link {
@@ -139,10 +141,6 @@
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
     color: var(--white)
-  }
-
-  .photo-place {
-    display: inline;
   }
 
   .photo-place-country {
