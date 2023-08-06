@@ -34,11 +34,13 @@ plugins:
 google_analytics: 261389612
 
 collections:
-  locations:
-    output: true
+  # locations:
+  #   output: true
   landscapes:
     output: true
   countries:
+    output: true
+  collections:
     output: true
   nfts:
     output: true

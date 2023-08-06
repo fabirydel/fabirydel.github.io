@@ -19,9 +19,9 @@
     </a>
 
     <div class="right-options">
-      <div class="option-container">
-        <h1 onclick="openLandscapesModal()" class="{% if page.url contains 'landscapes' %} header-selected {% endif %}">Categories</h1>
-      </div>
+      <a href="/collections">
+        <h1 class="{% if page.url contains 'collections'  %} header-selected {% endif %}">Collections</h1>
+      </a>
       <a href="/countries">
         <h1 class="{% if page.url contains 'countries'  %} header-selected {% endif %}">Countries</h1>
       </a>
