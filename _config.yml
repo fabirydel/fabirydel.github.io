@@ -34,8 +34,8 @@ plugins:
 google_analytics: 261389612
 
 collections:
-  # locations:
-  #   output: true
+  locations:
+    output: true
   landscapes:
     output: true
   countries:
