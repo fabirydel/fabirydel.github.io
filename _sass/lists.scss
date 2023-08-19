@@ -22,10 +22,10 @@
       transition: all 0.3s ease;
       -webkit-transition: all 0.3s ease;
       position: absolute;
-      width: 40px;
-      height: 40px;
-      bottom: 20px;
-      left: 20px;
+      width: 60px;
+      height: 60px;
+      bottom: 10px;
+      left: 10px;
       opacity: 0.8;
       margin: 0;
       opacity: 0;;
@@ -63,14 +63,22 @@
   }
 }
 
-// @media screen and (max-width: 1280px) {
-//   .container {
-//     grid-template-columns: 50% 50%;
-//   }
-// }
-
 @media screen and (max-width: 850px) {
   .container {
     grid-template-columns: 100%;
+
+    .item-container {
+      .item-flag {
+        opacity: 0.65;
+        width: 50px;
+        height: 50px;
+      }
+      
+      .title {
+        background-color: #1f222450;
+        font-size: 48px;
+        opacity: 0.65;
+      }
+    }
   }
 }
