@@ -169,6 +169,10 @@ body {
   display: inline-grid;
   grid-template-columns: 33.3% 33.4% 33.3%;
   width: 100%;
+
+  &.four-column-grid {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
 }
 
 .portfolio-grid {
@@ -185,7 +189,7 @@ body {
   }
 }
 
-.two-column-grid, .three-column-grid.portfolio-grid {
+.two-column-grid, .three-column-grid {
   display: none;
 }
 
@@ -425,18 +429,18 @@ body {
     display: none;
   }
 
-  .three-column-grid.portfolio-grid {
+  .three-column-grid {
     grid-template-columns: 33.3% 33.4% 33.3%;
     display: initial;
   }
 
-  .two-column-grid, .three-column-grid.portfolio-grid {
+  .two-column-grid, .three-column-grid {
     display: grid;
   }
 }
 
 @media screen and (max-width: 850px) {
-  .three-column-grid, .four-column-grid, .three-column-grid.portfolio-grid {
+  .three-column-grid, .four-column-grid, .three-column-grid {
     display: none;
   }
 
