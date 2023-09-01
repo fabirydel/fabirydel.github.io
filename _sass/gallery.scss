@@ -25,7 +25,7 @@ body {
 
 .gallery-body-country {
   display: block;
-  margin: 16px 4px 0 4px;
+  padding: 36px 24px 0 24px;
 }
 
 .links-container {
@@ -162,7 +162,7 @@ body {
 }
 
 .portfolio-wrapper, .gallery-page-wrapper-landscape {
-  padding: var(--header-height) 3px 28px 3px;
+  padding: var(--header-height) 0 28px 0;
 }
 
 .gallery-container {
@@ -323,17 +323,14 @@ body {
 
 .stats-wrapper {
   position: relative;
-  margin: 0 6px 16px 6px;
   height: 400px;
 }
 
 .stats-overlay {
-  width: calc(100% - 4px);
-  margin: 0 2px;
+  width: 100%;
   max-height: 400px;
   height: 400px;
   object-fit: cover;
-  border-radius: 2px;
   position: absolute;
   background: var(--black);
   opacity: 0.4;
@@ -345,12 +342,10 @@ body {
 }
 
 .stats-cover {
-  width: calc(100% - 4px);
-  margin: 0 2px;
+  width: 100%;
   max-height: 400px;
   height: 400px;
   object-fit: cover;
-  border-radius: 2px;
 }
 
 .stats-container {
@@ -364,7 +359,7 @@ body {
   transform: translateX(-50%);
   background: var(--white);
   border-radius: 8px;
-  opacity: 0.85;
+  opacity: 0.75;
 
   &.nighttime {
     background: var(--black);
@@ -425,22 +420,18 @@ body {
     grid-template-columns: 50% 50%;
   }
 
-  .three-column-grid, .four-column-grid {
+  .two-column-grid, .four-column-grid {
     display: none;
   }
 
   .three-column-grid {
     grid-template-columns: 33.3% 33.4% 33.3%;
-    display: initial;
-  }
-
-  .two-column-grid, .three-column-grid {
     display: grid;
   }
 }
 
 @media screen and (max-width: 850px) {
-  .three-column-grid, .four-column-grid, .three-column-grid {
+  .three-column-grid {
     display: none;
   }
 
@@ -494,11 +485,6 @@ body {
       padding: 113px 0px 28px 0px;
     }
 
-    .portfolio-wrapper, .gallery-page-wrapper-landscape {
-      padding-left: 4px;
-      padding-right: 4px;
-    }
-
     .photo-container {
       margin: 5px;
     }
@@ -508,14 +494,7 @@ body {
     }
   }
 
-  .stats-wrapper {
-    margin: 0 0 9px 0;
-  }
-
   .stats-cover, .stats-overlay {
-    width: calc(100% - 10px);
-    margin: 0 5px;
-
     .stats-container {
       font-size: 14px;
     }
@@ -534,11 +513,6 @@ body {
   }
 
   .gallery-body {
-    .portfolio-wrapper, .gallery-page-wrapper-landscape {
-      padding-left: 2.5px;
-      padding-right: 2.5px;
-    }
-
     .worldmap-layout {
       padding: 102px 0px 28px 0px;
     }
@@ -550,7 +524,7 @@ body {
 
   .gallery-body-country {
     display: block;
-    margin: 5px 2.5px 0 2.5px;
+    margin: 18px 14px 0 14px;
   }
 
   .gallery-body-landscape {
@@ -559,15 +533,6 @@ body {
     .landscape-page {
       padding: 23px 2.5px 0 2.5px;
     }
-  }
-
-  .stats-wrapper {
-    margin-bottom: 5px;
-  }
-
-  .stats-cover, .stats-overlay {
-    width: calc(100% - 5px);
-    margin: 0 2.5px;
   }
 
   .stats-container {

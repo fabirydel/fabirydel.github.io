@@ -1,5 +1,5 @@
 .portfolio-gallery {
-  width: 100%;
+  margin: 16px 8px;
 
   .grid-container {
     display: inline-grid;
@@ -94,6 +94,8 @@
 
 @media screen and (max-width: 850px) {
   .portfolio-gallery {
+    margin: 10px 5px;
+
     .grid-container {
       .gallery-column {
         .photo-container {
@@ -106,6 +108,8 @@
 
 @media screen and (max-width: 650px) {
   .portfolio-gallery {
+    margin: 5px 2.5px;
+
     .grid-container {
       grid-template-columns: 100%;
 

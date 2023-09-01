@@ -1,3 +1,105 @@
+<div class="gallery-container gallery-container-landscape four-column-grid">
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+        {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 0 %}
+
+          <div class="photo-container photo-container-left" data-index="{{ image_index }}">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+      {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 1 %}
+
+          <div class="photo-container photo-container-right">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+      {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 2 %}
+
+          <div class="photo-container photo-container-right">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="gallery-column column-full">
+    {% assign image_files = site.static_files | where: "image", true %}
+    {% assign image_index = 0 %}
+    {% for image in image_files %}
+      {% assign path = "full/" | append: page.namePath %}
+      {% if image.path contains path %}
+      {% assign mod2 = image_index | modulo: 4 %}
+        {% if mod2 == 3 %}
+
+          <div class="photo-container photo-container-right">
+            <div
+              class="photo image-container {% if image_index < 7 %}active-picture{% endif %} {% if image_index > 6 %}lazy-picture{% endif %}"
+              data-large="/images/full/{{ page.namePath }}/{{ image.name }}"
+              onclick="openModal({{ image_index }}, 'myModal')"
+            >
+              <img class="placeholder" src="/images/blur/{{ page.namePath }}/{{ image.name }}" class="img-small">
+            </div>
+          </div>
+
+        {% endif %}
+        {% assign image_index = image_index | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
 <div class="gallery-container gallery-container-landscape three-column-grid">
   <div class="gallery-column column-full">
     {% assign image_files = site.static_files | where: "image", true %}

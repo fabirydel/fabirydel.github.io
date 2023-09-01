@@ -99,6 +99,7 @@
 /* Position the "next button" to the right */
 .next {
   right: 10px;
+  justify-content: flex-end;
   border-radius: 3px 0 0 3px;
 }
 
@@ -432,10 +433,6 @@ body.nighttime {
       transform: none;
       bottom: 0;
       top:initial;
-    }
-
-    .next {
-      justify-content: flex-end;
     }
 
     .slide img {

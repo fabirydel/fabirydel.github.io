@@ -9,8 +9,7 @@ function openModal(index, id) {
     document.querySelector('.country-wrapper').style.marginTop = `${-window.scrollY}px`;
   }
   document.getElementById("gallery-body").style.top = `${-window.scrollY + mapHeight  + scrollHeader}px`;
-  document.getElementById("gallery-body").style.position = 'fixed';
-  document.getElementById("gallery-body").style.width = '100%';
+  document.getElementById("gallery-body").style.position = "fixed";
 
   document.getElementById(id).style.display = "block";
   setTimeout(function() {
