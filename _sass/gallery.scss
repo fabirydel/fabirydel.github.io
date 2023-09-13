@@ -18,7 +18,7 @@ body {
   background: var(--white);
   display: flex;
   flex-direction: row;
-  width: initial;
+  width: -webkit-fill-available;
   transition: all 0.75s ease;
   -webkit-transition: all 0.75s ease;
 }
