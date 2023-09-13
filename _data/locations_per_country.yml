@@ -23,10 +23,24 @@ slovenia:
     - ratitovec
     - ukanc
     - velika_planina
+    - sv_thomas
+    - sv_jakov
+    - cerkev_sv_volbenka_na_logu
 
 argentina:
   locations:
     - bariloche
+
+serbia:
+  locations:
+    - belgrade
+    - bele_vode
+    - raca_monastery
+
+bosnia:
+  locations:
+    - sarajevo
+    - mostar
 
 brazil:
   locations:
