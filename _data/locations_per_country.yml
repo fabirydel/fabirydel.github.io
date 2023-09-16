@@ -46,6 +46,18 @@ brazil:
   locations:
     - rio
 
+albania:
+  locations:
+    - vlore
+
+croatia:
+  locations:
+    - badija
+    - korcula
+    - ranch_valley_jelena
+    - trogir
+    - zadar
+
 uruguay:
   locations:
     - cabo_polonio
