@@ -6,7 +6,14 @@
 
   <body>
     <div id="blurable">
-      {{ content }}
+      <!-- {{ content }} -->
+      <div class="gallery-body gallery-body-country" id="gallery-body">
+        <div class="gallery-page-wrapper">
+          {{ content }}
+
+          {% include country_gallery.html %}
+        </div>
+      </div>
     </div>
     {% include footer.html %}
   </body>
