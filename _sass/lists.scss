@@ -5,7 +5,7 @@
   grid-row-gap: 32px;
   grid-auto-rows: min-content;
   margin: 0 8vw;
-  padding: var(--header-height) 0 28px 0;
+  padding: calc(var(--header-height) + 30px)  0 28px 0;
 
   .item-container {
     position: relative;
@@ -71,6 +71,8 @@
 @media screen and (max-width: 850px) {
   .container {
     grid-template-columns: 100%;
+    margin: 0 4vw;
+    grid-row-gap: 4vw;
 
     .item-container {
       .item-flag {
@@ -78,11 +80,38 @@
         width: 50px;
         height: 50px;
       }
-      
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    .item-container {
       .title {
         background-color: #1f222450;
-        font-size: 48px;
+        font-size: 38px;
+        letter-spacing: 6px;
         opacity: 0.65;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .container {
+    .item-container {
+      .title {
+        font-size: 68px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    .item-container {
+      .title {
+        font-size: 48px;
       }
     }
   }
