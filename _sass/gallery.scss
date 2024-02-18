@@ -25,11 +25,12 @@ body {
 
 .gallery-body-country {
   display: block;
-  padding: 36px 24px 0 24px;
+  padding: 16px 8px 40px 8px;
 }
 
 .links-container {
   display: inline-flex;
+  align-items: center;
   vertical-align: text-bottom;
 }
 
@@ -43,7 +44,6 @@ body {
   height: 30px;
   margin-left: 8px;
   cursor: pointer;
-  margin-top: 5px;
 
   &:hover {
     opacity: 0.8;
@@ -122,7 +122,6 @@ body {
       font-size: 30px;
       cursor: pointer;
       display: inline-flex;
-      height: 43px;
 
       &:hover {
         text-decoration: none;
@@ -163,6 +162,10 @@ body {
 
 .portfolio-wrapper, .gallery-page-wrapper-landscape {
   padding: var(--header-height) 0 28px 0;
+}
+
+.location-gallery-page-wrapper {
+  margin-top: 100px;
 }
 
 .gallery-container {
@@ -415,28 +418,14 @@ body {
   }
 }
 
-@media screen and (max-width: 1150px) {
-  .gallery-container {
-    grid-template-columns: 50% 50%;
-  }
-
-  .two-column-grid, .four-column-grid {
-    display: none;
-  }
-
-  .three-column-grid {
-    grid-template-columns: 33.3% 33.4% 33.3%;
-    display: grid;
-  }
-}
-
-@media screen and (max-width: 850px) {
+// all this code below used to overwrite for screen smaller than 850px, now it's the default
+// @media screen and (max-width: 850px) {
   .three-column-grid {
     display: none;
   }
 
   .two-column-grid {
-    display: grid;
+    display: none;
   }
 
   .header-img-container-outside {
@@ -452,13 +441,11 @@ body {
       .map-icon {
         margin-left: 3px;
         font-size: 26px;
-        height: 38px;
       }
 
       .country-flag {
         width: 25px;
         height: 25px;
-        margin-top: 8px;
       }
 
       font-size: 26px;
@@ -498,6 +485,33 @@ body {
     .stats-container {
       font-size: 14px;
     }
+  }
+// }
+// until here
+
+
+@media screen and (max-width: 1150px) {
+  .gallery-container {
+    grid-template-columns: 50% 50%;
+  }
+
+  .two-column-grid, .four-column-grid {
+    display: none;
+  }
+
+  .three-column-grid {
+    grid-template-columns: 33.3% 33.4% 33.3%;
+    display: grid;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .location-gallery-page-wrapper {
+    margin-top: 0;
+  }
+
+  .gallery-body-country {
+    padding: 10px 5px 40px 5px;
   }
 }
 
