@@ -27,9 +27,29 @@
     margin: 0;
     font-weight: 200;
 
+    &.portfolio {
+      width: 72px;
+    }
+
+    &.locations {
+      width: 84px;
+    }
+
+    &.countries {
+      width: 85px;
+    }
+
+    &.collections {
+      width: 98px;
+    }
+
     &:hover {
       font-weight: 300;
     }
+  }
+
+  .me {
+    cursor: pointer !important;
   }
 
   a, .option-container {
@@ -201,8 +221,8 @@
 
 .header-selected {
   text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 4px;
+  text-decoration-thickness: 0.75px;
+  text-underline-offset: 3px;
 }
 
 .invisible {
