@@ -12,17 +12,18 @@
     </a>
   </div>
   <div class="header-options">
-    <a href="/">
-      <h1 class="portfolio {% if page.url == '/' %} header-selected {% endif %}">Portfolio</h1>
-    </a>
+    <div class="left-options">
+      <a href="/">
+        <h1 class="portfolio {% if page.url == '/' %} header-selected {% endif %}">Portfolio</h1>
+      </a>
 
-    <a href="/worldmap">
-      <h1 class="locations {% if page.url == '/worldmap.html' %} header-selected {% endif %}">Locations</h1>
-    </a>
-
+      <a href="/worldmap">
+        <h1 class="locations {% if page.url == '/worldmap.html' %} header-selected {% endif %}">Locations</h1>
+      </a>
+    </div>
     <div class="right-options">
       <a href="/collections">
-        <h1 class="collesction {% if page.url contains 'collections'  %} header-selected {% endif %}">Collections</h1>
+        <h1 class="collections {% if page.url contains 'collections'  %} header-selected {% endif %}">Collections</h1>
       </a>
       <a href="/countries">
         <h1 class="countries {% if page.url contains 'countries'  %} header-selected {% endif %}">Countries</h1>

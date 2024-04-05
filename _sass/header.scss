@@ -28,7 +28,7 @@
     font-weight: 200;
 
     &.portfolio {
-      width: 72px;
+      width: 68px;
     }
 
     &.locations {
@@ -36,11 +36,11 @@
     }
 
     &.countries {
-      width: 85px;
+      width: 78px;
     }
 
     &.collections {
-      width: 98px;
+      width: 92px;
     }
 
     &:hover {
@@ -54,7 +54,6 @@
 
   a, .option-container {
     display: inline-block;
-    margin-right: 20px;
     vertical-align: super;
   }
 
@@ -83,6 +82,9 @@
   }
 
   .header-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: var(--white);
     transition: all 0.75s ease;
     -webkit-transition: all 0.75s ease;
@@ -138,9 +140,10 @@
     }
   }
 
-  .right-options {
+  .right-options, .left-options {
     display: flex;
     float: right;
+    gap: 20px;
   }
 
   .header-name {
@@ -257,7 +260,7 @@
   body {
     #header {
       width: calc(100% - 20px);
-      padding: 15px 10px;
+      padding: 10px;
 
       h1 {
         font-size: 15px;
@@ -282,7 +285,8 @@
 
       .theme-small {
         display: block;
-        top: 25px;
+        top: 15px;
+        margin-right: 20px;
       }
 
       .header-name {
@@ -309,16 +313,28 @@
 @media screen and (max-width: 650px) {
   body {
     #header {
-      a, .option-container {
-        margin-right: 10px;
-      }
-
-      .theme-container.theme-small {
-        margin-right: 20px;
+      .right-options, .left-options {
+        gap: 10px;
       }
 
       h1 {
         font-size: 13px;
+
+        &.countries {
+          width: 73px;
+        }
+
+        &.locations {
+          width: 72px;
+        }
+
+        &.portfolio {
+          width: 62px;
+        }
+
+        &.collections {
+          width: 82px;
+        }
       }
 
      .header-name h1 {
