@@ -54,9 +54,14 @@ croatia:
   locations:
     - badija
     - korcula
+    - pula
     - ranch_valley_jelena
     - trogir
     - zadar
+
+montenegro:
+  locations:
+    - perast
 
 uruguay:
   locations:
