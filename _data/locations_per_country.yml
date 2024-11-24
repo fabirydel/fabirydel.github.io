@@ -91,10 +91,13 @@ belgium:
 
 france:
   locations:
+    - amboise
     - annecy
     - arboras
     - avignon
     - bourg_doisins
+    - chamonix
+    - chenonceau
     - clermont_ferrant
     - colmar
     - gavarnie
@@ -110,6 +113,7 @@ france:
     - lyon
     - marseille
     - montpeyroux
+    - mont_st_michel
     - navacelles
     - polignac
     - puimoisson1
@@ -118,6 +122,8 @@ france:
     - ribeauville
     - riqewihr
     - rouen
+    - saint_cirq_lapopie
+    - soulomes
     - strasbourg
     - tentes
     - tromouse
