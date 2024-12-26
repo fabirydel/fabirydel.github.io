@@ -6,11 +6,29 @@
   location: bled
   country: slovenia
 
-- path: jamnik/02_IMG_4571.jpg
-  title: Lonely Cold Cabin
-  place: Jamnik
-  location: jamnik
+- path: venice/IMG_3061.jpg
+  title: By the Pier
+  place: Venice
+  location: venice
+  country: italy
+
+- path: bled/IMG_3567.jpg
+  title: Night at the Lake
+  place: Bled
+  location: bled
   country: slovenia
+
+- path: chenonceau/7P9A3359_tn.jpg
+  title: The King's Seat
+  place: Bled
+  location: chenonceau
+  country: france
+
+- path: mostar/IMG_7359-Pano-Edit.jpg
+  title: the Bridge
+  place: Mostar
+  location: mostar
+  country: bosnia
 
 - path: ljubljana/IMG_1816-Edit.jpg
   title: Dragon at the Bridge
@@ -51,12 +69,6 @@
   location: avignon
   country: france
 
-- path: bled/IMG_3567.jpg
-  title: Night at the Lake
-  place: Bled
-  location: bled
-  country: slovenia
-
 - path: st_gilgan/01_IMG_8885-2.jpg
   title: Set Sail
   place: St. Gilgen
@@ -69,7 +81,7 @@
   location: bariloche
   country: argentina
 
-- path: jamnik/01_IMG_4719.jpg
+- path: jamnik/IMG_7657.jpg
   title: The Church Of St Primoz
   place: Jamnik
   location: jamnik
@@ -457,6 +469,12 @@
   country: scotland
 
 ############################## GREEN ##############################
+
+- path: mont_st_michel/7P9A4059_tn.jpg
+  title: The Path to the Mount
+  place: Mont Saint Michel
+  location: mont_st_michel
+  country: france
 
 - path: glenbrittle/IMG_3926.jpg
   title: Eye of Skye
