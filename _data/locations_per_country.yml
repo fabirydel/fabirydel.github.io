@@ -41,6 +41,8 @@ bosnia:
   locations:
     - sarajevo
     - mostar
+    - jajce
+    - banja_luka
 
 brazil:
   locations:
@@ -264,3 +266,12 @@ switzerland:
     - sulsseeli
     - sulwald
     - tarasp
+
+
+united_states:
+  locations:
+    - grand_teton_national_park
+    - john_moulton_homestead
+    - miller_cabin
+    - j_p_cunningham_cabin
+    - elk_refuge

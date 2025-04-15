@@ -7,7 +7,7 @@ title: Countries
   {% for country in site.countries %}
     <a class="item-container" href="/countries/{{ country.name }}">
       <div class="title">
-        <span>{{ country.name | capitalize}}</span>
+        <span>{{ country.title}}</span>
         <!-- <img src="/images/countries_svg/{{ country.name }}.svg" class="item-flag"> -->
       </div>
       <img src="/images/full/{{ country.cover }}" class="item-cover">
