@@ -3,7 +3,11 @@
   <img src="/images/flags/{{page.name}}.png" class="country-flag circle-logo">
   <ul id="text-container" class="closed">
     <li>
-      <a id="text" href="#">{{ page.name | capitalize}}</a>
+      {% if page.name == 'united_states' %}
+        <a id="text" href="#">USA</a>
+      {% else %}
+        <a id="text" href="#">{{ page.name | capitalize }}</a>
+      {% endif %}
     </li>
   </ul>
 </div>
