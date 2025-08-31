@@ -116,6 +116,7 @@ france:
     - marseille
     - montpeyroux
     - mont_st_michel
+    - moulin_de_moidrey
     - navacelles
     - polignac
     - puimoisson1
@@ -266,7 +267,6 @@ switzerland:
     - sulsseeli
     - sulwald
     - tarasp
-
 
 united_states:
   locations:
