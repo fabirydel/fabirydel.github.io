@@ -5,7 +5,7 @@
   grid-row-gap: 32px;
   grid-auto-rows: min-content;
   margin: 0 3vw;
-  padding: calc(var(--header-height) + 30px)  0 28px 0;
+  padding: calc(var(--header-height) + 30px) 0 28px 0;
 
   .item-container {
     position: relative;
@@ -28,7 +28,7 @@
       left: 10px;
       opacity: 0.8;
       margin: 0;
-      opacity: 0;;
+      opacity: 0;
     }
 
     .title {
@@ -40,7 +40,7 @@
       transform: translate(-50%, -50%);
       color: white;
       font-size: 62px;
-      font-family: 'oswald';
+      font-family: "oswald";
       font-weight: 300;
       letter-spacing: 10px;
       opacity: 0.8;
@@ -63,6 +63,8 @@
       span {
         border: 5px solid white;
         padding: 0 6px;
+        width: min-content;
+        text-align: center;
       }
     }
   }
