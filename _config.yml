@@ -23,7 +23,6 @@ email: fabirydel@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   I am a software developer who loves to travel, so I combine both and travel while working, which has led me to discover a passion for travel photography along the way. Here's where I share the images I've captured during my travels.
 url: "https://fabirydel.com" # the base hostname & protocol for your site, e.g. http://example.com
-
 # Build settings
 theme: minima
 plugins:
@@ -53,7 +52,6 @@ defaults:
       path: "images"
     values:
       image: true
-
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to

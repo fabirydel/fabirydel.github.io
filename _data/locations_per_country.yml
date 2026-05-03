@@ -278,3 +278,11 @@ united_states:
     - john_moulton_homestead
     - miller_cabin
     - elk_refuge
+
+bolivia:
+  locations:
+    - geisers_sol_de_la_manana
+    - la_paz
+    - reserva_flamingos
+    - sajama_national_park
+    - salar_de_uyuni

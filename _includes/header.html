@@ -1,9 +1,12 @@
 <div id="header">
-  <a class="option-container theme-container theme-small theme-open-seas" href="/nfts">
+  <!-- <a class="option-container theme-container theme-small theme-open-seas" href="/nfts">
     <img id="#openseas" class="theme icon open-seas">
     <img id="#openseas" class="theme icon open-seas night">
-  </a>
-  <div class="option-container theme-container theme-small" onclick="toggleTheme()">
+  </a> -->
+  <div
+    class="option-container theme-container theme-small"
+    onclick="toggleTheme()"
+  >
     <span id="#theme" class="theme icon fa-moon"></span>
   </div>
   <div class="header-name">
@@ -14,11 +17,19 @@
   <div class="header-options">
     <div class="left-options">
       <a href="/">
-        <h1 class="portfolio {% if page.url == '/' %} header-selected {% endif %}">Portfolio</h1>
+        <h1
+          class="portfolio {% if page.url == '/' %} header-selected {% endif %}"
+        >
+          Portfolio
+        </h1>
       </a>
 
       <a href="/worldmap">
-        <h1 class="locations {% if page.url == '/worldmap.html' %} header-selected {% endif %}">Locations</h1>
+        <h1
+          class="locations {% if page.url == '/worldmap.html' %} header-selected {% endif %}"
+        >
+          Locations
+        </h1>
       </a>
     </div>
     <div class="right-options">
@@ -26,13 +37,20 @@
         <h1 class="collections {% if page.url contains 'collections'  %} header-selected {% endif %}">Collections</h1>
       </a> -->
       <a href="/countries">
-        <h1 class="countries {% if page.url contains 'countries'  %} header-selected {% endif %}">Countries</h1>
+        <h1
+          class="countries {% if page.url contains 'countries' %} header-selected {% endif %}"
+        >
+          Countries
+        </h1>
       </a>
-      <a class="option-container theme-container theme-big" href="/nfts">
+      <!-- <a class="option-container theme-container theme-big" href="/nfts">
         <img id="#openseas" class="theme icon open-seas">
         <img id="#openseas" class="theme icon open-seas night">
-      </a>
-      <div class="option-container theme-container theme-big" onclick="toggleTheme()">
+      </a> -->
+      <div
+        class="option-container theme-container theme-big"
+        onclick="toggleTheme()"
+      >
         <span id="#theme" class="theme icon fa-moon"></span>
       </div>
     </div>
