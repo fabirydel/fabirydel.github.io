@@ -3,14 +3,55 @@ layout: countries
 title: Countries
 ---
 
-<div id="country-list" class="container">
+{% assign all_full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" %}
+
+<div id="country-list" class="country-grid">
   {% for country in site.countries %}
-    <a class="item-container" href="/countries/{{ country.name }}">
-      <div class="title">
-        <span>{{ country.title}}</span>
-        <!-- <img src="/images/countries_svg/{{ country.name }}.svg" class="item-flag"> -->
+    {% assign country_data = site.data.locations_per_country[country.name] %}
+    {% assign location_count = country_data.locations | size %}
+    {% assign flag_palette = site.data.flag_colors[country.name] %}
+    {% assign flag_color = flag_palette[0] %}
+
+    {% assign photo_count = 0 %}
+    {% if country_data %}
+      {% for location_name in country_data.locations %}
+        {% assign location_path = "/images/full/" | append: location_name | append: "/" %}
+        {% assign location_images = all_full_images | where_exp: "img", "img.path contains location_path" %}
+        {% assign photo_count = photo_count | plus: location_images.size %}
+      {% endfor %}
+    {% endif %}
+
+    <a class="country-card" href="/countries/{{ country.name }}"{% if flag_color %} style="--flag-color: {{ flag_color }};"{% endif %}>
+      <div class="country-card__photo-wrap">
+        <img src="/images/full/{{ country.cover }}" class="country-card__photo" alt="{{ country.title }}" loading="lazy">
+        <span class="country-card__stamp" aria-hidden="true">
+          <img src="/images/flags/{{ country.name }}.png" alt="">
+        </span>
       </div>
-      <img src="/images/full/{{ country.cover }}" class="item-cover">
+      <div class="country-card__meta">
+        <div class="country-card__title-row">
+          <span class="country-card__chip" aria-hidden="true">
+            <img src="/images/flags/{{ country.name }}.png" alt="">
+          </span>
+          <span class="country-card__name">{{ country.title }}</span>
+        </div>
+        {% if photo_count > 0 or location_count > 0 %}
+          <div class="country-card__sub">
+            {%- if location_count > 0 -%}
+              {{ location_count }} location{% if location_count != 1 %}s{% endif %}
+            {%- endif -%}
+            {%- if location_count > 0 and photo_count > 0 %} · {% endif -%}
+            {%- if photo_count > 0 -%}
+              {{ photo_count }} photo{% if photo_count != 1 %}s{% endif %}
+            {%- endif -%}
+          </div>
+        {% endif %}
+        <span class="country-card__underline" aria-hidden="true">
+          {% for color in flag_palette %}
+            <span style="background: {{ color }};"></span>
+          {% endfor %}
+        </span>
+      </div>
     </a>
   {% endfor %}
 </div>

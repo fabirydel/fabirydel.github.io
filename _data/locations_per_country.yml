@@ -30,6 +30,9 @@ slovenia:
 argentina:
   locations:
     - bariloche
+    - lago_mascardi
+    - pozos_de_caleufu
+    - refugio_frey
 
 serbia:
   locations:

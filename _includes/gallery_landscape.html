@@ -1,5 +1,7 @@
+{% assign photo_count = page.images | size %}
+
 <div class="portfolio-gallery">
-  <div class="portfolio-grid">
+  <div class="portfolio-grid" data-photo-count="{{ photo_count }}">
     {% assign image_index = 0 %}
     {% for image_path in page.images %}
       <button

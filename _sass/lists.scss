@@ -123,3 +123,213 @@
     }
   }
 }
+
+/* ============================================================
+   Countries index — new card design
+   Photo-first cards, circular flag chip beside the country name,
+   passport-stamp flag fades in on hover, flag-colored underline
+   animates in under the name.
+   ============================================================ */
+
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 28px;
+  margin: 0 3vw;
+  padding: calc(var(--header-height) + 30px) 0 60px 0;
+}
+
+.country-card {
+  --flag-color: #1f2224;
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:visited,
+  &:focus {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--flag-color);
+    outline-offset: 4px;
+  }
+
+  &__photo-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 0.65;
+    overflow: hidden;
+    background: #ececec;
+  }
+
+  &__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transform: scale(1);
+    transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  &__stamp {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 58px;
+    height: 40px;
+    overflow: hidden;
+    background: var(--flag-color);
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    box-sizing: border-box;
+    transform: rotate(-7deg) translateY(-6px);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.35s ease,
+      transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+      /* The source flag PNGs have curved/waving edges baked in; scale the
+         image up so those curves are pushed off-canvas and only the flat
+         center of the flag is visible. */
+      transform: scale(1.2);
+      transform-origin: center;
+    }
+  }
+
+  &__meta {
+    padding: 14px 2px 0;
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__chip {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+    background: var(--flag-color);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+      /* Crop into the flat center of the flag so the source PNG's curved
+         edges don't show inside the circular chip. */
+      transform: scale(1.35);
+      transform-origin: center;
+    }
+  }
+
+  &__name {
+    font-family: "oswald", sans-serif;
+    font-size: 20px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 1;
+    color: inherit;
+  }
+
+  &__sub {
+    margin: 8px 0 0 32px;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  &__underline {
+    display: flex;
+    height: 4px;
+    width: 0;
+    margin: 10px 0 0 32px;
+    overflow: hidden;
+    /* Subtle 1px ring so the white stripe doesn't disappear into the page. */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    transition: width 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+    > span {
+      flex: 1 1 0;
+      min-width: 0;
+      height: 100%;
+    }
+  }
+
+  &:hover,
+  &:focus-visible {
+    .country-card__photo {
+      transform: scale(1.04);
+    }
+
+    .country-card__stamp {
+      opacity: 1;
+      transform: rotate(-7deg) translateY(0);
+    }
+
+    .country-card__underline {
+      width: 100px;
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .country-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .country-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin: 0 4vw;
+  }
+
+  .country-card {
+    &__name {
+      font-size: 22px;
+    }
+
+    &__stamp {
+      width: 64px;
+      height: 44px;
+    }
+  }
+}
+
+/* On touch devices there's no hover, so reveal the resting accents
+   so the design still reads correctly. */
+@media (hover: none) {
+  .country-card {
+    &__stamp {
+      opacity: 0.95;
+      transform: rotate(-7deg) translateY(0);
+    }
+
+    &__underline {
+      width: 100px;
+    }
+  }
+}

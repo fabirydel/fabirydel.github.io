@@ -1,8 +1,20 @@
 {% assign image_files = site.static_files | where: "image", true %}
 {% assign location_path = "full/" | append: page.namePath %}
 
+{%- comment -%}
+  Pre-count how many tiles will render so the grid can cap its column count
+  for sparse locations. Without this, e.g. a location with 7 photos in a
+  5-column grid leaves obvious blank space at the bottom.
+{%- endcomment -%}
+{% assign photo_count = 0 %}
+{% for image in image_files %}
+  {% if image.path contains location_path %}
+    {% assign photo_count = photo_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
 <div class="portfolio-gallery">
-  <div class="portfolio-grid">
+  <div class="portfolio-grid" data-photo-count="{{ photo_count }}">
     {% assign image_index = 0 %}
     {% for image in image_files %}
       {% if image.path contains location_path %}

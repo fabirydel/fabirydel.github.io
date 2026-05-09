@@ -1,0 +1,89 @@
+# Flag color palette per country, ordered as the colors appear on the flag.
+# Used to draw a tiny multi-stripe bar under the country name on hover.
+# The first color also becomes the card's --flag-color (focus outline,
+# chip / stamp fallback background).
+albania:
+  - "#E41E20"
+  - "#000000"
+argentina:
+  - "#74ACDF"
+  - "#FFFFFF"
+  - "#74ACDF"
+austria:
+  - "#ED2939"
+  - "#FFFFFF"
+  - "#ED2939"
+belgium:
+  - "#000000"
+  - "#FAE042"
+  - "#EF3340"
+bolivia:
+  - "#D52B1E"
+  - "#F9E300"
+  - "#007934"
+bosnia:
+  - "#002F6C"
+  - "#FECB00"
+brazil:
+  - "#009C3B"
+  - "#FFDF00"
+  - "#002776"
+croatia:
+  - "#FF0000"
+  - "#FFFFFF"
+  - "#171796"
+england:
+  - "#FFFFFF"
+  - "#CE1124"
+france:
+  - "#0055A4"
+  - "#FFFFFF"
+  - "#EF4135"
+gibraltar:
+  - "#FFFFFF"
+  - "#DA251D"
+italy:
+  - "#009246"
+  - "#FFFFFF"
+  - "#CE2B37"
+luxembourg:
+  - "#ED2939"
+  - "#FFFFFF"
+  - "#00A1DE"
+mexico:
+  - "#006847"
+  - "#FFFFFF"
+  - "#CE1126"
+montenegro:
+  - "#C40308"
+  - "#D4AF37"
+netherlands:
+  - "#AE1C28"
+  - "#FFFFFF"
+  - "#21468B"
+scotland:
+  - "#0065BD"
+  - "#FFFFFF"
+serbia:
+  - "#C6363C"
+  - "#0C4076"
+  - "#FFFFFF"
+slovenia:
+  - "#FFFFFF"
+  - "#005DA4"
+  - "#C6363C"
+spain:
+  - "#C60B1E"
+  - "#FFC400"
+  - "#C60B1E"
+switzerland:
+  - "#DA291C"
+  - "#FFFFFF"
+united_states:
+  - "#B22234"
+  - "#FFFFFF"
+  - "#3C3B6E"
+uruguay:
+  - "#0038A8"
+  - "#FFFFFF"
+  - "#FCD116"

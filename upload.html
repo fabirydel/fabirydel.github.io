@@ -1,0 +1,175 @@
+---
+layout: default
+title: Upload
+permalink: /upload/
+style: upload-page
+---
+
+<link rel="stylesheet" href="/assets/css/upload-wizard.css">
+
+<section id="upload-wizard" class="upload-wizard" aria-live="polite">
+
+  <header class="uw-header">
+    <h1 class="uw-title">Upload a new location</h1>
+    <p class="uw-subtitle">Drop your full-size photos and a few details. The wizard resizes the images, creates the location and country files, and updates <code>locations_per_country.yml</code> for you.</p>
+    <div class="uw-progress" aria-hidden="true">
+      <ol class="uw-steps">
+        <li data-step="folder">Folder</li>
+        <li data-step="images">Images</li>
+        <li data-step="location">Location</li>
+        <li data-step="country">Country</li>
+        <li data-step="cover">Cover</li>
+        <li data-step="confirm">Confirm</li>
+        <li data-step="done">Done</li>
+      </ol>
+    </div>
+  </header>
+
+  <!-- Compatibility gate -->
+  <div id="uw-incompatible" class="uw-panel uw-panel-warning" hidden>
+    <h2>Browser not supported</h2>
+    <p>This wizard uses the <strong>File System Access API</strong> to write images and files directly into your repo. That requires a Chromium-based browser (Chrome, Edge, Brave, Arc) on <code>localhost</code>.</p>
+    <p>Open this page in Chrome via <code>http://localhost:4000/upload</code> while running <code>bundle exec jekyll serve</code>.</p>
+  </div>
+
+  <!-- Step 1: Pick the repo folder -->
+  <section class="uw-step" data-step="folder" hidden>
+    <h2>Step 1 — Point to the site folder</h2>
+    <p>Pick the root of your <code>fabirydel.github.io</code> repo. The wizard needs read/write access to write images and update files.</p>
+    <p class="uw-hint">It checks for <code>_locations/</code>, <code>_countries/</code>, <code>_data/locations_per_country.yml</code>, and <code>images/</code> inside the folder you choose.</p>
+    <button type="button" class="uw-btn uw-btn-primary" data-action="pick-folder">Choose folder…</button>
+    <div id="uw-folder-status" class="uw-status"></div>
+  </section>
+
+  <!-- Step 2: Drop images -->
+  <section class="uw-step" data-step="images" hidden>
+    <h2>Step 2 — Add your photos</h2>
+    <p>Drop the full-size photos here, or click to pick them. They'll be resized client-side to <strong>full</strong> (max 1300px), <strong>thumb</strong> (max 400px), and <strong>blur</strong> (max 30px) — same as makethumbnails.com.</p>
+    <label class="uw-dropzone" id="uw-dropzone">
+      <input type="file" id="uw-file-input" accept="image/*" multiple hidden>
+      <div class="uw-dropzone-prompt">
+        <strong>Drop images</strong>
+        <span>or click to browse — JPEG / PNG / HEIC</span>
+      </div>
+    </label>
+    <div id="uw-image-list" class="uw-image-grid" aria-label="Selected images"></div>
+    <div class="uw-step-actions">
+      <button type="button" class="uw-btn" data-action="back">Back</button>
+      <button type="button" class="uw-btn uw-btn-primary" data-action="next" id="uw-images-next" disabled>Next</button>
+    </div>
+  </section>
+
+  <!-- Step 3: Location info -->
+  <section class="uw-step" data-step="location" hidden>
+    <h2>Step 3 — Location details</h2>
+    <div class="uw-form">
+      <label class="uw-field">
+        <span class="uw-label">Title <em>required</em></span>
+        <input type="text" id="uw-title" placeholder="e.g. Lago di Como" autocomplete="off">
+      </label>
+      <label class="uw-field">
+        <span class="uw-label">namePath <em>(folder/file slug, auto-derived)</em></span>
+        <input type="text" id="uw-namepath" placeholder="lago_di_como" autocomplete="off">
+        <small class="uw-hint" id="uw-namepath-hint"></small>
+      </label>
+      <label class="uw-field">
+        <span class="uw-label">Country <em>required</em></span>
+        <input type="text" id="uw-country" list="uw-country-list" placeholder="Type to search… or enter a new one" autocomplete="off">
+        <datalist id="uw-country-list"></datalist>
+        <small class="uw-hint" id="uw-country-hint"></small>
+      </label>
+      <label class="uw-field">
+        <span class="uw-label">latlng <em>optional</em></span>
+        <input type="text" id="uw-latlng" placeholder='e.g. "[46.368444, 14.109236]"' autocomplete="off">
+      </label>
+      <label class="uw-field">
+        <span class="uw-label">mapGoogle <em>optional — paste the iframe src URL</em></span>
+        <textarea id="uw-mapgoogle" rows="3" placeholder="https://www.google.com/maps/embed?pb=…"></textarea>
+      </label>
+    </div>
+    <div class="uw-step-actions">
+      <button type="button" class="uw-btn" data-action="back">Back</button>
+      <button type="button" class="uw-btn uw-btn-primary" data-action="next" id="uw-location-next">Next</button>
+    </div>
+  </section>
+
+  <!-- Step 4: New country (only if needed) -->
+  <section class="uw-step" data-step="country" hidden>
+    <h2>Step 4 — New country: <span id="uw-newcountry-name"></span></h2>
+    <p class="uw-hint">This country isn't in <code>locations_per_country.yml</code> yet. Fill in the details — they go straight into <code>_countries/<span id="uw-newcountry-slug"></span>.html</code>.</p>
+    <div class="uw-form">
+      <label class="uw-field">
+        <span class="uw-label">Display title <em>required</em></span>
+        <input type="text" id="uw-c-title" placeholder="e.g. Argentina" autocomplete="off">
+      </label>
+      <label class="uw-field">
+        <span class="uw-label">latlng <em>required</em></span>
+        <input type="text" id="uw-c-latlng" placeholder='e.g. "[-34.79, -65.18]"' autocomplete="off">
+      </label>
+      <label class="uw-field">
+        <span class="uw-label">bounds <em>required</em></span>
+        <input type="text" id="uw-c-bounds" placeholder='e.g. "[[-20.6, -72.1], [-54.5, -48.1]]"' autocomplete="off">
+      </label>
+      <label class="uw-field">
+        <span class="uw-label">zoom <em>required</em></span>
+        <input type="number" id="uw-c-zoom" placeholder="e.g. 6" min="1" max="20">
+      </label>
+      <div class="uw-field" id="uw-flag-field">
+        <span class="uw-label">Flag PNG <em id="uw-flag-status">checking…</em></span>
+        <label class="uw-flag-upload" hidden>
+          <input type="file" id="uw-flag-input" accept="image/png,image/*" hidden>
+          <span>Choose a flag image (will be saved as <code>/images/flags/<span class="uw-flag-slug"></span>.png</code>)</span>
+        </label>
+        <div id="uw-flag-preview"></div>
+      </div>
+    </div>
+    <div class="uw-step-actions">
+      <button type="button" class="uw-btn" data-action="back">Back</button>
+      <button type="button" class="uw-btn uw-btn-primary" data-action="next" id="uw-country-next">Next</button>
+    </div>
+  </section>
+
+  <!-- Step 5: Pick cover image(s) -->
+  <section class="uw-step" data-step="cover" hidden>
+    <h2>Step 5 — Pick the cover image</h2>
+    <p>Click the photo that will be the location's <code>indexImagePath</code>.<span id="uw-cover-country-hint"></span></p>
+    <div id="uw-cover-grid" class="uw-image-grid uw-image-grid-pickable" role="radiogroup" aria-label="Pick cover image"></div>
+    <div class="uw-step-actions">
+      <button type="button" class="uw-btn" data-action="back">Back</button>
+      <button type="button" class="uw-btn uw-btn-primary" data-action="next" id="uw-cover-next" disabled>Next</button>
+    </div>
+  </section>
+
+  <!-- Step 6: Confirm / preview -->
+  <section class="uw-step" data-step="confirm" hidden>
+    <h2>Step 6 — Review and confirm</h2>
+    <p>Here's exactly what will happen when you click <strong>Process</strong>. Nothing has been written yet.</p>
+    <div id="uw-preview" class="uw-preview"></div>
+    <div class="uw-step-actions">
+      <button type="button" class="uw-btn" data-action="back">Back</button>
+      <button type="button" class="uw-btn uw-btn-primary" data-action="process" id="uw-process-btn">Process</button>
+    </div>
+  </section>
+
+  <!-- Step 7: Done -->
+  <section class="uw-step" data-step="done" hidden>
+    <h2>Step 7 — Done</h2>
+    <div id="uw-done-summary"></div>
+    <div class="uw-step-actions">
+      <button type="button" class="uw-btn uw-btn-primary" data-action="restart">Upload another</button>
+    </div>
+  </section>
+
+  <!-- Processing overlay -->
+  <div id="uw-processing" class="uw-processing" hidden>
+    <div class="uw-processing-card">
+      <h3 id="uw-processing-title">Processing…</h3>
+      <div class="uw-processing-bar"><div id="uw-processing-bar-fill"></div></div>
+      <p id="uw-processing-status" class="uw-processing-status"></p>
+      <pre id="uw-processing-log" class="uw-processing-log"></pre>
+    </div>
+  </div>
+
+</section>
+
+<script src="/assets/js/upload-wizard.js" defer></script>

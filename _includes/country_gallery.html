@@ -1,5 +1,18 @@
+{%- comment -%}
+  Pre-count how many tiles will render so the grid can cap its column count
+  for sparse countries.
+{%- endcomment -%}
+{% assign photo_count = 0 %}
+{% for image in images %}
+  {% assign full_path = "full/" | append: page.namePath %}
+  {% assign image_path = image.path | split: '/' %}
+  {% if country_locations contains image_path[3] and image.path contains full_path %}
+    {% assign photo_count = photo_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
 <div class="portfolio-gallery">
-  <div class="portfolio-grid">
+  <div class="portfolio-grid" data-photo-count="{{ photo_count }}">
     {% assign image_index = 0 %}
     {% for image in images %}
       {% assign full_path = "full/" | append: page.namePath %}

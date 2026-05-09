@@ -1,8 +1,14 @@
 // Masonry grid used by the home page (index.html), location pages (_includes/gallery.html),
 // country pages (_includes/country_gallery.html), and landscape pages (_includes/gallery_landscape.html).
 //
-// Uses CSS multi-column layout so each photo keeps its native aspect ratio.
-// Responsive purely via `column-count` media queries — no JS, no DOM duplication.
+// Two layout modes:
+//   1. Initial render (no JS yet): CSS multi-column. Works as a fallback if JS
+//      is disabled. Tiles flow top→bottom, browser balances column heights.
+//   2. After grid-layout.js runs: the grid is rebuilt as a flex container with
+//      one .grid-col element per visible column, and tiles are round-robin
+//      distributed (item i → column i % N). This guarantees that whenever
+//      photo_count >= column_count, every column has at least one photo, even
+//      if the items have very uneven heights.
 //
 // Tiles use a blur background as a placeholder while the thumb fetches; `images.js`
 // adds `.loaded` to the thumb on load so it fades in over the blur.
@@ -11,12 +17,27 @@
   margin: 10px 8px;
   padding: 0 4px;
 
+  // Default / fallback: CSS multi-column layout.
   .portfolio-grid {
-    // Base = wide screens (16" MacBook fullscreen and up).
-    // Narrower viewports step down via the media queries below.
     column-count: 5;
     column-gap: 12px;
   }
+
+  // After grid-layout.js takes over: flex container of .grid-col children.
+  .portfolio-grid.js-grid {
+    display: flex;
+    column-count: auto; // unset
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .portfolio-grid.js-grid .grid-col {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  // The bottom margin on .photo-tile already handles vertical gaps between
+  // tiles within a column; nothing extra needed here.
 
   .photo-tile {
     position: relative;
@@ -94,16 +115,16 @@
 }
 
 @media (max-width: 1500px) {
-  .portfolio-gallery .portfolio-grid {
-    column-count: 4;
-  }
+  .portfolio-gallery .portfolio-grid:not(.js-grid) { column-count: 4; }
+  .portfolio-gallery .portfolio-grid.js-grid { gap: 12px; }
 }
 
 @media (max-width: 1280px) {
-  .portfolio-gallery .portfolio-grid {
+  .portfolio-gallery .portfolio-grid:not(.js-grid) {
     column-count: 3;
     column-gap: 10px;
   }
+  .portfolio-gallery .portfolio-grid.js-grid { gap: 10px; }
   .portfolio-gallery .photo-tile {
     margin-bottom: 10px;
   }
@@ -114,10 +135,11 @@
     margin: 8px 6px;
     padding: 0 2px;
 
-    .portfolio-grid {
+    .portfolio-grid:not(.js-grid) {
       column-count: 2;
       column-gap: 8px;
     }
+    .portfolio-grid.js-grid { gap: 8px; }
 
     .photo-tile {
       margin-bottom: 8px;
@@ -130,10 +152,11 @@
     margin: 5px 3px;
     padding: 0;
 
-    .portfolio-grid {
+    .portfolio-grid:not(.js-grid) {
       column-count: 2;
       column-gap: 5px;
     }
+    .portfolio-grid.js-grid { gap: 5px; }
 
     .photo-tile {
       margin-bottom: 5px;

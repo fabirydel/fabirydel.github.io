@@ -43,6 +43,27 @@
           Countries
         </h1>
       </a>
+      {%- unless jekyll.environment == 'production' -%}
+        <a href="/upload" class="uw-header-button" id="uw-header-button" style="display:none">
+          <h1
+            class="upload {% if page.url contains 'upload' %} header-selected {% endif %}"
+          >
+            Upload
+          </h1>
+        </a>
+        <script>
+          // Belt-and-braces: even in dev builds, only show the button when
+          // the page is being viewed via localhost (not, say, when the dev
+          // build is being previewed over LAN).
+          (function () {
+            var h = window.location.hostname;
+            if (h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0' || h.endsWith('.local')) {
+              var el = document.getElementById('uw-header-button');
+              if (el) el.style.display = '';
+            }
+          })();
+        </script>
+      {%- endunless -%}
       <!-- <a class="option-container theme-container theme-big" href="/nfts">
         <img id="#openseas" class="theme icon open-seas">
         <img id="#openseas" class="theme icon open-seas night">
