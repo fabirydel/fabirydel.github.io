@@ -194,6 +194,20 @@
     return i > 0 ? n.slice(0, i) : n;
   }
 
+  // If the user pasted a full <iframe ...> tag (which is what Google Maps
+  // copies to the clipboard), pull the src attribute out and use only that.
+  // If they pasted just the URL, return it as-is. Whitespace-trimmed either
+  // way.
+  function extractMapSrc(input) {
+    const v = (input || '').trim();
+    if (!v) return '';
+    // Cheap case-insensitive check first to avoid the regex on plain URLs.
+    if (!/<iframe\b/i.test(v)) return v;
+    // Match either single- or double-quoted src="…" attribute.
+    const m = v.match(/<iframe[^>]*\bsrc\s*=\s*(['"])([^'"]+)\1/i);
+    return m ? m[2].trim() : v;
+  }
+
   // ----------------------------------------------------------
   // Step 1 — Folder picker
   // ----------------------------------------------------------
@@ -526,6 +540,16 @@
     }
   });
 
+  // If the user pastes a full <iframe …> tag, replace it with just the src
+  // URL as soon as they tab/click out of the field, so they see what will
+  // actually be saved.
+  mapInput.addEventListener('blur', () => {
+    const cleaned = extractMapSrc(mapInput.value);
+    if (cleaned !== mapInput.value.trim()) {
+      mapInput.value = cleaned;
+    }
+  });
+
   function refreshNamepathHint() {
     const np = slugify(namepathInput.value || '');
     if (!np) { namepathHint.textContent = ''; return; }
@@ -545,7 +569,7 @@
     state.location.namePath = namePath;
     state.location.country = country;
     state.location.latlng = latlngInput.value.trim();
-    state.location.mapGoogle = mapInput.value.trim();
+    state.location.mapGoogle = extractMapSrc(mapInput.value);
     state.isNewCountry = !state.countries.includes(country);
     return true;
   }
