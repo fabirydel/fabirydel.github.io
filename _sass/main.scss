@@ -26,20 +26,38 @@ body {
   color: var(--black);
   background: var(--white);
   -webkit-text-size-adjust: 100%;
-  -webkit-font-feature-settings: "kern"1;
-  -moz-font-feature-settings: "kern"1;
-  -o-font-feature-settings: "kern"1;
-  font-feature-settings: "kern"1;
+  -webkit-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
   font-kerning: normal;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  transition: all 0.75s ease;
-  -webkit-transition: all 0.75s ease;
+  // Day/night theme switch — only animate the colors, not "all".
+  transition: background-color 0.4s ease, color 0.4s ease;
 
   &.nighttime {
     background: var(--black);
     color: var(--white);
+  }
+}
+
+/** Page-load reveal: gentle fade-in for the whole document on first paint.
+ *  Honors prefers-reduced-motion and is short enough not to feel like a delay. */
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+body {
+  animation: page-fade-in 0.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 

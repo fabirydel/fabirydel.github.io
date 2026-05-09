@@ -9,9 +9,11 @@
   z-index: 5;
   font-family: "poppins", sans-serif;
   font-weight: 500;
-  -webkit-transition: 0.15s ease;
-  transition: all 0.75s ease;
-  -webkit-transition: all 0.75s ease;
+  // Slow 0.75s transition was sluggish for nav feedback. Tightened to 0.25s
+  // for everything except top (which is the show/hide animation).
+  transition: top 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.25s ease,
+              color 0.25s ease;
 
   &.hide {
     top: calc(var(--header-height) * -1) ;
@@ -26,6 +28,7 @@
     line-height: 2;
     margin: 0;
     font-weight: 200;
+    transition: font-weight 0.2s ease, color 0.2s ease;
 
     &.portfolio {
       width: 68px;
@@ -44,7 +47,7 @@
     }
 
     &:hover {
-      font-weight: 300;
+      font-weight: 400;
     }
   }
 
@@ -66,8 +69,7 @@
   }
 
   .theme-container {
-    transition: all 0.75s ease;
-    -webkit-transition: all 0.75s ease;
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
     border: 1px solid var(--black);
     color: var(--black);
     border-radius: 50%;
@@ -75,6 +77,14 @@
     height: 26px;
     text-align: center;
     cursor: pointer;
+
+    &:hover {
+      transform: scale(1.06);
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
 
     &.theme-big .theme:before {
       vertical-align: middle;
@@ -86,8 +96,7 @@
     justify-content: space-between;
     align-items: center;
     background: var(--white);
-    transition: all 0.75s ease;
-    -webkit-transition: all 0.75s ease;
+    transition: background-color 0.25s ease;
   }
 
   .dropdown {
@@ -147,7 +156,7 @@
   }
 
   .header-name {
-    transition: all 0.75s ease;
+    transition: background-color 0.25s ease;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -179,14 +188,13 @@
   }
 
   .open-seas {
-    -webkit-transition: all 0.75s ease;
+    transition: opacity 0.25s ease;
     content: url('/assets/icons/openseas3.png');
     height: 20px;
     left: 3px;
     opacity: 1;
     position: absolute;
     top: 3px;
-    transition: all 0.75s ease;
     width: 20px;
 
     &.night {
@@ -224,8 +232,8 @@
 
 .header-selected {
   text-decoration: underline;
-  text-decoration-thickness: 0.75px;
-  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
 }
 
 .invisible {

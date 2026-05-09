@@ -325,53 +325,61 @@ body {
 
 .stats-wrapper {
   position: relative;
-  height: 400px;
+  height: 420px;
+  overflow: hidden;
 }
 
 .stats-overlay {
   width: 100%;
-  max-height: 400px;
-  height: 400px;
+  max-height: 420px;
+  height: 420px;
   object-fit: cover;
   position: absolute;
-  background: var(--black);
-  opacity: 0.4;
+  // Soft top-to-bottom gradient instead of a flat dark layer — gives the
+  // panorama room to breathe at the edges.
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
 
   &.nighttime {
-    background: var(--white);
-    opacity: 0.1;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.45) 100%);
   }
 }
 
 .stats-cover {
   width: 100%;
-  max-height: 400px;
-  height: 400px;
+  max-height: 420px;
+  height: 420px;
   object-fit: cover;
 }
 
 .stats-container {
-  transition: all 0.75s ease;
-  -webkit-transition: all 0.75s ease;
+  transition: background-color 0.35s ease, color 0.35s ease;
   position: absolute;
   display: flex;
   justify-content: space-between;
-  top: calc(50% - 42px);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  background: var(--white);
-  border-radius: 8px;
-  opacity: 0.75;
+  transform: translate(-50%, -50%);
+  // Frosted glass panel — translucent white with a slight blur of what's
+  // behind it. Falls back gracefully on browsers without backdrop-filter.
+  background: rgba(249, 249, 249, 0.78);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 36px -12px rgba(0, 0, 0, 0.35);
+  padding: 4px 0;
+  opacity: 1;
 
   &.nighttime {
-    background: var(--black);
+    background: rgba(31, 34, 36, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
     .stat {
-      border-right: 1px solid var(--white);
+      border-right: 1px solid rgba(255, 255, 255, 0.16);
       color: var(--white);
 
       .stat-label {
-        color: #f9f9f996;
+        color: rgba(249, 249, 249, 0.6);
       }
     }
   }
@@ -379,8 +387,8 @@ body {
   .stat {
     font-family: 'poppins';
     text-align: center;
-    padding: 8px 0;
-    border-right: 1px solid var(--black);
+    padding: 10px 4px;
+    border-right: 1px solid rgba(31, 34, 36, 0.12);
     width: 100px;
     color: var(--black);
 
@@ -388,9 +396,25 @@ body {
       border-right: none;
     }
 
+    .stat-icon {
+      display: inline-block;
+      margin-bottom: 4px;
+      opacity: 0.85;
+    }
+
+    .stat-value {
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+      line-height: 1.25;
+    }
+
     .stat-label {
-      font-size: 12px;
-      color: #1f2224a8;
+      font-size: 11px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: rgba(31, 34, 36, 0.6);
+      margin-top: 2px;
     }
   }
 }

@@ -44,15 +44,13 @@
   <script defer src="/assets/js/footer.js"></script>
   <script defer src="/assets/js/header.js"></script>
 
-  {% if jekyll.environment == 'production' %}
+  {%- if jekyll.environment == 'production' and site.google_analytics -%}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', '{{ site.google_analytics }}');
     </script>
-  {% endif %}
-
+  {%- endif -%}
 </head>

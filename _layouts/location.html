@@ -2,9 +2,8 @@
 <html lang="en">
 
   {% include head.html %}
-  {% include header.html %}
-
   <body>
+    {% include header.html %}
     <div id="blurable">
 
       {% assign country_locations = site.data.locations_per_country[page.country].locations %}
