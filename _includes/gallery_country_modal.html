@@ -7,9 +7,8 @@
       {% assign image_path = image.path | split: '/' %}
 
       {% if country_locations contains image_path[3] and image.path contains full_path %}
-        {% assign path = "full/" | append: page.namePath %}
         <div class="slide">
-          <img src="{{ image.path }}" onclick="ignore(event)" class="center">
+          <img data-src="{{ image.path }}" alt="{{ image_path[3] | replace: '_', ' ' | capitalize }}" decoding="async" onclick="ignore(event)" class="center">
         </div>
       {% endif %}
     {% endfor %}

@@ -7,7 +7,7 @@
       {% assign path = "full/" | append: page.namePath %}
       {% if image.path contains path %}
         <div class="slide">
-          <img src="{{ image.path }}" onclick="ignore(event)" class="center">
+          <img data-src="{{ image.path }}" alt="{{ page.title }}" decoding="async" onclick="ignore(event)" class="center">
         </div>
       {% endif %}
     {% endfor %}

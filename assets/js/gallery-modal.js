@@ -1,44 +1,84 @@
-// Open the Modal
-function openModal(index, id) {
-  document.getElementById("header").classList.add("freeze")
+// Modal navigation state
+var slideIndex = 0;
+var currentModalId = null;
 
-  const mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
-  const headerHeight = document.querySelector('#header').offsetHeight;
-  const scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
-  if (document.querySelector('.country-wrapper') && mapHeight + headerHeight > window.scrollY) {
-    document.querySelector('.country-wrapper').style.marginTop = `${-window.scrollY}px`;
+// Re-entrancy guard. The X button and the modal backdrop both have
+// onclick="closeModal(id)" — clicking the X bubbles, so closeModal fires
+// twice in one event loop tick. Without this, the second call would also
+// run history.back, sending the user to the previous page.
+var isClosing = false;
+
+// Touch tracking (set on touchstart, read on touchend).
+var touchStartX = 0;
+var touchStartY = 0;
+
+// ===== Public API (called from inline onclick handlers) =====
+
+function openModal(index, id) {
+  performOpen(index, id);
+  // Add a history entry so the browser back button (and Android system back)
+  // closes the modal instead of navigating away from the page.
+  if (!history.state || history.state.modalId !== id) {
+    history.pushState({ modalId: id }, '');
   }
-  document.getElementById("gallery-body").style.top = `${-window.scrollY + mapHeight  + scrollHeader}px`;
+}
+
+function closeModal(id) {
+  if (isClosing) return;
+  isClosing = true;
+  setTimeout(function () { isClosing = false; }, 100);
+
+  // Close immediately (no async wait), then quietly pop the pushed history
+  // entry so the next browser back goes to the actual previous page rather
+  // than to a stale modal-state. By the time popstate fires from history.back
+  // currentModalId is null, so the popstate handler is a no-op.
+  performClose(id);
+  if (history.state && history.state.modalId === id) {
+    history.back();
+  }
+}
+
+// ===== Internals =====
+
+function performOpen(index, id) {
+  document.getElementById("header").classList.add("freeze");
+
+  var mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
+  var headerHeight = document.querySelector('#header').offsetHeight;
+  var scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
+  if (document.querySelector('.country-wrapper') && mapHeight + headerHeight > window.scrollY) {
+    document.querySelector('.country-wrapper').style.marginTop = (-window.scrollY) + 'px';
+  }
+  document.getElementById("gallery-body").style.top = (-window.scrollY + mapHeight + scrollHeader) + 'px';
   document.getElementById("gallery-body").style.position = "fixed";
 
-  document.getElementById(id).style.display = "block";
-  setTimeout(function() {
-    document.getElementById(id).style.visibility = "visible";
-    document.getElementById(id).style.opacity = "1";
+  var modal = document.getElementById(id);
+  modal.style.display = "block";
+  setTimeout(function () {
+    modal.style.visibility = "visible";
+    modal.style.opacity = "1";
   }, 10);
   blur();
 
-  currentSlide(index)
-
-  document.onkeydown = function(e) {
-    switch (e.keyCode) {
-      case 37:
-        plusSlides(e, -1)
-        break;
-      case 39:
-        plusSlides(e, 1)
-        break;
-    }
-  };
+  currentSlide(index);
+  currentModalId = id;
+  attachTouchHandlers(modal);
 }
 
-// Close the Modal
-function closeModal(id) {
-  document.getElementById("header").classList.remove("freeze")
-  const scrollY = document.getElementById("gallery-body").style.top;
-  const headerHeight = document.querySelector('#header').offsetHeight;
-  const scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
-  const mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
+function performClose(id) {
+  var modal = document.getElementById(id);
+  // Idempotent: if the modal is already closing/closed, don't run scroll
+  // restoration or other side effects again.
+  if (!modal || modal.style.visibility === "hidden") {
+    currentModalId = null;
+    return;
+  }
+
+  document.getElementById("header").classList.remove("freeze");
+  var scrollY = document.getElementById("gallery-body").style.top;
+  var headerHeight = document.querySelector('#header').offsetHeight;
+  var scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
+  var mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
 
   if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.marginTop = '';
   document.getElementById("gallery-body").style.position = '';
@@ -48,11 +88,14 @@ function closeModal(id) {
   }
   deblur();
 
-  document.getElementById(id).style.visibility = "hidden";
-  document.getElementById(id).style.opacity = "0";
-  setTimeout(function() {
-    document.getElementById(id).style.display = "none";
+  modal.style.visibility = "hidden";
+  modal.style.opacity = "0";
+  setTimeout(function () {
+    modal.style.display = "none";
   }, 250);
+
+  detachTouchHandlers(modal);
+  currentModalId = null;
 }
 
 function blur() {
@@ -72,36 +115,110 @@ function deblur() {
 }
 
 function ignore(e) {
-  e.stopPropagation();
+  if (e && e.stopPropagation) e.stopPropagation();
 }
 
-var slideIndex = 0
-showSlides(slideIndex);
+// Lazy-load only the visible slide and its immediate neighbors from data-src
+// so we don't fetch all full-res images on page load.
+function preloadAroundSlide(n) {
+  var slides = document.getElementsByClassName("slide");
+  if (!slides.length) return;
+  var len = slides.length;
+  var indices = [n - 1, n, n + 1].map(function (i) {
+    return ((i % len) + len) % len;
+  });
+  indices.forEach(function (i) {
+    var img = slides[i] && slides[i].querySelector('img[data-src]');
+    if (img && !img.src) {
+      img.src = img.dataset.src;
+    }
+  });
+}
 
-// Next/previous controls
 function plusSlides(event, n) {
   showSlides(slideIndex += n);
-  ignore(event)
+  if (event && event.stopPropagation) event.stopPropagation();
 }
 
-// Thumbnail image controls
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
 
 function showSlides(n) {
-  var i;
   var slides = document.getElementsByClassName("slide");
   var dots = document.getElementsByClassName("demo");
   var captionText = document.getElementById("caption");
-  if (n >= slides.length) {slideIndex = 0}
-  if (n < 0) {slideIndex = slides.length - 1}
-  for (i = 0; i < slides.length; i++) {
+  if (n >= slides.length) { slideIndex = 0; }
+  if (n < 0) { slideIndex = slides.length - 1; }
+  for (var i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
-  if (slides[slideIndex]) slides[slideIndex].style.display = "block";
+  if (slides[slideIndex]) {
+    slides[slideIndex].style.display = "block";
+    // Defensive: even if preloadAroundSlide missed for any reason, make sure
+    // the slide the user is looking at always has its src set.
+    var visibleImg = slides[slideIndex].querySelector('img[data-src]');
+    if (visibleImg && !visibleImg.src) {
+      visibleImg.src = visibleImg.dataset.src;
+    }
+  }
+  preloadAroundSlide(slideIndex);
   if (dots[slideIndex]) {
     dots[slideIndex].className += " active";
-    captionText.innerHTML = dots[slideIndex].alt;
+    if (captionText) captionText.innerHTML = dots[slideIndex].alt;
   }
 }
+
+// ===== Touch swipe (active only while a modal is open) =====
+
+function onTouchStart(e) {
+  if (!e.touches || !e.touches[0]) return;
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}
+
+function onTouchEnd(e) {
+  if (!e.changedTouches || !e.changedTouches[0]) return;
+  var dx = e.changedTouches[0].clientX - touchStartX;
+  var dy = e.changedTouches[0].clientY - touchStartY;
+  // Only react to horizontal swipes; ignore mostly-vertical gestures so the
+  // user can scroll within the modal.
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+    plusSlides(null, dx > 0 ? -1 : 1);
+  }
+}
+
+function attachTouchHandlers(modal) {
+  modal.addEventListener('touchstart', onTouchStart, { passive: true });
+  modal.addEventListener('touchend', onTouchEnd, { passive: true });
+}
+
+function detachTouchHandlers(modal) {
+  modal.removeEventListener('touchstart', onTouchStart);
+  modal.removeEventListener('touchend', onTouchEnd);
+}
+
+// ===== Global keyboard shortcuts (active only while a modal is open) =====
+
+document.addEventListener('keydown', function (e) {
+  if (!currentModalId) return;
+  switch (e.key) {
+    case 'ArrowLeft':
+      plusSlides(e, -1);
+      break;
+    case 'ArrowRight':
+      plusSlides(e, 1);
+      break;
+    case 'Escape':
+      closeModal(currentModalId);
+      break;
+  }
+});
+
+// ===== History (browser back closes the modal) =====
+
+window.addEventListener('popstate', function () {
+  if (currentModalId) {
+    performClose(currentModalId);
+  }
+});

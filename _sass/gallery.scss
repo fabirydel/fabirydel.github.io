@@ -178,9 +178,8 @@ body {
   }
 }
 
-.portfolio-grid {
-  grid-template-columns: 25% 25% 25% 25%;
-}
+// .portfolio-grid is now defined in _sass/portfolio.scss with a single
+// responsive grid (replaces the old triplicated 4/3/2-column markup).
 
 .gallery-column {
   display: inline-flex;

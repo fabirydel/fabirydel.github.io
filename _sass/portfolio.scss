@@ -1,124 +1,149 @@
+// Masonry grid used by the home page (index.html), location pages (_includes/gallery.html),
+// country pages (_includes/country_gallery.html), and landscape pages (_includes/gallery_landscape.html).
+//
+// Uses CSS multi-column layout so each photo keeps its native aspect ratio.
+// Responsive purely via `column-count` media queries — no JS, no DOM duplication.
+//
+// Tiles use a blur background as a placeholder while the thumb fetches; `images.js`
+// adds `.loaded` to the thumb on load so it fades in over the blur.
+
 .portfolio-gallery {
-  margin: 10px 5px;
+  margin: 10px 8px;
+  padding: 0 4px;
 
-  .grid-container {
-    display: inline-grid;
-    grid-template-columns: 33.3% 33.4% 33.3%;
+  .portfolio-grid {
+    // Base = wide screens (16" MacBook fullscreen and up).
+    // Narrower viewports step down via the media queries below.
+    column-count: 5;
+    column-gap: 12px;
+  }
+
+  .photo-tile {
+    position: relative;
+    display: block;
     width: 100%;
+    margin: 0 0 12px 0;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2px;
+    background-color: var(--white);
+    background-size: cover;
+    background-position: center;
 
-    .gallery-column {
-      display: inline-flex;
-      flex-direction: column;
-      vertical-align: middle;
+    // Prevent CSS columns from splitting a tile across columns.
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
 
-      .photo-container {
-        box-shadow: none;
-        height: 450px;
-        margin: 10px auto;
-        overflow: initial;
-        width: 85%;
+    // No hover transform / scale / shadow / opacity — only the caption
+    // fade-in below changes on hover.
 
-        .image-container-landscape {
-          .placeholder-container .placeholder, .picture.loaded {
-            width: 100%;
-            height: initial;
-          }
-        }
+    &:focus-visible {
+      outline: 2px solid #d95040;
+      outline-offset: 2px;
+    }
 
-        .picture, .placeholder {
-          height: initial;
-          width: initial;
-          max-height: 330px;
-          align-self: center;
-        }
+    .thumb {
+      display: block;
+      width: 100%;
+      height: auto;
+      opacity: 0;
+      transform: scale(1.04);
+      transform-origin: center;
+      transition:
+        opacity 0.6s ease-out,
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 
-        .photo {
-          height: 100%;
-          background: var(--white);
-          overflow: initial;
-        }
-
-        .placeholder-container {
-          display: flex;
-          height: 100%;
-          max-height: 330px;
-
-          .placeholder {
-            height: 100%;
-            margin: 0 auto;
-          }
-        }
-
-        .photo-title {
-          bottom: 15px;
-          color: #333;
-          font-family: Mrseaves;
-          position: absolute;
-          text-align: center;
-          width: 100%;
-        }
-
-        .photo-place {
-          bottom: 0;
-          font-size: 12px;
-        }
+      &.loaded {
+        opacity: 1;
+        transform: scale(1);
       }
     }
 
-    .two-column-grid {
-      display: none;
+    .photo-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 28px 10px 10px;
+      color: #fff;
+      font-family: 'Mrseaves', serif;
+      font-size: 13px;
+      text-align: center;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+      opacity: 0;
+      transition: opacity 0.25s ease;
     }
 
-    .one-column-grid {
-      display: none;
+    &:hover .photo-caption,
+    &:focus-visible .photo-caption {
+      opacity: 1;
     }
   }
 }
 
+// Nighttime override (the existing dark-mode toggle on #blurable.nighttime).
+#blurable.nighttime .portfolio-gallery {
+  .photo-tile {
+    background-color: var(--black);
+  }
+}
 
-@media screen and (max-width: 1150px) {
+@media (max-width: 1500px) {
+  .portfolio-gallery .portfolio-grid {
+    column-count: 4;
+  }
+}
+
+@media (max-width: 1280px) {
+  .portfolio-gallery .portfolio-grid {
+    column-count: 3;
+    column-gap: 10px;
+  }
+  .portfolio-gallery .photo-tile {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 850px) {
   .portfolio-gallery {
-    .grid-container {
-      grid-template-columns: 50% 50%;
+    margin: 8px 6px;
+    padding: 0 2px;
 
-      .three-column-grid {
-        display: none;
-      }
+    .portfolio-grid {
+      column-count: 2;
+      column-gap: 8px;
+    }
 
-      .two-column-grid {
-        display: inline-flex;
-      }
+    .photo-tile {
+      margin-bottom: 8px;
     }
   }
 }
 
-@media screen and (max-width: 850px) {
+@media (max-width: 480px) {
   .portfolio-gallery {
-    margin: 10px 5px;
+    margin: 5px 3px;
+    padding: 0;
 
-    .grid-container {
-      .gallery-column {
-        .photo-container {
-          margin: 0 auto;
-        }
-      }
+    .portfolio-grid {
+      column-count: 2;
+      column-gap: 5px;
     }
-  }
-}
 
-@media screen and (max-width: 650px) {
-  .portfolio-gallery {
-    margin: 5px 2.5px;
+    .photo-tile {
+      margin-bottom: 5px;
 
-    .grid-container {
-      grid-template-columns: 100%;
-
-      .two-column-grid {
-        display: none;
-      }
-
-      .one-column-grid {
-        display: inline-flex;
+      .photo-caption {
+        font-size: 11px;
+        padding: 20px 6px 6px;
+        // On touch devices the caption is harder to surface via hover;
+        // show it permanently with a stronger gradient.
+        opacity: 1;
       }
     }
   }

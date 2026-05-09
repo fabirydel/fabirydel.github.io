@@ -13,7 +13,7 @@
             </a>
           </div>
 
-          <img src="/images/full/{{ image.path }}" onclick="ignore(event)">
+          <img data-src="/images/full/{{ image.path }}" alt="{{ image.place }}, {{ image.country | capitalize }}" decoding="async" onclick="ignore(event)">
 
           <div class="modal-text-container text-container">
             <a href="/locations/{{ image.location }}" class="photo-place-link">

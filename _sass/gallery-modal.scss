@@ -50,12 +50,19 @@
 }
 
 .close:hover,
-.close:focus,
+.close:focus {
+  color: var(--white);
+  cursor: pointer;
+  opacity: 0.75;
+  text-decoration: none;
+}
+
+// Arrow buttons get their own hover treatment below — keep them at full opacity
+// and use a subtle background panel + chevron scale instead of dimming.
 .prev:hover,
 .next:hover {
   color: var(--white);
   cursor: pointer;
-  opacity: 0.75;
   text-decoration: none;
 }
 
@@ -80,12 +87,12 @@
   border-radius: 0 3px 3px 0;
   color: var(--white);
   cursor: pointer;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: bold;
-  opacity: 1;
+  opacity: 0.85;
   position: absolute;
   top: 50%;
-  transition: 0.3s ease;
+  transition: opacity 0.25s ease, background-color 0.25s ease;
   user-select: none;
   height: 50vh;
   padding: 0 16px;
@@ -94,6 +101,21 @@
   align-items: center;
   margin: auto;
   width: 12vw;
+  background-color: rgba(0, 0, 0, 0);
+
+  &::before {
+    display: inline-block;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.04);
+
+    &::before {
+      transform: scale(1.18);
+    }
+  }
 }
 
 /* Position the "next button" to the right */
