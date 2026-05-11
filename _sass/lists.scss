@@ -135,7 +135,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px 28px;
-  margin: 0 3vw;
+  margin: 0 32px;
   padding: calc(var(--header-height) + 30px) 0 60px 0;
 }
 

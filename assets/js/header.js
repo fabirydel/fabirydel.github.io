@@ -14,13 +14,8 @@ function toggleNighttime () {
   document.getElementById('stats-container') ? document.getElementById('stats-container').classList.toggle('nighttime') : null;
   document.getElementById('stats-overlay') ? document.getElementById('stats-overlay').classList.toggle('nighttime') : null;
 
-  var themeButtons = document.getElementsByClassName("theme");
-  if (themeButtons) {
-    for (i = 0; i < themeButtons.length; i++) {
-      themeButtons[i].classList.toggle("fa-moon");
-      themeButtons[i].classList.toggle("fa-sun");
-    }
-  }
+  // The moon/sun icons are now inline SVGs whose visibility is controlled
+  // by body.nighttime in CSS — no font-icon class toggling needed.
 }
 
 function toggleTheme () {

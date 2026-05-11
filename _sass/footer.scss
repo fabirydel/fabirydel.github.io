@@ -1,10 +1,10 @@
 #footer-background {
-  -webkit-transition: .15s ease-in-out;
+  -webkit-transition: 0.15s ease-in-out;
   background: transparent;
   height: 100%;
   pointer-events: none;
   position: fixed;
-  transition: .15s ease-in-out;
+  transition: 0.15s ease-in-out;
   width: 100%;
   z-index: 5;
 
@@ -72,18 +72,18 @@ body.loading #footer-header {
   color: inherit !important;
 }
 
-#footer-header nav>ul {
+#footer-header nav > ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-#footer-header nav>ul>li {
+#footer-header nav > ul > li {
   display: inline-block;
   padding: 0;
 }
 
-#footer-header nav>ul>li .about {
+#footer-header nav > ul > li .about {
   -webkit-transition: all 0.75s ease;
   border: 0;
   color: var(--black);
@@ -97,7 +97,7 @@ body.loading #footer-header {
   transition: all 0.75s ease;
 }
 
-#footer-header nav>ul>li .about.icon:before {
+#footer-header nav > ul > li .about.icon:before {
   color: var(--black);
   float: right;
   margin-left: 0.75em;
@@ -105,11 +105,11 @@ body.loading #footer-header {
   -webkit-transition: all 0.75s ease;
 }
 
-#footer-header nav>ul>li .about:hover {
+#footer-header nav > ul > li .about:hover {
   opacity: 0.8 !important;
 }
 
-#footer-header nav>ul>li .about.active {
+#footer-header nav > ul > li .about.active {
   background-color: #242629;
   transition: all 0.75s ease;
   -webkit-transition: all 0.75s ease;
@@ -117,18 +117,17 @@ body.loading #footer-header {
 
 @media screen and (max-width: 736px) {
   body {
-      padding: 4em 0 0 0;
+    padding: 4em 0 0 0;
   }
 
   #footer-header h1 {
     font-size: 0.9em;
   }
 
-  #footer-header nav>ul>li a {
+  #footer-header nav > ul > li a {
     font-size: 0.9em;
     padding: 0 1.15em;
   }
-
 }
 
 // --------------------------------------
@@ -152,7 +151,7 @@ body.loading #footer-header {
   position: fixed;
   transform: translateY(100vh);
   transition: transform 0.5s ease;
-  z-index: 6;
+  z-index: 15;
   font-family: "poppins", sans-serif;
   transition: all 0.75s ease;
   -webkit-transition: all 0.75s ease;
@@ -170,14 +169,14 @@ body.loading #footer-header {
 
   .get-in-touch {
     display: inline;
-        margin-bottom: -2px;
+    margin-bottom: -2px;
   }
 
   .or-at {
     display: inline;
     font-size: 16px;
     font-weight: 300;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     line-height: 1.5;
     margin-left: 15px;
 
@@ -214,26 +213,26 @@ body.loading #footer-header {
   transform: translateY(1px);
 }
 
-.footer>.inner {
+.footer > .inner {
   max-width: 100%;
 }
 
-.footer>.inner.split {
+.footer > .inner.split {
   display: -moz-flex;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
 }
 
-.footer>.inner.split>div {
+.footer > .inner.split > div {
   margin-left: 4em;
 }
 
-.footer>.inner.split> :first-child {
+.footer > .inner.split > :first-child {
   margin-left: 0;
 }
 
-.footer>.close {
+.footer > .close {
   -moz-transition: opacity 0.2s ease-in-out;
   -webkit-transition: opacity 0.2s ease-in-out;
   -ms-transition: opacity 0.2s ease-in-out;
@@ -246,8 +245,8 @@ body.loading #footer-header {
   font-size: 24px;
 }
 
-.footer>.close:hover {
-  opacity: 1.0;
+.footer > .close:hover {
+  opacity: 1;
 }
 
 .follow-section {
@@ -276,11 +275,11 @@ body.loading #footer-header {
     }
 
     .instagram-image-light {
-      display: none
+      display: none;
     }
 
     .instagram-image-dark {
-      display: block
+      display: block;
     }
   }
 }
@@ -290,23 +289,20 @@ body.loading #footer-header {
 }
 
 @media screen and (max-width: 1280px) {
-
 }
 
 @media screen and (max-width: 980px) {
-
-  .footer>.inner.split {
-      -moz-flex-direction: column;
-      -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-      flex-direction: column;
+  .footer > .inner.split {
+    -moz-flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
 
-  .footer>.inner.split>div {
-      margin-left: 0;
-      width: 100%;
+  .footer > .inner.split > div {
+    margin-left: 0;
+    width: 100%;
   }
-
 }
 
 @media screen and (max-width: 850px) {
@@ -333,7 +329,7 @@ footer {
   p {
     color: var(--black);
     font-weight: 300;
-    letter-spacing: .025em;
+    letter-spacing: 0.025em;
     line-height: 1.65;
   }
 
@@ -361,7 +357,6 @@ footer {
   form {
     margin: 10px 0 10px 0;
   }
-
 
   /* List */
 
@@ -448,7 +443,7 @@ footer {
     padding-top: 0;
   }
 
-  ul.actions.vertical li>* {
+  ul.actions.vertical li > * {
     margin-bottom: 0;
   }
 
@@ -473,7 +468,7 @@ footer {
     padding: 0 0 0 1em;
   }
 
-  ul.actions.fit li>* {
+  ul.actions.fit li > * {
     margin-bottom: 0;
   }
 
@@ -501,12 +496,12 @@ footer {
       padding-top: 0;
     }
 
-    ul.actions li>* {
+    ul.actions li > * {
       width: 100%;
       margin: 0 !important;
     }
 
-    ul.actions li>*.icon:before {
+    ul.actions li > *.icon:before {
       margin-left: -2em;
     }
 
@@ -543,10 +538,10 @@ footer {
   }
 
   form .field.half.first {
-    margin-right: 20px
+    margin-right: 20px;
   }
 
-  form>.actions {
+  form > .actions {
     margin: 0;
 
     .btn {
@@ -603,27 +598,27 @@ footer {
 
   ::-webkit-input-placeholder {
     color: #707071 !important;
-    opacity: 1.0;
+    opacity: 1;
   }
 
   :-moz-placeholder {
     color: #707071 !important;
-    opacity: 1.0;
+    opacity: 1;
   }
 
   ::-moz-placeholder {
     color: #707071 !important;
-    opacity: 1.0;
+    opacity: 1;
   }
 
   :-ms-input-placeholder {
     color: #707071 !important;
-    opacity: 1.0;
+    opacity: 1;
   }
 
   .formerize-placeholder {
     color: #707071 !important;
-    opacity: 1.0;
+    opacity: 1;
   }
 
   /* Button */
@@ -637,10 +632,22 @@ footer {
     -webkit-appearance: none;
     -ms-appearance: none;
     appearance: none;
-    -moz-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
-    -webkit-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
-    -ms-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
-    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+    -moz-transition:
+      background-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out,
+      color 0.2s ease-in-out;
+    -webkit-transition:
+      background-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out,
+      color 0.2s ease-in-out;
+    -ms-transition:
+      background-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out,
+      color 0.2s ease-in-out;
+    transition:
+      background-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out,
+      color 0.2s ease-in-out;
     background-color: transparent;
     border: 0;
     border-radius: 0;
@@ -772,15 +779,15 @@ footer {
     color: var(--white);
   }
 
-  nav>ul>li .about {
+  nav > ul > li .about {
     color: var(--white);
   }
 
-  nav>ul>li .about.icon:before {
+  nav > ul > li .about.icon:before {
     color: var(--white);
   }
 
-  nav>ul>li .about.active {
+  nav > ul > li .about.active {
     background-color: #242629;
   }
 }
@@ -789,31 +796,31 @@ footer {
   background: var(--black);
   color: var(--white);
 
-
   .or-at {
     a {
       color: var(--white);
     }
   }
 
-  textarea, input {
+  textarea,
+  input {
     background: #34363b;
     color: var(--white) !important;
   }
 
-  h2, p {
+  h2,
+  p {
     color: var(--white);
   }
 
   .instagram-image-light {
-    display: block
+    display: block;
   }
 
   .instagram-image-dark {
-    display: none
+    display: none;
   }
 }
-
 
 @media screen and (max-width: 980px) {
   .footer {
@@ -865,7 +872,6 @@ footer {
   }
 }
 
-
 @media screen and (max-width: 450px) {
   .footer {
     .footer-info {
@@ -886,9 +892,57 @@ footer {
     }
 
     .close {
-      top:  8px;
+      top: 8px;
       right: 14px;
       font-size: 20px;
+    }
+  }
+}
+
+/* Map attribution at the bottom of the about panel.
+   Mapbox's TOS requires visible attribution to Mapbox + OpenStreetMap
+   when their tiles are displayed; this satisfies it without cluttering
+   the country page itself (where the map is in a small circular bubble).
+   Text + link colors track the footer's light/dark mode so they read
+   on both backgrounds. */
+#footer .map-credits {
+  margin-top: 2.5em;
+  padding-top: 1.25em;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: "poppins", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  opacity: 0.65;
+  line-height: 1.5;
+
+  a {
+    color: var(--black);
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.35);
+    padding-bottom: 1px;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      opacity 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+      border-bottom-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+}
+
+#footer.nighttime .map-credits {
+  border-top-color: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+
+  a {
+    color: var(--white);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+
+    &:hover {
+      border-bottom-color: rgba(255, 255, 255, 0.7);
     }
   }
 }

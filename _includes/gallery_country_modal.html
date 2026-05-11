@@ -1,16 +1,23 @@
+{%- comment -%}
+  Modal slides for the country page. Iterates locations in the same order
+  as the on-page chapters (see _layouts/country.html), so the global
+  image_index that openModal(N) opens matches the tile that was clicked.
+{%- endcomment -%}
+
+{%- assign country_locations = site.data.locations_per_country[page.name].locations -%}
+
 <div id="myModal" class="modal" onclick="closeModal('myModal')">
   <a class="close cursor icon close-button" onclick="closeModal('myModal')"></a>
   <div class="modal-content">
 
-    {% for image in images %}
-      {% assign full_path = "full/" | append: page.namePath %}
-      {% assign image_path = image.path | split: '/' %}
-
-      {% if country_locations contains image_path[3] and image.path contains full_path %}
+    {% for location_name in country_locations %}
+      {%- assign location_path = "/images/full/" | append: location_name | append: "/" -%}
+      {%- assign location_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains location_path" | sort: "name" -%}
+      {% for image in location_images %}
         <div class="slide">
-          <img data-src="{{ image.path }}" alt="{{ image_path[3] | replace: '_', ' ' | capitalize }}" decoding="async" onclick="ignore(event)" class="center">
+          <img data-src="{{ image.path }}" alt="{{ location_name | replace: '_', ' ' | capitalize }}" decoding="async" onclick="ignore(event)" class="center">
         </div>
-      {% endif %}
+      {% endfor %}
     {% endfor %}
 
     <a class="prev icon fa-chevron-left" onclick="plusSlides(event, -1)"></a>

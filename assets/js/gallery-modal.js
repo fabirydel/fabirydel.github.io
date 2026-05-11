@@ -46,10 +46,15 @@ function performOpen(index, id) {
   var mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
   var headerHeight = document.querySelector('#header').offsetHeight;
   var scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
+  // The redesigned country page has a `.country-hero` block before
+  // gallery-body. Account for its height so fixing gallery-body in place
+  // for the modal doesn't visually shift content up on open.
+  var heroEl = document.querySelector('.country-hero');
+  var heroHeight = heroEl ? heroEl.offsetHeight : 0;
   if (document.querySelector('.country-wrapper') && mapHeight + headerHeight > window.scrollY) {
     document.querySelector('.country-wrapper').style.marginTop = (-window.scrollY) + 'px';
   }
-  document.getElementById("gallery-body").style.top = (-window.scrollY + mapHeight + scrollHeader) + 'px';
+  document.getElementById("gallery-body").style.top = (-window.scrollY + mapHeight + scrollHeader + heroHeight) + 'px';
   document.getElementById("gallery-body").style.position = "fixed";
 
   var modal = document.getElementById(id);
@@ -79,12 +84,14 @@ function performClose(id) {
   var headerHeight = document.querySelector('#header').offsetHeight;
   var scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
   var mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
+  var heroEl = document.querySelector('.country-hero');
+  var heroHeight = heroEl ? heroEl.offsetHeight : 0;
 
   if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.marginTop = '';
   document.getElementById("gallery-body").style.position = '';
   document.getElementById("gallery-body").style.top = '';
   if (scrollY) {
-    window.scrollTo(0, (parseInt(scrollY) - mapHeight - scrollHeader) * -1);
+    window.scrollTo(0, (parseInt(scrollY) - mapHeight - scrollHeader - heroHeight) * -1);
   }
   deblur();
 

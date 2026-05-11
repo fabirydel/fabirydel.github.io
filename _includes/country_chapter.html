@@ -1,0 +1,65 @@
+{%- comment -%}
+  One chapter on a country page — heading, optional intro, bento photo grid.
+
+  Inputs (set via include parameters):
+    location_name   — the location's namePath, e.g. "kotor"
+    chapter_index   — 0-based index of this chapter in the country page
+                      (used to vary the bento variant)
+    start_index     — current global image counter; tile clicks call
+                      openModal(start_index + i) so the modal slide order
+                      matches the on-page tile order across all chapters.
+
+  Outputs no Liquid variables; the parent layout maintains start_index.
+{%- endcomment -%}
+
+{%- assign location_page = site.locations | where: "namePath", include.location_name | first -%}
+{%- if location_page.title -%}
+  {%- assign location_title = location_page.title -%}
+{%- else -%}
+  {%- assign location_title = include.location_name | replace: '_', ' ' | capitalize -%}
+{%- endif -%}
+{%- assign location_intro = location_page.intro -%}
+
+{%- assign location_path = "/images/full/" | append: include.location_name | append: "/" -%}
+{%- assign location_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains location_path" | sort: "name" -%}
+{%- assign chapter_photo_count = location_images | size -%}
+
+{% if chapter_photo_count > 0 %}
+<section class="country-chapter" id="chapter-{{ include.location_name }}" data-location="{{ include.location_name }}"{% if location_page.latlng %} data-latlng="{{ location_page.latlng }}"{% endif %}>
+  <header class="country-chapter__head">
+    <a class="country-chapter__title" href="/locations/{{ include.location_name }}">
+      <span class="country-chapter__name">{{ location_title }}</span>
+      <span class="country-chapter__count">{{ chapter_photo_count }} photo{% if chapter_photo_count != 1 %}s{% endif %}</span>
+    </a>
+    {% if location_intro %}
+      <p class="country-chapter__intro">{{ location_intro }}</p>
+    {% endif %}
+  </header>
+
+  <div class="portfolio-gallery country-chapter__gallery">
+    <div class="portfolio-grid" data-photo-count="{{ chapter_photo_count }}">
+      {% for image in location_images %}
+        <button
+          type="button"
+          class="photo-tile"
+          onclick="openModal({{ include.start_index | plus: forloop.index0 }}, 'myModal')"
+          style="background-image: url('/images/blur/{{ include.location_name }}/{{ image.name }}');"
+          aria-label="{{ location_title }} photo {{ forloop.index }}"
+          data-photo-path="{{ include.location_name }}/{{ image.name }}"
+          data-photo-place="{{ location_title }}"
+          data-photo-location="{{ include.location_name }}"
+          data-photo-country="{{ page.name }}"
+        >
+          <img
+            class="thumb"
+            src="/images/thumb/{{ include.location_name }}/{{ image.name }}"
+            alt="{{ location_title }}"
+            loading="lazy"
+            decoding="async"
+          >
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

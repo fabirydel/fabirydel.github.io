@@ -1,0 +1,657 @@
+/* ============================================================
+   Country page
+   - Floating map bubble (fixed top-left, draggable via handle)
+   - Country hero header
+   - Chapters using the existing .portfolio-gallery masonry
+   --flag-color is set inline on <body> from _data/flag_colors.yml.
+   ============================================================ */
+
+/* === Floating map bubble ===================================
+   Sits above the page in a small fixed card. The handle along
+   the top is the drag affordance — the map area itself stays
+   pan-/zoom-able. country-page.js wires drag + scroll-spy.
+   ============================================================ */
+
+.country-map-bubble {
+  position: fixed;
+  top: calc(var(--header-height) + 16px);
+  left: 16px;
+  width: 400px;
+  height: 320px;
+  border-radius: 12px;
+  /* Above the map (z:1) and content, below header (z:5) and modal (z:10). */
+  z-index: 4;
+  background: var(--white);
+  /* The first inset shadow is the visible 6px dark border around the
+     rectangle (used as the drag-to-resize affordance). country-page.js
+     detects mousedown within ~14px of any edge as a resize gesture
+     and sets a data-rim attribute so CSS shows the right direction
+     cursor (ew, ns, nwse, nesw). */
+  box-shadow:
+    inset 0 0 0 6px #1f2224,
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  /* Animatable on every property that changes between expanded and
+     collapsed states. Drag/resize handlers set .is-dragging or
+     .is-resizing on the bubble to opt out (see selectors below), so
+     live dragging and resizing still feels instant. */
+  transition:
+    top 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    left 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &.is-dragging,
+  &.is-resizing {
+    transition: none !important;
+  }
+
+  /* Hide / show toggle button, top-left corner of the bubble.
+     When expanded → shows the × icon (action: hide).
+     When collapsed (.is-hidden on bubble) → shows the map-pin icon
+     (action: show), and fills the entire shrunken bubble so the
+     whole icon is one click target. */
+  &__toggle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    color: #1f2224;
+    cursor: pointer;
+    z-index: 402;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    &:active {
+      transform: scale(0.94);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--flag-color);
+      outline-offset: 2px;
+    }
+  }
+
+  &__toggle-icon {
+    display: block;
+    width: 12px;
+    height: 12px;
+    color: inherit;
+
+    &--show {
+      display: none;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  /* Header band overlaid on the top of the circle (half the previous
+     height). Solid translucent bg, thin bottom rule. Doubles as the
+     drag affordance for moving the bubble. */
+  &__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    z-index: 401;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px 0 32px; /* leave room for the toggle button on the left */
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+  }
+
+  &.is-dragging .country-map-bubble__header {
+    cursor: grabbing;
+  }
+
+  &__title {
+    font-family: "oswald", sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #1f2224;
+    line-height: 1;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+  }
+
+  /* Footer band mirrors the header (half the previous height too).
+     Hosts the zoom +/− controls. */
+  &__footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 26px;
+    z-index: 401;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 24px;
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+  }
+
+  &__zoom {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(0, 0, 0, 0.18);
+    background: var(--white);
+    color: #1f2224;
+    font-size: 13px;
+    font-weight: 500;
+    padding-bottom: 2px;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    transition:
+      background 0.15s ease,
+      transform 0.1s ease;
+
+    &:hover {
+      background: #f4f3ee;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--flag-color);
+      outline-offset: 2px;
+    }
+  }
+
+  #country-map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    /* Override the bare #country-map height rule from maps.scss. */
+    height: 100% !important;
+  }
+
+  /* Attribution control is hidden via the L.map({ attributionControl: false })
+     option in maps.js, but in case any plugin re-adds one, also belt-and-
+     braces it via CSS. */
+  .leaflet-control-attribution {
+    display: none !important;
+  }
+
+  /* === Collapsed state =====================================
+     Bubble shrinks into a small circle that sits in the left
+     gutter just below the TOC. JS clears the inline transform
+     (user's drag offset) when this class is added; CSS handles
+     dimensions, position, border-radius, and the toggle icon
+     swap. The map / header / footer fade out underneath. */
+  &.is-hidden {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    left: 20px;
+    box-shadow:
+      inset 0 0 0 3px #1f2224,
+      0 4px 16px rgba(0, 0, 0, 0.18),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+
+    .country-map-bubble__header,
+    .country-map-bubble__footer {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #country-map {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Toggle button expands to fill the small circle. */
+    .country-map-bubble__toggle {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--white);
+    }
+
+    .country-map-bubble__toggle-icon--hide {
+      display: none;
+    }
+    .country-map-bubble__toggle-icon--show {
+      display: block;
+    }
+  }
+}
+
+/* Bubble follows the auto-hiding header so it stays right under it. */
+#header.hide ~ .country-map-bubble {
+  top: 16px;
+}
+
+/* When the locations TOC is revealed, push the bubble down so it sits
+   16px below the TOC instead of clashing with it. Compound selector
+   handles the case where both the header is hidden AND the TOC is
+   revealed (TOC sits at top:0, bubble sits 52px below). */
+.country-toc.is-revealed ~ .country-map-bubble {
+  top: calc(var(--header-height) + 52px);
+}
+
+#header.hide ~ .country-toc.is-revealed ~ .country-map-bubble {
+  top: 52px;
+}
+
+/* Rim-hover cursor — JS sets data-rim on the bubble based on which
+   edge(s) of the rectangle the mouse is hovering over. !important is
+   required to override Leaflet's inline cursor on the map. The :not()
+   exclusion keeps the zoom buttons looking clickable, not resizable. */
+.country-map-bubble[data-rim="ew"],
+.country-map-bubble[data-rim="ew"] *:not(.country-map-bubble__zoom) {
+  cursor: ew-resize !important;
+}
+.country-map-bubble[data-rim="ns"],
+.country-map-bubble[data-rim="ns"] *:not(.country-map-bubble__zoom) {
+  cursor: ns-resize !important;
+}
+.country-map-bubble[data-rim="nwse"],
+.country-map-bubble[data-rim="nwse"] *:not(.country-map-bubble__zoom) {
+  cursor: nwse-resize !important;
+}
+.country-map-bubble[data-rim="nesw"],
+.country-map-bubble[data-rim="nesw"] *:not(.country-map-bubble__zoom) {
+  cursor: nesw-resize !important;
+}
+
+/* === Sticky locations TOC =====================================
+   Fixed at top:var(--header-height), hidden above the viewport by
+   default. country-page.js reveals it once the user has scrolled
+   past the country hero, and slides it back out when they scroll
+   back up. Renders above the map bubble (z:5 vs the bubble's z:4).
+   ============================================================ */
+
+.country-toc {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  /* Above the map bubble (z:4), level with the site header (z:5).
+     They sit at different vertical positions so they never overlap. */
+  z-index: 5;
+  background: rgba(249, 249, 249, 0.92);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+  padding: 10px 1.5vw;
+
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
+  /* `top` is animated so the TOC follows the auto-hiding header. */
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.25s ease,
+    top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &.is-revealed {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  ol {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    /* `safe center` centers the items horizontally when they fit in
+       the viewport, and falls back to start-alignment when they don't
+       (so the first item stays reachable and the rest scroll). */
+    justify-content: safe center;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    flex: 0 0 auto;
+    padding: 4px 2px;
+    color: #8a8a8a;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #1f2224;
+    }
+
+    &.is-active {
+      color: #1f2224;
+
+      .country-toc__dot {
+        background: var(--flag-color);
+        transform: scale(1.5);
+        box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.04);
+      }
+    }
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #c8c6c0;
+    flex: 0 0 8px;
+    transition:
+      background 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  &__label {
+    font-family: "oswald", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+}
+
+/* When the site header retracts, slide the TOC up to top:0. */
+#header.hide ~ .country-toc {
+  top: 0;
+}
+
+.nighttime .country-toc {
+  background: rgba(31, 34, 36, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+
+  li {
+    color: #999;
+
+    &:hover,
+    &.is-active {
+      color: var(--white);
+    }
+  }
+}
+
+/* === Country hero =========================================== */
+
+.country-hero {
+  padding: 48px 1.5vw 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+
+  &__name {
+    font-family: "oswald", sans-serif;
+    font-size: 56px;
+    font-weight: 300;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0;
+    color: inherit;
+  }
+
+  &__stats {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin: 0;
+    line-height: 1;
+  }
+
+  &__stripe {
+    display: flex;
+    height: 4px;
+    width: 120px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+
+    > span {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+}
+
+/* === Chapters =============================================== */
+
+.country-chapter {
+  padding: 56px 0 0 0;
+  scroll-margin-top: calc(var(--header-height) + 16px);
+
+  &:last-child {
+    padding-bottom: 56px;
+  }
+
+  &__head {
+    max-width: 720px;
+    margin: 0 auto 24px;
+    text-align: center;
+  }
+
+  &__title {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:focus,
+    &:visited {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    &:hover .country-chapter__name {
+      color: var(--flag-color);
+    }
+  }
+
+  &__name {
+    font-family: "oswald", sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    line-height: 1;
+    color: inherit;
+    transition: color 0.25s ease;
+  }
+
+  &__count {
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    line-height: 1;
+  }
+
+  &__intro {
+    font-family: "Mrseaves", "Source Sans Pro", serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: #5a5a5a;
+    margin: 18px auto 0;
+    max-width: 520px;
+    font-style: italic;
+  }
+
+  &__gallery {
+    margin-top: 4px;
+  }
+}
+
+/* === Active map marker =====================================
+   country-page.js adds .is-active to the marker whose chapter
+   is in view. The CSS pulls the country's --flag-color so the
+   active pin matches the page's accent.
+   ============================================================ */
+
+.my-div-icon.is-active {
+  z-index: 1000 !important;
+
+  .map-image {
+    border-color: var(--flag-color, var(--white));
+    /* Halo ring in --flag-color sitting just outside the thumbnail's own
+       border, plus a soft drop shadow. No transform — scaling pushes the
+       icon visually off the pin's actual lat/lng and overlaps neighbors. */
+    box-shadow:
+      0 0 0 2px var(--flag-color, transparent),
+      0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .map-image-title {
+    opacity: 1;
+  }
+}
+
+.my-div-icon .map-image {
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* === Nighttime overrides =================================== */
+
+.nighttime .country-map-bubble {
+  background: var(--black);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+
+  .country-map-bubble__header,
+  .country-map-bubble__footer {
+    background: rgba(31, 34, 36, 0.92);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .country-map-bubble__title {
+    color: var(--white);
+  }
+
+  .country-map-bubble__zoom {
+    background: #2b2e30;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+
+    &:hover {
+      background: #3a3d40;
+    }
+  }
+}
+
+/* === Responsive ============================================ */
+
+@media (max-width: 850px) {
+  /* On phones the floating bubble shrinks and tucks bottom-right.
+     Drag and resize still work the same. */
+  .country-map-bubble {
+    width: 240px;
+    height: 180px;
+    top: auto;
+    bottom: 16px;
+    left: auto;
+    right: 16px;
+
+    &__header {
+      height: 24px;
+    }
+
+    &__footer {
+      height: 22px;
+    }
+
+    &__title {
+      font-size: 10px;
+      letter-spacing: 1.2px;
+    }
+
+    &__zoom {
+      width: 18px;
+      height: 18px;
+      font-size: 11px;
+    }
+  }
+
+  #header.hide ~ .country-map-bubble {
+    top: auto;
+    bottom: 16px;
+  }
+
+  .country-hero {
+    padding: 36px 4vw 18px;
+
+    &__name {
+      font-size: 38px;
+      letter-spacing: 8px;
+    }
+  }
+
+  .country-chapter {
+    padding: 40px 4vw 0;
+
+    &__name {
+      font-size: 28px;
+      letter-spacing: 5px;
+    }
+    &__intro {
+      font-size: 16px;
+    }
+  }
+}

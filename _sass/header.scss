@@ -11,12 +11,13 @@
   font-weight: 500;
   // Slow 0.75s transition was sluggish for nav feedback. Tightened to 0.25s
   // for everything except top (which is the show/hide animation).
-  transition: top 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-              background-color 0.25s ease,
-              color 0.25s ease;
+  transition:
+    top 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.25s ease,
+    color 0.25s ease;
 
   &.hide {
-    top: calc(var(--header-height) * -1) ;
+    top: calc(var(--header-height) * -1);
   }
 
   h1 {
@@ -28,7 +29,9 @@
     line-height: 2;
     margin: 0;
     font-weight: 200;
-    transition: font-weight 0.2s ease, color 0.2s ease;
+    transition:
+      font-weight 0.2s ease,
+      color 0.2s ease;
 
     &.portfolio {
       width: 68px;
@@ -55,9 +58,13 @@
     cursor: pointer !important;
   }
 
-  a, .option-container {
-    display: inline-block;
-    vertical-align: super;
+  a,
+  .option-container {
+    /* inline-flex (not inline-block) so the h1 inside vertically centers
+       with the line box rather than sitting on its baseline. vertical-align
+       used to be `super`, which pushed everything above center. */
+    display: inline-flex;
+    align-items: center;
   }
 
   .option-container {
@@ -69,7 +76,10 @@
   }
 
   .theme-container {
-    transition: border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+    transition:
+      border-color 0.25s ease,
+      color 0.25s ease,
+      transform 0.2s ease;
     border: 1px solid var(--black);
     color: var(--black);
     border-radius: 50%;
@@ -77,6 +87,14 @@
     height: 26px;
     text-align: center;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      width: 26px;
+      height: 26px;
+    }
 
     &:hover {
       transform: scale(1.06);
@@ -86,8 +104,37 @@
       transform: scale(0.96);
     }
 
-    &.theme-big .theme:before {
-      vertical-align: middle;
+    .theme {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+    }
+
+    .theme-icon {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    // Moon shown in light mode, sun shown in dark mode.
+    .theme-icon-sun {
+      display: none;
+    }
+    .theme-icon-moon {
+      display: block;
+    }
+  }
+
+  // body.nighttime → page is in dark mode → button shows the sun
+  // (i.e. "click to switch back to light").
+  &.nighttime .theme-container,
+  .nighttime .theme-container {
+    .theme-icon-moon {
+      display: none;
+    }
+    .theme-icon-sun {
+      display: block;
     }
   }
 
@@ -123,8 +170,8 @@
         padding: 5px 8px;
         position: relative;
 
-
-        .icon, .country-flag {
+        .icon,
+        .country-flag {
           margin-right: 5px;
           margin: 0px 5px 0 0;
           width: 25px;
@@ -149,9 +196,10 @@
     }
   }
 
-  .right-options, .left-options {
+  .right-options,
+  .left-options {
     display: flex;
-    float: right;
+    align-items: center;
     gap: 20px;
   }
 
@@ -189,7 +237,7 @@
 
   .open-seas {
     transition: opacity 0.25s ease;
-    content: url('/assets/icons/openseas3.png');
+    content: url("/assets/icons/openseas3.png");
     height: 20px;
     left: 3px;
     opacity: 1;
@@ -199,14 +247,15 @@
 
     &.night {
       opacity: 0;
-      content: url('/assets/icons/openseas4.png');
+      content: url("/assets/icons/openseas4.png");
     }
   }
 
   &.nighttime {
     background: var(--black);
 
-    .header-name, .header-options {
+    .header-name,
+    .header-options {
       background: var(--black);
       color: var(--white);
     }
@@ -236,20 +285,34 @@
   text-underline-offset: 4px;
 }
 
+/* When the user hovers a header link whose page is already the
+   current one, suppress the global `a:hover { text-decoration: underline }`
+   from main.scss so it doesn't stack on top of .header-selected's own
+   underline (which uses a different text-underline-offset, so the two
+   render as a double underline). The h1's font-weight transition still
+   provides the hover feedback. */
+#header a:has(.header-selected):hover {
+  text-decoration: none;
+}
+
 .invisible {
   opacity: 0;
   pointer-events: none;
 }
 
 .background-layer {
-  -webkit-transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  -webkit-transition:
+    visibility 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
   background-color: #00000050;
   height: 100%;
   left: 0;
   overflow: auto;
   position: fixed;
   top: 0;
-  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition:
+    visibility 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
   width: 100%;
   z-index: 0;
 }
@@ -261,6 +324,19 @@
         font-size: 16px;
       }
     }
+  }
+}
+
+/* Once the viewport is too narrow to comfortably space the left link
+   group, the centered name, and the right link group across the bar,
+   collapse to a single left-aligned row of links. The centered name is
+   still absolutely positioned, but with the links packed on the left
+   they no longer crowd it. Below 850px the existing mobile layout
+   takes over and moves the name below the links entirely. */
+@media screen and (max-width: 1100px) and (min-width: 851px) {
+  #header .header-options {
+    justify-content: flex-start;
+    gap: 24px;
   }
 }
 
@@ -321,7 +397,8 @@
 @media screen and (max-width: 650px) {
   body {
     #header {
-      .right-options, .left-options {
+      .right-options,
+      .left-options {
         gap: 10px;
       }
 
@@ -345,7 +422,7 @@
         }
       }
 
-     .header-name h1 {
+      .header-name h1 {
         font-size: 21px;
       }
     }
@@ -355,7 +432,8 @@
 @media screen and (max-width: 360px) {
   body {
     #header {
-      a, .option-container {
+      a,
+      .option-container {
         margin-right: 5px;
       }
 
@@ -363,7 +441,7 @@
         font-size: 12px;
       }
 
-     .header-name h1 {
+      .header-name h1 {
         font-size: 17px;
       }
     }

@@ -24,6 +24,10 @@
           onclick="openModal({{ image_index }}, 'myModal')"
           style="background-image: url('/images/blur/{{ page.namePath }}/{{ image.name }}');"
           aria-label="{{ page.title }} photo {{ image_index | plus: 1 }}"
+          data-photo-path="{{ page.namePath }}/{{ image.name }}"
+          data-photo-place="{{ page.title }}"
+          data-photo-location="{{ page.namePath }}"
+          data-photo-country="{{ page.country }}"
         >
           <img
             class="thumb"

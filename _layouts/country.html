@@ -2,49 +2,127 @@
 <html lang="en">
 
   {% include head.html %}
-  <body>
+  {%- assign country_locations = site.data.locations_per_country[page.name].locations -%}
+  {%- assign palette = site.data.flag_colors[page.name] -%}
+  {%- assign flag_color = palette[0] | default: '#1f2224' -%}
+  {%- assign location_count = country_locations | size -%}
+
+  {%- comment -%}
+    Precompute the country-wide photo count so the hero header can show
+    "{N} locations · {M} photos" without re-iterating images later.
+    Also reused by each chapter via the running_index.
+  {%- endcomment -%}
+  {%- assign all_full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" -%}
+  {%- assign country_photo_count = 0 -%}
+  {%- for location_name in country_locations -%}
+    {%- assign loc_path = "/images/full/" | append: location_name | append: "/" -%}
+    {%- assign loc_images = all_full_images | where_exp: "img", "img.path contains loc_path" -%}
+    {%- assign country_photo_count = country_photo_count | plus: loc_images.size -%}
+  {%- endfor -%}
+
+  <body{% if flag_color %} style="--flag-color: {{ flag_color }};"{% endif %}>
     {% include header.html %}
-    <main class="default page-content country-page-content" id="blurable" aria-label="Content">
-      <div class="wrapper country-wrapper">
-        <div
-          id="country-map"
-          data-zoom="{{ page.zoom }}"
-          data-bounds="{{ page.bounds }}"
-          data-latlng="{{ page.latlng }}"
 
-          {% assign locations = site.locations | where:"country", page.name %}
-          data-locations="{{ locations.size }}"
-
-          {% for location in locations %}
-            data-img-{{ forloop.index }}="{{ location.indexImagePath }}"
-            data-title-{{ forloop.index }}="{{ location.title }}"
-            data-latlng-{{ forloop.index }}="{{ location.latlng }}"
-            data-path-{{ forloop.index }}="{{ location.namePath }}"
+    {% if country_locations.size > 1 %}
+      <nav class="country-toc" aria-label="Locations in {{ page.title }}">
+        <ol>
+          {% for location_name in country_locations %}
+            {%- assign loc = site.locations | where: "namePath", location_name | first -%}
+            {%- if loc.title -%}
+              {%- assign loc_label = loc.title -%}
+            {%- else -%}
+              {%- assign loc_label = location_name | replace: '_', ' ' | capitalize -%}
+            {%- endif -%}
+            <li data-target="chapter-{{ location_name }}">
+              <span class="country-toc__dot" aria-hidden="true"></span>
+              <span class="country-toc__label">{{ loc_label }}</span>
+            </li>
           {% endfor %}
-        >
-        </div>
-      </div>
+        </ol>
+      </nav>
+    {% endif %}
 
-      {% assign image_files = site.static_files | where: "image", true %}
-      {% assign amount = image_files | size %}
-      {% assign images = image_files | sample: amount %}
-      {% assign country_locations = site.data.locations_per_country[page.name].locations %}
+    <aside class="country-map-bubble" id="country-map-bubble" aria-label="Country map">
+      <button type="button" class="country-map-bubble__toggle" id="country-map-bubble-toggle" aria-label="Hide map">
+        <svg class="country-map-bubble__toggle-icon country-map-bubble__toggle-icon--hide" viewBox="0 0 12 12" aria-hidden="true">
+          <line x1="2.5" y1="2.5" x2="9.5" y2="9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <line x1="9.5" y1="2.5" x2="2.5" y2="9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <svg class="country-map-bubble__toggle-icon country-map-bubble__toggle-icon--show" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 1.5 C 5 1.5 3 3.5 3 6.3 C 3 9.5 8 14 8 14 C 8 14 13 9.5 13 6.3 C 13 3.5 11 1.5 8 1.5 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="8" cy="6.3" r="1.8" fill="currentColor"/>
+        </svg>
+      </button>
+      <div class="country-map-bubble__header" id="country-map-bubble-header" aria-label="Drag to move the map">
+        <span class="country-map-bubble__title" id="country-map-bubble-title">{{ page.title }}</span>
+      </div>
+      <div
+        id="country-map"
+        data-zoom="{{ page.zoom }}"
+        data-bounds="{{ page.bounds }}"
+        data-latlng="{{ page.latlng }}"
+
+        {% assign locations = site.locations | where:"country", page.name %}
+        data-locations="{{ locations.size }}"
+
+        {% for location in locations %}
+          data-img-{{ forloop.index }}="{{ location.indexImagePath }}"
+          data-title-{{ forloop.index }}="{{ location.title }}"
+          data-latlng-{{ forloop.index }}="{{ location.latlng }}"
+          data-path-{{ forloop.index }}="{{ location.namePath }}"
+        {% endfor %}
+      ></div>
+      <div class="country-map-bubble__footer">
+        <button type="button" class="country-map-bubble__zoom" data-zoom="out" aria-label="Zoom out">&minus;</button>
+        <button type="button" class="country-map-bubble__zoom" data-zoom="in" aria-label="Zoom in">+</button>
+      </div>
+    </aside>
+
+    <main class="default page-content country-page-content" id="blurable" aria-label="Content">
+      <header class="country-hero">
+        <h1 class="country-hero__name">{{ page.title }}</h1>
+        {% if location_count > 0 or country_photo_count > 0 %}
+          <p class="country-hero__stats">
+            {%- if location_count > 0 -%}
+              {{ location_count }} location{% if location_count != 1 %}s{% endif %}
+            {%- endif -%}
+            {%- if location_count > 0 and country_photo_count > 0 %} · {% endif -%}
+            {%- if country_photo_count > 0 -%}
+              {{ country_photo_count }} photo{% if country_photo_count != 1 %}s{% endif %}
+            {%- endif -%}
+          </p>
+        {% endif %}
+        {% if palette %}
+          <span class="country-hero__stripe" aria-hidden="true">
+            {% for color in palette %}<span style="background: {{ color }};"></span>{% endfor %}
+          </span>
+        {% endif %}
+      </header>
 
       <div class="gallery-body gallery-body-country" id="gallery-body">
         <div class="gallery-page-wrapper">
           {{ content }}
 
-          {% include country_gallery.html %}
+          {%- assign running_index = 0 -%}
+          {% for location_name in country_locations %}
+            {%- assign location_path = "/images/full/" | append: location_name | append: "/" -%}
+            {%- assign location_images = all_full_images | where_exp: "img", "img.path contains location_path" | sort: "name" -%}
+            {% include country_chapter.html
+                location_name=location_name
+                chapter_index=forloop.index0
+                start_index=running_index %}
+            {%- assign running_index = running_index | plus: location_images.size -%}
+          {% endfor %}
         </div>
       </div>
     </main>
 
     {% include footer.html %}
-  </body>
 
   {% include gallery_country_modal.html %}
   {% include countries_modal.html %}
   {% include landscapes_modal.html %}
   {% include floating_circle_country.html %}
+  </body>
 
 </html>

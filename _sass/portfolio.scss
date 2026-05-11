@@ -14,8 +14,7 @@
 // adds `.loaded` to the thumb on load so it fades in over the blur.
 
 .portfolio-gallery {
-  margin: 10px 8px;
-  padding: 0 4px;
+  margin: 10px;
 
   // Default / fallback: CSS multi-column layout.
   .portfolio-grid {
@@ -91,11 +90,15 @@
       z-index: 2;
       padding: 28px 10px 10px;
       color: #fff;
-      font-family: 'Mrseaves', serif;
+      font-family: "Mrseaves", serif;
       font-size: 13px;
       text-align: center;
       pointer-events: none;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.55),
+        rgba(0, 0, 0, 0)
+      );
       opacity: 0;
       transition: opacity 0.25s ease;
     }
@@ -115,8 +118,12 @@
 }
 
 @media (max-width: 1500px) {
-  .portfolio-gallery .portfolio-grid:not(.js-grid) { column-count: 4; }
-  .portfolio-gallery .portfolio-grid.js-grid { gap: 12px; }
+  .portfolio-gallery .portfolio-grid:not(.js-grid) {
+    column-count: 4;
+  }
+  .portfolio-gallery .portfolio-grid.js-grid {
+    gap: 12px;
+  }
 }
 
 @media (max-width: 1280px) {
@@ -124,7 +131,9 @@
     column-count: 3;
     column-gap: 10px;
   }
-  .portfolio-gallery .portfolio-grid.js-grid { gap: 10px; }
+  .portfolio-gallery .portfolio-grid.js-grid {
+    gap: 10px;
+  }
   .portfolio-gallery .photo-tile {
     margin-bottom: 10px;
   }
@@ -139,7 +148,9 @@
       column-count: 2;
       column-gap: 8px;
     }
-    .portfolio-grid.js-grid { gap: 8px; }
+    .portfolio-grid.js-grid {
+      gap: 8px;
+    }
 
     .photo-tile {
       margin-bottom: 8px;
@@ -156,7 +167,9 @@
       column-count: 2;
       column-gap: 5px;
     }
-    .portfolio-grid.js-grid { gap: 5px; }
+    .portfolio-grid.js-grid {
+      gap: 5px;
+    }
 
     .photo-tile {
       margin-bottom: 5px;

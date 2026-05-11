@@ -44,36 +44,11 @@
   country: slovenia
   landscape: true
 
-- path: bled/17_IMG_3359_landscape.jpg
-  title: Faitytale Land
-  place: Bled
-  location: bled
-  country: slovenia
-  landscape: true
-
 - path: penwith/IMG_0594.jpg
   title: Enys Dodnan Arch
   place: Lands End
   location: penwith
   country: england
-
-- path: bled/IMG_3054.jpg
-  title: Misty Mountain Lake
-  place: Bled
-  location: bled
-  country: slovenia
-
-- path: avignon/IMG_20180628_180947-2.jpg
-  title: Sur Le Pont D'Avignon
-  place: Avignon
-  location: avignon
-  country: france
-
-- path: st_gilgan/01_IMG_8885-2.jpg
-  title: Set Sail
-  place: St. Gilgen
-  location: st_gilgan
-  country: austria
 
 - path: bariloche/01_IMG_9960bis.jpg
   title: White Woods
@@ -87,37 +62,6 @@
   location: jamnik
   country: slovenia
   landscape: true
-
-- path: bariloche/IMG_0837-edit.jpg
-  title: North-East Shore
-  place: Bariloche
-  location: bariloche
-  country: argentina
-
-- path: rio/IMG_7062b.jpg
-  title: Cidade Maravilhosa
-  place: Rio de Janeiro
-  location: rio
-  country: brazil
-
-- path: bled/11_IMG_3212.jpg
-  title: Ripples
-  place: Bled
-  location: bled
-  country: slovenia
-
-- path: bled/02_IMG_2704bis_landscape.jpg
-  title: Serene Island Church
-  place: Bled
-  location: bled
-  country: slovenia
-  landscape: true
-
-- path: rio/IMG_7255.jpg
-  title: Copacabana
-  place: Rio de Janeiro
-  location: rio
-  country: brazil
 
 ############################## BLUE
 
@@ -183,12 +127,6 @@
   country: scotland
   landscape: true
 
-- path: cabo_polonio/IMG_4173.jpg
-  title: Whirlwind Sky
-  place: Cabo Polonio
-  location: cabo_polonio
-  country: uruguay
-
 - path: arboras/IMG_4772.jpg
   title: Dusk
   place: Arboras
@@ -216,25 +154,12 @@
   country: uruguay
   landscape: true
 
-- path: jose_ignacio/07_IMG_2712.jpg
-  title: Horizon
-  place: José Ignacio
-  location: jose_ignacio
-  country: uruguay
-  landscape: true
-
 - path: durdle_door/16_IMG_1460-Edit.jpg
   title: Hold the Door
   place: Durdle Door
   location: durdle_door
   country: scotland
   landscape: true
-
-- path: old_harry_rocks/04_IMG_1219.jpg
-  title: Toothpick
-  place: Old Harry Rocks
-  location: old_harry_rocks
-  country: england
 
 - path: salzburg/IMG_7615-HDR.jpg
   title: Flight
@@ -277,42 +202,17 @@
   country: scotland
   landscape: true
 
-- path: arboras/IMG_4368.jpg
-  title: Autumn Shine
-  place: Arboras
-  location: arboras
-  country: france
-
 - path: lagamas/IMG_4864.jpg
   title: By the Red Vines
   place: Lagamas
   location: lagamas
   country: france
 
-- path: solis/IMG_4920.jpg
-  title: Fishermen
-  place: Solis
-  location: solis
-  country: uruguay
-
-- path: cabo_polonio/IMG_4078.jpg
-  title: Walk in the Light
-  place: Cabo Polonio
-  location: cabo_polonio
-  country: uruguay
-
 - path: kinderdijk/IMG_1011.jpg
   title: Windmills at Sunset
   place: Kinderdijk
   location: kinderdijk
   country: netherlands
-  landscape: true
-
-- path: old_harry_rocks/01_IMG_0889.jpg
-  title: Parting The Clouds
-  place: Old Harry Rocks
-  location: old_harry_rocks
-  country: england
   landscape: true
 
 - path: rio/IMG_7891.jpg
@@ -334,25 +234,6 @@
   place: Montpeyroux
   location: montpeyroux
   country: france
-
-- path: punta_del_este/IMG_2076.jpg
-  title: Gorriti
-  place: Punta del Este
-  location: punta_del_este
-  country: uruguay
-  landscape: true
-
-- path: durdle_door/06_IMG_1367.jpg
-  title: Cliffside Beauty
-  place: Durdle Door
-  location: durdle_door
-  country: england
-
-- path: lagangarbh/IMG_4339.jpg
-  title: Mountain Cottage
-  place: The Lagangarbh
-  location: lagangarbh
-  country: scotland
 
 - path: arboras/IMG_4747.jpg
   title: All Roads Lead Home
@@ -381,28 +262,10 @@
   location: arboras
   country: france
 
-- path: eilean_donan/08_IMG_3059.jpg
-  title: Scottish Seat
-  place: Eilean Donan
-  location: eilean_donan
-  country: scotland
-
 - path: gavarnie/IMG_1970.jpg
   title: The Inmensity Ahead
   place: Cirque de Gavarnie
   location: gavarnie
-  country: france
-
-- path: navacelles/03_IMG_9742.jpg
-  title: Tricklet
-  place: Cirque de Navacelles
-  location: navacelles
-  country: france
-
-- path: montpeyroux/IMG_3875.jpg
-  title: Endless Road
-  place: Montpeyroux
-  location: montpeyroux
   country: france
 
 - path: oma/IMG_8318.jpg
@@ -417,37 +280,11 @@
   location: gedre
   country: france
 
-- path: old_man_of_storr/IMG_2577-Pano-Edit.jpg
-  title: Forgotten Land
-  place: Isle of Skye
-  location: old_man_of_storr
-  country: scotland
-  landscape: true
-
-- path: lac_de_gaube/IMG_1330.jpg
-  title: Bridge of Spain
-  place: Pont de Spagne
-  location: lac_de_gaube
-  country: france
-
-- path: navacelles/IMG_9691.jpg
-  title: Above the Grove
-  place: Cirque de Navacelles
-  location: navacelles
-  country: france
-  landscape: true
-
 - path: arboras/IMG_4391.jpg
   title: The Way to the Pic
   place: Arboras
   location: arboras
   country: france
-
-- path: st_nectans_glen/IMG_7940.jpg
-  title: Stream of Dreams
-  place: St. Nectan's Glen
-  location: st_nectans_glen
-  country: england
 
 - path: vianden/04_IMG_7047_landscape.jpg
   title: Round the Castle
@@ -461,12 +298,6 @@
   place: Arboras
   location: arboras
   country: france
-
-- path: taynuilt/IMG_4997.jpg
-  title: Fashion Statement
-  place: Taynuilt
-  location: taynuilt
-  country: scotland
 
 ############################## GREEN ##############################
 
@@ -486,19 +317,6 @@
   title: Rocher St. Michel D'Aiguilhe
   place: Le Puy en Velay
   location: puimoisson1
-  country: france
-
-- path: navacelles/IMG_9730.jpg
-  title: Flows and Streams
-  place: Cirque de Navacelles
-  location: navacelles
-  country: france
-  landscape: true
-
-- path: lac_de_gaube/IMG_1571.jpg
-  title: Green Mountain Lake
-  place: Lac de Gaube
-  location: lac_de_gaube
   country: france
 
 - path: gedre/IMG_0885-2.jpg
@@ -528,12 +346,6 @@
   country: belgium
   landscape: true
 
-- path: lac_de_gaube/IMG_1801.jpg
-  title: Mountain Shore
-  place: Lac de Gaube
-  location: lac_de_gaube
-  country: france
-
 - path: st_nectans_glen/IMG_7962.jpg
   title: The Waterfall
   place: St. Nectan's Glen
@@ -562,12 +374,6 @@
   country: belgium
   landscape: true
 
-- path: arboras/IMG_4133.jpg
-  title: French Fields
-  place: Arboras
-  location: arboras
-  country: france
-
 - path: puy_en_velay/11_IMG_1771.jpg
   title: Our Lady's View
   place: Le Puy en Velay
@@ -580,25 +386,11 @@
   location: cadiz
   country: spain
 
-- path: cazorla/IMG_6048.jpg
-  title: Sprawling Town
-  place: Cazorla
-  location: cazorla
-  country: spain
-  landscape: true
-
 - path: clermont_ferrant/02_IMG_1141.jpg
   title: Puy de Dome
   place: Clermont Ferrant
   location: clermont_ferrant
   country: france
-
-- path: corfe_castle/20_IMG_2292-Pano.jpg
-  title: Crown of Dorset
-  place: Corfe Castle
-  location: corfe_castle
-  country: england
-  landscape: true
 
 - path: amsterdam/06_IMG_0418.jpg
   title: Narrow Houses
@@ -617,19 +409,6 @@
   place: Dinant
   location: dinant
   country: belgium
-
-- path: gavarnie/IMG_2419.jpg
-  title: Mountain Horse
-  place: Cirque de Gavarnie
-  location: gavarnie
-  country: france
-
-- path: gaztelugatxe/IMG_8020.jpg
-  title: Basque Islet
-  place: San Juan de Gaztelugatze
-  location: gaztelugatxe
-  country: spain
-  landscape: true
 
 - path: gibraltar/IMG_4547.jpg
   title: Barbary Macaque
@@ -669,29 +448,11 @@
   country: spain
   landscape: true
 
-- path: solis/IMG_4776bis.jpg
-  title: Danger
-  place: Solis
-  location: solis
-  country: uruguay
-
-- path: lac_de_gaube/IMG_1437bis.jpg
-  title: Couple at the Lake
-  place: Lac de Gaube
-  location: lac_de_gaube
-  country: france
-
 - path: gavarnie/IMG_2320.jpg
   title: Mountaing Wall
   place: Cirque de Gavarnie
   location: gavarnie
   country: france
-
-- path: gaztelugatxe/IMG_8043.jpg
-  title: Up the Serpent Road
-  place: San Juan de Gaztelugatze
-  location: gaztelugatxe
-  country: spain
 
 - path: amsterdam/07_IMG_0422_landscape.jpg
   title: Damrak
@@ -705,13 +466,6 @@
   place: Glenfinnan Viaduct
   location: glenfinnan_viaduct
   country: scotland
-  landscape: true
-
-- path: salzburg/01_IMG_7053-HDR_landscape.jpg
-  title: The Fortress
-  place: Salzburg
-  location: salzburg
-  country: austria
   landscape: true
 
 - path: madrid/01_IMG_9894.jpg
@@ -732,12 +486,6 @@
   place: Solis
   location: solis
   country: uruguay
-
-- path: tromouse/IMG_1114.jpg
-  title: Bell Sheep
-  place: Cirque de Tromouse
-  location: tromouse
-  country: france
 
 - path: cabo_polonio/IMG_3896bis.jpg
   title: La Juanita y La Nena
@@ -816,12 +564,6 @@
   location: chapel_vitaleta
   country: italy
 
-- path: chapel_vitaleta/IMG_4922.jpg
-  title: A Hat to Church
-  place: Chapel Vitaleta
-  location: chapel_vitaleta
-  country: italy
-
 - path: manarola/IMG_0226.jpg
   title: "Cinque Terre #1"
   place: Manarola
@@ -838,12 +580,6 @@
   title: "Cinque Terre #3"
   place: Riomaggiore
   location: riomaggiore
-  country: italy
-
-- path: pienza/IMG_5263.jpg
-  title: Gladiatore
-  place: Pienza
-  location: pienza
   country: italy
 
 - path: san_gimignano/IMG_3362.jpg
@@ -888,3 +624,386 @@
   location: calgary_bay
   country: scotland
 
+- path: bled/IMG_3230.jpg
+  title: Bled
+  place: Bled
+  location: bled
+  country: slovenia
+
+- path: bled/17_IMG_3359_landscape.jpg
+  title: Bled
+  place: Bled
+  location: bled
+  country: slovenia
+
+- path: bled/11_IMG_3212.jpg
+  title: Bled
+  place: Bled
+  location: bled
+  country: slovenia
+
+- path: bled/IMG_4299-2.jpg
+  title: Bled
+  place: Bled
+  location: bled
+  country: slovenia
+
+- path: bled/IMG_4562.jpg
+  title: Bled
+  place: Bled
+  location: bled
+  country: slovenia
+
+- path: bled/IMG_4697.jpg
+  title: Bled
+  place: Bled
+  location: bled
+  country: slovenia
+
+- path: jamnik/IMG_7726.jpg
+  title: Jamnik
+  place: Jamnik
+  location: jamnik
+  country: slovenia
+
+- path: jamnik/IMG_7714.jpg
+  title: Jamnik
+  place: Jamnik
+  location: jamnik
+  country: slovenia
+
+- path: velika_planina/IMG_9582-2.jpg
+  title: Velika Planina
+  place: Velika Planina
+  location: velika_planina
+  country: slovenia
+
+- path: velika_planina/IMG_9606.jpg
+  title: Velika Planina
+  place: Velika Planina
+  location: velika_planina
+  country: slovenia
+
+- path: velika_planina/IMG_9604-2.jpg
+  title: Velika Planina
+  place: Velika Planina
+  location: velika_planina
+  country: slovenia
+
+- path: velika_planina/IMG_9133.jpg
+  title: Velika Planina
+  place: Velika Planina
+  location: velika_planina
+  country: slovenia
+
+- path: sv_thomas/IMG_6131.jpg
+  title: Sv. Thomas
+  place: Sv. Thomas
+  location: sv_thomas
+  country: slovenia
+
+- path: sv_jakov/IMG_6710.jpg
+  title: Sv. Jakov
+  place: Sv. Jakov
+  location: sv_jakov
+  country: slovenia
+
+- path: geisers_sol_de_la_manana/7P9A3223-Pano-2_tn.jpg
+  title: Geisers Sol de la Mañana
+  place: Geisers Sol de la Mañana
+  location: geisers_sol_de_la_manana
+  country: bolivia
+
+- path: la_paz/7P9A0400_tn.jpg
+  title: La Paz
+  place: La Paz
+  location: la_paz
+  country: bolivia
+
+- path: sajama_national_park/7P9A0710_tn.jpg
+  title: Sajama National Park
+  place: Sajama National Park
+  location: sajama_national_park
+  country: bolivia
+
+- path: reserva_flamingos/7P9A2537_tn.jpg
+  title: Reserva de Flamingos
+  place: Reserva de Flamingos
+  location: reserva_flamingos
+  country: bolivia
+
+- path: reserva_flamingos/7P9A2426_tn.jpg
+  title: Reserva de Flamingos
+  place: Reserva de Flamingos
+  location: reserva_flamingos
+  country: bolivia
+
+- path: reserva_flamingos/7P9A2773_tn.jpg
+  title: Reserva de Flamingos
+  place: Reserva de Flamingos
+  location: reserva_flamingos
+  country: bolivia
+
+- path: salar_de_uyuni/7P9A3580-Pano_tn.jpg
+  title: Salar de Uyuni
+  place: Salar de Uyuni
+  location: salar_de_uyuni
+  country: bolivia
+
+- path: salar_de_uyuni/7P9A3549_tn.jpg
+  title: Salar de Uyuni
+  place: Salar de Uyuni
+  location: salar_de_uyuni
+  country: bolivia
+
+- path: salar_de_uyuni/7P9A1829_tn.jpg
+  title: Salar de Uyuni
+  place: Salar de Uyuni
+  location: salar_de_uyuni
+  country: bolivia
+
+- path: salar_de_uyuni/7P9A1871_tn.jpg
+  title: Salar de Uyuni
+  place: Salar de Uyuni
+  location: salar_de_uyuni
+  country: bolivia
+
+- path: salar_de_uyuni/7P9A1910_tn.jpg
+  title: Salar de Uyuni
+  place: Salar de Uyuni
+  location: salar_de_uyuni
+  country: bolivia
+
+- path: badija/IMG_2438.jpg
+  title: Badija
+  place: Badija
+  location: badija
+  country: croatia
+
+- path: pula/IMG_9612.jpg
+  title: Pula
+  place: Pula
+  location: pula
+  country: croatia
+
+- path: ranch_valley_jelena/IMG_8773.jpg
+  title: Ranch Valley Jelena
+  place: Ranch Valley Jelena
+  location: ranch_valley_jelena
+  country: croatia
+
+- path: zadar/IMG_0856.jpg
+  title: Zadar
+  place: Zadar
+  location: zadar
+  country: croatia
+
+- path: vlore/IMG_5881.jpg
+  title: Vlorë
+  place: Vlorë
+  location: vlore
+  country: albania
+
+- path: amboise/7P9A3502-Enhanced-NR-2_tn.jpg
+  title: Amboise
+  place: Amboise
+  location: amboise
+  country: france
+
+- path: arboras/IMG_9906.jpg
+  title: Arboras
+  place: Arboras
+  location: arboras
+  country: france
+
+- path: la_rochelle/7P9A2945_tn.jpg
+  title: La Rochelle
+  place: La Rochelle
+  location: la_rochelle
+  country: france
+
+- path: mont_st_michel/DJI_20241028174028_0047_D-Edit_tn.jpg
+  title: Mont St. Michel
+  place: Mont St. Michel
+  location: mont_st_michel
+  country: france
+
+- path: mont_st_michel/7P9A4097_tn.jpg
+  title: Mont St. Michel
+  place: Mont St. Michel
+  location: mont_st_michel
+  country: france
+
+- path: castelrotto/IMG_8681.jpg
+  title: Castelrotto
+  place: Castelrotto
+  location: castelrotto
+  country: italy
+
+- path: chapel_vitaleta/IMG_4918.jpg
+  title: Chapel Vitaleta
+  place: Chapel Vitaleta
+  location: chapel_vitaleta
+  country: italy
+
+- path: florence/IMG_7721.jpg
+  title: Florence
+  place: Florence
+  location: florence
+  country: italy
+
+- path: siusi/IMG_8056-Edit.jpg
+  title: Siusi
+  place: Siusi
+  location: siusi
+  country: italy
+
+- path: st_giacomo_church/IMG_8808-Edit.jpg
+  title: St. Giacomo Church
+  place: St. Giacomo Church
+  location: st_giacomo_church
+  country: italy
+
+- path: st_john_church/IMG_8564.jpg
+  title: St. John Church
+  place: St. John Church
+  location: st_john_church
+  country: italy
+
+- path: taormina/IMG_4867.jpg
+  title: Taormina
+  place: Taormina
+  location: taormina
+  country: italy
+
+- path: kotor/IMG_5419-Pano.jpg
+  title: Kotor
+  place: Kotor
+  location: kotor
+  country: montenegro
+
+- path: lagangarbh/IMG_4344.jpg
+  title: The Lagangarbh
+  place: The Lagangarbh
+  location: lagangarbh
+  country: scotland
+
+- path: loch_fada/IMG_3761.jpg
+  title: Loch Fada
+  place: Loch Fada
+  location: loch_fada
+  country: scotland
+
+- path: loch_fada/IMG_3711.jpg
+  title: Loch Fada
+  place: Loch Fada
+  location: loch_fada
+  country: scotland
+
+- path: lunga/08_IMG_9750.jpg
+  title: Lunga
+  place: Lunga
+  location: lunga
+  country: scotland
+
+- path: stalker_castle/IMG_5015_tn.jpg
+  title: Castle Stalker
+  place: Castle Stalker
+  location: stalker_castle
+  country: scotland
+
+- path: taynuilt/IMG_4881.jpg
+  title: Taynuilt
+  place: Taynuilt
+  location: taynuilt
+  country: scotland
+
+- path: cordoba/IMG_2055.jpg
+  title: Cordoba
+  place: Cordoba
+  location: cordoba
+  country: spain
+
+- path: gaztelugatxe/01_IMG_8004.jpg
+  title: San Juan de Gaztelugatxe
+  place: San Juan de Gaztelugatxe
+  location: gaztelugatxe
+  country: spain
+
+- path: isenfluh/IMG_3030.jpg
+  title: Isenfluh
+  place: Isenfluh
+  location: isenfluh
+  country: switzerland
+
+- path: lauterbrunnen/IMG_4480.jpg
+  title: Lauterbrunnen
+  place: Lauterbrunnen
+  location: lauterbrunnen
+  country: switzerland
+
+- path: murren/IMG_4303.jpg
+  title: Mürren
+  place: Mürren
+  location: murren
+  country: switzerland
+
+- path: tarasp/IMG_0555-Edit.jpg
+  title: Tarasp
+  place: Tarasp
+  location: tarasp
+  country: switzerland
+
+- path: bella_vista/7P9A9596_tn.jpg
+  title: Bella Vista
+  place: Bella Vista
+  location: bella_vista
+  country: uruguay
+
+- path: montevideo/IMG_1051.jpg
+  title: Montevideo
+  place: Montevideo
+  location: montevideo
+  country: uruguay
+
+- path: playa_hermosa/IMG_7396.jpg
+  title: Playa Hermosa
+  place: Playa Hermosa
+  location: playa_hermosa
+  country: uruguay
+
+- path: playa_verde/IMG_9209.jpg
+  title: Playa Verde
+  place: Playa Verde
+  location: playa_verde
+  country: uruguay
+
+- path: playa_verde/IMG_9278.jpg
+  title: Playa Verde
+  place: Playa Verde
+  location: playa_verde
+  country: uruguay
+
+- path: playa_verde/IMG_8952-Edit.jpg
+  title: Playa Verde
+  place: Playa Verde
+  location: playa_verde
+  country: uruguay
+
+- path: playa_verde/IMG_8670.jpg
+  title: Playa Verde
+  place: Playa Verde
+  location: playa_verde
+  country: uruguay
+
+- path: punta_del_este/7P9A9816_tn.jpg
+  title: Punta del Este
+  place: Punta del Este
+  location: punta_del_este
+  country: uruguay
+
+- path: solis/IMG_5170.jpg
+  title: Solis
+  place: Solis
+  location: solis
+  country: uruguay

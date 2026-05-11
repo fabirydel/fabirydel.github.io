@@ -13,6 +13,10 @@ title: Portfolio
         onclick="openModal({{ image_index }}, 'myPortfolioModal')"
         style="background-image: url('/images/blur/{{ image.path }}');"
         aria-label="{{ image.place }}, {{ image.country | capitalize }}"
+        data-photo-path="{{ image.path }}"
+        data-photo-place="{{ image.place }}"
+        data-photo-location="{{ image.location }}"
+        data-photo-country="{{ image.country }}"
       >
         <img
           class="thumb"

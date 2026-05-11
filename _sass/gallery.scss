@@ -25,7 +25,7 @@ body {
 
 .gallery-body-country {
   display: block;
-  padding: 16px 8px 40px 8px;
+  padding: 16px 0 40px 0;
 }
 
 .links-container {
@@ -47,8 +47,8 @@ body {
 
   &:hover {
     opacity: 0.8;
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
   }
 }
 
@@ -72,7 +72,7 @@ body {
   }
 
   .header-label {
-    font-family: 'poppins';
+    font-family: "poppins";
     font-size: 30px;
     text-align: left;
     color: var(--black);
@@ -106,8 +106,8 @@ body {
       &:hover {
         text-decoration: none;
         margin-left: 5px;
-        -webkit-transition: .3s ease-in-out;
-        transition: .3s ease-in-out;
+        -webkit-transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
       }
 
       .location-link-text {
@@ -126,8 +126,8 @@ body {
       &:hover {
         text-decoration: none;
         color: #d95040;
-        -webkit-transition: .3s ease-in-out;
-        transition: .3s ease-in-out;
+        -webkit-transition: 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
       }
     }
 
@@ -160,7 +160,8 @@ body {
   position: fixed;
 }
 
-.portfolio-wrapper, .gallery-page-wrapper-landscape {
+.portfolio-wrapper,
+.gallery-page-wrapper-landscape {
   padding: var(--header-height) 0 28px 0;
 }
 
@@ -191,7 +192,8 @@ body {
   }
 }
 
-.two-column-grid, .three-column-grid {
+.two-column-grid,
+.three-column-grid {
   display: none;
 }
 
@@ -228,12 +230,12 @@ body {
   }
 
   .image-container {
-    -webkit-transition: .4s ease-in-out;
+    -webkit-transition: 0.4s ease-in-out;
     display: flex;
     flex-flow: column;
     justify-content: space-around;
     object-fit: cover;
-    transition: .4s ease-in-out;
+    transition: 0.4s ease-in-out;
     overflow: hidden;
 
     &:hover {
@@ -243,7 +245,7 @@ body {
 }
 
 .photo {
-  -webkit-transition: .1s ease-in;
+  -webkit-transition: 0.1s ease-in;
   border-radius: 2px;
   cursor: pointer;
   object-fit: cover;
@@ -262,9 +264,9 @@ body {
 }
 
 .photo-final-loaded:hover {
-  -webkit-transition: .1s ease-in-out;
+  -webkit-transition: 0.1s ease-in-out;
   opacity: 0.85;
-  transition: .1s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
 .photo-invisible {
@@ -337,10 +339,18 @@ body {
   position: absolute;
   // Soft top-to-bottom gradient instead of a flat dark layer — gives the
   // panorama room to breathe at the edges.
-  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
 
   &.nighttime {
-    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.45) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(0, 0, 0, 0.45) 100%
+    );
   }
 }
 
@@ -352,7 +362,9 @@ body {
 }
 
 .stats-container {
-  transition: background-color 0.35s ease, color 0.35s ease;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -385,7 +397,7 @@ body {
   }
 
   .stat {
-    font-family: 'poppins';
+    font-family: "poppins";
     text-align: center;
     padding: 10px 4px;
     border-right: 1px solid rgba(31, 34, 36, 0.12);
@@ -443,78 +455,79 @@ body {
 
 // all this code below used to overwrite for screen smaller than 850px, now it's the default
 // @media screen and (max-width: 850px) {
-  .three-column-grid {
-    display: none;
-  }
+.three-column-grid {
+  display: none;
+}
 
-  .two-column-grid {
-    display: none;
-  }
+.two-column-grid {
+  display: none;
+}
 
-  .header-img-container-outside {
-    .header-label {
-      width: 100%;
-      background: var(--white);
-      z-index: 3;
-      padding: 0 10px 5px 10px;
-      .page-title {
-        font-size: 28px;
-      }
-
-      .map-icon {
-        margin-left: 3px;
-        font-size: 26px;
-      }
-
-      .country-flag {
-        width: 25px;
-        height: 25px;
-      }
-
-      font-size: 26px;
-
-      .location-link {
-        font-size: 22px;
-      }
-
-      &.hide {
-        padding-top: 5px;
-      }
-    }
-  }
-
-  .header-img-container {
-    max-width: inherit;
+.header-img-container-outside {
+  .header-label {
     width: 100%;
-  }
-
-  .gallery-body {
-    flex-direction: column;
-
-    .photo-container {
-      margin: 5px;
+    background: var(--white);
+    z-index: 3;
+    padding: 0 10px 5px 10px;
+    .page-title {
+      font-size: 28px;
     }
 
-    .photo-container:first-child {
-      margin-top: 0;
+    .map-icon {
+      margin-left: 3px;
+      font-size: 26px;
     }
+
+    .country-flag {
+      width: 25px;
+      height: 25px;
+    }
+
+    font-size: 26px;
+
+    .location-link {
+      font-size: 22px;
+    }
+
+    &.hide {
+      padding-top: 5px;
+    }
+  }
+}
+
+.header-img-container {
+  max-width: inherit;
+  width: 100%;
+}
+
+.gallery-body {
+  flex-direction: column;
+
+  .photo-container {
+    margin: 5px;
   }
 
-  .stats-cover, .stats-overlay {
-    .stats-container {
-      font-size: 14px;
-    }
+  .photo-container:first-child {
+    margin-top: 0;
   }
+}
+
+.stats-cover,
+.stats-overlay {
+  .stats-container {
+    font-size: 14px;
+  }
+}
 // }
 // until here
-
 
 @media screen and (max-width: 1150px) {
   .gallery-container {
     grid-template-columns: 50% 50%;
   }
 
-  .two-column-grid, .four-column-grid {
+  .two-column-grid,
+  .four-column-grid {
     display: none;
   }
 
@@ -582,7 +595,6 @@ body {
   }
 }
 
-
 @media screen and (max-width: 450px) {
   .stats-container {
     .stat {
@@ -590,4 +602,3 @@ body {
     }
   }
 }
-

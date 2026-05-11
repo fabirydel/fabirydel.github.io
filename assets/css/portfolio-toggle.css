@@ -1,0 +1,123 @@
+/* ============================================================
+   Dev-only portfolio toggle UI
+   - Slim white checkmark on a green pill = "in portfolio"
+   - Empty white-outlined box = "not in portfolio" (hover to reveal)
+   - On the portfolio page itself (.portfolio-wrapper ancestor),
+     the in-portfolio indicator is hover-only since every tile is
+     in the portfolio by definition; this lets the user uncheck
+     without permanent visual noise.
+   ============================================================ */
+
+.pt-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  color: #fff;
+  font: inherit;
+  line-height: 1;
+  -webkit-appearance: none;
+  appearance: none;
+
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.pt-toggle svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.pt-toggle:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: #fff;
+  transform: scale(1.06);
+}
+
+.pt-toggle:focus-visible {
+  outline: 2px solid #d95040;
+  outline-offset: 2px;
+}
+
+.pt-toggle:disabled {
+  cursor: progress;
+  opacity: 0.5;
+}
+
+/* ---- States --------------------------------------------------- */
+
+/* Not in portfolio: only on tile hover or focus */
+.photo-tile:hover .pt-toggle,
+.photo-tile:focus-within .pt-toggle {
+  opacity: 1;
+}
+
+/* In portfolio: filled dark pill (matches the site's body text colour
+   --black: #1f2224), always visible (default behaviour). The slim
+   checkmark inside is opacity 1. */
+.photo-tile.in-portfolio .pt-toggle {
+  opacity: 1;
+  background: var(--black);
+  border-color: rgba(255, 255, 255, 0.95);
+}
+.photo-tile.in-portfolio .pt-toggle:hover {
+  background: #000;
+}
+.photo-tile.in-portfolio .pt-toggle svg {
+  opacity: 1;
+}
+
+/* On the portfolio page, hide the persistent indicator and reveal it on
+   hover only — every tile is in-portfolio so a permanent checkmark on
+   each one would be visual noise. */
+.portfolio-wrapper .photo-tile.in-portfolio .pt-toggle {
+  opacity: 0;
+}
+.portfolio-wrapper .photo-tile.in-portfolio:hover .pt-toggle,
+.portfolio-wrapper .photo-tile.in-portfolio:focus-within .pt-toggle {
+  opacity: 1;
+}
+
+/* ---- Mid-write transient state ------------------------------- */
+
+/* When a write is in progress, soften the indicator. */
+.pt-toggle[data-pending="1"] {
+  cursor: progress;
+  opacity: 0.6 !important;
+}
+
+/* ---- Tile fade-out when removing from portfolio page --------- */
+
+.photo-tile.is-removing {
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  opacity: 0;
+  transform: scale(0.96);
+}

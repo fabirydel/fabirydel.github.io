@@ -4,12 +4,30 @@
   <div class="portfolio-grid" data-photo-count="{{ photo_count }}">
     {% assign image_index = 0 %}
     {% for image_path in page.images %}
+      {%- comment -%}
+        Derive location slug + country slug per image so the dev-only
+        portfolio-toggle UI knows what entry to write into portfolio.yml.
+      {%- endcomment -%}
+      {% assign parts = image_path | split: '/' %}
+      {% assign loc_slug = parts[0] %}
+      {% assign place_label = loc_slug | replace: '_', ' ' | capitalize %}
+      {% assign country_slug = '' %}
+      {% for c in site.data.locations_per_country %}
+        {% if c[1].locations contains loc_slug %}
+          {% assign country_slug = c[0] %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
       <button
         type="button"
         class="photo-tile"
         onclick="openModal({{ image_index }}, 'myLandscapeModal')"
         style="background-image: url('/images/blur/{{ image_path }}');"
         aria-label="{{ page.title }}"
+        data-photo-path="{{ image_path }}"
+        data-photo-place="{{ place_label }}"
+        data-photo-location="{{ loc_slug }}"
+        data-photo-country="{{ country_slug }}"
       >
         <img
           class="thumb"
