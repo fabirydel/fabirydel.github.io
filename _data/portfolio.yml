@@ -1007,3 +1007,9 @@
   place: Solis
   location: solis
   country: uruguay
+
+- path: cementerio_de_trenes/7P9A1453.jpg
+  title: Cementerio de Trenes
+  place: Cementerio de Trenes
+  location: cementerio_de_trenes
+  country: bolivia

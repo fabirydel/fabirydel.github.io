@@ -285,6 +285,7 @@ united_states:
 
 bolivia:
   locations:
+    - cementerio_de_trenes
     - geisers_sol_de_la_manana
     - la_paz
     - reserva_flamingos
