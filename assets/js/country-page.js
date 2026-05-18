@@ -350,7 +350,7 @@
     }
   }
 
-  // ---- Zoom buttons (bubble footer) ------------------------------
+  // ---- Zoom buttons (bubble footer + banner controls) ------------
   function attachZoomButtons() {
     var buttons = document.querySelectorAll('.country-map-bubble__zoom');
     buttons.forEach(function (btn) {
@@ -362,9 +362,19 @@
         if (btn.dataset.zoom === 'in') map.zoomIn();
         else if (btn.dataset.zoom === 'out') map.zoomOut();
       });
-      // Also stop mousedown so the resize handler doesn't claim the
-      // click before it becomes a button click.
       btn.addEventListener('mousedown', function (e) { e.stopPropagation(); });
+    });
+
+    var bannerButtons = document.querySelectorAll('.country-map-banner__zoom');
+    bannerButtons.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var map = window.__countryBannerMap;
+        if (!map) return;
+        if (btn.dataset.zoom === 'in') map.zoomIn();
+        else if (btn.dataset.zoom === 'out') map.zoomOut();
+      });
     });
   }
 
