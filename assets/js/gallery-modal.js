@@ -43,19 +43,28 @@ function closeModal(id) {
 function performOpen(index, id) {
   document.getElementById("header").classList.add("freeze");
 
-  var mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
-  var headerHeight = document.querySelector('#header').offsetHeight;
-  var scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
-  // The redesigned country page has a `.country-hero` block before
-  // gallery-body. Account for its height so fixing gallery-body in place
-  // for the modal doesn't visually shift content up on open.
-  var heroEl = document.querySelector('.country-hero');
-  var heroHeight = heroEl ? heroEl.offsetHeight : 0;
-  if (document.querySelector('.country-wrapper') && mapHeight + headerHeight > window.scrollY) {
-    document.querySelector('.country-wrapper').style.marginTop = (-window.scrollY) + 'px';
+  var galleryBody = document.getElementById("gallery-body");
+
+  // Snapshot the element's exact viewport position before making it fixed
+  // so no layout shift occurs regardless of what elements sit above it.
+  var currentTop = galleryBody.getBoundingClientRect().top;
+  galleryBody.dataset.savedScroll = window.scrollY;
+  galleryBody.style.top = currentTop + 'px';
+  galleryBody.style.position = "fixed";
+
+  // Legacy: some older page variants use a .country-wrapper whose margin
+  // must be pulled up to avoid a gap while the modal is open.
+  // IMPORTANT: only read offsetHeight when the element exists — reading it
+  // unconditionally after position:fixed forces a reflow that resets
+  // window.scrollY to 0 before history.pushState runs, so back() restores 0.
+  var countryWrapper = document.querySelector('.country-wrapper');
+  if (countryWrapper) {
+    var mapHeight = countryWrapper.offsetHeight;
+    var headerHeight = document.querySelector('#header').offsetHeight;
+    if (mapHeight + headerHeight > window.scrollY) {
+      countryWrapper.style.marginTop = (-window.scrollY) + 'px';
+    }
   }
-  document.getElementById("gallery-body").style.top = (-window.scrollY + mapHeight + scrollHeader + heroHeight) + 'px';
-  document.getElementById("gallery-body").style.position = "fixed";
 
   var modal = document.getElementById(id);
   modal.style.display = "block";
@@ -80,19 +89,18 @@ function performClose(id) {
   }
 
   document.getElementById("header").classList.remove("freeze");
-  var scrollY = document.getElementById("gallery-body").style.top;
-  var headerHeight = document.querySelector('#header').offsetHeight;
-  var scrollHeader = (document.querySelector('.country-flag.circle-logo') ? headerHeight : 0);
-  var mapHeight = document.querySelector('.country-wrapper') ? document.querySelector('.country-wrapper').offsetHeight : 0;
-  var heroEl = document.querySelector('.country-hero');
-  var heroHeight = heroEl ? heroEl.offsetHeight : 0;
+  var galleryBody = document.getElementById("gallery-body");
+  var savedScroll = parseInt(galleryBody.dataset.savedScroll || '0');
 
   if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.marginTop = '';
-  document.getElementById("gallery-body").style.position = '';
-  document.getElementById("gallery-body").style.top = '';
-  if (scrollY) {
-    window.scrollTo(0, (parseInt(scrollY) - mapHeight - scrollHeader - heroHeight) * -1);
-  }
+  galleryBody.style.position = '';
+  galleryBody.style.top = '';
+  delete galleryBody.dataset.savedScroll;
+  // Read offsetHeight to force a synchronous reflow so the document regains
+  // its full height before scrollTo — otherwise the scroll gets clamped to 0.
+  void galleryBody.offsetHeight;
+  window.scrollTo(0, savedScroll);
+
   deblur();
 
   modal.style.visibility = "hidden";
@@ -111,6 +119,8 @@ function blur() {
   document.getElementById('gallery-body').style.filter = 'blur(4px)';
   if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.filter = 'blur(4px)';
   if (document.getElementById('header-img-container-outside')) document.getElementById('header-img-container-outside').style.filter = 'blur(4px)';
+  if (document.getElementById('country-map-banner-wrapper')) document.getElementById('country-map-banner-wrapper').style.filter = 'blur(4px)';
+  if (document.getElementById('country-map-bubble')) document.getElementById('country-map-bubble').style.filter = 'blur(4px)';
 }
 
 function deblur() {
@@ -119,6 +129,8 @@ function deblur() {
   document.getElementById('gallery-body').style.filter = '';
   if (document.querySelector('.country-wrapper')) document.querySelector('.country-wrapper').style.filter = '';
   if (document.getElementById('header-img-container-outside')) document.getElementById('header-img-container-outside').style.filter = '';
+  if (document.getElementById('country-map-banner-wrapper')) document.getElementById('country-map-banner-wrapper').style.filter = '';
+  if (document.getElementById('country-map-bubble')) document.getElementById('country-map-bubble').style.filter = '';
 }
 
 function ignore(e) {
