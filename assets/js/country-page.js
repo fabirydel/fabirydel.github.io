@@ -565,6 +565,24 @@
         attachScrollSpy(title);
       }, { once: true });
     }
+
+    // Hide the floating bubble while the banner map is visible in the viewport;
+    // show it once the banner scrolls out of view.
+    var bannerWrapper = document.getElementById('country-map-banner-wrapper');
+    if (bannerWrapper && bubbleEl) {
+      // Set immediately so there is no flash on page load.
+      if (bannerWrapper.getBoundingClientRect().bottom > 0) {
+        bubbleEl.classList.add('is-banner-visible');
+      }
+      if ('IntersectionObserver' in window) {
+        var bannerObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            bubbleEl.classList.toggle('is-banner-visible', entry.isIntersecting);
+          });
+        }, { threshold: 0 });
+        bannerObserver.observe(bannerWrapper);
+      }
+    }
   }
 
   if (document.readyState === 'loading') {

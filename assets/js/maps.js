@@ -95,4 +95,70 @@ document.addEventListener("DOMContentLoaded", function() {
     zoom: Number(country.dataset.zoom)
   };
   window.dispatchEvent(new CustomEvent('country-map-ready'));
+
+  // Banner map: full-width overview strip shown at the top of the page.
+  // Non-interactive (no drag/zoom) — markers are still clickable to scroll
+  // to the matching chapter.
+  var bannerEl = document.getElementById('country-map-banner');
+  if (bannerEl) {
+    var bannerSatellite = L.tileLayer(mapBoxUrl, {
+      attribution: mapboxAttribution,
+      id: 'mapbox/satellite-streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: accessToken
+    });
+
+    var bannerMap = L.map('country-map-banner', {
+      layers: [bannerSatellite],
+      scrollWheelZoom: false,
+      touchZoom: false,
+      dragging: false,
+      doubleClickZoom: false,
+      keyboard: false,
+      zoomControl: false,
+      attributionControl: false
+    });
+
+    var bannerLatLngs = [];
+
+    for (var j = 1; j <= country.dataset.locations; j++) {
+      var bImg   = country.dataset['img-' + j];
+      var bTitle = country.dataset['title-' + j];
+      var bRaw   = country.dataset['latlng-' + j];
+      var bPath  = country.dataset['path-' + j];
+      var bLatLng = (bRaw && bRaw !== '') ? JSON.parse(bRaw) : null;
+
+      if (bLatLng) {
+        bannerLatLngs.push(bLatLng);
+        var bIcon = L.divIcon({
+          iconSize: [30, 30],
+          html: '<img class="map-image" src="../images/thumb/' + bImg + '"><span class="map-image-title">' + bTitle + '</span>',
+          iconAnchor: [20, 40],
+          className: 'my-div-icon bounce'
+        });
+        let bMarker = L.marker(bLatLng, { riseOnHover: true, path: '/locations/' + bPath, namePath: bPath, icon: bIcon });
+        bMarker.addTo(bannerMap).on('click', function (m) {
+          return function () {
+            var chapter = document.getElementById('chapter-' + m.options.namePath);
+            if (chapter && typeof chapter.scrollIntoView === 'function') {
+              chapter.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              setTimeout(function () { window.location.href = m.options.path; }, 0);
+            }
+          };
+        }(bMarker));
+      }
+    }
+
+    if (bannerLatLngs.length > 1) {
+      bannerMap.fitBounds(bannerLatLngs, { padding: [48, 48] });
+    } else if (bannerLatLngs.length === 1) {
+      bannerMap.setView(bannerLatLngs[0], 10);
+    } else {
+      bannerMap.setView(JSON.parse(country.dataset.latlng), country.dataset.zoom);
+    }
+
+    window.__countryBannerMap = bannerMap;
+  }
 });
