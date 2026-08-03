@@ -1,8 +1,8 @@
 .default.page-content {
-  background-color: var(--white);
+  background-color: var(--background-dark);
   padding-top: 28px;
-  -webkit-transition: .75s ease-in-out;
-  transition: .75s ease-in-out;
+  -webkit-transition: 0.75s ease-in-out;
+  transition: 0.75s ease-in-out;
 }
 
 .non-displayed {
@@ -14,7 +14,7 @@
   margin: 0 !important;
 
   .location {
-    background: var(--white);
+    background: var(--background-dark);
     justify-self: center;
     overflow: hidden;
 
@@ -54,10 +54,10 @@
   }
 
   .image-container {
-    -webkit-transition: .75s ease-in-out;
+    -webkit-transition: 0.75s ease-in-out;
     height: 100%;
     object-fit: cover;
-    transition: .75s ease-in-out;
+    transition: 0.75s ease-in-out;
     opacity: 1;
     display: flex;
     justify-content: space-around;
@@ -74,18 +74,23 @@
     padding-right: 6px;
     position: absolute;
     text-align: right;
-    transition: .3s ease-in-out;
+    transition: 0.3s ease-in-out;
     right: 0;
     bottom: 0;
     pointer-events: none;
     font-weight: 200;
 
-    .title, .place {
+    .title,
+    .place {
       color: white;
       font-family: "poppins", sans-serif;
       font-size: 27px;
       pointer-events: none;
-      text-shadow: 0px 0 #0000004a, 0 1px #0000004a, -2px 0 #0000004a, 0 -1px #0000004a;
+      text-shadow:
+        0px 0 #0000004a,
+        0 1px #0000004a,
+        -2px 0 #0000004a,
+        0 -1px #0000004a;
       width: 100%;
       display: block;
       z-index: 1;
@@ -116,19 +121,24 @@
   padding-right: 6px;
   position: absolute;
   text-align: right;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
   right: 0;
   bottom: 0;
   pointer-events: none;
   z-index: 3;
   font-weight: 200;
 
-  .photo-title, .photo-place {
+  .photo-title,
+  .photo-place {
     color: var(--white);
     font-family: "poppins", sans-serif;
     font-size: 22px;
     pointer-events: none;
-    text-shadow: 0px 0 #0000004a, 0 1px #0000004a, -2px 0 #0000004a, 0 -1px #0000004a;
+    text-shadow:
+      0px 0 #0000004a,
+      0 1px #0000004a,
+      -2px 0 #0000004a,
+      0 -1px #0000004a;
     width: 100%;
     display: block;
     z-index: 1;
@@ -138,9 +148,9 @@
   .photo-place-link {
     display: inline-block;
     pointer-events: all;
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-    color: var(--white)
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    color: var(--white);
   }
 
   .photo-place-country {
@@ -153,8 +163,8 @@
       border: none !important;
       margin-top: 0 !important;
       border-radius: 50% !important;
-      -webkit-transition: .3s ease-in-out;
-      transition: .3s ease-in-out;
+      -webkit-transition: 0.3s ease-in-out;
+      transition: 0.3s ease-in-out;
 
       &:hover {
         opacity: 1 !important;
@@ -164,15 +174,15 @@
   }
 }
 
-
 .default.page-content.nighttime {
-  background-color: var(--black);
+  background-color: var(--background-dark);
 }
 
 @media screen and (max-width: 1280px) {
   .flexbin {
     .text-container {
-      .photo-title, .photo-place {
+      .photo-title,
+      .photo-place {
         font-size: 24px;
       }
     }
@@ -205,7 +215,8 @@
   }
 
   .text-container {
-    .photo-title, .photo-place {
+    .photo-title,
+    .photo-place {
       font-size: 16px;
     }
 

@@ -7,7 +7,7 @@ title: Locations
     {% assign count = site.locations.size %}
     {% assign locations = site.locations | sample:count %}
     {% for location in locations %}
-      <a class="location location-link-image" id="{{ forloop.index }}" href="/locations/{{ location.namePath }}">
+      <a class="location location-link-image" id="{{ forloop.index }}" href="/countries/{{ location.country }}#chapter-{{ location.namePath }}">
 
         <div
           class="image-container {% if forloop.index < 9 %}active-picture{% endif %} {% if forloop.index > 8 %}lazy-picture{% endif %}"

@@ -50,7 +50,7 @@ plugins:
 
 collections:
   locations:
-    output: true
+    output: false
   landscapes:
     output: true
   countries:

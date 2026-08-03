@@ -27,7 +27,7 @@
 {% if chapter_photo_count > 0 %}
 <section class="country-chapter" id="chapter-{{ include.location_name }}" data-location="{{ include.location_name }}"{% if location_page.latlng %} data-latlng="{{ location_page.latlng }}"{% endif %}>
   <header class="country-chapter__head">
-    <a class="country-chapter__title" href="/locations/{{ include.location_name }}">
+    <a class="country-chapter__title" href="#chapter-{{ include.location_name }}">
       <span class="country-chapter__name">{{ location_title }}</span>
       <span class="country-chapter__count">{{ chapter_photo_count }} photo{% if chapter_photo_count != 1 %}s{% endif %}</span>
     </a>
@@ -42,7 +42,7 @@
         <button
           type="button"
           class="photo-tile"
-          onclick="openModal({{ include.start_index | plus: forloop.index0 }}, 'myModal')"
+          onclick="openModal({{ include.start_index | plus: forloop.index0 }}, 'myPortfolioModal')"
           style="background-image: url('/images/blur/{{ include.location_name }}/{{ image.name }}');"
           aria-label="{{ location_title }} photo {{ forloop.index }}"
           data-photo-path="{{ include.location_name }}/{{ image.name }}"

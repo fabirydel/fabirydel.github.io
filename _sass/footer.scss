@@ -23,7 +23,7 @@
   -webkit-transition: all 0.75s ease;
   -webkit-user-select: none;
   align-items: center;
-  background: var(--white);
+  background: var(--background-dark);
   bottom: 0;
   display: flex;
   font-family: "poppins", sans-serif;
@@ -48,7 +48,7 @@ body.loading #footer-header {
 }
 
 #footer-header h1 {
-  color: var(--black);
+  color: #f2efe9;
   display: inline-block;
   font-size: 14px;
   font-weight: 200;
@@ -86,7 +86,7 @@ body.loading #footer-header {
 #footer-header nav > ul > li .about {
   -webkit-transition: all 0.75s ease;
   border: 0;
-  color: var(--black);
+  color: #f2efe9;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
@@ -98,7 +98,7 @@ body.loading #footer-header {
 }
 
 #footer-header nav > ul > li .about.icon:before {
-  color: var(--black);
+  color: #f2efe9;
   float: right;
   margin-left: 0.75em;
   transition: all 0.75s ease;
@@ -141,9 +141,9 @@ body.loading #footer-header {
   -webkit-overflow-scrolling: touch;
   -webkit-transform: translateY(100vh);
   -webkit-transition: -webkit-transform 0.5s ease;
-  background: var(--white);
+  background: var(--background-dark);
   bottom: 2em;
-  color: var(--black);
+  color: #f2efe9;
   left: 0;
   max-height: calc(81vh - 4em);
   overflow-y: auto;
@@ -185,7 +185,7 @@ body.loading #footer-header {
     }
 
     a {
-      color: var(--black);
+      color: #f2efe9;
       margin-left: 5px;
       font-size: 11px;
 
@@ -275,11 +275,11 @@ body.loading #footer-header {
     }
 
     .instagram-image-light {
-      display: none;
+      display: block;
     }
 
     .instagram-image-dark {
-      display: block;
+      display: none;
     }
   }
 }
@@ -327,7 +327,7 @@ footer {
 
   h2,
   p {
-    color: var(--black);
+    color: #f2efe9;
     font-weight: 300;
     letter-spacing: 0.025em;
     line-height: 1.65;
@@ -563,10 +563,10 @@ footer {
     -webkit-appearance: none;
     -ms-appearance: none;
     appearance: none;
-    background: #dbdbdb;
+    background: #34363b;
     border: 0;
     border-radius: 0;
-    color: #a0a0a1;
+    color: #f2efe9 !important;
     display: block;
     outline: 0;
     padding: 0 1em;
@@ -652,7 +652,7 @@ footer {
     border: 0;
     border-radius: 0;
     box-shadow: inset 0 0 0 2px #36383c;
-    color: var(--black) !important;
+    color: var(--background-dark) !important;
     cursor: pointer;
     display: inline-block;
     font-size: 0.9em;
@@ -674,7 +674,7 @@ footer {
   .button:hover {
     box-shadow: inset 0 0 0 2px var(--white);
     color: var(--white) !important;
-    background-color: var(--black);
+    background-color: var(--background-dark);
   }
 
   input[type="submit"]:hover:active,
@@ -733,7 +733,7 @@ footer {
   input[type="button"].special,
   button.special,
   .button.special {
-    background-color: var(--white);
+    background-color: var(--background-dark);
     box-shadow: none;
   }
 
@@ -769,56 +769,6 @@ footer {
     -ms-pointer-events: none;
     pointer-events: none;
     opacity: 0.35;
-  }
-}
-
-#footer-header.nighttime {
-  background: var(--black);
-
-  h1 {
-    color: var(--white);
-  }
-
-  nav > ul > li .about {
-    color: var(--white);
-  }
-
-  nav > ul > li .about.icon:before {
-    color: var(--white);
-  }
-
-  nav > ul > li .about.active {
-    background-color: #242629;
-  }
-}
-
-#footer.nighttime {
-  background: var(--black);
-  color: var(--white);
-
-  .or-at {
-    a {
-      color: var(--white);
-    }
-  }
-
-  textarea,
-  input {
-    background: #34363b;
-    color: var(--white) !important;
-  }
-
-  h2,
-  p {
-    color: var(--white);
-  }
-
-  .instagram-image-light {
-    display: block;
-  }
-
-  .instagram-image-dark {
-    display: none;
   }
 }
 
@@ -908,18 +858,18 @@ footer {
 #footer .map-credits {
   margin-top: 2.5em;
   padding-top: 1.25em;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   font-family: "poppins", sans-serif;
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: var(--black);
+  color: #f2efe9;
   opacity: 0.65;
   line-height: 1.5;
 
   a {
-    color: var(--black);
+    color: #f2efe9;
     text-decoration: none;
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.35);
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
     padding-bottom: 1px;
     transition:
       color 0.2s ease,
@@ -928,20 +878,6 @@ footer {
 
     &:hover {
       opacity: 1;
-      border-bottom-color: rgba(0, 0, 0, 0.7);
-    }
-  }
-}
-
-#footer.nighttime .map-credits {
-  border-top-color: rgba(255, 255, 255, 0.12);
-  color: var(--white);
-
-  a {
-    color: var(--white);
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-
-    &:hover {
       border-bottom-color: rgba(255, 255, 255, 0.7);
     }
   }

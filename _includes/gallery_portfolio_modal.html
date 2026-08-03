@@ -5,7 +5,7 @@
       <div class="slide">
         <div class="image-modal-container center">
           <div class="modal-text-container text-container modal-text-container-dummy">
-            <a href="/locations/{{ image.location }}" class="photo-place-link">
+            <a href="/countries/{{ image.country }}#chapter-{{ image.location }}" class="photo-place-link">
               <span class="photo-title photo-place">{{ image.place }},</span>
             </a>
             <a href="/countries/{{ image.country }}" class="photo-place-link photo-place-country">
@@ -16,7 +16,7 @@
           <img data-src="/images/full/{{ image.path }}" alt="{{ image.place }}, {{ image.country | capitalize }}" decoding="async" onclick="ignore(event)">
 
           <div class="modal-text-container text-container">
-            <a href="/locations/{{ image.location }}" class="photo-place-link">
+            <a href="/countries/{{ image.country }}#chapter-{{ image.location }}" class="photo-place-link">
               <span class="photo-title photo-place">{{ image.place }},</span>
             </a>
             <a href="/countries/{{ image.country }}" class="photo-place-link photo-place-country">

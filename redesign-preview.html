@@ -1,0 +1,716 @@
+---
+layout: null
+---
+<!doctype html>
+<html lang="en" data-theme="editorial">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redesign preview — Fabian Rydel</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <meta name="robots" content="noindex">
+  <style>
+    :root {
+      --gap: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--mk-bg);
+      color: var(--mk-fg);
+    }
+
+    body {
+      font-family: 'poppins', sans-serif;
+      transition: background-color .4s ease, color .4s ease;
+    }
+
+    /* ---------------------------------------------------------------
+       Theme tokens. Everything visual below reads from these custom
+       properties, so switching [data-theme] on <html> re-skins the
+       whole page without duplicating component rules.
+       ------------------------------------------------------------- */
+    html[data-theme="editorial"] {
+      --mk-bg: #faf8f5;
+      --mk-fg: #201e1a;
+      --mk-muted: #8c8578;
+      --mk-accent: #a8572f;
+      --mk-surface: rgba(255,255,255,0.72);
+      --mk-surface-border: rgba(32,30,26,0.10);
+      --mk-tile-radius: 10px;
+      --mk-tile-gap: 20px;
+      --mk-shadow: 0 20px 44px -26px rgba(32,30,26,0.35);
+      --mk-font-display: 'MrsEaves', Georgia, serif;
+      --mk-tracking: 0.02em;
+      --mk-scrim: linear-gradient(180deg, rgba(250,248,245,0) 0%, rgba(250,248,245,0.15) 55%, rgba(250,248,245,0.92) 100%);
+      --mk-hero-filter: grayscale(0.08) contrast(1.03) brightness(1.01);
+    }
+
+    html[data-theme="cinematic"] {
+      --mk-bg: #0b0c0e;
+      --mk-fg: #f2efe9;
+      --mk-muted: #9c9a97;
+      --mk-accent: #d9a441;
+      --mk-surface: rgba(255,255,255,0.06);
+      --mk-surface-border: rgba(255,255,255,0.14);
+      --mk-tile-radius: 3px;
+      --mk-tile-gap: 10px;
+      --mk-shadow: 0 26px 60px -18px rgba(0,0,0,0.75);
+      --mk-font-display: 'poppins', sans-serif;
+      --mk-tracking: 0.08em;
+      --mk-scrim: linear-gradient(180deg, rgba(11,12,14,0) 0%, rgba(11,12,14,0.35) 55%, rgba(11,12,14,0.96) 100%);
+      --mk-hero-filter: contrast(1.08) brightness(0.86) saturate(1.05);
+    }
+
+    html[data-theme="bold"] {
+      --mk-bg: #121212;
+      --mk-fg: #ffffff;
+      --mk-muted: #c7c2b8;
+      --mk-accent: #ff5a36;
+      --mk-surface: rgba(255,255,255,0.08);
+      --mk-surface-border: rgba(255,255,255,0.16);
+      --mk-tile-radius: 4px;
+      --mk-tile-gap: 8px;
+      --mk-shadow: 0 30px 70px -20px rgba(0,0,0,0.8);
+      --mk-font-display: 'oswald', sans-serif;
+      --mk-tracking: 0.01em;
+      --mk-scrim: linear-gradient(180deg, rgba(18,18,18,0) 0%, rgba(18,18,18,0.25) 45%, rgba(18,18,18,0.97) 100%);
+      --mk-hero-filter: contrast(1.12) saturate(1.25) brightness(0.92);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
+    /* ---------------------------------------------------------------
+       Preview chrome — always the same regardless of theme, so it's
+       obviously "meta" UI and not part of any of the 3 candidates.
+       ------------------------------------------------------------- */
+    .mk-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 16px;
+      background: #17181a;
+      color: #f2efe9;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .mk-banner strong { font-weight: 600; }
+
+    .mk-switcher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mk-switcher select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: #232427;
+      color: #f2efe9;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 6px;
+      padding: 6px 30px 6px 10px;
+      font: inherit;
+      font-family: 'poppins', sans-serif;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23f2efe9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+
+    .mk-page { padding-top: 37px; }
+
+    /* ---------------------------------------------------------------
+       Topbar (simplified stand-in for the real header)
+       ------------------------------------------------------------- */
+    .mk-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 32px;
+      font-family: var(--mk-font-display);
+      letter-spacing: var(--mk-tracking);
+    }
+
+    .mk-topbar nav { display: flex; gap: 24px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'poppins', sans-serif; }
+    .mk-topbar nav a { color: var(--mk-muted); text-decoration: none; cursor: default; }
+    .mk-topbar nav a:first-child { color: var(--mk-fg); border-bottom: 1px solid var(--mk-accent); padding-bottom: 3px; }
+    .mk-topbar .mk-name { font-size: 22px; }
+
+    /* ---------------------------------------------------------------
+       Hero / banner
+       ------------------------------------------------------------- */
+    .mk-hero {
+      position: relative;
+      height: 78vh;
+      min-height: 480px;
+      overflow: hidden;
+    }
+
+    .mk-hero-media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .mk-hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: var(--mk-hero-filter);
+      transform: scale(1.06);
+      will-change: transform;
+    }
+
+    .mk-hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: var(--mk-scrim);
+    }
+
+    .mk-hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 40px 40px;
+    }
+
+    .mk-eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--mk-muted);
+      margin: 0 0 10px;
+    }
+
+    .mk-hero-title {
+      font-family: var(--mk-font-display);
+      color: var(--mk-fg);
+      font-weight: 400;
+      margin: 0 0 28px;
+      letter-spacing: var(--mk-tracking);
+      line-height: 0.95;
+    }
+
+    /* Per-theme hero title scale/weight */
+    html[data-theme="editorial"] .mk-hero-title { font-size: 64px; font-style: italic; font-weight: 400; }
+    html[data-theme="cinematic"] .mk-hero-title { font-size: 56px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    html[data-theme="bold"] .mk-hero-title { font-size: 108px; font-weight: 600; text-transform: uppercase; }
+
+    .mk-stats {
+      display: flex;
+      gap: 0;
+    }
+
+    html[data-theme="editorial"] .mk-stats {
+      gap: 34px;
+    }
+
+    html[data-theme="cinematic"] .mk-stats,
+    html[data-theme="bold"] .mk-stats {
+      background: var(--mk-surface);
+      border: 1px solid var(--mk-surface-border);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      backdrop-filter: blur(16px) saturate(140%);
+      border-radius: 10px;
+      padding: 4px 4px;
+      width: fit-content;
+    }
+
+    .mk-stat {
+      text-align: left;
+      padding: 6px 18px;
+      position: relative;
+    }
+
+    html[data-theme="cinematic"] .mk-stat,
+    html[data-theme="bold"] .mk-stat {
+      padding: 10px 20px;
+      border-right: 1px solid var(--mk-surface-border);
+    }
+    html[data-theme="cinematic"] .mk-stat:last-child,
+    html[data-theme="bold"] .mk-stat:last-child { border-right: none; }
+
+    .mk-stat-value {
+      display: block;
+      font-family: var(--mk-font-display);
+      color: var(--mk-fg);
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    html[data-theme="editorial"] .mk-stat-value { font-size: 26px; font-weight: 400; font-style: italic; }
+    html[data-theme="cinematic"] .mk-stat-value { font-size: 20px; }
+    html[data-theme="bold"] .mk-stat-value { font-size: 30px; text-transform: uppercase; }
+
+    .mk-stat-label {
+      display: block;
+      margin-top: 4px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--mk-muted);
+    }
+
+    html[data-theme="editorial"] .mk-stat:not(:last-child) {
+      border-right: 1px solid var(--mk-surface-border);
+      padding-right: 34px;
+    }
+
+    /* ---------------------------------------------------------------
+       Grid
+       ------------------------------------------------------------- */
+    .mk-grid-section {
+      padding: 46px 32px 80px;
+    }
+
+    .mk-section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .mk-section-heading h2 {
+      font-family: var(--mk-font-display);
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: var(--mk-tracking);
+      color: var(--mk-fg);
+    }
+    html[data-theme="editorial"] .mk-section-heading h2 { font-size: 28px; font-style: italic; }
+    html[data-theme="cinematic"] .mk-section-heading h2 { font-size: 22px; text-transform: uppercase; letter-spacing: 0.1em; }
+    html[data-theme="bold"] .mk-section-heading h2 { font-size: 34px; text-transform: uppercase; }
+
+    .mk-section-heading span {
+      font-size: 12px;
+      color: var(--mk-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .mk-grid {
+      column-count: 4;
+      column-gap: var(--mk-tile-gap);
+    }
+
+    html[data-theme="bold"] .mk-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 120px;
+      grid-auto-flow: dense;
+      gap: var(--mk-tile-gap);
+      column-count: initial;
+    }
+
+    .mk-tile {
+      position: relative;
+      display: block;
+      width: 100%;
+      margin: 0 0 var(--mk-tile-gap) 0;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: var(--mk-tile-radius);
+      background-color: var(--mk-bg);
+      background-size: cover;
+      background-position: center;
+      break-inside: avoid;
+      box-shadow: var(--mk-shadow);
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+    }
+
+    .mk-tile.in { opacity: 1; transform: translateY(0); }
+
+    html[data-theme="bold"] .mk-tile {
+      margin: 0;
+      grid-row: span 2;
+    }
+    html[data-theme="bold"] .mk-tile:nth-child(7n+1) {
+      grid-column: span 2;
+      grid-row: span 3;
+    }
+
+    .mk-tile-thumb {
+      display: block;
+      width: 100%;
+      height: auto;
+      position: relative;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity .6s ease-out, transform 1s cubic-bezier(.22,1,.36,1);
+    }
+    .mk-tile-thumb.loaded { opacity: 1; }
+
+    html[data-theme="bold"] .mk-tile-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mk-tile:hover .mk-tile-thumb { transform: scale(1.0); }
+    html[data-theme="cinematic"] .mk-tile:hover .mk-tile-thumb { transform: scale(1.06); }
+
+    .mk-tile-caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      z-index: 2;
+      padding: 30px 14px 12px;
+      color: #fff;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+      opacity: 0;
+      transition: opacity .3s ease, transform .3s ease;
+      transform: translateY(6px);
+    }
+
+    .mk-tile-caption .place { display: block; font-family: var(--mk-font-display); }
+    html[data-theme="editorial"] .mk-tile-caption .place { font-size: 15px; font-style: italic; }
+    html[data-theme="cinematic"] .mk-tile-caption .place { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; }
+    html[data-theme="bold"] .mk-tile-caption .place { font-size: 16px; text-transform: uppercase; }
+
+    .mk-tile-caption .country { display: block; font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .mk-tile:hover .mk-tile-caption, .mk-tile:focus-visible .mk-tile-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    html[data-theme="bold"] .mk-tile-caption {
+      opacity: 1;
+      transform: none;
+      background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0));
+      border-bottom: 3px solid transparent;
+      transition: border-color .25s ease;
+    }
+    html[data-theme="bold"] .mk-tile:hover .mk-tile-caption { border-bottom-color: var(--mk-accent); }
+
+    /* ---------------------------------------------------------------
+       Modal
+       ------------------------------------------------------------- */
+    .mk-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6,6,7,0.92);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .35s ease;
+    }
+    html[data-theme="editorial"] .mk-modal { background: rgba(24,22,19,0.88); }
+
+    .mk-modal.open { opacity: 1; visibility: visible; }
+
+    .mk-modal-stage {
+      position: relative;
+      max-width: 88vw;
+      max-height: 82vh;
+      transform: scale(0.94);
+      opacity: 0;
+      transition: transform .4s cubic-bezier(.22,1,.36,1), opacity .4s ease;
+      text-align: center;
+    }
+    .mk-modal.open .mk-modal-stage { transform: scale(1); opacity: 1; }
+
+    .mk-modal-img {
+      max-width: 88vw;
+      max-height: 74vh;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7);
+      transition: opacity .18s ease;
+    }
+    .mk-modal-img.fading { opacity: 0; }
+
+    .mk-modal-caption {
+      margin-top: 16px;
+      font-family: var(--mk-font-display);
+      color: #f5f3ef;
+    }
+    html[data-theme="editorial"] .mk-modal-caption { font-size: 18px; font-style: italic; }
+    html[data-theme="cinematic"] .mk-modal-caption { font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; }
+    html[data-theme="bold"] .mk-modal-caption { font-size: 20px; text-transform: uppercase; }
+    .mk-modal-caption .country { color: rgba(245,243,239,0.6); }
+
+    .mk-modal-close, .mk-modal-prev, .mk-modal-next {
+      position: absolute;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #f5f3ef;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .mk-modal-close:hover, .mk-modal-prev:hover, .mk-modal-next:hover {
+      background: rgba(255,255,255,0.16);
+    }
+
+    .mk-modal-close {
+      top: 24px; right: 24px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .mk-modal-prev, .mk-modal-next {
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      font-size: 22px;
+    }
+    .mk-modal-prev:hover, .mk-modal-next:hover { transform: translateY(-50%) scale(1.08); }
+    .mk-modal-prev { left: 24px; }
+    .mk-modal-next { right: 24px; }
+
+    html[data-theme="bold"] .mk-modal-prev,
+    html[data-theme="bold"] .mk-modal-next,
+    html[data-theme="bold"] .mk-modal-close {
+      background: var(--mk-accent);
+      border-color: var(--mk-accent);
+      color: #121212;
+    }
+    html[data-theme="bold"] .mk-modal-prev:hover,
+    html[data-theme="bold"] .mk-modal-next:hover,
+    html[data-theme="bold"] .mk-modal-close:hover { filter: brightness(1.1); }
+
+    body.mk-modal-lock { overflow: hidden; }
+
+    @media (max-width: 900px) {
+      .mk-grid { column-count: 2; }
+      html[data-theme="bold"] .mk-grid { grid-template-columns: repeat(2, 1fr); }
+      html[data-theme="bold"] .mk-tile:nth-child(7n+1) { grid-column: span 2; }
+      .mk-hero-title { font-size: 42px !important; }
+      html[data-theme="bold"] .mk-hero-title { font-size: 64px !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="mk-banner">
+    <span>Design preview — pick a direction, this page isn't part of the live site</span>
+    <div class="mk-switcher">
+      <label for="themeSelect">Style</label>
+      <select id="themeSelect">
+        <option value="editorial">Minimal Editorial</option>
+        <option value="cinematic">Cinematic Dark</option>
+        <option value="bold">Bold Immersive</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mk-page">
+    <div class="mk-topbar">
+      <nav>
+        <a href="#">Portfolio</a>
+        <a href="#">Locations</a>
+      </nav>
+      <div class="mk-name">Fabian Rydel</div>
+      <nav>
+        <a href="#" style="border-bottom:none;color:var(--mk-muted);">Countries</a>
+      </nav>
+    </div>
+
+    <section class="mk-hero">
+      <div class="mk-hero-media">
+        <img src="/images/full/castelrotto/IMG_8693-Pano.jpg" alt="Castelrotto, Italy">
+      </div>
+      <div class="mk-hero-scrim"></div>
+      <div class="mk-hero-content">
+        <p class="mk-eyebrow">Travel &amp; Landscape Photography</p>
+        <h1 class="mk-hero-title">Fabian Rydel</h1>
+        <div class="mk-stats">
+          <div class="mk-stat">
+            <span class="mk-stat-value">3099</span>
+            <span class="mk-stat-label">Photos</span>
+          </div>
+          <div class="mk-stat">
+            <span class="mk-stat-value">119.708</span>
+            <span class="mk-stat-label">Kilometers</span>
+          </div>
+          <div class="mk-stat">
+            <span class="mk-stat-value">1303</span>
+            <span class="mk-stat-label">Days</span>
+          </div>
+          <div class="mk-stat">
+            <span class="mk-stat-value">{{ site.countries | size }}</span>
+            <span class="mk-stat-label">Countries</span>
+          </div>
+          <div class="mk-stat">
+            <span class="mk-stat-value">{{ site.locations | size }}</span>
+            <span class="mk-stat-label">Locations</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mk-grid-section">
+      <div class="mk-section-heading">
+        <h2>Selected Work</h2>
+        <span>{{ site.data.portfolio | size }} photographs</span>
+      </div>
+      <div class="mk-grid" id="mkGrid">
+        {% assign preview_images = site.data.portfolio | slice: 0, 36 %}
+        {% for image in preview_images %}
+          <button
+            type="button"
+            class="mk-tile"
+            style="background-image: url('/images/blur/{{ image.path }}');"
+            data-full="/images/full/{{ image.path }}"
+            data-place="{{ image.place }}"
+            data-country="{{ image.country | capitalize }}"
+            aria-label="{{ image.place }}, {{ image.country | capitalize }}"
+          >
+            <img class="mk-tile-thumb" src="/images/thumb/{{ image.path }}" alt="{{ image.place }}, {{ image.country | capitalize }}" loading="lazy" decoding="async">
+            <span class="mk-tile-caption">
+              <span class="place">{{ image.place }}</span>
+              <span class="country">{{ image.country | capitalize }}</span>
+            </span>
+          </button>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <div class="mk-modal" id="mkModal">
+    <button class="mk-modal-close" id="mkModalClose" aria-label="Close">&times;</button>
+    <button class="mk-modal-prev" id="mkModalPrev" aria-label="Previous">&#8249;</button>
+    <button class="mk-modal-next" id="mkModalNext" aria-label="Next">&#8250;</button>
+    <div class="mk-modal-stage">
+      <img class="mk-modal-img" id="mkModalImg" src="" alt="">
+      <div class="mk-modal-caption">
+        <span id="mkModalPlace"></span> <span class="country" id="mkModalCountry"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // Theme switcher
+      var sel = document.getElementById('themeSelect');
+      var stored = localStorage.getItem('mkTheme') || 'editorial';
+      document.documentElement.setAttribute('data-theme', stored);
+      sel.value = stored;
+      sel.addEventListener('change', function () {
+        document.documentElement.setAttribute('data-theme', sel.value);
+        localStorage.setItem('mkTheme', sel.value);
+      });
+
+      // Thumb fade-in
+      document.querySelectorAll('.mk-tile-thumb').forEach(function (img) {
+        if (img.complete) { img.classList.add('loaded'); }
+        else { img.addEventListener('load', function () { img.classList.add('loaded'); }); }
+      });
+
+      // Scroll reveal
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.mk-tile').forEach(function (t) { io.observe(t); });
+      } else {
+        document.querySelectorAll('.mk-tile').forEach(function (t) { t.classList.add('in'); });
+      }
+
+      // Subtle hero parallax
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var heroImg = document.querySelector('.mk-hero-media img');
+      if (!reduceMotion && heroImg) {
+        window.addEventListener('scroll', function () {
+          var y = Math.min(window.scrollY, 500);
+          heroImg.style.transform = 'translateY(' + (y * 0.12) + 'px) scale(1.06)';
+        }, { passive: true });
+      }
+
+      // Modal
+      var tiles = Array.from(document.querySelectorAll('.mk-tile'));
+      var modal = document.getElementById('mkModal');
+      var modalImg = document.getElementById('mkModalImg');
+      var modalPlace = document.getElementById('mkModalPlace');
+      var modalCountry = document.getElementById('mkModalCountry');
+      var current = 0;
+      var isOpen = false;
+
+      function setSlide(t) {
+        modalImg.src = t.dataset.full;
+        modalImg.alt = t.dataset.place;
+        modalPlace.textContent = t.dataset.place + ',';
+        modalCountry.textContent = t.dataset.country;
+      }
+
+      function openModal(i) {
+        current = i;
+        setSlide(tiles[current]);
+        modal.classList.add('open');
+        document.body.classList.add('mk-modal-lock');
+        isOpen = true;
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+        document.body.classList.remove('mk-modal-lock');
+        isOpen = false;
+      }
+
+      function nav(delta) {
+        current = (current + delta + tiles.length) % tiles.length;
+        modalImg.classList.add('fading');
+        setTimeout(function () {
+          setSlide(tiles[current]);
+          modalImg.classList.remove('fading');
+        }, 160);
+      }
+
+      tiles.forEach(function (t, i) {
+        t.addEventListener('click', function () { openModal(i); });
+      });
+      document.getElementById('mkModalClose').addEventListener('click', closeModal);
+      document.getElementById('mkModalPrev').addEventListener('click', function (e) { e.stopPropagation(); nav(-1); });
+      document.getElementById('mkModalNext').addEventListener('click', function (e) { e.stopPropagation(); nav(1); });
+      modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', function (e) {
+        if (!isOpen) return;
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowLeft') nav(-1);
+        if (e.key === 'ArrowRight') nav(1);
+      });
+
+      // Swipe
+      var touchStartX = 0;
+      modal.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+      modal.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) nav(dx > 0 ? -1 : 1);
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>

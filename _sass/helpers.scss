@@ -7,7 +7,7 @@
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-  background-color: var(--black);
+  background-color: var(--background-dark);
   border-radius: 3px;
   color: var(--white);
   font-size: 14px;
@@ -27,7 +27,7 @@
 /* Tooltip arrow */
 .tooltip .tooltiptext::after {
   content: "";
-  border-color: transparent transparent var(--black) transparent;
+  border-color: transparent transparent var(--background-dark) transparent;
   border-style: solid;
   border-width: 5px;
   left: 10px;
@@ -81,8 +81,8 @@
 
 .nighttime {
   .tooltip .tooltiptext {
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--background-dark);
+    color: var(--white);
   }
 
   /* Tooltip arrow */
@@ -91,8 +91,8 @@
   }
 
   .lds-ring div {
-    border-color: var(--black) transparent transparent transparent;
-    border: 5px solid var(--black);
+    border-color: var(--background-dark) transparent transparent transparent;
+    border: 5px solid var(--background-dark);
   }
 }
 

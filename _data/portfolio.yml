@@ -11,6 +11,7 @@
   place: Venice
   location: venice
   country: italy
+  large: true
 
 - path: bled/IMG_3567.jpg
   title: Night at the Lake
@@ -201,6 +202,7 @@
   location: loch_duntelchaig
   country: scotland
   landscape: true
+  large: true
 
 - path: lagamas/IMG_4864.jpg
   title: By the Red Vines
@@ -364,6 +366,7 @@
   location: almodovar_del_rio
   country: spain
   landscape: true
+  large: true
 
 ############################## ##############################
 
@@ -500,13 +503,6 @@
   location: rio
   country: brazil
 
-- path: old_man_of_storr/IMG_2529-Pano.jpg
-  title: The Old Man
-  place: Old Man of Storr
-  location: old_man_of_storr
-  country: scotland
-  landscape: true
-
 - path: arboras/IMG_9888.jpg
   title: Vines by the Road
   place: Arboras
@@ -517,13 +513,6 @@
   title: Open Skies
   place: Ronda
   location: ronda
-  country: spain
-  landscape: true
-
-- path: segovia/IMG_1032.jpg
-  title: Aquaduct
-  place: Segovia
-  location: segovia
   country: spain
   landscape: true
 
@@ -653,6 +642,7 @@
   place: Bled
   location: bled
   country: slovenia
+  large: true
 
 - path: bled/IMG_4697.jpg
   title: Bled
@@ -665,6 +655,7 @@
   place: Jamnik
   location: jamnik
   country: slovenia
+  large: true
 
 - path: jamnik/IMG_7714.jpg
   title: Jamnik
@@ -683,12 +674,7 @@
   place: Velika Planina
   location: velika_planina
   country: slovenia
-
-- path: velika_planina/IMG_9604-2.jpg
-  title: Velika Planina
-  place: Velika Planina
-  location: velika_planina
-  country: slovenia
+  large: true
 
 - path: velika_planina/IMG_9133.jpg
   title: Velika Planina
@@ -708,12 +694,6 @@
   location: sv_jakov
   country: slovenia
 
-- path: geisers_sol_de_la_manana/7P9A3223-Pano-2_tn.jpg
-  title: Geisers Sol de la Mañana
-  place: Geisers Sol de la Mañana
-  location: geisers_sol_de_la_manana
-  country: bolivia
-
 - path: la_paz/7P9A0400_tn.jpg
   title: La Paz
   place: La Paz
@@ -725,18 +705,21 @@
   place: Sajama National Park
   location: sajama_national_park
   country: bolivia
+  large: true
 
 - path: reserva_flamingos/7P9A2537_tn.jpg
   title: Reserva de Flamingos
   place: Reserva de Flamingos
   location: reserva_flamingos
   country: bolivia
+  large: true
 
 - path: reserva_flamingos/7P9A2426_tn.jpg
   title: Reserva de Flamingos
   place: Reserva de Flamingos
   location: reserva_flamingos
   country: bolivia
+  large: true
 
 - path: reserva_flamingos/7P9A2773_tn.jpg
   title: Reserva de Flamingos
@@ -745,12 +728,6 @@
   country: bolivia
 
 - path: salar_de_uyuni/7P9A3580-Pano_tn.jpg
-  title: Salar de Uyuni
-  place: Salar de Uyuni
-  location: salar_de_uyuni
-  country: bolivia
-
-- path: salar_de_uyuni/7P9A3549_tn.jpg
   title: Salar de Uyuni
   place: Salar de Uyuni
   location: salar_de_uyuni
@@ -834,12 +811,6 @@
   location: mont_st_michel
   country: france
 
-- path: castelrotto/IMG_8681.jpg
-  title: Castelrotto
-  place: Castelrotto
-  location: castelrotto
-  country: italy
-
 - path: chapel_vitaleta/IMG_4918.jpg
   title: Chapel Vitaleta
   place: Chapel Vitaleta
@@ -869,18 +840,13 @@
   place: St. John Church
   location: st_john_church
   country: italy
+  large: true
 
 - path: taormina/IMG_4867.jpg
   title: Taormina
   place: Taormina
   location: taormina
   country: italy
-
-- path: kotor/IMG_5419-Pano.jpg
-  title: Kotor
-  place: Kotor
-  location: kotor
-  country: montenegro
 
 - path: lagangarbh/IMG_4344.jpg
   title: The Lagangarbh
@@ -899,12 +865,7 @@
   place: Loch Fada
   location: loch_fada
   country: scotland
-
-- path: lunga/08_IMG_9750.jpg
-  title: Lunga
-  place: Lunga
-  location: lunga
-  country: scotland
+  large: true
 
 - path: stalker_castle/IMG_5015_tn.jpg
   title: Castle Stalker

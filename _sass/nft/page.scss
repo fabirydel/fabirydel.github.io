@@ -26,7 +26,7 @@
   padding: 25px 5px 0 5px;
 
   .nft-title {
-    font-family: 'poppins';
+    font-family: "poppins";
     font-size: 30px;
     font-weight: 100;
     margin: 0 auto;
@@ -99,20 +99,29 @@
 
 .download-full {
   -moz-appearance: none;
-  -moz-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+  -moz-transition:
+    background-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out,
+    color 0.2s ease-in-out;
   -ms-appearance: none;
-  -ms-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+  -ms-transition:
+    background-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out,
+    color 0.2s ease-in-out;
   -webkit-appearance: none;
-  -webkit-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+  -webkit-transition:
+    background-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out,
+    color 0.2s ease-in-out;
   appearance: none;
-  background-color: var(--white) !important;
+  background-color: var(--background-dark) !important;
   border-radius: 0;
-  border: 1px solid var(--black);
+  border: 1px solid var(--background-dark);
   box-shadow: inset 0 0 0 1px #36383c;
-  color: var(--black) !important;
+  color: var(--background-dark) !important;
   cursor: pointer;
   display: block;
-  font-family: 'poppins';
+  font-family: "poppins";
   font-size: 14px;
   font-weight: 300;
   letter-spacing: 0.5px;
@@ -127,7 +136,7 @@
 
   &:hover {
     color: var(--white) !important;
-    background-color: var(--black) !important;
+    background-color: var(--background-dark) !important;
   }
 }
 
@@ -135,7 +144,7 @@
   max-width: 60%;
   max-height: 30%;
   text-align: justify;
-  font-family: 'poppins';
+  font-family: "poppins";
   margin: 0 auto;
 
   .story-image {
@@ -156,7 +165,7 @@
       border-radius: 2%;
       height: 100%;
       object-fit: cover;
-      box-shadow: 0px 0px 22px -10px var(--black);
+      box-shadow: 0px 0px 22px -10px var(--background-dark);
     }
   }
 
@@ -179,11 +188,11 @@
 .encrypt {
   font-weight: 200;
 
-  white-space: pre-wrap;      /* CSS3 */
+  white-space: pre-wrap; /* CSS3 */
   white-space: -moz-pre-wrap; /* Firefox */
-  white-space: -pre-wrap;     /* Opera <7 */
-  white-space: -o-pre-wrap;   /* Opera 7 */
-  word-wrap: break-word;      /* IE */
+  white-space: -pre-wrap; /* Opera <7 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* IE */
 }
 
 .details {
@@ -203,7 +212,7 @@
     }
 
     .camera-text {
-      font-family: 'poppins';
+      font-family: "poppins";
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -212,7 +221,7 @@
     .camera-icon {
       height: 24px;
       width: 24px;
-      background: var(--black);
+      background: var(--background-dark);
       margin-right: 10px;
       -webkit-transition: all 0.75s ease;
       transition: all 0.75s ease;
@@ -280,17 +289,17 @@
 
 .nighttime {
   .camera-icon {
-    background: var(--white) !important;
+    background: var(--background-dark) !important;
   }
 
   .download-full {
-    background-color: var(--black) !important;
+    background-color: var(--background-dark) !important;
     color: var(--white) !important;
     border: 1px solid var(--white);
 
     &:hover {
-      background-color: var(--white) !important;
-      color: var(--black) !important;
+      background-color: var(--background-dark) !important;
+      color: var(--background-dark) !important;
       box-shadow: none;
     }
   }
@@ -301,7 +310,7 @@
 
 .decrypt {
   color: var(--white);
-  font-family: 'poppins';
+  font-family: "poppins";
   font-size: 30px;
   font-weight: 900;
   left: 50%;
@@ -327,7 +336,8 @@
   left: 50%;
   opacity: 1;
   position: absolute;
-  transform: translateX(-50%) rotateX(-15deg) rotateY(15deg) translateZ(var(--side-height));
+  transform: translateX(-50%) rotateX(-15deg) rotateY(15deg)
+    translateZ(var(--side-height));
   width: 200px;
   -webkit-transition: all 0.75s ease;
   transition: all 0.75s ease;
@@ -369,7 +379,6 @@
 
   #nftImageModal {
     .slide {
-
       .image-modal-container {
         width: 80%;
         max-width: 80%;

@@ -194,6 +194,14 @@
     '<svg viewBox="0 0 16 16" aria-hidden="true">' +
     '<polyline points="3,8 7,12 13,4"/></svg>';
 
+  var ENLARGE_SVG =
+    '<svg viewBox="0 0 16 16" aria-hidden="true">' +
+    '<path d="M5.5 1.5h-4v4M10.5 1.5h4v4M5.5 14.5h-4v-4M10.5 14.5h4v-4"/></svg>';
+
+  var SHRINK_SVG =
+    '<svg viewBox="0 0 16 16" aria-hidden="true">' +
+    '<path d="M1.5 5.5h4v-4M14.5 5.5h-4v-4M1.5 10.5h4v4M14.5 10.5h-4v4"/></svg>';
+
   function attachToggle(tile) {
     if (tile.querySelector(':scope > .pt-toggle')) return; // already wired
 
@@ -229,6 +237,145 @@
 
   function attachToAll() {
     document.querySelectorAll('.photo-tile[data-photo-path]').forEach(attachToggle);
+    // "Enlarge in grid" only means something on the home page's own grid —
+    // that's the only place tile size is actually laid out (see
+    // curated-grid.js). Elsewhere a tile's grid isn't the curated one.
+    if (isPortfolioPage) {
+      document.querySelectorAll('.photo-tile[data-photo-path]').forEach(attachSizeToggle);
+    }
+  }
+
+  // --------------------------------------------------------------------
+  // Size (enlarge/shrink) toggle — home page only.
+  // --------------------------------------------------------------------
+
+  function attachSizeToggle(tile) {
+    if (tile.querySelector(':scope > .pt-size-toggle')) return; // already wired
+    var path = tile.dataset.photoPath;
+    if (!path) return;
+
+    var isLarge = tile.classList.contains('photo-tile--large');
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'pt-size-toggle';
+    btn.innerHTML = isLarge ? SHRINK_SVG : ENLARGE_SVG;
+    updateSizeAria(btn, isLarge);
+
+    btn.addEventListener('mousedown', function (e) { e.stopPropagation(); });
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleSize(tile, btn);
+    });
+
+    tile.appendChild(btn);
+  }
+
+  function updateSizeAria(btn, isLarge) {
+    btn.setAttribute('aria-label', isLarge ? 'Shrink to regular size' : 'Enlarge in grid');
+    btn.setAttribute('aria-pressed', isLarge ? 'true' : 'false');
+  }
+
+  function setSizeVisual(tile, btn, isLarge) {
+    tile.classList.toggle('photo-tile--large', isLarge);
+    btn.innerHTML = isLarge ? SHRINK_SVG : ENLARGE_SVG;
+    updateSizeAria(btn, isLarge);
+
+    // Enlarged tiles are shown at up to 2x the usual width — swap to the
+    // full-resolution image so they don't look soft.
+    var thumb = tile.querySelector('.thumb');
+    var path = tile.dataset.photoPath;
+    if (thumb && path) {
+      thumb.src = '/images/' + (isLarge ? 'full' : 'thumb') + '/' + path;
+    }
+  }
+
+  function toggleSize(tile, btn) {
+    var path = tile.dataset.photoPath;
+    var wasLarge = tile.classList.contains('photo-tile--large');
+    var makeLarge = !wasLarge;
+
+    btn.dataset.pending = '1';
+    btn.disabled = true;
+
+    // Optimistic: flip immediately and re-layout in real time, then persist
+    // in the background. Revert both on write failure.
+    setSizeVisual(tile, btn, makeLarge);
+    tile.classList.add('pt-size-pulse');
+    setTimeout(function () { tile.classList.remove('pt-size-pulse'); }, 300);
+    if (typeof window.__refreshGridLayout === 'function') window.__refreshGridLayout();
+
+    writeSizeToggle(path, makeLarge)
+      .then(function () {
+        btn.disabled = false;
+        delete btn.dataset.pending;
+      })
+      .catch(function (err) {
+        console.error('[portfolio-toggle]', err);
+        setSizeVisual(tile, btn, wasLarge);
+        if (typeof window.__refreshGridLayout === 'function') window.__refreshGridLayout();
+        btn.disabled = false;
+        delete btn.dataset.pending;
+        alert('Could not update portfolio.yml:\n' + (err && err.message ? err.message : err));
+      });
+  }
+
+  // Add/remove a trailing `large: true` line within the entry for `path`,
+  // mirroring how `landscape: true` already appears as an optional field.
+  function toggleLargeField(yamlText, path, makeLarge) {
+    var lines = yamlText.split('\n');
+    var out = [];
+    var inEntry = false;
+    var entryHasLarge = false;
+
+    function flushBoundary(boundaryLine) {
+      if (makeLarge && !entryHasLarge) out.push('  large: true');
+      inEntry = false;
+      if (boundaryLine !== null) out.push(boundaryLine);
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var m = line.match(/^-\s+path:\s*(.+?)\s*$/);
+      if (m) {
+        if (inEntry) flushBoundary(null); // shouldn't normally happen before a boundary, but stay safe
+        inEntry = stripQuotes(m[1].trim()) === path;
+        entryHasLarge = false;
+        out.push(line);
+        continue;
+      }
+      if (inEntry && (/^- /.test(line) || /^#/.test(line) || line.trim() === '')) {
+        flushBoundary(line);
+        continue;
+      }
+      if (inEntry && /^\s*large:\s*true\s*$/.test(line)) {
+        entryHasLarge = true;
+        if (makeLarge) out.push(line); // keep as-is
+        continue; // drop when un-enlarging
+      }
+      out.push(line);
+    }
+    if (inEntry) flushBoundary(null); // entry ran to end of file
+    return out.join('\n');
+  }
+
+  function writeSizeToggle(path, makeLarge) {
+    return getRootHandle().then(function (handle) {
+      return handle.getDirectoryHandle('_data').then(function (dataDir) {
+        return dataDir.getFileHandle('portfolio.yml').then(function (yamlFh) {
+          return yamlFh.getFile()
+            .then(function (f) { return f.text(); })
+            .then(function (currentText) {
+              var updated = toggleLargeField(currentText, path, makeLarge);
+              return yamlFh.createWritable().then(function (w) {
+                return w.write(updated).then(function () { return w.close(); });
+              });
+            });
+        });
+      }).then(function () {
+        return touchFile(handle, ['index.html']);
+      });
+    });
   }
 
   // --------------------------------------------------------------------

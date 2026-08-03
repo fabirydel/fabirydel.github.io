@@ -1,9 +1,53 @@
-<div id="myLandscapeModal" class="modal" onclick="closeModal('myLandscapeModal')">
-  <a class="close cursor icon close-button" onclick="closeModal('myLandscapeModal')"></a>
+{%- comment -%}
+  Modal slides for a landscape page. Reuses id="myPortfolioModal" (and its
+  markup shape) so this gets the same "new style" glass-chrome modal as the
+  home page — landscape/country pages and the home page each render only
+  one modal, so there's no id collision.
+{%- endcomment -%}
+
+<div id="myPortfolioModal" class="modal" onclick="closeModal('myPortfolioModal')">
+  <a class="close cursor icon close-button" onclick="closeModal('myPortfolioModal')"></a>
   <div class="modal-content">
     {% for image_path in page.images %}
+      {%- assign parts = image_path | split: '/' -%}
+      {%- assign loc_slug = parts[0] -%}
+      {%- assign place_label = loc_slug | replace: '_', ' ' | capitalize -%}
+      {%- assign country_slug = '' -%}
+      {%- for c in site.data.locations_per_country -%}
+        {%- if c[1].locations contains loc_slug -%}
+          {%- assign country_slug = c[0] -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign country_page = site.countries | where: "name", country_slug | first -%}
+      {%- if country_page.title -%}
+        {%- assign country_label = country_page.title -%}
+      {%- else -%}
+        {%- assign country_label = country_slug | capitalize -%}
+      {%- endif -%}
+
       <div class="slide">
-        <img data-src="/images/full/{{ image_path }}" alt="{{ page.title }}" decoding="async" onclick="ignore(event)" class="center">
+        <div class="image-modal-container center">
+          <div class="modal-text-container text-container modal-text-container-dummy">
+            <a href="/countries/{{ country_slug }}#chapter-{{ loc_slug }}" class="photo-place-link">
+              <span class="photo-title photo-place">{{ place_label }},</span>
+            </a>
+            <a href="/countries/{{ country_slug }}" class="photo-place-link photo-place-country">
+              <span class="photo-title photo-place">{{ country_label }}</span>
+            </a>
+          </div>
+
+          <img data-src="/images/full/{{ image_path }}" alt="{{ place_label }}, {{ country_label }}" decoding="async" onclick="ignore(event)">
+
+          <div class="modal-text-container text-container">
+            <a href="/countries/{{ country_slug }}#chapter-{{ loc_slug }}" class="photo-place-link">
+              <span class="photo-title photo-place">{{ place_label }},</span>
+            </a>
+            <a href="/countries/{{ country_slug }}" class="photo-place-link photo-place-country">
+              <span class="photo-title photo-place">{{ country_label }}</span>
+            </a>
+          </div>
+        </div>
       </div>
     {% endfor %}
 

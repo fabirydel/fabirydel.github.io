@@ -1,69 +1,92 @@
-// Masonry grid used by the home page (index.html), location pages (_includes/gallery.html),
-// country pages (_includes/country_gallery.html), and landscape pages (_includes/gallery_landscape.html).
+// Curated "Selected Work" grid on the home page (index.html via
+// _layouts/portfolio.html). Cinematic-dark, always-on regardless of the
+// site's light/night toggle (a deliberate choice for this page, not tied to
+// #blurable.nighttime).
 //
 // Two layout modes:
-//   1. Initial render (no JS yet): CSS multi-column. Works as a fallback if JS
-//      is disabled. Tiles flow top→bottom, browser balances column heights.
-//   2. After grid-layout.js runs: the grid is rebuilt as a flex container with
-//      one .grid-col element per visible column, and tiles are round-robin
-//      distributed (item i → column i % N). This guarantees that whenever
-//      photo_count >= column_count, every column has at least one photo, even
-//      if the items have very uneven heights.
+//   1. Initial render (no JS yet): CSS multi-column fallback. Tiles flow
+//      top→bottom, browser balances column heights.
+//   2. After curated-grid.js runs (.cg-grid class): tiles are absolutely
+//      positioned, with x/y/width/height computed and set inline by JS
+//      (shortest-column-first masonry with span support for
+//      `.photo-tile--large` tiles). This was originally CSS Grid with
+//      `grid-auto-flow: dense`, but dense auto-placement is greedy and
+//      DOM-order dependent — with column-spanning tiles mixed into variable
+//      row-heights it could leave unfillable gaps. Placing tiles ourselves
+//      guarantees no gaps: every tile lands exactly at the bottom of the
+//      column(s) it's assigned, so there's no empty space to leave behind.
 //
-// Tiles use a blur background as a placeholder while the thumb fetches; `images.js`
-// adds `.loaded` to the thumb on load so it fades in over the blur.
+// Tiles use a blur background as a placeholder while the thumb fetches;
+// `images.js` adds `.loaded` to the thumb on load so it fades in over the
+// blur. Independently, `.photo-tile` itself fades/rises into place via
+// `.cg-in`, toggled by curated-grid.js's IntersectionObserver every time a
+// tile crosses into or out of view (not just once on first load).
 
 .portfolio-gallery {
-  margin: 10px;
+  padding: 0 32px 80px 32px;
+  background: var(--background-dark);
+
+  --cg-bg: var(--background-dark);
+  --cg-fg: #f2efe9;
+  --cg-muted: #9c9a97;
+  --cg-accent: var(--main-color);
+  --cg-tile-radius: 3px;
+  --cg-gap: 10px;
+  --cg-shadow: 0 26px 60px -18px rgba(0, 0, 0, 0.75);
 
   // Default / fallback: CSS multi-column layout.
   .portfolio-grid {
     column-count: 5;
-    column-gap: 12px;
+    column-gap: var(--cg-gap);
   }
 
-  // After grid-layout.js takes over: flex container of .grid-col children.
-  .portfolio-grid.js-grid {
-    display: flex;
-    column-count: auto; // unset
-    gap: 12px;
-    align-items: flex-start;
+  // After curated-grid.js takes over: JS positions each tile absolutely
+  // (left/top/width/height set inline), so this just needs to be the
+  // positioning context and hand its own height back to JS's computed value.
+  .portfolio-grid.cg-grid {
+    position: relative;
+    column-count: initial;
   }
-  .portfolio-grid.js-grid .grid-col {
-    flex: 1 1 0;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  // The bottom margin on .photo-tile already handles vertical gaps between
-  // tiles within a column; nothing extra needed here.
 
   .photo-tile {
     position: relative;
     display: block;
     width: 100%;
-    margin: 0 0 12px 0;
+    margin: 0 0 var(--cg-gap) 0;
     border: 0;
     padding: 0;
     cursor: pointer;
     overflow: hidden;
-    border-radius: 2px;
-    background-color: var(--white);
+    border-radius: var(--cg-tile-radius);
+    background-color: var(--cg-bg);
     background-size: cover;
     background-position: center;
+    box-shadow: var(--cg-shadow);
 
-    // Prevent CSS columns from splitting a tile across columns.
+    // Prevent CSS columns from splitting a tile across columns (fallback mode).
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
 
-    // No hover transform / scale / shadow / opacity — only the caption
-    // fade-in below changes on hover.
+    // Scroll reveal — replayed every time the tile crosses the viewport
+    // edge. `.cg-in` is toggled by an IntersectionObserver: curated-grid.js
+    // on the home page, grid-layout.js's shared reveal everywhere else
+    // (country/landscape pages etc.) reusing the same .photo-tile markup.
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &.cg-in {
+      opacity: 1;
+      transform: none;
+    }
 
     // Blurred placeholder rendered from the same blur image set as background-image
     // via inline style. Scaled up slightly so blurred edges don't show through overflow:hidden.
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
       background-image: inherit;
@@ -75,7 +98,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid #d95040;
+      outline: 2px solid var(--cg-accent);
       outline-offset: 2px;
     }
 
@@ -86,16 +109,21 @@
       position: relative;
       z-index: 1;
       opacity: 0;
-      transform: scale(1.04);
+      transform: scale(1.05);
       transform-origin: center;
       transition:
-        opacity 0.6s ease-out,
-        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 0.7s ease-out,
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 
       &.loaded {
         opacity: 1;
         transform: scale(1);
       }
+    }
+
+    &:hover .thumb,
+    &:focus-visible .thumb {
+      transform: scale(1.06);
     }
 
     .photo-caption {
@@ -104,98 +132,119 @@
       right: 0;
       bottom: 0;
       z-index: 2;
-      padding: 28px 10px 10px;
+      padding: 30px 14px 12px;
       color: #fff;
-      font-family: "Mrseaves", serif;
-      font-size: 13px;
-      text-align: center;
+      text-align: left;
       pointer-events: none;
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.55),
-        rgba(0, 0, 0, 0)
-      );
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transform: translateY(6px);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+      .place {
+        display: block;
+        font-family: "poppins", sans-serif;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .country {
+        display: block;
+        margin-top: 2px;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.75);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
     }
 
     &:hover .photo-caption,
     &:focus-visible .photo-caption {
       opacity: 1;
+      transform: none;
+    }
+
+    &.photo-tile--large .photo-caption {
+      padding: 40px 18px 16px;
+
+      .place {
+        font-size: 14px;
+      }
+    }
+  }
+
+  // JS sets left/top/width/height inline once curated-grid.js has laid the
+  // tile out; margin needs to be off (JS's GAP constant handles spacing)
+  // and width can't stay 100% or it'd fight the inline px width.
+  .portfolio-grid.cg-grid .photo-tile {
+    position: absolute;
+    margin: 0;
+    width: auto;
+  }
+
+  .portfolio-grid.cg-grid .photo-tile .thumb {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// The fallback (:not(.cg-grid)) column-counts below just need to roughly
+// match curated-grid.js's own columnCount() breakpoints for a smooth
+// hand-off once JS takes over — they don't need to match exactly since JS
+// fully recomputes layout anyway. .photo-tile spacing/margin in cg-grid
+// mode is entirely JS-driven (GAP constant, currently a flat 10px at every
+// size), so there's nothing breakpoint-specific left to override here.
+@media (max-width: 1500px) {
+  .portfolio-gallery {
+    padding: 0 24px 60px 24px;
+
+    .portfolio-grid:not(.cg-grid) {
+      column-count: 4;
     }
   }
 }
 
-// Nighttime override (the existing dark-mode toggle on #blurable.nighttime).
-#blurable.nighttime .portfolio-gallery {
-  .photo-tile {
-    background-color: var(--black);
-  }
-}
-
-@media (max-width: 1500px) {
-  .portfolio-gallery .portfolio-grid:not(.js-grid) {
-    column-count: 4;
-  }
-  .portfolio-gallery .portfolio-grid.js-grid {
-    gap: 12px;
-  }
-}
-
 @media (max-width: 1280px) {
-  .portfolio-gallery .portfolio-grid:not(.js-grid) {
-    column-count: 3;
-    column-gap: 10px;
-  }
-  .portfolio-gallery .portfolio-grid.js-grid {
-    gap: 10px;
-  }
-  .portfolio-gallery .photo-tile {
-    margin-bottom: 10px;
+  .portfolio-gallery {
+    padding: 0 18px 48px 18px;
+
+    .portfolio-grid:not(.cg-grid) {
+      column-count: 3;
+      column-gap: 10px;
+    }
   }
 }
 
 @media (max-width: 850px) {
   .portfolio-gallery {
-    margin: 8px 6px;
-    padding: 0 2px;
+    padding: 0 10px 36px 10px;
 
-    .portfolio-grid:not(.js-grid) {
+    .portfolio-grid:not(.cg-grid) {
       column-count: 2;
       column-gap: 8px;
-    }
-    .portfolio-grid.js-grid {
-      gap: 8px;
-    }
-
-    .photo-tile {
-      margin-bottom: 8px;
     }
   }
 }
 
 @media (max-width: 480px) {
   .portfolio-gallery {
-    margin: 5px 3px;
-    padding: 0;
+    padding: 0 6px 28px 6px;
 
-    .portfolio-grid:not(.js-grid) {
+    .portfolio-grid:not(.cg-grid) {
       column-count: 2;
       column-gap: 5px;
     }
-    .portfolio-grid.js-grid {
-      gap: 5px;
-    }
 
-    .photo-tile {
-      margin-bottom: 5px;
+    .photo-tile .photo-caption {
+      opacity: 1;
+      transform: none;
+      padding: 22px 10px 10px;
 
-      .photo-caption {
+      .place {
         font-size: 11px;
-        padding: 20px 6px 6px;
-        // On touch devices the caption is harder to surface via hover;
-        // show it permanently with a stronger gradient.
-        opacity: 1;
       }
     }
   }

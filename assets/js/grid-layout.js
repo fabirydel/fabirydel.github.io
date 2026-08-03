@@ -191,14 +191,75 @@
     grid.dataset.layoutRebalanced = '1';
   }
 
+  // ---- Scroll reveal ----------------------------------------------------
+  //
+  // Mirrors curated-grid.js's own IntersectionObserver so every gallery
+  // sharing the plain .portfolio-grid/.photo-tile markup (country pages,
+  // landscape pages, …) gets the same fade+rise-into-view effect as the
+  // curated home page grid — just driven by this shared engine instead.
+  // Re-triggers every time a tile crosses the viewport threshold, in
+  // either direction (matches the CSS's `.cg-in` on/off transition).
+  var ENTER_RATIO = 0.12;
+  var revealObserver = null;
+
+  function ensureRevealObserver() {
+    if (revealObserver || !('IntersectionObserver' in window)) return revealObserver;
+    revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var tile = entry.target;
+        if (entry.intersectionRatio >= ENTER_RATIO) {
+          tile.classList.add('cg-in');
+        } else if (!entry.isIntersecting) {
+          tile.classList.remove('cg-in');
+        }
+      });
+    }, { threshold: [0, ENTER_RATIO], rootMargin: '0px 0px -60px 0px' });
+    return revealObserver;
+  }
+
+  function observeReveal() {
+    var grids = managedGrids('.portfolio-grid');
+    if (!('IntersectionObserver' in window)) {
+      grids.forEach(function (grid) {
+        grid.querySelectorAll('.photo-tile').forEach(function (t) {
+          t.classList.add('cg-in');
+        });
+      });
+      return;
+    }
+    var io = ensureRevealObserver();
+    // observe() on an already-observed element is a harmless no-op, so it's
+    // safe to call this again after every relayout without tracking state.
+    grids.forEach(function (grid) {
+      grid.querySelectorAll('.photo-tile').forEach(function (t) {
+        io.observe(t);
+      });
+    });
+  }
+
   // ---- Drivers --------------------------------------------------------
 
+  // The home page's curated grid (.portfolio-wrapper .portfolio-grid) is
+  // owned by curated-grid.js instead — it needs true CSS Grid (with
+  // column/row spans) to support user-configurable "large" tiles, which
+  // this flex-column masonry can't express. Skip it here so the two
+  // engines never fight over the same element.
+  function managedGrids(selector) {
+    return Array.from(document.querySelectorAll(selector)).filter(function (g) {
+      // Belt-and-suspenders: the ancestor check is the primary guard, but
+      // also skip anything curated-grid.js has already claimed (its own
+      // resize handler owns re-layout for those from here on), in case a
+      // resize fires mid-boot before curated-grid.js has run yet.
+      return !g.closest('.portfolio-wrapper') && !g.classList.contains('cg-grid');
+    });
+  }
+
   function layoutAll() {
-    document.querySelectorAll('.portfolio-grid').forEach(distributeRoundRobin);
+    managedGrids('.portfolio-grid').forEach(distributeRoundRobin);
   }
 
   function rebalanceAll() {
-    var grids = Array.from(document.querySelectorAll('.portfolio-grid.js-grid'));
+    var grids = managedGrids('.portfolio-grid.js-grid');
     Promise.all(grids.map(ensureAspectsKnown)).then(function () {
       // After aspect-ratio CSS is applied the browser needs a layout pass
       // before offsetHeight reports the new reserved heights. rAF gives us
@@ -211,9 +272,13 @@
 
   // First pass: round-robin as soon as the DOM is parseable.
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', layoutAll);
+    document.addEventListener('DOMContentLoaded', function () {
+      layoutAll();
+      observeReveal();
+    });
   } else {
     layoutAll();
+    observeReveal();
   }
 
   // Second pass: rebalance once aspects are known. Trigger this after
@@ -233,6 +298,7 @@
     resizeTimer = setTimeout(function () {
       layoutAll();
       requestAnimationFrame(rebalanceAll);
+      observeReveal();
     }, 120);
   }, { passive: true });
 
@@ -242,5 +308,6 @@
   window.__refreshGridLayout = function () {
     layoutAll();
     requestAnimationFrame(rebalanceAll);
+    observeReveal();
   };
 })();

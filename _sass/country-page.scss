@@ -92,7 +92,7 @@
   border-radius: 12px;
   /* Above the map (z:1) and content, below header (z:5) and modal (z:10). */
   z-index: 4;
-  background: var(--white);
+  background: var(--background-dark);
   /* The first inset shadow is the visible 6px dark border around the
      rectangle (used as the drag-to-resize affordance). country-page.js
      detects mousedown within ~14px of any edge as a resize gesture
@@ -171,7 +171,7 @@
     display: block;
     width: 12px;
     height: 12px;
-    color: inherit;
+    color: var(--background-dark);
 
     &--show {
       display: none;
@@ -249,7 +249,7 @@
     height: 20px;
     border-radius: 50%;
     border: 0.5px solid rgba(0, 0, 0, 0.18);
-    background: var(--white);
+    background: var(--background-dark);
     color: #1f2224;
     font-size: 13px;
     font-weight: 500;
@@ -305,11 +305,19 @@
     width: 36px !important;
     height: 36px !important;
     border-radius: 50% !important;
-    left: 20px;
+    left: 42px;
     box-shadow:
       inset 0 0 0 3px #1f2224,
       0 4px 16px rgba(0, 0, 0, 0.18),
       0 1px 3px rgba(0, 0, 0, 0.08);
+
+    @media screen and (max-width: 1500px) {
+      left: 34px;
+    }
+
+    @media screen and (max-width: 1280px) {
+      left: 24px;
+    }
 
     .country-map-bubble__header,
     .country-map-bubble__footer {
@@ -518,7 +526,7 @@
     text-transform: uppercase;
     line-height: 1;
     margin: 0;
-    color: inherit;
+    color: var(--white);
   }
 
   &__stats {
@@ -567,12 +575,12 @@
     align-items: center;
     gap: 10px;
     text-decoration: none;
-    color: inherit;
+    color: var(--white);
 
     &:hover,
     &:focus,
     &:visited {
-      color: inherit;
+      color: var(--white);
       text-decoration: none;
     }
 
@@ -588,7 +596,7 @@
     letter-spacing: 8px;
     text-transform: uppercase;
     line-height: 1;
-    color: inherit;
+    color: var(--white);
     transition: color 0.25s ease;
   }
 
@@ -649,7 +657,7 @@
 /* === Nighttime overrides =================================== */
 
 .nighttime .country-map-bubble {
-  background: var(--black);
+  background: var(--background-dark);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.5),
     0 2px 6px rgba(0, 0, 0, 0.3);
@@ -727,7 +735,7 @@
   }
 
   .country-chapter {
-    padding: 40px 4vw 0;
+    padding: 40px 0 0;
 
     &__name {
       font-size: 28px;

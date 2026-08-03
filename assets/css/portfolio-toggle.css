@@ -82,7 +82,7 @@
    checkmark inside is opacity 1. */
 .photo-tile.in-portfolio .pt-toggle {
   opacity: 1;
-  background: var(--black);
+  background: var(--background-dark);
   border-color: rgba(255, 255, 255, 0.95);
 }
 .photo-tile.in-portfolio .pt-toggle:hover {
@@ -109,6 +109,105 @@
 .pt-toggle[data-pending="1"] {
   cursor: progress;
   opacity: 0.6 !important;
+}
+
+/* ============================================================
+   Enlarge/shrink toggle — home page grid only. Sits to the left
+   of .pt-toggle, same visual language, hover-reveal.
+   ============================================================ */
+
+.pt-size-toggle {
+  position: absolute;
+  top: 8px;
+  right: 40px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  color: #fff;
+  font: inherit;
+  line-height: 1;
+  -webkit-appearance: none;
+  appearance: none;
+
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.pt-size-toggle svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pt-size-toggle:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: #fff;
+  transform: scale(1.06);
+}
+
+.pt-size-toggle:focus-visible {
+  outline: 2px solid #d95040;
+  outline-offset: 2px;
+}
+
+.pt-size-toggle:disabled {
+  cursor: progress;
+  opacity: 0.5;
+}
+
+.photo-tile:hover .pt-size-toggle,
+.photo-tile:focus-within .pt-size-toggle {
+  opacity: 1;
+}
+
+.photo-tile--large .pt-size-toggle {
+  background: var(--background-dark);
+  border-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Below 1500px curated-grid.js renders every tile at normal size regardless
+   of its large/enlarged state (no room for a 2-column tile to read as
+   deliberate rather than crowded) — so the toggle that controls that state
+   has nothing to do here and stays hidden rather than sit there inert. */
+@media (max-width: 1499px) {
+  .pt-size-toggle {
+    display: none;
+  }
+}
+
+/* Brief feedback pulse when a tile's size is toggled, so the real-time
+   re-layout reads as a deliberate response to the click. */
+.photo-tile.pt-size-pulse {
+  animation: pt-size-pulse 0.35s ease;
+}
+
+@keyframes pt-size-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(217, 164, 65, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(217, 164, 65, 0);
+  }
 }
 
 /* ---- Tile fade-out when removing from portfolio page --------- */

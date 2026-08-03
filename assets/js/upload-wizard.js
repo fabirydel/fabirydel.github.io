@@ -1052,10 +1052,9 @@
       <p>${state.isNewCountry
         ? `✓ Added new country <strong>${state.newCountry.title}</strong> (<code>${country}</code>).`
         : `✓ Added to existing country <strong>${country}</strong>.`}</p>
-      <p>Refresh your local Jekyll preview to see the new pages:</p>
+      <p>Refresh your local Jekyll preview to see the new photos:</p>
       <ul>
-        <li><code>/locations/${np}</code></li>
-        <li><code>/countries/${country}</code></li>
+        <li><code>/countries/${country}#chapter-${np}</code></li>
       </ul>
       <p class="uw-hint">When you're happy, commit and push:
         <br><code>git add -A && git commit -m "Add ${state.location.title}" && git push</code></p>

@@ -28,8 +28,8 @@
       font-weight: 500;
 
       .nft-text {
-        font-family: 'poppins';
-        color: var(--black);
+        font-family: "poppins";
+        color: var(--white);
         text-align: left;
         padding-left: 15px;
 
@@ -44,7 +44,8 @@
       box-shadow: 0px 0px 8px 0px #cfcfcf;
       transform: translateY(-3px);
 
-      a, .nft-text {
+      a,
+      .nft-text {
         text-decoration: none;
       }
     }
@@ -61,8 +62,8 @@
     .fa-key {
       float: right;
       margin-right: 15px;
-      color: var(--black);
-      border: 1px solid var(--black);
+      color: var(--white);
+      border: 1px solid var(--background-dark);
       border-radius: 50%;
       padding: 5px;
       transition: all 0.25s ease;
@@ -72,7 +73,7 @@
     &:hover {
       .fa-key {
         color: var(--white);
-        background: var(--black);
+        background: var(--background-dark);
       }
     }
   }
@@ -80,7 +81,6 @@
 
 .nighttime {
   .nfts-container {
-
     .decrypt-key {
       .fa-key {
         color: var(--white);
@@ -89,8 +89,8 @@
 
       &:hover {
         .fa-key {
-          color: var(--black);
-          background: var(--white);
+          color: var(--white);
+          background: var(--background-dark);
         }
       }
     }

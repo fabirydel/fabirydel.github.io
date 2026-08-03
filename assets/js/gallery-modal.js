@@ -69,8 +69,7 @@ function performOpen(index, id) {
   var modal = document.getElementById(id);
   modal.style.display = "block";
   setTimeout(function () {
-    modal.style.visibility = "visible";
-    modal.style.opacity = "1";
+    modal.classList.add("open");
   }, 10);
   blur();
 
@@ -83,7 +82,7 @@ function performClose(id) {
   var modal = document.getElementById(id);
   // Idempotent: if the modal is already closing/closed, don't run scroll
   // restoration or other side effects again.
-  if (!modal || modal.style.visibility === "hidden") {
+  if (!modal || !modal.classList.contains("open")) {
     currentModalId = null;
     return;
   }
@@ -103,8 +102,7 @@ function performClose(id) {
 
   deblur();
 
-  modal.style.visibility = "hidden";
-  modal.style.opacity = "0";
+  modal.classList.remove("open");
   setTimeout(function () {
     modal.style.display = "none";
   }, 250);
@@ -170,10 +168,10 @@ function showSlides(n) {
   if (n >= slides.length) { slideIndex = 0; }
   if (n < 0) { slideIndex = slides.length - 1; }
   for (var i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
+    slides[i].classList.remove("active-slide");
   }
   if (slides[slideIndex]) {
-    slides[slideIndex].style.display = "block";
+    slides[slideIndex].classList.add("active-slide");
     // Defensive: even if preloadAroundSlide missed for any reason, make sure
     // the slide the user is looking at always has its src set.
     var visibleImg = slides[slideIndex].querySelector('img[data-src]');

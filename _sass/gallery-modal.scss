@@ -1,6 +1,8 @@
 /* The Modal (background) */
 .modal {
-  -webkit-transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  -webkit-transition:
+    visibility 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
   background-color: #1e1e1ef7;
   display: none;
   height: 100%;
@@ -9,10 +11,108 @@
   overflow: auto;
   position: fixed;
   top: 0;
-  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition:
+    visibility 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
   visibility: hidden;
   width: 100%;
   z-index: 1100;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/* Portfolio modal: scale+fade stage entrance on top of the backdrop fade
+   above, a near-black backdrop, and circular glass chrome (close/prev/next)
+   in place of the shared full-height hit zones. Scoped here (rather than
+   shared by every modal on the site) so the simpler modals keep their
+   original plain fade + large tap targets. */
+#myPortfolioModal {
+  background-color: rgba(6, 6, 7, 0.92);
+
+  .modal-content {
+    position: relative;
+    transform: scale(0.96);
+    opacity: 0;
+    transition:
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.4s ease;
+  }
+
+  &.open .modal-content {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .close {
+    top: 24px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-mask: none;
+    mask: none;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 14px;
+      height: 14px;
+      background: #f5f3ef;
+      -webkit-mask: url(/assets/icons/close.svg) no-repeat center;
+      mask: url(/assets/icons/close.svg) no-repeat center;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.16);
+      opacity: 1;
+      transform: scale(1.06);
+    }
+  }
+
+  .prev,
+  .next {
+    top: 50%;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #f5f3ef;
+    font-size: 20px;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    &:hover::before {
+      transform: none;
+    }
+  }
+
+  .prev {
+    left: 24px;
+  }
+
+  .next {
+    right: 24px;
+    border-radius: 50%;
+  }
 }
 
 /* Modal Content */
@@ -46,7 +146,7 @@
   z-index: 1;
   height: 24px;
   width: 24px;
-  background: var(--white);
+  background: var(--background-dark);
 }
 
 .close:hover,
@@ -66,17 +166,45 @@
   text-decoration: none;
 }
 
-/* Hide the slides by default */
+/* Hide the slides by default; .active-slide (toggled by showSlides() in
+   gallery-modal.js) is the one currently on screen. */
 .slide {
   display: none;
   height: 100%;
   width: 100%;
+
+  &.active-slide {
+    display: block;
+  }
 
   img {
     box-shadow: 0px 0px 63px -6px #000000;
     max-height: calc(100vh - 80px);
     max-width: 85%;
     object-fit: contain;
+  }
+}
+
+/* Portfolio modal: true crossfade between slides instead of an instant
+   display swap. All slides stack via position:absolute and cross-dissolve
+   on opacity; scoped to this modal so the others keep the plain swap. */
+#myPortfolioModal .slide {
+  display: block;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.4s ease,
+    visibility 0s linear 0.4s;
+
+  &.active-slide {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.4s ease;
   }
 }
 
@@ -92,7 +220,9 @@
   opacity: 0.85;
   position: absolute;
   top: 50%;
-  transition: opacity 0.25s ease, background-color 0.25s ease;
+  transition:
+    opacity 0.25s ease,
+    background-color 0.25s ease;
   user-select: none;
   height: 50vh;
   padding: 0 16px;
@@ -146,21 +276,22 @@
   opacity: 1;
 }
 
-#myPortfolioModal, #myLandscapeModal {
+#myPortfolioModal {
   .image-modal-container {
-    align-items: flex-end;
     border: none;
     box-shadow: none;
     display: flex;
     justify-content: center;
     max-width: 100%;
     position: relative;
+    align-items: center;
+    flex-direction: column;
 
     img {
       border-radius: 0;
       box-shadow: 0px 0px 63px -6px #000000;
-      max-height: calc(100vh - 80px);
-      max-width: 85%;
+      max-height: calc(100vh - 150px);
+      max-width: calc(100vw - 204px);
       object-fit: contain;
     }
 
@@ -168,13 +299,15 @@
       opacity: 0.85;
       display: flex;
       height: 63px;
-      flex-direction: column;
       padding-left: 7px;
       pointer-events: none;
       position: relative;
-      text-align: left;
-      transition: .3s ease-in-out;
+      transition: 0.3s ease-in-out;
       z-index: 3;
+      margin-top: 5px;
+      flex-direction: row;
+      gap: 4px;
+      align-items: center;
     }
 
     .modal-text-container-dummy {
@@ -183,21 +316,22 @@
   }
 }
 
-#countries-modal, #landscapes-modal {
+#countries-modal,
+#landscapes-modal {
   .options-modal-container {
-    -webkit-transition: .3s ease-in-out;
-    background: var(--white);
+    -webkit-transition: 0.3s ease-in-out;
+    background: var(--background-dark);
     border-radius: 5px;
     left: 50%;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    transition: .3s ease-in-out;
+    transition: 0.3s ease-in-out;
 
     .title {
       border-radius: 5px 5px 0 0;
       display: block;
-      font-family: 'poppins';
+      font-family: "poppins";
       font-size: 22px;
       padding: 5px 0;
       text-align: center;
@@ -214,7 +348,7 @@
 
       .option-container {
         align-items: center;
-        color: var(--black);
+        color: var(--white);
         display: flex;
         flex-direction: column;
         padding: 10px 20px;
@@ -226,13 +360,14 @@
           display: none;
         }
 
-        .country-flag, .landscape-logo {
-          -webkit-transition: .3s ease-in-out;
+        .country-flag,
+        .landscape-logo {
+          -webkit-transition: 0.3s ease-in-out;
           border-radius: 50%;
           border: 1px solid #999999;
           margin: 0;
           padding: 10px;
-          transition: .3s ease-in-out;
+          transition: 0.3s ease-in-out;
         }
 
         .tooltiptext {
@@ -244,13 +379,15 @@
           width: 22px;
         }
 
-        .emoji-logo, .country-flag {
+        .emoji-logo,
+        .country-flag {
           font-size: 26px;
           height: 40px;
           width: 40px;
         }
 
-        &:hover .country-flag, &:hover .landscape-logo  {
+        &:hover .country-flag,
+        &:hover .landscape-logo {
           opacity: 1;
         }
 
@@ -273,11 +410,12 @@
 
   &.nighttime {
     .options-modal-container {
-      background: var(--black);
+      background: var(--background-dark);
     }
 
-    .options-container, .title {
-      background: var(--black);
+    .options-container,
+    .title {
+      background: var(--background-dark);
       color: var(--white);
 
       .option-container {
@@ -291,7 +429,8 @@
   }
 }
 
-#countries-modal, #landscapes-modal {
+#countries-modal,
+#landscapes-modal {
   .options-modal-container {
     .options-container {
       .option-container {
@@ -305,7 +444,7 @@
 
 #decrypt-modal {
   .modal-container {
-    background: var(--white);
+    background: var(--background-dark);
     border-radius: 4px;
     left: 50%;
     padding: 30px 30px 10px 30px;
@@ -316,7 +455,7 @@
     vertical-align: middle;
 
     .close {
-      background: var(--black);
+      background: var(--background-dark);
       height: 12px;
       right: 3px;
       top: 8px;
@@ -362,16 +501,19 @@
     #decrypt-button {
       -webkit-appearance: none;
       -webkit-transition: all 0.75s ease;
-      -webkit-transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+      -webkit-transition:
+        background-color 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out,
+        color 0.2s ease-in-out;
       appearance: none;
-      background-color: var(--white) !important;
+      background-color: var(--background-dark) !important;
       border-radius: 2px;
-      border: 0px solid var(--black);
+      border: 0px solid var(--background-dark);
       box-shadow: inset 0 0 0 1px #36383c;
-      color: var(--black) !important;
+      color: var(--background-dark) !important;
       cursor: pointer;
       display: inline-block;
-      font-family: 'poppins';
+      font-family: "poppins";
       font-size: 14px;
       font-weight: 300;
       letter-spacing: 0.5px;
@@ -383,7 +525,7 @@
 
       &:hover {
         color: var(--white) !important;
-        background-color: var(--black) !important;
+        background-color: var(--background-dark) !important;
       }
     }
   }
@@ -416,16 +558,14 @@ body.nighttime {
 
 @media screen and (max-width: 1280px) {
   .modal {
-    .next, .prev {
+    .next,
+    .prev {
       width: auto;
     }
   }
 
   #myPortfolioModal {
     .image-modal-container {
-      align-items: center;
-      flex-direction: column;
-
       img {
         max-height: calc(90vh - 80px);
       }
@@ -433,27 +573,16 @@ body.nighttime {
       .modal-text-container-dummy {
         display: none;
       }
-
-      .modal-text-container {
-        margin-top: 5px;
-        text-align: center;
-      }
     }
   }
 }
 
 @media screen and (max-width: 850px) {
   .modal {
-    .next, .prev, .close {
+    .next,
+    .prev,
+    .close {
       font-size: 32px;
-    }
-
-    .prev, .next {
-      padding: 10px 20px;
-      height: initial;
-      transform: none;
-      bottom: 0;
-      top:initial;
     }
 
     .slide img {
@@ -471,7 +600,8 @@ body.nighttime {
     height: calc(100% - 150px);
   }
 
-  #countries-modal, #landscapes-modal {
+  #countries-modal,
+  #landscapes-modal {
     .options-modal-container {
       .options-container {
         grid-template-columns: 33.3% 33.3% 33.3%;
@@ -480,7 +610,8 @@ body.nighttime {
         .option-container {
           padding: 5px 15px;
 
-          .emoji-logo, .country-flag {
+          .emoji-logo,
+          .country-flag {
             font-size: 20px;
             height: 30px;
             padding: 5px;

@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var locationTitle = country.dataset[`title-${i}`];
     var locationLatLng = country.dataset[`latlng-${i}`] != "" ? JSON.parse(country.dataset[`latlng-${i}`]) : null;
     var locationPath = country.dataset[`path-${i}`];
+    var locationCountry = country.dataset[`country-${i}`];
 
     var myIcon = L.divIcon({
       iconSize: [30, 30],
@@ -66,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     if (locationLatLng != null) {
-      let marker = L.marker(locationLatLng, { riseOnHover: true, path: `/locations/${locationPath}`, namePath: locationPath, icon: myIcon });
+      let marker = L.marker(locationLatLng, { riseOnHover: true, path: `/countries/${locationCountry}#chapter-${locationPath}`, namePath: locationPath, icon: myIcon });
       marker.addTo(countryMap).on('click', function (m) {
         return function () {
           // Prefer scrolling to the matching chapter on the current page;
@@ -127,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var bTitle = country.dataset['title-' + j];
       var bRaw   = country.dataset['latlng-' + j];
       var bPath  = country.dataset['path-' + j];
+      var bCountry = country.dataset['country-' + j];
       var bLatLng = (bRaw && bRaw !== '') ? JSON.parse(bRaw) : null;
 
       if (bLatLng) {
@@ -137,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
           iconAnchor: [20, 40],
           className: 'my-div-icon bounce'
         });
-        let bMarker = L.marker(bLatLng, { riseOnHover: true, path: '/locations/' + bPath, namePath: bPath, icon: bIcon });
+        let bMarker = L.marker(bLatLng, { riseOnHover: true, path: '/countries/' + bCountry + '#chapter-' + bPath, namePath: bPath, icon: bIcon });
         bMarker.addTo(bannerMap).on('click', function (m) {
           return function () {
             var chapter = document.getElementById('chapter-' + m.options.namePath);
