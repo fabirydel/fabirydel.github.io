@@ -334,6 +334,7 @@
   location: rocky_valley
   country: england
   landscape: true
+  large: true
 
 - path: navacelles/02_IMG_9637.jpg
   title: Bridge Over Calm Water
@@ -624,6 +625,7 @@
   place: Bled
   location: bled
   country: slovenia
+  large: true
 
 - path: bled/11_IMG_3212.jpg
   title: Bled
@@ -834,7 +836,6 @@
   place: St. John Church
   location: st_john_church
   country: italy
-  large: true
 
 - path: taormina/IMG_4867.jpg
   title: Taormina
