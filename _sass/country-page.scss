@@ -347,6 +347,10 @@
       display: block;
     }
   }
+
+  @media screen and (max-width: 650px) {
+    display: none;
+  }
 }
 
 /* Bubble follows the auto-hiding header so it stays right under it. */
