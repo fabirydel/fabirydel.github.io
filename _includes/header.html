@@ -3,7 +3,7 @@
     <img id="#openseas" class="theme icon open-seas">
     <img id="#openseas" class="theme icon open-seas night">
   </a> -->
-  <div
+  <!-- <div
     class="option-container theme-container theme-small"
     onclick="toggleTheme()"
   >
@@ -26,13 +26,13 @@
         </g>
       </svg>
     </span>
-  </div>
+  </div> -->
   <div class="header-name">
     <a href="/">
       <h1 class="me">Fabian Rydel</h1>
     </a>
   </div>
-  <div class="header-options">
+  <div class="header-options large">
     <div class="left-options">
       <a href="/">
         <h1
@@ -51,9 +51,6 @@
       </a>
     </div>
     <div class="right-options">
-      <!-- <a href="/collections">
-        <h1 class="collections {% if page.url contains 'collections'  %} header-selected {% endif %}">Collections</h1>
-      </a> -->
       <a href="/countries">
         <h1
           class="countries {% if page.url contains 'countries' %} header-selected {% endif %}"
@@ -62,25 +59,35 @@
         </h1>
       </a>
       {%- unless jekyll.environment == 'production' -%}
-        <a href="/upload" class="uw-header-button" id="uw-header-button" style="display:none">
-          <h1
-            class="upload {% if page.url contains 'upload' %} header-selected {% endif %}"
-          >
-            Upload
-          </h1>
-        </a>
-        <script>
-          // Belt-and-braces: even in dev builds, only show the button when
-          // the page is being viewed via localhost (not, say, when the dev
-          // build is being previewed over LAN).
-          (function () {
-            var h = window.location.hostname;
-            if (h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0' || h.endsWith('.local')) {
-              var el = document.getElementById('uw-header-button');
-              if (el) el.style.display = '';
-            }
-          })();
-        </script>
+      <a
+        href="/upload"
+        class="uw-header-button"
+        id="uw-header-button"
+        style="display: none"
+      >
+        <h1
+          class="upload {% if page.url contains 'upload' %} header-selected {% endif %}"
+        >
+          Upload
+        </h1>
+      </a>
+      <script>
+        // Belt-and-braces: even in dev builds, only show the button when
+        // the page is being viewed via localhost (not, say, when the dev
+        // build is being previewed over LAN).
+        (function () {
+          var h = window.location.hostname;
+          if (
+            h === "localhost" ||
+            h === "127.0.0.1" ||
+            h === "0.0.0.0" ||
+            h.endsWith(".local")
+          ) {
+            var el = document.getElementById("uw-header-button");
+            if (el) el.style.display = "";
+          }
+        })();
+      </script>
       {%- endunless -%}
       <!-- <a class="option-container theme-container theme-big" href="/nfts">
         <img id="#openseas" class="theme icon open-seas">
@@ -91,25 +98,50 @@
         onclick="toggleTheme()"
       >
         <span class="theme" aria-label="Toggle theme">
-      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"
-              fill="currentColor"></path>
-      </svg> -->
-      <!-- <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="4.2" fill="currentColor"></circle>
-        <g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none">
-          <line x1="12" y1="2.5" x2="12" y2="5.2"></line>
-          <line x1="12" y1="18.8" x2="12" y2="21.5"></line>
-          <line x1="2.5" y1="12" x2="5.2" y2="12"></line>
-          <line x1="18.8" y1="12" x2="21.5" y2="12"></line>
-          <line x1="5.22" y1="5.22" x2="7.12" y2="7.12"></line>
-          <line x1="16.88" y1="16.88" x2="18.78" y2="18.78"></line>
-          <line x1="5.22" y1="18.78" x2="7.12" y2="16.88"></line>
-          <line x1="16.88" y1="7.12" x2="18.78" y2="5.22"></line>
-        </g>
-      </svg> -->
-    </span>
-      </div>
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"
+                  fill="currentColor"></path>
+          </svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2" fill="currentColor"></circle>
+            <g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none">
+              <line x1="12" y1="2.5" x2="12" y2="5.2"></line>
+              <line x1="12" y1="18.8" x2="12" y2="21.5"></line>
+              <line x1="2.5" y1="12" x2="5.2" y2="12"></line>
+              <line x1="18.8" y1="12" x2="21.5" y2="12"></line>
+              <line x1="5.22" y1="5.22" x2="7.12" y2="7.12"></line>
+              <line x1="16.88" y1="16.88" x2="18.78" y2="18.78"></line>
+              <line x1="5.22" y1="18.78" x2="7.12" y2="16.88"></line>
+              <line x1="16.88" y1="7.12" x2="18.78" y2="5.22"></line>
+            </g>
+          </svg>
+        </span>
+      </div> -->
     </div>
+  </div>
+
+  <div class="header-options small">
+    <a href="/">
+      <h1
+        class="portfolio {% if page.url == '/' %} header-selected {% endif %}"
+      >
+        Portfolio
+      </h1>
+    </a>
+
+    <a href="/worldmap">
+      <h1
+        class="locations {% if page.url == '/worldmap.html' %} header-selected {% endif %}"
+      >
+        Locations
+      </h1>
+    </a>
+    <a href="/countries">
+      <h1
+        class="countries {% if page.url contains 'countries' %} header-selected {% endif %}"
+      >
+        Countries
+      </h1>
+    </a>
   </div>
 </div>

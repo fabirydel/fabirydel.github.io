@@ -276,16 +276,29 @@
   opacity: 1;
 }
 
+// The image centers in the full viewport on its own (align/justify-center
+// below, on a box pinned to the slide's full size via position:absolute;
+// inset:0 — overriding the .center helper class's top/left/transform
+// centering, which centers the whole shrink-wrapped image+caption *block*
+// instead and would push the image itself off vertical-center by roughly
+// half the caption's height). The caption is pinned near the bottom as its
+// own absolutely-positioned overlay instead of sharing flex flow with the
+// image, so it can't affect the image's position. The old "dummy" spacer
+// that used to balance the real caption's height above the image (to fake
+// centering) is no longer needed — kept in the markup, just hidden.
 #myPortfolioModal {
   .image-modal-container {
     border: none;
     box-shadow: none;
     display: flex;
-    justify-content: center;
     max-width: 100%;
-    position: relative;
+    position: absolute;
+    inset: 0;
+    transform: none;
+    width: 100%;
+    height: 100%;
     align-items: center;
-    flex-direction: column;
+    justify-content: center;
 
     img {
       border-radius: 0;
@@ -301,17 +314,20 @@
       height: 63px;
       padding-left: 7px;
       pointer-events: none;
-      position: relative;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 24px;
+      justify-content: center;
       transition: 0.3s ease-in-out;
       z-index: 3;
-      margin-top: 5px;
       flex-direction: row;
       gap: 4px;
       align-items: center;
     }
 
     .modal-text-container-dummy {
-      opacity: 0;
+      display: none;
     }
   }
 }
@@ -569,9 +585,40 @@ body.nighttime {
       img {
         max-height: calc(90vh - 80px);
       }
+    }
+  }
+}
 
-      .modal-text-container-dummy {
-        display: none;
+/* Below 1000px there isn't room for the prev/next hit zones to sit
+   vertically centered over the image (they'd cover too much of it on a
+   narrow screen), so they drop below the image instead, flanking the
+   caption in a single row: [prev] ... [place, country] ... [next]. The
+   caption's own `bottom` (set on .image-modal-container .modal-text-container
+   above) is tightened to match prev/next's so all three sit flush on the
+   same line, and the image's max-height leaves enough clearance to never
+   overlap that row. */
+@media screen and (max-width: 1000px) {
+  #myPortfolioModal {
+    .image-modal-container {
+      img {
+        max-height: calc(100vh - 170px);
+      }
+
+      .modal-text-container:not(.modal-text-container-dummy) {
+        bottom: 16px;
+        justify-content: center;
+        padding-left: 0;
+      }
+    }
+
+    .prev,
+    .next {
+      top: auto;
+      bottom: 16px;
+      transform: none;
+
+      &:hover {
+        transform: scale(1.08);
       }
     }
   }

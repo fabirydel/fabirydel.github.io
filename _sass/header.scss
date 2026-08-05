@@ -46,7 +46,6 @@
       color: #f2efe9;
       text-decoration: none;
       border-bottom: 1px solid var(--main-color);
-      padding-bottom: 3px;
     }
   }
 
@@ -146,6 +145,10 @@
     align-items: center;
     background: var(--background-dark);
     transition: background-color 0.25s ease;
+
+    &.small {
+      display: none;
+    }
   }
 
   .dropdown {
@@ -363,6 +366,16 @@
 
       .header-name h1 {
         font-size: 21px;
+      }
+
+      .header-options.large {
+        display: none;
+      }
+
+      .header-options.small {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
       }
     }
   }
