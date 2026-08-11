@@ -602,6 +602,7 @@ body.nighttime {
     .image-modal-container {
       img {
         max-height: calc(100vh - 170px);
+        max-width: calc(100vw - 54px);
       }
 
       .modal-text-container:not(.modal-text-container-dummy) {
