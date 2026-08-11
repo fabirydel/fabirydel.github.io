@@ -340,9 +340,9 @@
       }
 
       .header-options {
-        width: calc(100% - 20px);
-        padding-left: 10px;
-        padding-right: 10px;
+        width: calc(100% - 30px);
+        padding-left: 15px;
+        padding-right: 15px;
 
         .option-container-countries {
           margin-right: 0;
@@ -355,6 +355,9 @@
 @media screen and (max-width: 650px) {
   body {
     #header {
+      width: 100%;
+      padding: 10px 0;
+
       .right-options,
       .left-options {
         gap: 10px;
@@ -375,7 +378,10 @@
       .header-options.small {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
+        margin-top: 10px;
+        width: calc(100% - 8vw);
+        padding-left: 4vw;
+        padding-right: 4vw;
       }
     }
   }
