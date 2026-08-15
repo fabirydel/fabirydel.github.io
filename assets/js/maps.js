@@ -98,8 +98,12 @@ document.addEventListener("DOMContentLoaded", function() {
   window.dispatchEvent(new CustomEvent('country-map-ready'));
 
   // Banner map: full-width overview strip shown at the top of the page.
-  // Non-interactive (no drag/zoom) — markers are still clickable to scroll
-  // to the matching chapter.
+  // Click-and-drag panning and double-click-to-zoom-in are on (same as the
+  // worldmap/locations page), but scroll-wheel and pinch zoom stay off —
+  // and there's no zoom control — so it can't be zoomed by accident while
+  // the user is just scrolling the page; zooming only happens from an
+  // explicit double-click. Markers are still clickable to scroll to the
+  // matching chapter.
   var bannerEl = document.getElementById('country-map-banner');
   if (bannerEl) {
     var bannerSatellite = L.tileLayer(mapBoxUrl, {
@@ -114,8 +118,8 @@ document.addEventListener("DOMContentLoaded", function() {
       layers: [bannerSatellite],
       scrollWheelZoom: false,
       touchZoom: false,
-      dragging: false,
-      doubleClickZoom: false,
+      dragging: true,
+      doubleClickZoom: true,
       keyboard: false,
       zoomControl: false,
       attributionControl: false
