@@ -1,4 +1,4 @@
-// Default variables that can be overrided
+// Default variables that can be overridden
 $flexbin-row-height: 300px !default;
 $flexbin-space: 5px !default;
 
@@ -10,7 +10,7 @@ $flexbin-phone-max: 400px !default;
 $flexbin-row-height-phone: 100px !default;
 $flexbin-space-phone: $flexbin-space !default;
 
-// Minxin for customize multiple Flexbin layout
+// Mixin for customizing multiple Flexbin layouts
 // For example, 300px height for desktop devices, 150px height for mobile devices
 @mixin flexbin($row-height, $space) {
     display: flex;

@@ -100,8 +100,8 @@
      cursor (ew, ns, nwse, nesw). */
   box-shadow:
     inset 0 0 0 6px var(--ink),
-    0 8px 32px rgba(0, 0, 0, 0.18),
-    0 2px 6px rgba(0, 0, 0, 0.08);
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   /* Animatable on every property that changes between expanded and
      collapsed states. Drag/resize handlers set .is-dragging or
@@ -194,10 +194,10 @@
     align-items: center;
     justify-content: center;
     padding: 0 24px 0 32px; /* leave room for the toggle button on the left */
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(31, 34, 36, 0.92);
     -webkit-backdrop-filter: saturate(140%) blur(8px);
     backdrop-filter: saturate(140%) blur(8px);
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
     cursor: grab;
     user-select: none;
     touch-action: none;
@@ -213,7 +213,7 @@
     font-weight: 500;
     letter-spacing: 1.8px;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--white);
     line-height: 1;
     user-select: none;
     white-space: nowrap;
@@ -236,10 +236,10 @@
     justify-content: center;
     gap: 8px;
     padding: 0 24px;
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(31, 34, 36, 0.92);
     -webkit-backdrop-filter: saturate(140%) blur(8px);
     backdrop-filter: saturate(140%) blur(8px);
-    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+    border-top: 0.5px solid rgba(255, 255, 255, 0.1);
   }
 
   &__zoom {
@@ -248,26 +248,24 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 0.5px solid rgba(0, 0, 0, 0.18);
-    background: var(--background-dark);
-    color: var(--ink);
+    border: 0.5px solid rgba(255, 255, 255, 0.15);
+    background: #2b2e30;
+    color: var(--white);
     font-size: 13px;
     font-weight: 500;
-    padding-bottom: 2px;
     line-height: 1;
-    padding: 0;
+    padding: 0 0 3px 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: inherit;
-    padding-bottom: 3px;
     transition:
       background 0.15s ease,
       transform 0.1s ease;
 
     &:hover {
-      background: #f4f3ee;
+      background: #3a3d40;
     }
 
     &:active {
@@ -406,10 +404,10 @@
   /* Above the map bubble (z:4), level with the site header (z:5).
      They sit at different vertical positions so they never overlap. */
   z-index: 5;
-  background: rgba(249, 249, 249, 0.92);
+  background: rgba(31, 34, 36, 0.85);
   -webkit-backdrop-filter: saturate(140%) blur(8px);
   backdrop-filter: saturate(140%) blur(8px);
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
   padding: 10px 1.5vw;
 
   transform: translateY(-110%);
@@ -453,15 +451,15 @@
     cursor: pointer;
     flex: 0 0 auto;
     padding: 4px 2px;
-    color: #8a8a8a;
+    color: #999;
     transition: color 0.2s ease;
 
     &:hover {
-      color: var(--ink);
+      color: var(--white);
     }
 
     &.is-active {
-      color: var(--ink);
+      color: var(--white);
 
       .country-toc__dot {
         background: var(--flag-color);
@@ -496,20 +494,6 @@
 /* When the site header retracts, slide the TOC up to top:0. */
 #header.hide ~ .country-toc {
   top: 0;
-}
-
-.country-toc {
-  background: rgba(31, 34, 36, 0.85);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-
-  li {
-    color: #999;
-
-    &:hover,
-    &.is-active {
-      color: var(--white);
-    }
-  }
 }
 
 /* === Country hero =========================================== */
@@ -657,35 +641,6 @@
   transition:
     box-shadow 0.25s ease,
     border-color 0.25s ease;
-}
-
-/* === Nighttime overrides =================================== */
-
-.country-map-bubble {
-  background: var(--background-dark);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    0 2px 6px rgba(0, 0, 0, 0.3);
-
-  .country-map-bubble__header,
-  .country-map-bubble__footer {
-    background: rgba(31, 34, 36, 0.92);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .country-map-bubble__title {
-    color: var(--white);
-  }
-
-  .country-map-bubble__zoom {
-    background: #2b2e30;
-    border-color: rgba(255, 255, 255, 0.15);
-    color: var(--white);
-
-    &:hover {
-      background: #3a3d40;
-    }
-  }
 }
 
 /* === Responsive ============================================ */

@@ -31,16 +31,18 @@
     bubbleEl.style.transform = 'translate(' + bubbleTx + 'px, ' + bubbleTy + 'px)';
   }
 
+  // Normalizes a mouse or touch event down to its coordinate point, shared
+  // by the drag and resize handlers below.
+  function getPoint(e) {
+    if (e.touches && e.touches[0]) return e.touches[0];
+    if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0];
+    return e;
+  }
+
   // ---- Drag the bubble (via header band) ------------------------
   function attachDrag(bubble, handle) {
     var startX = 0, startY = 0, startTx = 0, startTy = 0;
     var dragging = false;
-
-    function getPoint(e) {
-      if (e.touches && e.touches[0]) return e.touches[0];
-      if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0];
-      return e;
-    }
 
     function onDown(e) {
       // Don't start a drag while the bubble is collapsed.
@@ -106,12 +108,6 @@
     var initialTy = 0;
     var activeEdges = null;
     var resizing = false;
-
-    function getPoint(e) {
-      if (e.touches && e.touches[0]) return e.touches[0];
-      if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0];
-      return e;
-    }
 
     // Returns { left, right, top, bottom } booleans for which edges of
     // the bubble the point is within the resize tolerance of. Returns

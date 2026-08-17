@@ -18,9 +18,18 @@
 //
 // Tiles use a blur background as a placeholder while the thumb fetches;
 // `images.js` adds `.loaded` to the thumb on load so it fades in over the
-// blur. Independently, `.photo-tile` itself fades/rises into place via
-// `.cg-in`, toggled by curated-grid.js's IntersectionObserver every time a
-// tile crosses into or out of view (not just once on first load).
+// blur. Independently, `.photo-tile` itself pops into place via `.cg-in`,
+// toggled by an IntersectionObserver every time a tile crosses into or out
+// of view (not just once on first load) — curated-grid.js on the home page,
+// grid-layout.js's shared reveal on country/landscape pages.
+//
+// Two reveal styles share that same .cg-in toggle:
+//   - "Pop" (see further down): the home page and country page chapter
+//     grids specifically — tiles pop in from below while scrolling down,
+//     and from above while scrolling up (direction read off
+//     html[data-scroll-dir], kept live by curated-grid.js / grid-layout.js).
+//   - Plain rise + fade (the base rule right below): everywhere else that
+//     reuses this markup (landscape pages, etc).
 
 .portfolio-gallery {
   padding: 0 32px 80px 32px;
@@ -186,6 +195,43 @@
   .portfolio-grid.cg-grid .photo-tile .thumb {
     height: 100%;
     object-fit: cover;
+  }
+}
+
+// Pop — home page ("Selected Work") and country page chapter grids only.
+// Overrides the plain rise+fade above with higher-specificity selectors
+// (3 classes vs. the base rule's 2), so landscape pages and anywhere else
+// reusing .photo-tile keep the simpler fade untouched.
+//
+// Purely 2D: tiles pop in slightly smaller and offset, then scale/settle
+// to rest. The offset direction flips based on scroll direction —
+// html[data-scroll-dir="up"] (set live by curated-grid.js / grid-layout.js)
+// makes tiles pop in from above instead of below. Eases straight into
+// rest — no bounce/overshoot.
+.portfolio-wrapper .portfolio-gallery .photo-tile,
+.portfolio-gallery.country-chapter__gallery .photo-tile {
+  opacity: 0;
+  transform: translateY(90px);
+  // --pop-duration is randomized per tile in JS (grid-utils.js), between
+  // 0.25s and 0.45s, so a row of tiles doesn't all pop in in lockstep.
+  transition:
+    opacity var(--pop-duration, 0.3s) ease-out,
+    transform var(--pop-duration, 0.3s) cubic-bezier(0.22, 1, 0.36, 1);
+
+  &.cg-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html[data-scroll-dir="up"] {
+  .portfolio-wrapper .portfolio-gallery .photo-tile,
+  .portfolio-gallery.country-chapter__gallery .photo-tile {
+    transform: translateY(-90px);
+
+    &.cg-in {
+      transform: translateY(0);
+    }
   }
 }
 

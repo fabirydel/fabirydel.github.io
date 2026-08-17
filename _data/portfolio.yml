@@ -100,7 +100,6 @@
   location: valensole
   country: france
   landscape: true
-  large: true
 
 - path: innsbruck/02_IMG_9436-HDR-Edit.jpg
   title: Powerline
@@ -122,6 +121,7 @@
   location: puimoisson2
   country: france
   landscape: true
+  large: true
 
 - path: salen/IMG_8995-Edit.jpg
   title: Early Rise
@@ -219,7 +219,6 @@
   location: kinderdijk
   country: netherlands
   landscape: true
-  large: true
 
 - path: rio/IMG_7891.jpg
   title: A Wonder of a Sunset
@@ -811,6 +810,7 @@
   place: Chapel Vitaleta
   location: chapel_vitaleta
   country: italy
+  large: true
 
 - path: florence/IMG_7721.jpg
   title: Florence

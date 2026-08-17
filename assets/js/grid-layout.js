@@ -196,6 +196,7 @@
     // safe to call this again after every relayout without tracking state.
     grids.forEach(function (grid) {
       grid.querySelectorAll('.photo-tile').forEach(function (t) {
+        GridUtils.randomizePopDuration(t);
         revealObserver.observe(t);
       });
     });

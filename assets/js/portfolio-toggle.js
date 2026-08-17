@@ -360,21 +360,8 @@
   }
 
   function writeSizeToggle(path, makeLarge) {
-    return getRootHandle().then(function (handle) {
-      return handle.getDirectoryHandle('_data').then(function (dataDir) {
-        return dataDir.getFileHandle('portfolio.yml').then(function (yamlFh) {
-          return yamlFh.getFile()
-            .then(function (f) { return f.text(); })
-            .then(function (currentText) {
-              var updated = toggleLargeField(currentText, path, makeLarge);
-              return yamlFh.createWritable().then(function (w) {
-                return w.write(updated).then(function () { return w.close(); });
-              });
-            });
-        });
-      }).then(function () {
-        return touchFile(handle, ['index.html']);
-      });
+    return updatePortfolioYaml(function (currentText) {
+      return toggleLargeField(currentText, path, makeLarge);
     });
   }
 
@@ -427,24 +414,28 @@
   }
 
   function writeToggle(path, wasIn, tile) {
+    return updatePortfolioYaml(function (currentText) {
+      if (wasIn) return removePortfolioEntry(currentText, path);
+      return addPortfolioEntry(currentText, {
+        path: path,
+        title: tile.dataset.photoPlace || '',
+        place: tile.dataset.photoPlace || '',
+        location: tile.dataset.photoLocation || '',
+        country: tile.dataset.photoCountry || '',
+      });
+    });
+  }
+
+  // Reads portfolio.yml, applies `transform` to its text, writes the result
+  // back, then touches index.html.
+  function updatePortfolioYaml(transform) {
     return getRootHandle().then(function (handle) {
       return handle.getDirectoryHandle('_data').then(function (dataDir) {
         return dataDir.getFileHandle('portfolio.yml').then(function (yamlFh) {
           return yamlFh.getFile()
             .then(function (f) { return f.text(); })
             .then(function (currentText) {
-              var updated;
-              if (wasIn) {
-                updated = removePortfolioEntry(currentText, path);
-              } else {
-                updated = addPortfolioEntry(currentText, {
-                  path: path,
-                  title: tile.dataset.photoPlace || '',
-                  place: tile.dataset.photoPlace || '',
-                  location: tile.dataset.photoLocation || '',
-                  country: tile.dataset.photoCountry || '',
-                });
-              }
+              var updated = transform(currentText);
               return yamlFh.createWritable().then(function (w) {
                 return w.write(updated).then(function () { return w.close(); });
               });

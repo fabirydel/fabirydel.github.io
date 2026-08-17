@@ -259,6 +259,7 @@
     var io = GridUtils.createRevealObserver();
     if (!io) return GridUtils.revealAllImmediately(tiles);
     tiles.forEach(function (t) {
+      GridUtils.randomizePopDuration(t);
       io.observe(t);
     });
   }

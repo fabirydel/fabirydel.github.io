@@ -491,8 +491,6 @@ body {
   }
 }
 
-// all this code below used to overwrite for screen smaller than 850px, now it's the default
-// @media screen and (max-width: 850px) {
 .three-column-grid {
   display: none;
 }
@@ -549,15 +547,6 @@ body {
     margin-top: 0;
   }
 }
-
-.stats-cover,
-.stats-overlay {
-  .stats-container {
-    font-size: 14px;
-  }
-}
-// }
-// until here
 
 @media screen and (max-width: 1150px) {
   .gallery-container {
