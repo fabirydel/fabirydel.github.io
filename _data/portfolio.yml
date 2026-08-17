@@ -24,6 +24,7 @@
   place: Bled
   location: chenonceau
   country: france
+  large: true
 
 - path: mostar/IMG_7359-Pano-Edit.jpg
   title: the Bridge
@@ -707,7 +708,6 @@
   place: Sajama National Park
   location: sajama_national_park
   country: bolivia
-  large: true
 
 - path: reserva_flamingos/7P9A2537_tn.jpg
   title: Reserva de Flamingos

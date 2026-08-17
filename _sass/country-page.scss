@@ -630,20 +630,21 @@
 
 /* === Active map marker =====================================
    country-page.js adds .is-active to the marker whose chapter
-   is in view. The CSS pulls the country's --flag-color so the
-   active pin matches the page's accent.
+   is in view. Stays plain white, same as every other marker on
+   every other map (worldmap, country banner) — not the country's
+   --flag-color.
    ============================================================ */
 
 .my-div-icon.is-active {
   z-index: 1000 !important;
 
   .map-image {
-    border-color: var(--flag-color, var(--white));
-    /* Halo ring in --flag-color sitting just outside the thumbnail's own
-       border, plus a soft drop shadow. No transform — scaling pushes the
-       icon visually off the pin's actual lat/lng and overlaps neighbors. */
+    border-color: var(--white);
+    /* Halo ring sitting just outside the thumbnail's own border, plus a
+       soft drop shadow. No transform — scaling pushes the icon visually
+       off the pin's actual lat/lng and overlaps neighbors. */
     box-shadow:
-      0 0 0 2px var(--flag-color, transparent),
+      0 0 0 2px rgba(255, 255, 255, 0.6),
       0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
