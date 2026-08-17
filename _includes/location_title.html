@@ -1,0 +1,10 @@
+{%- comment -%}
+  Resolves a location's display title from its namePath, falling back to a
+  capitalized, underscore-stripped version of the slug when the location
+  has no explicit title. Renders the title directly, so callers wrap it in
+  a capture tag (see country_chapter.html for an example).
+
+  Inputs:
+    name_path — a location's namePath, e.g. "kotor"
+{%- endcomment -%}
+{%- assign location_page = site.locations | where: "namePath", include.name_path | first -%}{%- if location_page.title -%}{{ location_page.title }}{%- else -%}{{ include.name_path | replace: '_', ' ' | capitalize }}{%- endif -%}

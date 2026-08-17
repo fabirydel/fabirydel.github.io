@@ -34,18 +34,6 @@
     return 5;
   }
 
-  function getOriginalIndex(tile) {
-    var oc = tile.getAttribute('onclick') || '';
-    var m = oc.match(/openModal\((\d+)/);
-    return m ? parseInt(m[1], 10) : 0;
-  }
-
-  function getBlurUrl(tile) {
-    var style = tile.getAttribute('style') || '';
-    var m = style.match(/url\(['"]?([^'")]+)['"]?\)/);
-    return m ? m[1] : null;
-  }
-
   // Preload each tile's blur image via new Image() to read naturalWidth/Height,
   // then apply CSS aspect-ratio to the <img class="thumb">. Browsers reserve
   // the correct height for a thumb even before it's lazy-loaded, so the LPT
@@ -57,7 +45,7 @@
     var tiles = Array.from(grid.querySelectorAll('.photo-tile'));
     return Promise.all(tiles.map(function (tile) {
       if (tile.dataset.aspect) return Promise.resolve();
-      var url = getBlurUrl(tile);
+      var url = GridUtils.getBlurUrl(tile);
       if (!url) return Promise.resolve();
       return new Promise(function (resolve) {
         var img = new Image();
@@ -95,7 +83,7 @@
       return false;
     }
 
-    tiles.sort(function (a, b) { return getOriginalIndex(a) - getOriginalIndex(b); });
+    tiles.sort(function (a, b) { return GridUtils.getTileIndex(a) - GridUtils.getTileIndex(b); });
 
     grid.innerHTML = '';
     grid.classList.add('js-grid');
@@ -144,7 +132,7 @@
     var tiles = Array.from(grid.querySelectorAll('.photo-tile'));
     if (tiles.length === 0) return;
 
-    tiles.sort(function (a, b) { return getOriginalIndex(a) - getOriginalIndex(b); });
+    tiles.sort(function (a, b) { return GridUtils.getTileIndex(a) - GridUtils.getTileIndex(b); });
 
     // Measure heights BEFORE detaching — detached elements report 0.
     var heights = tiles.map(function (t) {
@@ -191,48 +179,24 @@
     grid.dataset.layoutRebalanced = '1';
   }
 
-  // ---- Scroll reveal ----------------------------------------------------
-  //
-  // Mirrors curated-grid.js's own IntersectionObserver so every gallery
-  // sharing the plain .portfolio-grid/.photo-tile markup (country pages,
-  // landscape pages, …) gets the same fade+rise-into-view effect as the
-  // curated home page grid — just driven by this shared engine instead.
-  // Re-triggers every time a tile crosses the viewport threshold, in
-  // either direction (matches the CSS's `.cg-in` on/off transition).
-  var ENTER_RATIO = 0.12;
+  // Scroll reveal is shared with curated-grid.js — see grid-utils.js. This
+  // just needs one observer for every grid this engine manages.
   var revealObserver = null;
-
-  function ensureRevealObserver() {
-    if (revealObserver || !('IntersectionObserver' in window)) return revealObserver;
-    revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        var tile = entry.target;
-        if (entry.intersectionRatio >= ENTER_RATIO) {
-          tile.classList.add('cg-in');
-        } else if (!entry.isIntersecting) {
-          tile.classList.remove('cg-in');
-        }
-      });
-    }, { threshold: [0, ENTER_RATIO], rootMargin: '0px 0px -60px 0px' });
-    return revealObserver;
-  }
 
   function observeReveal() {
     var grids = managedGrids('.portfolio-grid');
-    if (!('IntersectionObserver' in window)) {
+    if (!revealObserver) revealObserver = GridUtils.createRevealObserver();
+    if (!revealObserver) {
       grids.forEach(function (grid) {
-        grid.querySelectorAll('.photo-tile').forEach(function (t) {
-          t.classList.add('cg-in');
-        });
+        GridUtils.revealAllImmediately(Array.from(grid.querySelectorAll('.photo-tile')));
       });
       return;
     }
-    var io = ensureRevealObserver();
     // observe() on an already-observed element is a harmless no-op, so it's
     // safe to call this again after every relayout without tracking state.
     grids.forEach(function (grid) {
       grid.querySelectorAll('.photo-tile').forEach(function (t) {
-        io.observe(t);
+        revealObserver.observe(t);
       });
     });
   }

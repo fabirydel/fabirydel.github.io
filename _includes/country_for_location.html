@@ -1,0 +1,9 @@
+{%- comment -%}
+  Resolves a location's country slug by reverse-searching
+  site.data.locations_per_country. Renders the slug directly, so callers
+  wrap it in a capture tag (see gallery_landscape.html for an example).
+
+  Inputs:
+    name_path — a location's namePath, e.g. "kotor"
+{%- endcomment -%}
+{%- for c in site.data.locations_per_country -%}{%- if c[1].locations contains include.name_path -%}{{ c[0] }}{%- break -%}{%- endif -%}{%- endfor -%}

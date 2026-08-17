@@ -24,7 +24,7 @@
   }
 
   h1 {
-    color: #9c9a97;
+    color: var(--muted);
     cursor: pointer;
     display: inline-block;
     font-size: 13px;
@@ -43,7 +43,7 @@
     }
 
     &.header-selected {
-      color: #f2efe9;
+      color: var(--cream);
       text-decoration: none;
       border-bottom: 1px solid var(--main-color);
     }
@@ -55,7 +55,7 @@
     letter-spacing: 0.08em;
     font-size: 22px;
     font-weight: 400;
-    color: #f2efe9;
+    color: var(--cream);
   }
 
   a,
@@ -80,8 +80,8 @@
       border-color 0.25s ease,
       color 0.25s ease,
       transform 0.2s ease;
-    border: 1px solid #f2efe9;
-    color: #f2efe9;
+    border: 1px solid var(--cream);
+    color: var(--cream);
     border-radius: 50%;
     width: 26px;
     height: 26px;
@@ -219,7 +219,7 @@
 
     h1 {
       cursor: default;
-      color: #f2efe9;
+      color: var(--cream);
     }
   }
 

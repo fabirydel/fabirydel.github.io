@@ -1,0 +1,21 @@
+{%- comment -%}
+  A modal slide's place/country caption — used twice per slide: an invisible
+  "dummy" copy above the image that reserves matching space (see
+  #myPortfolioModal .modal-text-container in gallery-modal.scss), and the
+  real, visible copy below it.
+
+  Inputs:
+    place        — display text for the place link, e.g. "Amalfi"
+    place_href   — href for the place link (typically an in-page chapter anchor)
+    country      — display text for the country link, e.g. "Italy"
+    country_href — href for the country link
+    dummy        — pass true to render the invisible spacer copy
+{%- endcomment -%}
+<div class="modal-text-container text-container{% if include.dummy %} modal-text-container-dummy{% endif %}">
+  <a href="{{ include.place_href }}" class="photo-place-link">
+    <span class="photo-title photo-place">{{ include.place }},</span>
+  </a>
+  <a href="{{ include.country_href }}" class="photo-place-link photo-place-country">
+    <span class="photo-title photo-place">{{ include.country }}</span>
+  </a>
+</div>

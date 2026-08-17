@@ -8,16 +8,9 @@
         Derive location slug + country slug per image so the dev-only
         portfolio-toggle UI knows what entry to write into portfolio.yml.
       {%- endcomment -%}
-      {% assign parts = image_path | split: '/' %}
-      {% assign loc_slug = parts[0] %}
-      {% assign place_label = loc_slug | replace: '_', ' ' | capitalize %}
-      {% assign country_slug = '' %}
-      {% for c in site.data.locations_per_country %}
-        {% if c[1].locations contains loc_slug %}
-          {% assign country_slug = c[0] %}
-          {% break %}
-        {% endif %}
-      {% endfor %}
+      {%- assign loc_slug = image_path | split: '/' | first -%}
+      {%- assign place_label = loc_slug | replace: '_', ' ' | capitalize -%}
+      {%- capture country_slug %}{% include country_for_location.html name_path=loc_slug %}{% endcapture -%}
       <button
         type="button"
         class="photo-tile"

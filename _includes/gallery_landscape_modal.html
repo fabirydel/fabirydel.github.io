@@ -9,44 +9,23 @@
   <a class="close cursor icon close-button" onclick="closeModal('myPortfolioModal')"></a>
   <div class="modal-content">
     {% for image_path in page.images %}
-      {%- assign parts = image_path | split: '/' -%}
-      {%- assign loc_slug = parts[0] -%}
+      {%- assign loc_slug = image_path | split: '/' | first -%}
       {%- assign place_label = loc_slug | replace: '_', ' ' | capitalize -%}
-      {%- assign country_slug = '' -%}
-      {%- for c in site.data.locations_per_country -%}
-        {%- if c[1].locations contains loc_slug -%}
-          {%- assign country_slug = c[0] -%}
-          {%- break -%}
-        {%- endif -%}
-      {%- endfor -%}
+      {%- capture country_slug %}{% include country_for_location.html name_path=loc_slug %}{% endcapture -%}
       {%- assign country_page = site.countries | where: "name", country_slug | first -%}
       {%- if country_page.title -%}
         {%- assign country_label = country_page.title -%}
       {%- else -%}
         {%- assign country_label = country_slug | capitalize -%}
       {%- endif -%}
+      {%- assign country_href = "/countries/" | append: country_slug -%}
+      {%- assign chapter_href = country_href | append: "#chapter-" | append: loc_slug -%}
 
       <div class="slide">
         <div class="image-modal-container center">
-          <div class="modal-text-container text-container modal-text-container-dummy">
-            <a href="/countries/{{ country_slug }}#chapter-{{ loc_slug }}" class="photo-place-link">
-              <span class="photo-title photo-place">{{ place_label }},</span>
-            </a>
-            <a href="/countries/{{ country_slug }}" class="photo-place-link photo-place-country">
-              <span class="photo-title photo-place">{{ country_label }}</span>
-            </a>
-          </div>
-
+          {% include photo_caption.html place=place_label place_href=chapter_href country=country_label country_href=country_href dummy=true %}
           <img data-src="/images/full/{{ image_path }}" alt="{{ place_label }}, {{ country_label }}" decoding="async" onclick="ignore(event)">
-
-          <div class="modal-text-container text-container">
-            <a href="/countries/{{ country_slug }}#chapter-{{ loc_slug }}" class="photo-place-link">
-              <span class="photo-title photo-place">{{ place_label }},</span>
-            </a>
-            <a href="/countries/{{ country_slug }}" class="photo-place-link photo-place-country">
-              <span class="photo-title photo-place">{{ country_label }}</span>
-            </a>
-          </div>
+          {% include photo_caption.html place=place_label place_href=chapter_href country=country_label country_href=country_href %}
         </div>
       </div>
     {% endfor %}

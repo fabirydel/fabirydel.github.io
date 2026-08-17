@@ -48,7 +48,7 @@ body.loading #footer-header {
 }
 
 #footer-header h1 {
-  color: #f2efe9;
+  color: var(--cream);
   display: inline-block;
   font-size: 14px;
   font-weight: 200;
@@ -86,7 +86,7 @@ body.loading #footer-header {
 #footer-header nav > ul > li .about {
   -webkit-transition: all 0.75s ease;
   border: 0;
-  color: #f2efe9;
+  color: var(--cream);
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
@@ -98,7 +98,7 @@ body.loading #footer-header {
 }
 
 #footer-header nav > ul > li .about.icon:before {
-  color: #f2efe9;
+  color: var(--cream);
   float: right;
   margin-left: 0.75em;
   transition: all 0.75s ease;
@@ -143,7 +143,7 @@ body.loading #footer-header {
   -webkit-transition: -webkit-transform 0.5s ease;
   background: var(--background-dark);
   bottom: 2em;
-  color: #f2efe9;
+  color: var(--cream);
   left: 0;
   max-height: calc(81vh - 4em);
   overflow-y: auto;
@@ -185,7 +185,7 @@ body.loading #footer-header {
     }
 
     a {
-      color: #f2efe9;
+      color: var(--cream);
       margin-left: 5px;
       font-size: 11px;
 
@@ -327,7 +327,7 @@ footer {
 
   h2,
   p {
-    color: #f2efe9;
+    color: var(--cream);
     font-weight: 300;
     letter-spacing: 0.025em;
     line-height: 1.65;
@@ -566,7 +566,7 @@ footer {
     background: #34363b;
     border: 0;
     border-radius: 0;
-    color: #f2efe9 !important;
+    color: var(--cream) !important;
     display: block;
     outline: 0;
     padding: 0 1em;
@@ -862,12 +862,12 @@ footer {
   font-family: "poppins", sans-serif;
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: #f2efe9;
+  color: var(--cream);
   opacity: 0.65;
   line-height: 1.5;
 
   a {
-    color: #f2efe9;
+    color: var(--cream);
     text-decoration: none;
     border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
     padding-bottom: 1px;

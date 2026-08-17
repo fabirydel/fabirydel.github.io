@@ -13,11 +13,7 @@
 {%- endcomment -%}
 
 {%- assign location_page = site.locations | where: "namePath", include.location_name | first -%}
-{%- if location_page.title -%}
-  {%- assign location_title = location_page.title -%}
-{%- else -%}
-  {%- assign location_title = include.location_name | replace: '_', ' ' | capitalize -%}
-{%- endif -%}
+{%- capture location_title %}{% include location_title.html name_path=include.location_name %}{% endcapture -%}
 {%- assign location_intro = location_page.intro -%}
 
 {%- assign location_path = "/images/full/" | append: include.location_name | append: "/" -%}

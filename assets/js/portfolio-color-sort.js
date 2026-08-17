@@ -19,8 +19,11 @@
 //   5. Tell grid-layout to redistribute round-robin again with the new
 //      order, and rebalance.
 //
-// Runs only when both #myPortfolioModal and a .portfolio-grid exist on the
-// page (i.e. the home portfolio page).
+// Runs only on the home page: #myPortfolioModal also exists on country
+// pages now (they share its "new style" modal), so this is scoped to
+// .portfolio-wrapper .portfolio-grid specifically — the curated home grid
+// — rather than just "a .portfolio-grid", which would grab the first
+// country chapter's grid instead on those pages.
 
 (function () {
   'use strict';
@@ -44,12 +47,6 @@
   function colorSortKey(rgb) {
     var hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
     return (240 - hsl.h + 360) % 360;
-  }
-
-  function getBlurUrl(tile) {
-    var style = tile.getAttribute('style') || '';
-    var m = style.match(/url\(['"]?([^'")]+)['"]?\)/);
-    return m ? m[1] : null;
   }
 
   function averageColor(url) {
@@ -78,7 +75,7 @@
   }
 
   function sortPortfolio() {
-    var grid = document.querySelector('.portfolio-grid');
+    var grid = document.querySelector('.portfolio-wrapper .portfolio-grid');
     var modal = document.getElementById('myPortfolioModal');
     if (!grid || !modal) return Promise.resolve(false);
 
@@ -91,17 +88,12 @@
       return Promise.resolve(false);
     }
 
-    function originalIndex(tile) {
-      var oc = tile.getAttribute('onclick') || '';
-      var m = oc.match(/openModal\((\d+)/);
-      return m ? parseInt(m[1], 10) : 0;
-    }
-    tiles.sort(function (a, b) { return originalIndex(a) - originalIndex(b); });
+    tiles.sort(function (a, b) { return GridUtils.getTileIndex(a) - GridUtils.getTileIndex(b); });
 
     // Compute the colour key for each (in original order). Blur images are
     // already in the HTTP cache from CSS background-image, so this is fast.
     return Promise.all(tiles.map(function (tile) {
-      var url = getBlurUrl(tile);
+      var url = GridUtils.getBlurUrl(tile);
       if (!url) return Promise.resolve({ tile: tile, key: 9999 });
       return averageColor(url).then(function (rgb) {
         return { tile: tile, key: rgb ? colorSortKey(rgb) : 9999 };
@@ -151,7 +143,7 @@
 
   function init() {
     if (!document.getElementById('myPortfolioModal')) return;
-    if (!document.querySelector('.portfolio-grid')) return;
+    if (!document.querySelector('.portfolio-wrapper .portfolio-grid')) return;
     // Run after grid-layout's first pass so we don't race with it.
     // We're loaded with `defer` and listed AFTER grid-layout.js in head.html,
     // so DOMContentLoaded for us fires after grid-layout's listener has run.

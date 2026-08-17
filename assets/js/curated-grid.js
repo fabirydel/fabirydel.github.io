@@ -12,9 +12,9 @@
 // guarantees no gaps: every tile is placed exactly at the bottom of the
 // column(s) it's assigned to, so there's never empty space to leave behind.
 //
-// Also owns two small home-page-only touches: the tile scroll-reveal
-// (re-triggers every time a tile crosses into/out of view, not just once)
-// and a subtle parallax on the hero cover photo.
+// Also owns a home-page-only touch: a subtle parallax on the hero cover
+// photo. Tile scroll-reveal is shared with the other galleries — see
+// grid-utils.js.
 
 (function () {
   "use strict";
@@ -33,12 +33,6 @@
     return 5;
   }
 
-  function getBlurUrl(tile) {
-    var style = tile.getAttribute("style") || "";
-    var m = style.match(/url\(['"]?([^'")]+)['"]?\)/);
-    return m ? m[1] : null;
-  }
-
   // Preload each tile's blur placeholder to read its natural aspect ratio.
   // The blur image is already fetched via CSS background-image, so this is
   // typically a cache hit.
@@ -46,7 +40,7 @@
     return Promise.all(
       tiles.map(function (tile) {
         if (tile.dataset.aspect) return Promise.resolve();
-        var url = getBlurUrl(tile);
+        var url = GridUtils.getBlurUrl(tile);
         if (!url) return Promise.resolve();
         return new Promise(function (resolve) {
           var img = new Image();
@@ -260,40 +254,11 @@
     layoutMasonry(grid);
   }
 
-  // ---- Scroll reveal: re-triggers every time a tile crosses the
-  // viewport threshold, in either direction. -------------------------
   function initReveal(grid) {
-    if (!("IntersectionObserver" in window)) {
-      grid.querySelectorAll(".photo-tile").forEach(function (t) {
-        t.classList.add("cg-in");
-      });
-      return;
-    }
-    // Hysteresis, not a single threshold: reveal once at least 12% is
-    // visible, but don't reset back to "ready to replay" until the tile is
-    // *fully* out of view. A single threshold means a tile sitting right on
-    // that boundary — e.g. scrolled almost entirely past, just a sliver
-    // showing at the top edge — flips in/out on every minor scroll tick,
-    // restarting the transition each time and reading as a flash/flicker.
-    // With a dead zone between "fully out" and "12% in", a tile that's
-    // merely down to a sliver just stays revealed instead of retriggering.
-    var ENTER_RATIO = 0.12;
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          var tile = entry.target;
-          if (entry.intersectionRatio >= ENTER_RATIO) {
-            tile.classList.add("cg-in");
-          } else if (!entry.isIntersecting) {
-            tile.classList.remove("cg-in");
-          }
-          // else: in the dead zone (partially visible, below ENTER_RATIO) —
-          // leave whatever state it was already in alone.
-        });
-      },
-      { threshold: [0, ENTER_RATIO], rootMargin: "0px 0px -60px 0px" },
-    );
-    grid.querySelectorAll(".photo-tile").forEach(function (t) {
+    var tiles = Array.from(grid.querySelectorAll(".photo-tile"));
+    var io = GridUtils.createRevealObserver();
+    if (!io) return GridUtils.revealAllImmediately(tiles);
+    tiles.forEach(function (t) {
       io.observe(t);
     });
   }
@@ -329,9 +294,7 @@
       });
     });
     tiles.sort(function (a, b) {
-      var ai = (a.getAttribute("onclick") || "").match(/openModal\((\d+)/);
-      var bi = (b.getAttribute("onclick") || "").match(/openModal\((\d+)/);
-      return (ai ? parseInt(ai[1], 10) : 0) - (bi ? parseInt(bi[1], 10) : 0);
+      return GridUtils.getTileIndex(a) - GridUtils.getTileIndex(b);
     });
     grid.innerHTML = "";
     tiles.forEach(function (t) {

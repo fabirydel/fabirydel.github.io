@@ -140,7 +140,7 @@
 }
 
 .country-card {
-  --flag-color: #1f2224;
+  --flag-color: var(--ink);
   position: relative;
   display: block;
   color: inherit;

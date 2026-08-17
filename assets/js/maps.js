@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var myIcon = L.divIcon({
       iconSize: [30, 30],
       html: `
-      <img class="map-image" src="../images/thumb/${locationImg}">
+      <img class="map-image" src="/images/thumb/${locationImg}">
       <span class="map-image-title">${locationTitle}</span>
       `,
       iconAnchor: [20, 40],
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
         bannerLatLngs.push(bLatLng);
         var bIcon = L.divIcon({
           iconSize: [30, 30],
-          html: '<img class="map-image" src="../images/thumb/' + bImg + '"><span class="map-image-title">' + bTitle + '</span>',
+          html: '<img class="map-image" src="/images/thumb/' + bImg + '"><span class="map-image-title">' + bTitle + '</span>',
           iconAnchor: [20, 40],
           className: 'my-div-icon bounce'
         });
