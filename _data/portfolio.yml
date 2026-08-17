@@ -100,6 +100,7 @@
   location: valensole
   country: france
   landscape: true
+  large: true
 
 - path: innsbruck/02_IMG_9436-HDR-Edit.jpg
   title: Powerline
@@ -143,6 +144,7 @@
   location: ben_tianavaig
   country: scotland
   landscape: true
+  large: true
 
 - path: puimoisson1/IMG_5816.jpg
   title: A Bee's Shine
@@ -204,7 +206,6 @@
   location: loch_duntelchaig
   country: scotland
   landscape: true
-  large: true
 
 - path: lagamas/IMG_4864.jpg
   title: By the Red Vines
@@ -218,6 +219,7 @@
   location: kinderdijk
   country: netherlands
   landscape: true
+  large: true
 
 - path: rio/IMG_7891.jpg
   title: A Wonder of a Sunset
@@ -652,13 +654,13 @@
   place: Bled
   location: bled
   country: slovenia
+  large: true
 
 - path: jamnik/IMG_7726.jpg
   title: Jamnik
   place: Jamnik
   location: jamnik
   country: slovenia
-  large: true
 
 - path: jamnik/IMG_7714.jpg
   title: Jamnik
@@ -677,7 +679,6 @@
   place: Velika Planina
   location: velika_planina
   country: slovenia
-  large: true
 
 - path: velika_planina/IMG_9133.jpg
   title: Velika Planina
@@ -714,14 +715,12 @@
   place: Reserva de Flamingos
   location: reserva_flamingos
   country: bolivia
-  large: true
 
 - path: reserva_flamingos/7P9A2426_tn.jpg
   title: Reserva de Flamingos
   place: Reserva de Flamingos
   location: reserva_flamingos
   country: bolivia
-  large: true
 
 - path: reserva_flamingos/7P9A2773_tn.jpg
   title: Reserva de Flamingos
