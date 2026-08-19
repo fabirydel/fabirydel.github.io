@@ -63,40 +63,84 @@ window.GridUtils = (function () {
   // (hysteresis: reveal once 12% visible, only reset once fully out of
   // view, so a tile sitting right on the boundary doesn't flicker).
   //
-  // Critically, a tile stops being watched the instant its own state
-  // changes, resuming only after its transition settles. The reveal's own
-  // transform changes a tile's bounding box while it animates — if the
-  // observer kept watching that same box mid-transition, the box moving
-  // could re-cross the threshold on its own and restart the transition,
-  // which reads as glitching right at the scroll boundary.
+  // The reveal/hide transition itself moves the tile up to 90px (see the
+  // Pop rule in portfolio.scss) — enough to cross this same threshold on
+  // its own once the transition settles, with no further scrolling. Left
+  // unchecked that's a real feedback loop, not just jitter: hiding shifts
+  // the tile back toward the viewport, which can re-reveal it, which shifts
+  // it back out, forever, at whatever scroll position happens to straddle
+  // the boundary. window.scrollY is the one signal a tile's own transform
+  // can never move, so a crossing only commits if the page has actually
+  // scrolled a meaningful amount since this tile's last commit — a
+  // self-caused crossing shows zero scroll movement and gets ignored.
+  // A short debounce on top just collapses truly-simultaneous entries
+  // (e.g. both thresholds firing in the same batch) into one commit.
   var ENTER_RATIO = 0.12;
-  // Derived from POP_DURATION_MAX (the longest a reveal transition can run)
-  // plus a safety margin, so this can't silently drift shorter than the
-  // transition it's meant to outlast if that range ever changes.
-  var SETTLE_MS = Math.round((POP_DURATION_MAX + 0.15) * 1000);
+  var COMMIT_DELAY_MS = 100;
+  var MIN_SCROLL_DELTA_PX = 4;
 
   function createRevealObserver() {
     if (!("IntersectionObserver" in window)) return null;
-    var io = new IntersectionObserver(
+
+    function commit(tile, willReveal) {
+      clearTimeout(tile.__revealCommitTimer);
+      tile.__revealCommitTimer = setTimeout(function () {
+        var lastY = tile.__lastCommitScrollY;
+        if (lastY !== undefined && Math.abs(window.scrollY - lastY) < MIN_SCROLL_DELTA_PX) {
+          return; // no real scroll since last commit — this is our own transform
+        }
+        tile.__lastCommitScrollY = window.scrollY;
+        tile.classList.toggle("cg-in", willReveal);
+      }, COMMIT_DELAY_MS);
+    }
+
+    // Reveal, plus the ordinary hide while scrolling down: fires right at
+    // the natural edge, same threshold either direction crosses to enter.
+    var edgeIO = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           var tile = entry.target;
           var willReveal = entry.intersectionRatio >= ENTER_RATIO;
           var willHide = !entry.isIntersecting;
-          if (!willReveal && !willHide) return; // dead zone — leave state alone
-
-          tile.classList.toggle("cg-in", willReveal);
-
-          io.unobserve(tile);
-          clearTimeout(tile.__revealResumeTimer);
-          tile.__revealResumeTimer = setTimeout(function () {
-            io.observe(tile);
-          }, SETTLE_MS);
+          if (willReveal) {
+            commit(tile, true);
+          } else if (willHide) {
+            // While scrolling up, a tile that already appeared shouldn't
+            // vanish again just because a small reversal re-crosses the
+            // same shallow edge it entered through — farIO below decides
+            // hide in that case instead, once it's scrolled meaningfully
+            // out of view rather than just barely.
+            if (document.documentElement.getAttribute("data-scroll-dir") !== "up") {
+              commit(tile, false);
+            }
+          }
         });
       },
       { threshold: [0, ENTER_RATIO], rootMargin: "0px 0px -60px 0px" },
     );
-    return io;
+
+    // Hide while scrolling up: only once a tile is well clear of the
+    // viewport (not just past its entry edge), so scrolling up a little
+    // right after a reveal doesn't immediately hide it again. Positive
+    // rootMargin *grows* the root outward past the real viewport edges —
+    // a tile only counts as "not intersecting" once it's fully past that
+    // grown boundary, i.e. a real 20%-of-viewport distance beyond the
+    // actual edge, not merely touching the edge itself.
+    var farIO = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) commit(entry.target, false);
+        });
+      },
+      { threshold: 0, rootMargin: "20% 0px 20% 0px" },
+    );
+
+    return {
+      observe: function (tile) {
+        edgeIO.observe(tile);
+        farIO.observe(tile);
+      },
+    };
   }
 
   // No IntersectionObserver support: reveal everything immediately rather
