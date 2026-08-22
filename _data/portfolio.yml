@@ -24,7 +24,6 @@
   place: Bled
   location: chenonceau
   country: france
-  large: true
 
 - path: mostar/IMG_7359-Pano-Edit.jpg
   title: the Bridge
@@ -121,7 +120,6 @@
   location: puimoisson2
   country: france
   landscape: true
-  large: true
 
 - path: salen/IMG_8995-Edit.jpg
   title: Early Rise
@@ -129,7 +127,6 @@
   location: salen
   country: scotland
   landscape: true
-  large: true
 
 - path: arboras/IMG_4772.jpg
   title: Dusk
@@ -144,7 +141,6 @@
   location: ben_tianavaig
   country: scotland
   landscape: true
-  large: true
 
 - path: puimoisson1/IMG_5816.jpg
   title: A Bee's Shine
@@ -493,13 +489,6 @@
   location: solis
   country: uruguay
 
-- path: cabo_polonio/IMG_3896bis.jpg
-  title: La Juanita y La Nena
-  place: Cabo Polonio
-  location: cabo_polonio
-  country: uruguay
-  landscape: true
-
 - path: rio/IMG_7117.jpg
   title: Picado
   place: Rio de Janeiro
@@ -627,7 +616,6 @@
   place: Bled
   location: bled
   country: slovenia
-  large: true
 
 - path: bled/11_IMG_3212.jpg
   title: Bled
@@ -646,7 +634,6 @@
   place: Bled
   location: bled
   country: slovenia
-  large: true
 
 - path: bled/IMG_4697.jpg
   title: Bled
@@ -762,6 +749,7 @@
   place: Pula
   location: pula
   country: croatia
+  large: true
 
 - path: ranch_valley_jelena/IMG_8773.jpg
   title: Ranch Valley Jelena
@@ -786,6 +774,7 @@
   place: Amboise
   location: amboise
   country: france
+  large: true
 
 - path: arboras/IMG_9906.jpg
   title: Arboras
@@ -859,7 +848,6 @@
   place: Loch Fada
   location: loch_fada
   country: scotland
-  large: true
 
 - path: stalker_castle/IMG_5015_tn.jpg
   title: Castle Stalker
@@ -897,12 +885,6 @@
   location: lauterbrunnen
   country: switzerland
 
-- path: murren/IMG_4303.jpg
-  title: Mürren
-  place: Mürren
-  location: murren
-  country: switzerland
-
 - path: tarasp/IMG_0555-Edit.jpg
   title: Tarasp
   place: Tarasp
@@ -914,6 +896,7 @@
   place: Bella Vista
   location: bella_vista
   country: uruguay
+  large: true
 
 - path: montevideo/IMG_1051.jpg
   title: Montevideo
@@ -956,6 +939,7 @@
   place: Punta del Este
   location: punta_del_este
   country: uruguay
+  large: true
 
 - path: solis/IMG_5170.jpg
   title: Solis
@@ -968,3 +952,15 @@
   place: Cementerio de Trenes
   location: cementerio_de_trenes
   country: bolivia
+
+- path: belgrade/IMG_1991-Edit.jpg
+  title: Belgrade
+  place: Belgrade
+  location: belgrade
+  country: serbia
+
+- path: rio/7P9A4283.jpg
+  title: Río de Janeiro
+  place: Río de Janeiro
+  location: rio
+  country: brazil

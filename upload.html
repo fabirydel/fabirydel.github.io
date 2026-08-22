@@ -62,7 +62,29 @@ style: upload-page
   <!-- Step 3: Location info -->
   <section class="uw-step" data-step="location" hidden>
     <h2>Step 3 — Location details</h2>
-    <div class="uw-form">
+
+    <div class="uw-mode-toggle" role="radiogroup" aria-label="Location mode">
+      <label class="uw-mode-option">
+        <input type="radio" name="uw-loc-mode" value="new" checked>
+        <span>New location</span>
+      </label>
+      <label class="uw-mode-option">
+        <input type="radio" name="uw-loc-mode" value="existing">
+        <span>Add to existing location</span>
+      </label>
+    </div>
+
+    <div class="uw-form" id="uw-existing-location-fields" hidden>
+      <label class="uw-field uw-field-wide">
+        <span class="uw-label">Location <em>required</em></span>
+        <select id="uw-existing-location">
+          <option value="">Select a location…</option>
+        </select>
+      </label>
+      <div class="uw-field-wide" id="uw-existing-location-summary"></div>
+    </div>
+
+    <div class="uw-form" id="uw-new-location-fields">
       <label class="uw-field">
         <span class="uw-label">Title <em>required</em></span>
         <input type="text" id="uw-title" placeholder="e.g. Lago di Como" autocomplete="off">

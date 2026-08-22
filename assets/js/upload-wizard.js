@@ -102,6 +102,10 @@
     isNewCountry: false,
     newCountry: { title: '', latlng: '', bounds: '', zoom: 6, flagBlob: null, flagAlreadyExists: false },
     currentStep: 'folder',
+    mode: 'new',                 // 'new' | 'existing'
+    existingLocations: [],       // [{namePath, title, country, latlng, mapGoogle}] from _locations/*.html
+    existingLocation: null,      // the entry picked from existingLocations
+    existingLocationCollisions: [], // outputNames that already exist in the target location's folder
   };
 
   const STEP_ORDER = ['folder', 'images', 'location', 'country', 'cover', 'confirm', 'done'];
@@ -130,6 +134,8 @@
     let next = STEP_ORDER[idx + 1];
     // Skip the country step if not a new country
     if (next === 'country' && !state.isNewCountry) next = 'cover';
+    // Adding to an existing location reuses its existing cover — nothing to pick.
+    if (next === 'cover' && state.mode === 'existing') next = 'confirm';
     showStep(next);
     onEnterStep(next);
   }
@@ -137,7 +143,8 @@
   function goBack() {
     const idx = STEP_ORDER.indexOf(state.currentStep);
     let prev = STEP_ORDER[idx - 1];
-    if (prev === 'country' && !state.isNewCountry) prev = 'location';
+    if (prev === 'cover' && state.mode === 'existing') prev = 'location';
+    else if (prev === 'country' && !state.isNewCountry) prev = 'location';
     showStep(prev);
     onEnterStep(prev);
   }
@@ -286,6 +293,7 @@
     }
 
     populateCountryList();
+    await loadExistingLocations();
     setStatus('uw-folder-status',
       `✓ Connected — ${state.countries.length} countries detected. ${silent ? '(restored from previous session)' : ''}`,
       'ok');
@@ -302,6 +310,62 @@
       const opt = document.createElement('option');
       opt.value = c;
       dl.appendChild(opt);
+    });
+  }
+
+  // Minimal front-matter parser — good enough for our own flat key: value
+  // files (buildLocationFrontmatter never emits nested structures or lists).
+  function parseFrontmatter(text) {
+    const m = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (!m) return {};
+    const fm = {};
+    m[1].split('\n').forEach(line => {
+      const kv = line.match(/^([a-zA-Z0-9_]+):\s*(.*)$/);
+      if (!kv) return;
+      let value = kv[2].trim();
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+      fm[kv[1]] = value;
+    });
+    return fm;
+  }
+
+  // Scans _locations/*.html so "add to existing location" has titles and
+  // countries to show, not just the slugs locations_per_country.yml has.
+  async function loadExistingLocations() {
+    const locations = [];
+    try {
+      const locDir = await state.rootHandle.getDirectoryHandle('_locations');
+      for await (const [name, entry] of locDir.entries()) {
+        if (entry.kind !== 'file' || !name.endsWith('.html')) continue;
+        const f = await entry.getFile();
+        const fm = parseFrontmatter(await f.text());
+        if (!fm.namePath) continue;
+        locations.push({
+          namePath: fm.namePath,
+          title: fm.title || fm.namePath,
+          country: fm.country || '',
+          latlng: fm.latlng || '',
+          mapGoogle: fm.mapGoogle || '',
+        });
+      }
+    } catch (err) {
+      console.warn('Could not load existing locations', err);
+    }
+    locations.sort((a, b) => a.title.localeCompare(b.title));
+    state.existingLocations = locations;
+    populateExistingLocationSelect();
+  }
+
+  function populateExistingLocationSelect() {
+    const sel = document.getElementById('uw-existing-location');
+    sel.innerHTML = '<option value="">Select a location…</option>';
+    state.existingLocations.forEach(loc => {
+      const opt = document.createElement('option');
+      opt.value = loc.namePath;
+      opt.textContent = `${loc.title} — ${loc.country} (${loc.namePath})`;
+      sel.appendChild(opt);
     });
   }
 
@@ -557,7 +621,82 @@
       `Will save as _locations/${np}.html and create images/{full,thumb,blur}/${np}/`;
   }
 
+  // ---- New vs. existing location mode -----------------------
+  const newLocationFields = document.getElementById('uw-new-location-fields');
+  const existingLocationFields = document.getElementById('uw-existing-location-fields');
+  const existingLocationSelect = document.getElementById('uw-existing-location');
+  const existingLocationSummary = document.getElementById('uw-existing-location-summary');
+
+  root.querySelectorAll('input[name="uw-loc-mode"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (!radio.checked) return;
+      state.mode = radio.value === 'existing' ? 'existing' : 'new';
+      newLocationFields.hidden = state.mode === 'existing';
+      existingLocationFields.hidden = state.mode === 'new';
+    });
+  });
+
+  existingLocationSelect.addEventListener('change', () => {
+    const np = existingLocationSelect.value;
+    state.existingLocation = state.existingLocations.find(l => l.namePath === np) || null;
+    refreshExistingLocationSummary();
+  });
+
+  // Checks the target location's images/full/<namePath>/ folder for
+  // filenames that collide with the currently-selected uploads, so we never
+  // silently overwrite an existing photo. Returns how many photos it
+  // currently has.
+  async function computeExistingCollisions(namePath) {
+    const existingNames = new Set();
+    let existingCount = 0;
+    try {
+      const dir = await state.rootHandle.getDirectoryHandle('images')
+        .then(h => h.getDirectoryHandle('full'))
+        .then(h => h.getDirectoryHandle(namePath));
+      for await (const [name, entry] of dir.entries()) {
+        if (entry.kind === 'file') { existingNames.add(name); existingCount++; }
+      }
+    } catch (err) {
+      // No folder yet for this location — nothing to collide with.
+    }
+    state.existingLocationCollisions = state.images
+      .map(img => img.outputName)
+      .filter(name => existingNames.has(name));
+    return existingCount;
+  }
+
+  async function refreshExistingLocationSummary() {
+    const loc = state.existingLocation;
+    if (!loc) { existingLocationSummary.innerHTML = ''; return; }
+    const existingCount = await computeExistingCollisions(loc.namePath);
+    let html = `<div class="uw-existing-summary">`;
+    html += `<strong>${escapeHtml(loc.title)}</strong> — ${escapeHtml(loc.country)}<br>`;
+    html += `Currently has ${existingCount} photo${existingCount === 1 ? '' : 's'}.`;
+    if (state.existingLocationCollisions.length) {
+      const n = state.existingLocationCollisions.length;
+      html += `<span class="uw-collision-warning">⚠ ${n} of your selected photo${n === 1 ? '' : 's'} share${n === 1 ? 's' : ''} a filename with one already here and will be skipped: ${state.existingLocationCollisions.map(escapeHtml).join(', ')}. Rename the file and re-add it to include it.</span>`;
+    }
+    html += `</div>`;
+    existingLocationSummary.innerHTML = html;
+  }
+
   function validateLocationStep() {
+    if (state.mode === 'existing') {
+      const loc = state.existingLocation;
+      if (!loc) { alert('Pick an existing location.'); return false; }
+      if (state.existingLocationCollisions.length === state.images.length) {
+        alert('Every selected photo already exists in this location (same filename). Rename them or remove the collisions before continuing.');
+        return false;
+      }
+      state.location.title = loc.title;
+      state.location.namePath = loc.namePath;
+      state.location.country = loc.country;
+      state.location.latlng = loc.latlng;
+      state.location.mapGoogle = loc.mapGoogle;
+      state.isNewCountry = false;
+      return true;
+    }
+
     const title = titleInput.value.trim();
     const namePath = slugify(namepathInput.value || '');
     const country = slugify(countryInput.value || '');
@@ -689,6 +828,11 @@
   // Step 6 — Preview
   // ----------------------------------------------------------
   function renderPreview() {
+    if (state.mode === 'existing') {
+      renderExistingLocationPreview();
+      return;
+    }
+
     const np = state.location.namePath;
     const country = state.location.country;
     const cover = state.images[state.coverIndex];
@@ -747,6 +891,47 @@
     `;
   }
 
+  // Re-checks collisions right before showing the preview, in case the
+  // user went back and changed the image selection after picking the
+  // location.
+  async function renderExistingLocationPreview() {
+    const loc = state.existingLocation;
+    const np = loc.namePath;
+    await computeExistingCollisions(np);
+
+    const toWrite = state.images.filter(img => !state.existingLocationCollisions.includes(img.outputName));
+    const skipped = state.images.filter(img => state.existingLocationCollisions.includes(img.outputName));
+
+    const filesToCreate = [];
+    toWrite.forEach(img => {
+      SIZES.forEach(s => filesToCreate.push(`images/${s.name}/${np}/${img.outputName}`));
+    });
+
+    const el = document.getElementById('uw-preview');
+    el.innerHTML = `
+      <h3>Adding photos to an existing location</h3>
+      <p><strong>${escapeHtml(loc.title)}</strong> — ${escapeHtml(loc.country)} (<code>${np}</code>)</p>
+
+      <h3>Files to create (${filesToCreate.length})</h3>
+      <ul>${filesToCreate.map(f => `<li><code>${f}</code></li>`).join('')}</ul>
+
+      ${skipped.length ? `
+        <h3>Skipped — filename already exists in this location (${skipped.length})</h3>
+        <ul>${skipped.map(img => `<li><code>${img.outputName}</code></li>`).join('')}</ul>
+      ` : ''}
+
+      <h3>Images</h3>
+      <ul>
+        <li>${toWrite.length} photo${toWrite.length === 1 ? '' : 's'} × 3 sizes = ${toWrite.length * 3} JPEGs</li>
+        <li>full = max 1300px (longest side)</li>
+        <li>thumb = max 400px</li>
+        <li>blur = max 30px</li>
+      </ul>
+
+      <p class="uw-hint">No location, country, or YAML files will be created or modified — this location already exists.</p>
+    `;
+  }
+
   function escapeHtml(s) {
     return s.replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[c]));
   }
@@ -782,6 +967,62 @@
     ].join('\n');
   }
 
+  // Adds the current uploads to an already-existing location: resizes and
+  // writes images into its existing images/{full,thumb,blur}/<namePath>/
+  // folders, then nudges Jekyll to rebuild. No _locations, _countries, or
+  // YAML writes — the location is already fully set up.
+  async function processExistingLocation(setProgress, log) {
+    const loc = state.existingLocation;
+    const np = loc.namePath;
+    const country = loc.country;
+
+    await computeExistingCollisions(np); // re-check right before writing
+    const toWrite = state.images.filter(img => !state.existingLocationCollisions.includes(img.outputName));
+    if (state.existingLocationCollisions.length) {
+      log(`⚠ Skipping ${state.existingLocationCollisions.length} photo(s) already present: ${state.existingLocationCollisions.join(', ')}`);
+    }
+    if (toWrite.length === 0) {
+      throw new Error('Nothing to write — every selected photo already exists in this location.');
+    }
+
+    const totalSteps = toWrite.length * SIZES.length + 1;
+    let stepN = 0;
+
+    const imagesDir = await state.rootHandle.getDirectoryHandle('images');
+    const sizeDirs = {};
+    for (const s of SIZES) {
+      sizeDirs[s.name] = await imagesDir.getDirectoryHandle(s.name, { create: true })
+        .then(h => h.getDirectoryHandle(np, { create: true }));
+    }
+
+    for (const img of toWrite) {
+      const bitmap = await loadBitmap(img.file);
+      for (const s of SIZES) {
+        stepN++;
+        setProgress((stepN / totalSteps) * 100, `Resizing ${img.name} → ${s.name}…`);
+        const blob = await resizeToBlob(bitmap, s.bound, s.quality);
+        const fh = await sizeDirs[s.name].getFileHandle(img.outputName, { create: true });
+        const w = await fh.createWritable();
+        await w.write(blob);
+        await w.close();
+        log(`✓ images/${s.name}/${np}/${img.outputName}  (${(blob.size/1024).toFixed(1)} KB)`);
+      }
+      if (bitmap.close) bitmap.close();
+      await new Promise(r => setTimeout(r, 50));
+    }
+
+    setProgress(90, `Waiting for Jekyll to settle…`);
+    await new Promise(r => setTimeout(r, 1500));
+
+    setProgress(96, `Refreshing ${loc.title}…`);
+    await touchFile(state.rootHandle, ['_locations', np + '.html']);
+    log(`✓ refreshed _locations/${np}.html`);
+
+    setProgress(99, `Nudging Jekyll to rebuild dependent pages…`);
+    await touchAggregatingPages(state.rootHandle, country);
+    log(`✓ touched country/worldmap/locations/index for rebuild`);
+  }
+
   // ----------------------------------------------------------
   // Step 7 — Process & write everything
   // ----------------------------------------------------------
@@ -803,6 +1044,16 @@
     }
 
     try {
+      if (state.mode === 'existing') {
+        await processExistingLocation(setProgress, log);
+        setProgress(100, 'Done!');
+        await new Promise(r => setTimeout(r, 350));
+        overlay.hidden = true;
+        renderDoneSummary();
+        showStep('done');
+        return;
+      }
+
       const np = state.location.namePath;
       const country = state.location.country;
       const cover = state.images[state.coverIndex];
@@ -1047,6 +1298,24 @@
     const np = state.location.namePath;
     const country = state.location.country;
     const el = document.getElementById('uw-done-summary');
+
+    if (state.mode === 'existing') {
+      const added = state.images.length - state.existingLocationCollisions.length;
+      el.innerHTML = `
+        <p>✓ Added <code>${added}</code> photo${added === 1 ? '' : 's'} in 3 sizes to <strong>${state.location.title}</strong>.</p>
+        ${state.existingLocationCollisions.length
+          ? `<p>Skipped ${state.existingLocationCollisions.length} already present: ${state.existingLocationCollisions.join(', ')}</p>`
+          : ''}
+        <p>Refresh your local Jekyll preview to see the new photos:</p>
+        <ul>
+          <li><code>/countries/${country}#chapter-${np}</code></li>
+        </ul>
+        <p class="uw-hint">When you're happy, commit and push:
+          <br><code>git add -A && git commit -m "Add photos to ${state.location.title}" && git push</code></p>
+      `;
+      return;
+    }
+
     el.innerHTML = `
       <p>✓ Created <code>${state.images.length}</code> photos in 3 sizes for <strong>${state.location.title}</strong>.</p>
       <p>${state.isNewCountry
@@ -1070,6 +1339,9 @@
     state.location = { title: '', namePath: '', country: '', latlng: '', mapGoogle: '' };
     state.newCountry = { title: '', latlng: '', bounds: '', zoom: 6, flagBlob: null, flagAlreadyExists: false };
     state.isNewCountry = false;
+    state.mode = 'new';
+    state.existingLocation = null;
+    state.existingLocationCollisions = [];
     userEditedNamepath = false;
 
     // Reset form
@@ -1078,6 +1350,11 @@
     document.getElementById('uw-image-list').innerHTML = '';
     document.getElementById('uw-images-next').disabled = true;
     document.getElementById('uw-flag-preview').innerHTML = '';
+    root.querySelector('input[name="uw-loc-mode"][value="new"]').checked = true;
+    newLocationFields.hidden = false;
+    existingLocationFields.hidden = true;
+    existingLocationSelect.value = '';
+    existingLocationSummary.innerHTML = '';
 
     showStep('images'); // skip folder picker — already connected
   });

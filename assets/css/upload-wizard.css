@@ -327,6 +327,45 @@ body.dark .upload-wizard .uw-btn-primary:hover:not(:disabled) {
   z-index: 2;
 }
 
+/* Location mode toggle (new vs. existing) */
+.upload-wizard .uw-mode-toggle {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+.upload-wizard .uw-mode-option {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(127, 127, 127, 0.3);
+  cursor: pointer;
+  font-size: 0.88rem;
+  transition: all 0.15s ease;
+}
+.upload-wizard .uw-mode-option:has(input:checked) {
+  background: rgba(80, 130, 220, 0.12);
+  border-color: rgba(80, 130, 220, 0.5);
+}
+.upload-wizard .uw-mode-option input {
+  margin: 0;
+}
+
+.upload-wizard .uw-existing-summary {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  background: rgba(127, 127, 127, 0.06);
+  border: 1px solid rgba(127, 127, 127, 0.18);
+}
+.upload-wizard .uw-existing-summary .uw-collision-warning {
+  color: rgb(190, 110, 30);
+  margin-top: 0.5rem;
+  display: block;
+}
+
 /* Form */
 .upload-wizard .uw-form {
   display: grid;
@@ -367,6 +406,7 @@ body.dark .upload-wizard .uw-btn-primary:hover:not(:disabled) {
 .upload-wizard input[type="text"],
 .upload-wizard input[type="number"],
 .upload-wizard input[type="file"],
+.upload-wizard select,
 .upload-wizard textarea {
   font: inherit;
   font-size: 0.95rem;
@@ -380,14 +420,17 @@ body.dark .upload-wizard .uw-btn-primary:hover:not(:disabled) {
 }
 body.dark-theme .upload-wizard input[type="text"],
 body.dark-theme .upload-wizard input[type="number"],
+body.dark-theme .upload-wizard select,
 body.dark-theme .upload-wizard textarea,
 body.dark .upload-wizard input[type="text"],
 body.dark .upload-wizard input[type="number"],
+body.dark .upload-wizard select,
 body.dark .upload-wizard textarea {
   background: rgba(255, 255, 255, 0.08);
 }
 
 .upload-wizard input:focus,
+.upload-wizard select:focus,
 .upload-wizard textarea:focus {
   outline: none;
   border-color: rgba(80, 130, 220, 0.7);
