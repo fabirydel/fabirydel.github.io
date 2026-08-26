@@ -659,6 +659,7 @@
   place: Velika Planina
   location: velika_planina
   country: slovenia
+  large: true
 
 - path: velika_planina/IMG_9606.jpg
   title: Velika Planina
@@ -677,6 +678,7 @@
   place: Sv. Thomas
   location: sv_thomas
   country: slovenia
+  large: true
 
 - path: sv_jakov/IMG_6710.jpg
   title: Sv. Jakov
@@ -749,7 +751,6 @@
   place: Pula
   location: pula
   country: croatia
-  large: true
 
 - path: ranch_valley_jelena/IMG_8773.jpg
   title: Ranch Valley Jelena
@@ -774,7 +775,6 @@
   place: Amboise
   location: amboise
   country: france
-  large: true
 
 - path: arboras/IMG_9906.jpg
   title: Arboras
@@ -806,12 +806,14 @@
   place: Florence
   location: florence
   country: italy
+  large: true
 
 - path: siusi/IMG_8056-Edit.jpg
   title: Siusi
   place: Siusi
   location: siusi
   country: italy
+  large: true
 
 - path: st_giacomo_church/IMG_8808-Edit.jpg
   title: St. Giacomo Church
@@ -824,12 +826,14 @@
   place: St. John Church
   location: st_john_church
   country: italy
+  large: true
 
 - path: taormina/IMG_4867.jpg
   title: Taormina
   place: Taormina
   location: taormina
   country: italy
+  large: true
 
 - path: lagangarbh/IMG_4344.jpg
   title: The Lagangarbh
