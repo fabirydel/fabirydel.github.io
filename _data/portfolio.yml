@@ -99,6 +99,7 @@
   location: valensole
   country: france
   landscape: true
+  large: true
 
 - path: innsbruck/02_IMG_9436-HDR-Edit.jpg
   title: Powerline
@@ -127,6 +128,7 @@
   location: salen
   country: scotland
   landscape: true
+  large: true
 
 - path: arboras/IMG_4772.jpg
   title: Dusk
@@ -222,6 +224,7 @@
   location: rio
   country: brazil
   landscape: true
+  large: true
 
 - path: piriapolis/IMG_2994.jpg
   title: Sol
@@ -235,6 +238,7 @@
   place: Montpeyroux
   location: montpeyroux
   country: france
+  large: true
 
 - path: arboras/IMG_4747.jpg
   title: All Roads Lead Home
@@ -248,6 +252,7 @@
   location: tentes
   country: france
   landscape: true
+  large: true
 
 ############################## ORANGE-GREEN ##############################
 
@@ -307,6 +312,7 @@
   place: Mont Saint Michel
   location: mont_st_michel
   country: france
+  large: true
 
 - path: glenbrittle/IMG_3926.jpg
   title: Eye of Skye
@@ -659,7 +665,6 @@
   place: Velika Planina
   location: velika_planina
   country: slovenia
-  large: true
 
 - path: velika_planina/IMG_9606.jpg
   title: Velika Planina
@@ -678,7 +683,6 @@
   place: Sv. Thomas
   location: sv_thomas
   country: slovenia
-  large: true
 
 - path: sv_jakov/IMG_6710.jpg
   title: Sv. Jakov
@@ -833,7 +837,6 @@
   place: Taormina
   location: taormina
   country: italy
-  large: true
 
 - path: lagangarbh/IMG_4344.jpg
   title: The Lagangarbh
@@ -943,7 +946,6 @@
   place: Punta del Este
   location: punta_del_este
   country: uruguay
-  large: true
 
 - path: solis/IMG_5170.jpg
   title: Solis
