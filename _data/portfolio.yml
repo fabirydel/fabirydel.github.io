@@ -99,7 +99,6 @@
   location: valensole
   country: france
   landscape: true
-  large: true
 
 - path: innsbruck/02_IMG_9436-HDR-Edit.jpg
   title: Powerline
@@ -143,6 +142,7 @@
   location: ben_tianavaig
   country: scotland
   landscape: true
+  large: true
 
 - path: puimoisson1/IMG_5816.jpg
   title: A Bee's Shine
@@ -683,7 +683,6 @@
   place: Sv. Thomas
   location: sv_thomas
   country: slovenia
-  large: true
 
 - path: sv_jakov/IMG_6710.jpg
   title: Sv. Jakov
@@ -818,7 +817,6 @@
   place: Siusi
   location: siusi
   country: italy
-  large: true
 
 - path: st_giacomo_church/IMG_8808-Edit.jpg
   title: St. Giacomo Church
@@ -947,6 +945,7 @@
   place: Punta del Este
   location: punta_del_este
   country: uruguay
+  large: true
 
 - path: solis/IMG_5170.jpg
   title: Solis
