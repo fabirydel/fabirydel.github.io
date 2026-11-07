@@ -100,7 +100,7 @@
     coverCountryIndex: 0,       // which image is the country cover (when new)
     location: { title: '', namePath: '', country: '', latlng: '', mapGoogle: '' },
     isNewCountry: false,
-    newCountry: { title: '', latlng: '', bounds: '', zoom: 6, flagBlob: null, flagAlreadyExists: false },
+    newCountry: { title: '', latlng: '', bounds: '', zoom: 6, colors: [], flagBlob: null, flagAlreadyExists: false },
     currentStep: 'folder',
     mode: 'new',                 // 'new' | 'existing'
     existingLocations: [],       // [{namePath, title, country, latlng, mapGoogle}] from _locations/*.html
@@ -185,6 +185,141 @@
       .normalize('NFD').replace(/[̀-ͯ]/g, '')   // strip accents
       .replace(/[^a-z0-9]+/g, '_')
       .replace(/^_+|_+$/g, '');
+  }
+
+  // ---- Input normalisation / validation ---------------------
+  // The site's JS runs JSON.parse() on latlng/bounds, so a value that isn't
+  // valid JSON breaks the page's maps (and one bad location breaks the whole
+  // worldmap). Accept the formats people actually paste (Google Maps gives
+  // "lat,lng"; others add brackets or parentheses) and always save
+  // "[lat, lng]".
+  function extractNumbers(input) {
+    return ((input || '').match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+  }
+
+  // Returns "[lat, lng]" or null if `input` isn't a valid coordinate pair.
+  function normalizeLatLng(input) {
+    const nums = extractNumbers(input);
+    if (nums.length !== 2) return null;
+    const [lat, lng] = nums;
+    if (Math.abs(lat) > 90 || Math.abs(lng) > 180) return null;
+    return `[${lat}, ${lng}]`;
+  }
+
+  // Returns "[[lat, lng], [lat, lng]]" or null.
+  function normalizeBounds(input) {
+    const n = extractNumbers(input);
+    if (n.length !== 4) return null;
+    if ([n[0], n[2]].some(v => Math.abs(v) > 90) || [n[1], n[3]].some(v => Math.abs(v) > 180)) return null;
+    return `[[${n[0]}, ${n[1]}], [${n[2]}, ${n[3]}]]`;
+  }
+
+  // A title that is really a coordinate pair (pasted into the wrong field)
+  // or has no letters at all would produce a nonsense namePath like
+  // "55_2322213_6_5394664", which YAML also parses as a number.
+  function titleProblem(title) {
+    if (!/[a-z]/i.test(title)) {
+      return /\d/.test(title)
+        ? 'Title looks like coordinates or a number. Enter the place name here and put coordinates in the latlng field.'
+        : 'Title needs at least one letter.';
+    }
+    return null;
+  }
+
+  // Quote a YAML scalar only when plain style would be misread.
+  function yamlScalar(value) {
+    const v = String(value);
+    const risky = /^[\s\-?:,\[\]{}#&*!|>'"%@`]/.test(v) || /:\s|\s#|\s$/.test(v) ||
+      /^(true|false|yes|no|null|~|on|off)$/i.test(v) || /^[-+]?[\d._]+$/.test(v);
+    return risky ? '"' + v.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"' : v;
+  }
+
+  // ---- Flag colours (_data/flag_colors.yml) -----------------
+  // Detects the main colours of a flag image, ordered as they appear
+  // (along whichever axis the colours are spread over). Returns ["#RRGGBB", …].
+  async function detectFlagColors(bitmap, maxColors = 4) {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size; canvas.height = size;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(bitmap, 0, 0, size, size);
+    const data = ctx.getImageData(0, 0, size, size).data;
+
+    // Bucket pixels to 4 bits per channel; track position per bucket.
+    const buckets = new Map();
+    let opaque = 0;
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const i = (y * size + x) * 4;
+        if (data[i + 3] < 200) continue;
+        opaque++;
+        const key = ((data[i] >> 4) << 8) | ((data[i + 1] >> 4) << 4) | (data[i + 2] >> 4);
+        let b = buckets.get(key);
+        if (!b) { b = { n: 0, r: 0, g: 0, b: 0, x: 0, y: 0 }; buckets.set(key, b); }
+        b.n++; b.r += data[i]; b.g += data[i + 1]; b.b += data[i + 2]; b.x += x; b.y += y;
+      }
+    }
+    if (!opaque) return [];
+
+    const dist = (a, b) => Math.hypot(a.r - b.r, a.g - b.g, a.b - b.b);
+    const cands = [...buckets.values()]
+      .map(b => ({ n: b.n, r: b.r / b.n, g: b.g / b.n, b: b.b / b.n, x: b.x / b.n, y: b.y / b.n }))
+      .sort((a, b) => b.n - a.n);
+
+    // Greedy: keep a bucket if it is a visibly different colour from those
+    // already kept; fold near-duplicates (anti-aliasing, gradients) into them.
+    const kept = [];
+    for (const c of cands) {
+      const near = kept.find(k => dist(k, c) < 60);
+      if (near) {
+        const t = near.n + c.n;
+        near.x = (near.x * near.n + c.x * c.n) / t;
+        near.y = (near.y * near.n + c.y * c.n) / t;
+        near.n = t;
+      } else {
+        kept.push({ ...c });
+      }
+    }
+    const main = kept.filter(k => k.n / opaque >= 0.08).slice(0, maxColors);
+    if (main.length < 2) return main.map(toHex);
+
+    const spread = arr => Math.max(...arr) - Math.min(...arr);
+    const axis = spread(main.map(k => k.x)) >= spread(main.map(k => k.y)) ? 'x' : 'y';
+    main.sort((a, b) => a[axis] - b[axis]);
+    return main.map(toHex);
+
+    function toHex(c) {
+      return '#' + [c.r, c.g, c.b].map(v => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase();
+    }
+  }
+
+  // Parses "#abc, #AABBCC" style text into ["#AABBCC", …]; null if invalid.
+  function parseColorList(input) {
+    const parts = (input || '').split(/[\s,]+/).filter(Boolean);
+    const out = [];
+    for (const p of parts) {
+      let m = p.match(/^#?([0-9a-f]{6})$/i);
+      if (!m) {
+        const short = p.match(/^#?([0-9a-f]{3})$/i);
+        if (!short) return null;
+        m = [null, short[1].split('').map(c => c + c).join('')];
+      }
+      out.push('#' + m[1].toUpperCase());
+    }
+    return out;
+  }
+
+  // Inserts a block for `slug` into flag_colors.yml, keeping the file's
+  // alphabetical order and any existing block untouched.
+  function buildUpdatedFlagColors(text, slug, colors) {
+    if (new RegExp('^' + slug + ':', 'm').test(text)) return text;
+    const block = `${slug}:\n` + colors.map(c => `  - "${c}"`).join('\n') + '\n';
+    const re = /^([a-z0-9_]+):\s*$/gm;
+    let m;
+    while ((m = re.exec(text))) {
+      if (m[1] > slug) return text.slice(0, m.index) + block + text.slice(m.index);
+    }
+    return text.replace(/\n*$/, '\n') + block;
   }
 
   function setStatus(elId, msg, kind) {
@@ -701,13 +836,25 @@
     const namePath = slugify(namepathInput.value || '');
     const country = slugify(countryInput.value || '');
     if (!title) { alert('Title is required.'); return false; }
+    const tProblem = titleProblem(title);
+    if (tProblem) { alert(tProblem); return false; }
     if (!namePath) { alert('namePath is required.'); return false; }
+    if (!/[a-z]/.test(namePath)) { alert('namePath needs at least one letter (it is the folder and file name).'); return false; }
     if (!country) { alert('Country is required.'); return false; }
+
+    // latlng is optional, but when present it must be a valid pair.
+    const rawLatLng = latlngInput.value.trim();
+    let latlng = '';
+    if (rawLatLng) {
+      latlng = normalizeLatLng(rawLatLng);
+      if (!latlng) { alert('latlng must be two numbers, e.g. 55.2322, -6.5394 (latitude first).'); return false; }
+      latlngInput.value = latlng;
+    }
 
     state.location.title = title;
     state.location.namePath = namePath;
     state.location.country = country;
-    state.location.latlng = latlngInput.value.trim();
+    state.location.latlng = latlng;
     state.location.mapGoogle = extractMapSrc(mapInput.value);
     state.isNewCountry = !state.countries.includes(country);
     return true;
@@ -720,16 +867,34 @@
   const cLatlng = document.getElementById('uw-c-latlng');
   const cBounds = document.getElementById('uw-c-bounds');
   const cZoom   = document.getElementById('uw-c-zoom');
+  const cColors = document.getElementById('uw-c-colors');
   const flagInput = document.getElementById('uw-flag-input');
   const flagUploadLabel = document.querySelector('.uw-flag-upload');
   const flagPreview = document.getElementById('uw-flag-preview');
   const flagStatus = document.getElementById('uw-flag-status');
+
+  // Fills the flag-colour field from a flag image (existing file or upload).
+  // Never overwrites something the user typed.
+  let colorsEditedByUser = false;
+  cColors.addEventListener('input', () => { colorsEditedByUser = cColors.value.length > 0; });
+  async function autofillColorsFrom(fileOrBlob) {
+    if (colorsEditedByUser) return;
+    try {
+      const bitmap = await loadBitmap(fileOrBlob);
+      const colors = await detectFlagColors(bitmap);
+      if (bitmap.close) bitmap.close();
+      if (colors.length && !colorsEditedByUser) cColors.value = colors.join(', ');
+    } catch (err) {
+      console.debug('flag colour detection failed', err);
+    }
+  }
 
   flagInput.addEventListener('change', async () => {
     const f = flagInput.files[0];
     if (!f) return;
     state.newCountry.flagBlob = f;
     flagPreview.innerHTML = `<img src="${URL.createObjectURL(f)}"><span>Selected: ${f.name}</span>`;
+    autofillColorsFrom(f);
   });
 
   async function renderNewCountryStep() {
@@ -743,14 +908,17 @@
     state.newCountry.flagAlreadyExists = false;
     state.newCountry.flagBlob = null;
     flagPreview.innerHTML = '';
+    colorsEditedByUser = false;
+    cColors.value = '';
     try {
       const flagsDir = await state.rootHandle.getDirectoryHandle('images')
         .then(h => h.getDirectoryHandle('flags'));
       try {
-        await flagsDir.getFileHandle(slug + '.png');
+        const existingFlag = await flagsDir.getFileHandle(slug + '.png');
         state.newCountry.flagAlreadyExists = true;
         flagStatus.textContent = `✓ /images/flags/${slug}.png already exists`;
         flagUploadLabel.hidden = true;
+        autofillColorsFrom(await existingFlag.getFile());
       } catch {
         flagStatus.textContent = `not found — please upload one`;
         flagUploadLabel.hidden = false;
@@ -770,14 +938,23 @@
     if (!ll) { alert('latlng required.'); return false; }
     if (!bb) { alert('bounds required.'); return false; }
     if (!z || isNaN(z)) { alert('zoom required.'); return false; }
+    const llNorm = normalizeLatLng(ll);
+    if (!llNorm) { alert('Country latlng must be two numbers, e.g. 53.35, -7.9 (latitude first).'); return false; }
+    const bbNorm = normalizeBounds(bb);
+    if (!bbNorm) { alert('bounds must be four numbers: two corners as "lat, lng", e.g. [[55.4, -5.2], [51.2, -11.4]].'); return false; }
+    const colors = parseColorList(cColors.value);
+    if (colors === null) { alert('Flag colors must be hex values like #169B62, separated by commas (or leave it empty).'); return false; }
     if (!state.newCountry.flagAlreadyExists && !state.newCountry.flagBlob) {
       const ok = confirm(`No flag PNG found at /images/flags/${state.location.country}.png and no flag uploaded. Continue without one? (the flag image will simply be missing on the site)`);
       if (!ok) return false;
     }
     state.newCountry.title = t;
-    state.newCountry.latlng = ll;
-    state.newCountry.bounds = bb;
+    state.newCountry.latlng = llNorm;
+    state.newCountry.bounds = bbNorm;
     state.newCountry.zoom = z;
+    state.newCountry.colors = colors;
+    cLatlng.value = llNorm;
+    cBounds.value = bbNorm;
     return true;
   }
 
@@ -850,6 +1027,9 @@
       if (state.newCountry.flagBlob) {
         filesToCreate.push(`images/flags/${country}.png`);
       }
+      if (state.newCountry.colors.length) {
+        filesToCreate.push(`_data/flag_colors.yml (add ${country} block)`);
+      }
     }
 
     const locationFm = buildLocationFrontmatter(state.location, coverPath);
@@ -877,6 +1057,10 @@
       <pre>${escapeHtml(locationFm)}</pre>
 
       ${state.isNewCountry ? `<h3>_countries/${country}.html</h3><pre>${escapeHtml(countryFm)}</pre>` : ''}
+
+      ${state.isNewCountry ? `<h3>_data/flag_colors.yml (new block)</h3><pre>${state.newCountry.colors.length
+        ? escapeHtml(`${country}:\n` + state.newCountry.colors.map(c => `  - "${c}"`).join('\n'))
+        : '(none — the country card will have no colour stripe)'}</pre>` : ''}
 
       <h3>_data/locations_per_country.yml ${state.isNewCountry ? '(new block appended)' : '(updated block)'}</h3>
       <pre>${escapeHtml(yamlPreview)}</pre>
@@ -940,8 +1124,8 @@
     return [
       '---',
       'layout: location',
-      `title: ${loc.title}`,
-      `namePath: ${loc.namePath}`,
+      `title: ${yamlScalar(loc.title)}`,
+      `namePath: ${yamlScalar(loc.namePath)}`,
       `indexImagePath: ${indexImagePath}`,
       `country: ${loc.country}`,
       `latlng: "${loc.latlng}"`,
@@ -955,7 +1139,7 @@
     return [
       '---',
       'layout: country',
-      `title: ${c.title}`,
+      `title: ${yamlScalar(c.title)}`,
       `flag: ${slug}`,
       `name: ${slug}`,
       `latlng: "${c.latlng}"`,
@@ -1138,6 +1322,16 @@
           await flagW.close();
           log(`✓ images/flags/${country}.png`);
         }
+
+        if (state.newCountry.colors.length) {
+          const dataDirForColors = await state.rootHandle.getDirectoryHandle('_data');
+          const colorsFh = await dataDirForColors.getFileHandle('flag_colors.yml', { create: true });
+          const colorsText = await (await colorsFh.getFile()).text();
+          const colorsW = await colorsFh.createWritable();
+          await colorsW.write(buildUpdatedFlagColors(colorsText, country, state.newCountry.colors));
+          await colorsW.close();
+          log(`✓ _data/flag_colors.yml`);
+        }
       }
 
       // 4. Update YAML
@@ -1270,9 +1464,16 @@
   async function touchAggregatingPages(rootHandle, country) {
     // Country page → drives the country-page map pins.
     await touchFile(rootHandle, ['_countries', country + '.html']);
-    // Top-level pages that read site.locations.
+    // Top-level pages that read site.locations / site.countries. Under
+    // `jekyll serve --incremental` a new collection document does NOT
+    // invalidate these on its own, so a new country/location would be
+    // missing from them until they are touched.
     await touchFile(rootHandle, ['worldmap.html']);
+    await touchFile(rootHandle, ['countries.html']);
     await touchFile(rootHandle, ['locations.html']);
+    // Every page embeds the countries modal (a list of site.countries);
+    // Jekyll tracks includes as dependencies, so touching it rebuilds them all.
+    await touchFile(rootHandle, ['_includes', 'countries_modal.html']);
     // Portfolio (index.html via portfolio layout) reads `site.locations | size`.
     await touchFile(rootHandle, ['index.html']);
   }
@@ -1337,7 +1538,7 @@
     state.coverIndex = 0;
     state.coverCountryIndex = 0;
     state.location = { title: '', namePath: '', country: '', latlng: '', mapGoogle: '' };
-    state.newCountry = { title: '', latlng: '', bounds: '', zoom: 6, flagBlob: null, flagAlreadyExists: false };
+    state.newCountry = { title: '', latlng: '', bounds: '', zoom: 6, colors: [], flagBlob: null, flagAlreadyExists: false };
     state.isNewCountry = false;
     state.mode = 'new';
     state.existingLocation = null;
@@ -1346,7 +1547,7 @@
 
     // Reset form
     [titleInput, namepathInput, countryInput, latlngInput, mapInput,
-     cTitle, cLatlng, cBounds, cZoom].forEach(el => el.value = '');
+     cTitle, cLatlng, cBounds, cZoom, cColors].forEach(el => el.value = '');
     document.getElementById('uw-image-list').innerHTML = '';
     document.getElementById('uw-images-next').disabled = true;
     document.getElementById('uw-flag-preview').innerHTML = '';
