@@ -42,6 +42,10 @@ france:
 gibraltar:
   - "#FFFFFF"
   - "#DA251D"
+ireland:
+  - "#169B62"
+  - "#FFFFFF"
+  - "#FF883E"
 italy:
   - "#009246"
   - "#FFFFFF"
@@ -61,6 +65,9 @@ netherlands:
   - "#AE1C28"
   - "#FFFFFF"
   - "#21468B"
+northern_ireland:
+  - "#FFFFFF"
+  - "#C8102E"
 scotland:
   - "#0065BD"
   - "#FFFFFF"

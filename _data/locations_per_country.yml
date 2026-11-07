@@ -291,3 +291,14 @@ bolivia:
     - reserva_flamingos
     - sajama_national_park
     - salar_de_uyuni
+
+ireland:
+  locations:
+    - classiebawn_castle
+    - crohy_head_sea_arch
+    - pine_island
+
+northern_ireland:
+  locations:
+    - giants_causeway
+    - the_dark_hedges
