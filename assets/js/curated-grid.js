@@ -9,8 +9,8 @@
 // that greedy walk can easily paint itself into a corner and leave a hole
 // no later tile happens to fit — exactly the empty gaps that were showing
 // up. Computing placement ourselves (shortest-column-first, like Pinterest)
-// guarantees no gaps: every tile is placed exactly at the bottom of the
-// column(s) it's assigned to, so there's never empty space to leave behind.
+// lets us guarantee no gaps: see layoutMasonry() for how large tiles are
+// seated without leaving empty space behind.
 //
 // Also owns a home-page-only touch: a subtle parallax on the hero cover
 // photo. Tile scroll-reveal is shared with the other galleries — see
@@ -61,43 +61,289 @@
     );
   }
 
-  // Shortest-column-first masonry with span support. Walks tiles in DOM
-  // order; each one goes at the bottom of whichever column (or, for a
-  // large tile, whichever adjacent column *pair*) is currently shortest.
+  // Shortest-column-first masonry with span support, and no holes.
   //
-  // A 2-column tile has to start at the same y in both columns, so if one
-  // of the two is shorter than the other at that point, placing it there
-  // strands a gap in the shorter column — there's no way around that once
-  // the large tile is committed. So before committing one, look ahead for
-  // upcoming single-column tiles to backfill that gap first (pulling them
-  // slightly out of their normal order). Every tile is always placed at
-  // its own natural (aspect-derived) height — never resized to force an
-  // exact fit — so object-fit: cover never has to crop more than the
-  // couple of stray px that already happens everywhere in this grid.
-  // That means a gap can't always be closed *exactly*; when nothing left
-  // fits within it, the closest-height remaining tile is used instead,
-  // still at its own natural size, trading a small (bounded, rare)
-  // residual gap for never visibly cropping a photo.
+  // Single-column tiles simply go at the bottom of whichever column is
+  // currently shortest, so they can never leave a gap. A large (2-column)
+  // tile is the hard case: it has to start at the same y in both columns
+  // it spans, and those two columns are almost never exactly level. Any
+  // difference left under it is a visible hole.
   //
-  // Effectively unlimited — a few hundred tiles is nothing to scan, and a
-  // wider search means more chances of finding something close to what's
-  // needed.
-  var BACKFILL_LOOKAHEAD = Infinity;
+  // So a large tile is only ever placed on a pair of columns that has been
+  // made *exactly* level first:
+  //
+  //   1. Backfill — upcoming single tiles that fit are pulled (slightly out
+  //      of order) into the shorter column, optionally plus one that
+  //      overshoots, whichever leaves the smaller difference.
+  //   2. Level — the remaining difference is absorbed by resizing the
+  //      tiles in both columns' "tails" (everything placed since the last
+  //      large tile in that column — nothing above is touched, so earlier
+  //      alignments stay intact). The shorter column's tail grows and the
+  //      taller one's shrinks, proportionally, so each photo is cropped
+  //      (object-fit: cover) by the same small fraction — typically a few
+  //      percent — instead of one tile taking the whole correction.
+  //
+  // If the crop needed would exceed MAX_STRETCH the large tile waits: the
+  // next single tiles are placed normally and it is retried after each
+  // one. After MAX_DEFER tries (or at the end of the list) it is placed
+  // with the looser MAX_STRETCH_FORCED limit, and if even that isn't
+  // possible it is shown at normal size instead — a single-column tile
+  // can't create a hole. Finally the bottom edge is levelled the same way
+  // (best effort), so the grid ends in a straight line.
+  var MAX_STRETCH = 0.14; // preferred limit on how much a tile is resized
+  var MAX_STRETCH_FORCED = 0.3; // last resort before demoting a large tile
+  var MAX_DEFER = 8; // singles to place before forcing a waiting large tile
+  var MAX_STRETCH_BOTTOM = 0.2; // limit when levelling the grid's bottom edge
 
-  // A gap of GAP_CLOSE_MAX px or less gets closed by growing the column's
-  // last tile by that much (a couple more px of object-fit: cover crop,
-  // same as the gentle trim already happening everywhere) rather than left
-  // open. Above that it's left as a gap rather than crop a photo more to
-  // force it shut.
-  var GAP_CLOSE_MAX = 100;
+  // Pure placement: works out a position and size for every tile of `base`
+  // (in the given order) without touching the DOM. Returns the placed items
+  // plus how uneven the bottom edge ended up (`ragged`, px).
+  function computeLayout(base, cols, colWidth) {
+    var colHeights = new Array(cols).fill(0);
+    // Per column: single tiles placed since the last large tile there.
+    var tails = [];
+    for (var t = 0; t < cols; t++) tails.push([]);
+    // Per column: the large tile it currently ends in, if its tail is empty.
+    var endLarge = new Array(cols).fill(null);
+
+    var meta = base.map(function (b) {
+      var width = b.span === 2 ? colWidth * 2 + GAP : colWidth;
+      return {
+        tile: b.tile,
+        span: b.span,
+        aspect: b.aspect,
+        width: width,
+        height: width / b.aspect,
+        col: 0,
+        y: 0,
+        placed: false,
+        deferred: 0,
+      };
+    });
+
+    function shortestCol() {
+      var col = 0;
+      for (var c = 1; c < cols; c++)
+        if (colHeights[c] < colHeights[col]) col = c;
+      return col;
+    }
+
+    function tailSum(col) {
+      var sum = 0;
+      for (var k = 0; k < tails[col].length; k++) sum += tails[col][k].height;
+      return sum;
+    }
+
+    function placeSingle(m, col) {
+      m.col = col;
+      m.y = colHeights[col];
+      m.placed = true;
+      tails[col].push(m);
+      colHeights[col] += m.height + GAP;
+    }
+
+    // Grow (delta > 0) or shrink (delta < 0) a column by resizing its tail
+    // tiles proportionally, then restack them.
+    function resizeTail(col, delta) {
+      var tail = tails[col];
+      if (!tail.length || !delta) return;
+      var sum = tailSum(col);
+      var factor = (sum + delta) / sum;
+      var y = tail[0].y;
+      for (var k = 0; k < tail.length; k++) {
+        tail[k].height *= factor;
+        tail[k].y = y;
+        y += tail[k].height + GAP;
+      }
+      colHeights[col] = y;
+    }
+
+    // Make columns a and b end at exactly the same y.
+    function levelPair(a, b) {
+      var s = colHeights[a] <= colHeights[b] ? a : b;
+      var tall = s === a ? b : a;
+      var diff = colHeights[tall] - colHeights[s];
+      var sumS = tailSum(s);
+      var sumT = tailSum(tall);
+      if (diff <= 0 || sumS + sumT === 0) return;
+      var grow = (diff * sumS) / (sumS + sumT);
+      resizeTail(s, grow);
+      resizeTail(tall, -(diff - grow));
+    }
+
+    // Works out how a large tile could go on columns p / p+1: which single
+    // tiles to backfill and how much resizing levelling would then need
+    // (cost = fraction each affected tile is resized by). Changes nothing.
+    function planPair(p) {
+      var s = colHeights[p] <= colHeights[p + 1] ? p : p + 1;
+      var tall = s === p ? p + 1 : p;
+      var gap = colHeights[tall] - colHeights[s];
+      var fill = [];
+      var fillSum = 0;
+      for (var j = 0; j < meta.length && gap > GAP + 4; j++) {
+        var cand = meta[j];
+        if (cand.placed || cand.span !== 1) continue;
+        if (cand.height <= gap - GAP) {
+          fill.push(cand);
+          fillSum += cand.height;
+          gap -= cand.height + GAP;
+        }
+      }
+      var sumS = tailSum(s) + fillSum;
+      var sumT = tailSum(tall);
+      var cost = sumS + sumT > 0 ? gap / (sumS + sumT) : gap < 0.5 ? 0 : Infinity;
+      var extra = null;
+      if (gap > 0.5) {
+        // One more tile that overshoots may leave less to correct.
+        for (var q = 0; q < meta.length; q++) {
+          var over = meta[q];
+          if (over.placed || over.span !== 1 || fill.indexOf(over) !== -1) continue;
+          var overCost = (over.height + GAP - gap) / (sumS + over.height + sumT);
+          if (overCost >= 0 && overCost < cost) {
+            cost = overCost;
+            extra = over;
+          }
+        }
+      }
+      var top = Math.max(colHeights[p], colHeights[p + 1]);
+      if (extra) top = colHeights[s] + (colHeights[tall] - colHeights[s] - gap) + extra.height + GAP;
+      return { p: p, s: s, fill: fill, extra: extra, cost: cost, top: top };
+    }
+
+    // Place a large tile if some adjacent pair can take it within `limit`,
+    // preferring the highest position (keeps it closest to its own place
+    // in the order). Returns false if no pair qualifies.
+    function placeLarge(m, limit) {
+      var best = null;
+      for (var p = 0; p <= cols - 2; p++) {
+        var plan = planPair(p);
+        if (plan.cost > limit) continue;
+        if (!best || plan.top < best.top - 0.5 ||
+            (Math.abs(plan.top - best.top) <= 0.5 && plan.cost < best.cost)) {
+          best = plan;
+        }
+      }
+      if (!best) return false;
+
+      for (var f = 0; f < best.fill.length; f++) placeSingle(best.fill[f], best.s);
+      if (best.extra) placeSingle(best.extra, best.s);
+      levelPair(best.p, best.p + 1);
+
+      var y = Math.max(colHeights[best.p], colHeights[best.p + 1]);
+      m.col = best.p;
+      m.y = y;
+      m.placed = true;
+      colHeights[best.p] = colHeights[best.p + 1] = y + m.height + GAP;
+      tails[best.p] = [];
+      tails[best.p + 1] = [];
+      endLarge[best.p] = endLarge[best.p + 1] = m;
+      return true;
+    }
+
+    // Last resort for a large tile that can't be seated without a hole.
+    function forceLarge(m) {
+      if (placeLarge(m, MAX_STRETCH_FORCED)) return;
+      m.span = 1;
+      m.width = colWidth;
+      m.height = colWidth / m.aspect;
+      placeSingle(m, shortestCol());
+    }
+
+    var pending = []; // large tiles waiting for a level pair, in order
+
+    function settlePending() {
+      while (pending.length && placeLarge(pending[0], MAX_STRETCH)) pending.shift();
+    }
+
+    for (var i = 0; i < meta.length; i++) {
+      var m = meta[i];
+      if (m.placed) continue;
+
+      if (m.span === 2) {
+        pending.push(m);
+        settlePending();
+        continue;
+      }
+
+      placeSingle(m, shortestCol());
+      if (pending.length) {
+        settlePending();
+        if (pending.length && ++pending[0].deferred >= MAX_DEFER) {
+          forceLarge(pending.shift());
+          settlePending();
+        }
+      }
+    }
+    while (pending.length) forceLarge(pending.shift());
+
+    // Level the bottom edge so the grid ends in a straight line. Each
+    // column is adjusted through its tail; a pair of columns that ends in
+    // a large tile is adjusted through that tile's own height. If every
+    // column can reach a common line within MAX_STRETCH_BOTTOM that line
+    // is used; otherwise each gets as close to the average as the limit
+    // allows — an uneven last row is a ragged edge, not a hole in the grid.
+    var units = [];
+    for (var c1 = 0; c1 < cols; c1++) {
+      if (tails[c1].length) {
+        units.push({ col: c1, span: 1, end: colHeights[c1], size: tailSum(c1), large: null });
+      } else if (endLarge[c1]) {
+        var big = endLarge[c1];
+        var wholePair = !tails[big.col].length && !tails[big.col + 1].length;
+        if (wholePair && big.col === c1) {
+          units.push({ col: c1, span: 2, end: colHeights[c1], size: big.height, large: big });
+        } else if (!wholePair) {
+          // Its other column has grown past it since, so resizing the
+          // large tile would open a hole there: this column stays put.
+          units.push({ col: c1, span: 1, end: colHeights[c1], size: 0, large: null });
+        }
+      }
+    }
+    if (units.length > 1) {
+      var target = 0;
+      var weight = 0;
+      var lo = -Infinity;
+      var hi = Infinity;
+      units.forEach(function (u) {
+        target += u.end * u.span;
+        weight += u.span;
+        lo = Math.max(lo, u.end - u.size * MAX_STRETCH_BOTTOM);
+        hi = Math.min(hi, u.end + u.size * MAX_STRETCH_BOTTOM);
+      });
+      target /= weight;
+      if (lo <= hi) target = Math.max(lo, Math.min(hi, target));
+      units.forEach(function (u) {
+        var maxDelta = u.size * MAX_STRETCH_BOTTOM;
+        var delta = Math.max(-maxDelta, Math.min(maxDelta, target - u.end));
+        if (u.large) {
+          u.large.height += delta;
+          colHeights[u.col] = colHeights[u.col + 1] = u.end + delta;
+        } else {
+          resizeTail(u.col, delta);
+        }
+      });
+    }
+
+    var used = colHeights.filter(function (h) { return h > 0; });
+    return {
+      items: meta,
+      height: used.length ? Math.max.apply(null, used) : 0,
+      ragged: used.length ? Math.max.apply(null, used) - Math.min.apply(null, used) : 0,
+    };
+  }
+
+  // A large tile among the very last photos has nothing after it to fill
+  // the columns beside it, so it would stick out below the rest of the
+  // grid. When the bottom edge can't be levelled, retry with the last
+  // large tile moved a few places earlier (position only — DOM order, and
+  // so the lightbox order, is untouched) and keep the most even result.
+  var REORDER_STEP = 4;
+  var MAX_REORDER_TRIES = 16;
 
   function layoutMasonry(grid) {
     var cols = columnCount();
     var containerWidth = grid.getBoundingClientRect().width;
     if (!containerWidth) return;
     var colWidth = (containerWidth - (cols - 1) * GAP) / cols;
-    var colHeights = new Array(cols).fill(0);
-    var lastInCol = new Array(cols).fill(null);
     var tileEls = Array.from(grid.querySelectorAll(".photo-tile"));
 
     // Below 1500px there isn't enough room for a 2-column-wide tile to
@@ -106,145 +352,44 @@
     // size regardless of its large/enlarged state.
     var allowLarge = window.innerWidth >= 1500;
 
-    var meta = tileEls.map(function (tile) {
+    var order = tileEls.map(function (tile) {
       var isLarge = tile.classList.contains("photo-tile--large") && cols >= 2 && allowLarge;
-      var span = isLarge ? 2 : 1;
-      var aspect = parseFloat(tile.dataset.aspect) || 4 / 3;
-      var width = span === 2 ? colWidth * 2 + GAP : colWidth;
-      var height = width / aspect;
       return {
         tile: tile,
-        span: span,
-        width: width,
-        height: height,
-        placed: false,
+        span: isLarge ? 2 : 1,
+        aspect: parseFloat(tile.dataset.aspect) || 4 / 3,
       };
     });
 
-    function place(m, col, y) {
-      m.tile.style.position = "absolute";
-      m.tile.style.left = col * (colWidth + GAP) + "px";
-      m.tile.style.top = y + "px";
-      m.tile.style.width = m.width + "px";
-      m.tile.style.height = m.height + "px";
-      m.placed = true;
-      m.col = col;
-      // A large tile occupies both columns it spans, so it's the "last
-      // tile" for closeSmallGap purposes in either of them.
-      for (var k = 0; k < m.span; k++) {
-        lastInCol[col + k] = m;
+    var best = computeLayout(order, cols, colWidth);
+    for (var tries = 0; best.ragged > 1 && tries < MAX_REORDER_TRIES; tries++) {
+      var last = -1;
+      for (var n = order.length - 1; n >= 0; n--) {
+        if (order[n].span === 2) { last = n; break; }
       }
+      if (last <= 0) break;
+      var moved = order.splice(last, 1)[0];
+      order.splice(Math.max(0, last - REORDER_STEP), 0, moved);
+      var attempt = computeLayout(order, cols, colWidth);
+      if (attempt.ragged < best.ragged - 0.5) best = attempt;
     }
 
-    // Close a <=GAP_CLOSE_MAX gap in `col` by growing its last tile up to
-    // `targetY`. Only ever a single-column tile — growing it is fully
-    // contained to that one column, so it can never overlap into a
-    // neighboring column the way growing a large tile could.
-    function closeSmallGap(col, targetY) {
-      var diff = targetY - colHeights[col];
-      if (
-        diff > 0.5 &&
-        diff <= GAP_CLOSE_MAX &&
-        lastInCol[col] &&
-        lastInCol[col].span === 1
-      ) {
-        lastInCol[col].height += diff;
-        lastInCol[col].tile.style.height = lastInCol[col].height + "px";
-        colHeights[col] = targetY;
-      }
+    // Write phase — every position is final by now.
+    for (var w = 0; w < best.items.length; w++) {
+      var item = best.items[w];
+      var style = item.tile.style;
+      style.position = "absolute";
+      style.left = item.col * (colWidth + GAP) + "px";
+      style.top = item.y + "px";
+      style.width = item.width + "px";
+      style.height = item.height + "px";
     }
 
-    for (var i = 0; i < meta.length; i++) {
-      var m = meta[i];
-      if (m.placed) continue;
+    grid.style.height = Math.max(best.height - GAP, 0) + "px";
 
-      if (m.span === 1) {
-        var col = 0;
-        for (var c = 1; c < cols; c++)
-          if (colHeights[c] < colHeights[col]) col = c;
-        place(m, col, colHeights[col]);
-        colHeights[col] += m.height + GAP;
-        continue;
-      }
-
-      // Large tile: pick the best (lowest-max) adjacent pair.
-      var bestCol = 0;
-      var bestY = Infinity;
-      for (var p = 0; p <= cols - 2; p++) {
-        var y = Math.max(colHeights[p], colHeights[p + 1]);
-        if (y < bestY) {
-          bestY = y;
-          bestCol = p;
-        }
-      }
-
-      // Backfill the shorter of the two columns before committing —
-      // every candidate here is used at its own natural height.
-      var shortCol =
-        colHeights[bestCol] <= colHeights[bestCol + 1] ? bestCol : bestCol + 1;
-      var lookaheadEnd = Math.min(meta.length, i + 1 + BACKFILL_LOOKAHEAD);
-      for (
-        var j = i + 1;
-        j < lookaheadEnd && bestY - colHeights[shortCol] > GAP + 4;
-        j++
-      ) {
-        var candidate = meta[j];
-        if (candidate.placed || candidate.span !== 1) continue;
-        if (candidate.height <= bestY - colHeights[shortCol] - GAP) {
-          place(candidate, shortCol, colHeights[shortCol]);
-          colHeights[shortCol] += candidate.height + GAP;
-        }
-      }
-
-      // Nothing left tucks in neatly — rather than resize (crop) a tile to
-      // force an exact fit, use whichever unplaced single-column tile's
-      // own natural height comes closest to what's left, still uncropped.
-      var remaining = bestY - colHeights[shortCol];
-      if (remaining > GAP + 4) {
-        var target = remaining - GAP;
-        var bestQ = -1;
-        var bestDiff = Infinity;
-        for (var q = i + 1; q < meta.length; q++) {
-          var cand2 = meta[q];
-          if (cand2.placed || cand2.span !== 1) continue;
-          // Bias toward undershooting: a candidate shorter than target
-          // leaves a small residual closeSmallGap can still fix, while one
-          // taller than target overshoots and strands a gap in the
-          // *other* column instead — so weight overshoot as a worse match
-          // unless it's clearly the closer option.
-          var diff =
-            cand2.height <= target
-              ? target - cand2.height
-              : (cand2.height - target) * 3;
-          if (diff < bestDiff) {
-            bestDiff = diff;
-            bestQ = q;
-          }
-        }
-        if (bestQ !== -1) {
-          place(meta[bestQ], shortCol, colHeights[shortCol]);
-          colHeights[shortCol] += meta[bestQ].height + GAP;
-        }
-      }
-
-      // Close small residuals in *either* column of the pair — an
-      // overshooting closest-fit above can just as easily leave the other
-      // (originally taller) column short instead.
-      var pairMax = Math.max(colHeights[bestCol], colHeights[bestCol + 1]);
-      closeSmallGap(bestCol, pairMax);
-      closeSmallGap(bestCol + 1, pairMax);
-
-      // Large tile starts wherever the columns actually ended up — not a
-      // rigid pre-computed target — so anything closeSmallGap couldn't
-      // reach is absorbed here instead of causing a mismatch.
-      bestY = Math.max(colHeights[bestCol], colHeights[bestCol + 1]);
-      place(m, bestCol, bestY);
-      colHeights[bestCol] = bestY + m.height + GAP;
-      colHeights[bestCol + 1] = bestY + m.height + GAP;
-    }
-
-    grid.style.height =
-      Math.max(Math.max.apply(null, colHeights) - GAP, 0) + "px";
+    // Tiles are where they belong now — let scroll reveal look at them.
+    grid.removeAttribute("data-reveal-hold");
+    GridUtils.refreshReveal();
   }
 
   function relayout() {
@@ -312,6 +457,9 @@
 
     unwrapGridCols(grid);
     grid.classList.add("cg-grid");
+    // Until the first layout runs every tile sits stacked at the grid's
+    // top-left corner; keep scroll reveal away from them until then.
+    grid.setAttribute("data-reveal-hold", "");
 
     var tiles = Array.from(grid.querySelectorAll(".photo-tile"));
     ensureAspectsKnown(tiles).then(function () {

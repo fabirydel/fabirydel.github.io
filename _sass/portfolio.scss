@@ -19,15 +19,15 @@
 // Tiles use a blur background as a placeholder while the thumb fetches;
 // `images.js` adds `.loaded` to the thumb on load so it fades in over the
 // blur. Independently, `.photo-tile` itself pops into place via `.cg-in`,
-// toggled by an IntersectionObserver every time a tile crosses into or out
-// of view (not just once on first load) — curated-grid.js on the home page,
-// grid-layout.js's shared reveal on country/landscape pages.
+// toggled by the shared scroll reveal in grid-utils.js every time a tile
+// crosses into or out of view (not just once on first load), on the home
+// page and on country/landscape pages alike.
 //
 // Two reveal styles share that same .cg-in toggle:
 //   - "Pop" (see further down): the home page and country page chapter
 //     grids specifically — tiles pop in from below while scrolling down,
 //     and from above while scrolling up (direction read off
-//     html[data-scroll-dir], kept live by curated-grid.js / grid-layout.js).
+//     html[data-scroll-dir], kept live by grid-utils.js).
 //   - Plain rise + fade (the base rule right below): everywhere else that
 //     reuses this markup (landscape pages, etc).
 
@@ -76,9 +76,9 @@
     page-break-inside: avoid;
 
     // Scroll reveal — replayed every time the tile crosses the viewport
-    // edge. `.cg-in` is toggled by an IntersectionObserver: curated-grid.js
-    // on the home page, grid-layout.js's shared reveal everywhere else
-    // (country/landscape pages etc.) reusing the same .photo-tile markup.
+    // edge. `.cg-in` is toggled by the scroll reveal in grid-utils.js, from
+    // each tile's layout position — so the transform below (which moves the
+    // painted tile, not its layout box) can't affect when it triggers.
     opacity: 0;
     transform: translateY(24px);
     transition:

@@ -296,6 +296,8 @@ ireland:
   locations:
     - classiebawn_castle
     - crohy_head_sea_arch
+    - downpatrick_head
+    - malin_head
     - pine_island
 
 northern_ireland:

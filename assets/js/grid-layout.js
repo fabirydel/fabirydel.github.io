@@ -231,6 +231,8 @@
       // that pass.
       requestAnimationFrame(function () {
         grids.forEach(distributeMasonry);
+        // Tiles just moved between columns without any scrolling.
+        GridUtils.refreshReveal();
       });
     });
   }

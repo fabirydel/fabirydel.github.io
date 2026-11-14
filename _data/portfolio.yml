@@ -5,6 +5,7 @@
   place: Bled
   location: bled
   country: slovenia
+  large: true
 
 - path: venice/IMG_3061.jpg
   title: By the Pier
@@ -99,6 +100,7 @@
   location: valensole
   country: france
   landscape: true
+  large: true
 
 - path: innsbruck/02_IMG_9436-HDR-Edit.jpg
   title: Powerline
@@ -448,13 +450,6 @@
   location: kinderdijk
   country: netherlands
 
-- path: la_iruela/IMG_6380.jpg
-  title: Shephard
-  place: La Iruela
-  location: la_iruela
-  country: spain
-  landscape: true
-
 - path: gavarnie/IMG_2320.jpg
   title: Mountaing Wall
   place: Cirque de Gavarnie
@@ -653,6 +648,7 @@
   place: Jamnik
   location: jamnik
   country: slovenia
+  large: true
 
 - path: jamnik/IMG_7714.jpg
   title: Jamnik
@@ -843,17 +839,12 @@
   location: lagangarbh
   country: scotland
 
-- path: loch_fada/IMG_3761.jpg
-  title: Loch Fada
-  place: Loch Fada
-  location: loch_fada
-  country: scotland
-
 - path: loch_fada/IMG_3711.jpg
   title: Loch Fada
   place: Loch Fada
   location: loch_fada
   country: scotland
+  large: true
 
 - path: stalker_castle/IMG_5015_tn.jpg
   title: Castle Stalker
@@ -902,7 +893,6 @@
   place: Bella Vista
   location: bella_vista
   country: uruguay
-  large: true
 
 - path: montevideo/IMG_1051.jpg
   title: Montevideo

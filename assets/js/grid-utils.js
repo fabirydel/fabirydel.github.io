@@ -57,94 +57,168 @@ window.GridUtils = (function () {
     tile.style.setProperty("--pop-duration", seconds.toFixed(2) + "s");
   }
 
-  // ---- Reveal observer --------------------------------------------------
+  // ---- Scroll reveal ----------------------------------------------------
   //
-  // Watches tiles and toggles .cg-in as they cross the viewport threshold
-  // (hysteresis: reveal once 12% visible, only reset once fully out of
+  // Toggles .cg-in on tiles as they enter/leave the viewport (hysteresis:
+  // reveal once a tile is ~12% visible, only reset once it is fully out of
   // view, so a tile sitting right on the boundary doesn't flicker).
   //
-  // The reveal/hide transition itself moves the tile up to 90px (see the
-  // Pop rule in portfolio.scss) — enough to cross this same threshold on
-  // its own once the transition settles, with no further scrolling. Left
-  // unchecked that's a real feedback loop, not just jitter: hiding shifts
-  // the tile back toward the viewport, which can re-reveal it, which shifts
-  // it back out, forever, at whatever scroll position happens to straddle
-  // the boundary. window.scrollY is the one signal a tile's own transform
-  // can never move, so a crossing only commits if the page has actually
-  // scrolled a meaningful amount since this tile's last commit — a
-  // self-caused crossing shows zero scroll movement and gets ignored.
-  // A short debounce on top just collapses truly-simultaneous entries
-  // (e.g. both thresholds firing in the same batch) into one commit.
-  var ENTER_RATIO = 0.12;
-  var COMMIT_DELAY_MS = 100;
-  var MIN_SCROLL_DELTA_PX = 4;
+  // Visibility is computed from each tile's *layout* position (offsetTop /
+  // offsetHeight), never from its painted box. The reveal/hide transition
+  // itself moves a tile up to 90px (see the Pop rule in portfolio.scss); an
+  // IntersectionObserver measures the transformed box, so it saw a tile's own
+  // animation as scrolling — which needed timers and a "has the page really
+  // scrolled?" guard to stop feedback loops, and that guard in turn dropped
+  // legitimate changes (a tile moved into view by a relayout or by images
+  // loading above it, with no scroll in between, stayed hidden until it was
+  // scrolled away and back). Layout positions can't be moved by a transform,
+  // so a tile's state here is a pure function of where it is, where the
+  // viewport is and the scroll direction: no timers, nothing to get stuck.
+  var ENTER_RATIO = 0.12; // share of a tile that must be in view to reveal…
+  var ENTER_MAX_PX = 48; // …capped, so tall tiles don't wait for 100px+
+  var BOTTOM_INSET_PX = 60; // tiles reveal slightly above the bottom edge
+  var FAR_RATIO = 0.2; // extra distance (× viewport) before hiding when scrolling up
 
-  function createRevealObserver() {
-    if (!("IntersectionObserver" in window)) return null;
+  var docEl = document.documentElement;
+  var revealGrids = []; // [{ el, tiles: [], allOut: bool }]
+  var revealScheduled = false;
+  var revealListening = false;
+  var resizeObserver = null;
 
-    function commit(tile, willReveal) {
-      clearTimeout(tile.__revealCommitTimer);
-      tile.__revealCommitTimer = setTimeout(function () {
-        var lastY = tile.__lastCommitScrollY;
-        if (lastY !== undefined && Math.abs(window.scrollY - lastY) < MIN_SCROLL_DELTA_PX) {
-          return; // no real scroll since last commit — this is our own transform
+  // `el`'s layout offset from the top of `ancestor`, ignoring transforms.
+  function offsetTopWithin(el, ancestor) {
+    var y = 0;
+    var n = el;
+    while (n && n !== ancestor && ancestor.contains(n)) {
+      y += n.offsetTop;
+      n = n.offsetParent;
+    }
+    if (!n || n === ancestor) return y;
+    // `ancestor` isn't a positioning context, so the walk ended on one of
+    // its own offset parents: subtract ancestor's offset to that same node.
+    var m = ancestor;
+    while (m && m !== n) {
+      y -= m.offsetTop;
+      m = m.offsetParent;
+    }
+    return y;
+  }
+
+  function updateReveal() {
+    revealScheduled = false;
+    var vh = window.innerHeight;
+    var dirUp = docEl.getAttribute("data-scroll-dir") === "up";
+    var far = vh * FAR_RATIO;
+    // At the very end of the page nothing can scroll further into view, so
+    // don't hold the last tiles back behind the bottom inset.
+    var atPageEnd = window.scrollY + vh >= docEl.scrollHeight - 2;
+    var rootBottom = atPageEnd ? vh : vh - BOTTOM_INSET_PX;
+    var toShow = [];
+    var toHide = [];
+
+    // Read phase — no DOM writes in here, so this is a single layout.
+    for (var g = 0; g < revealGrids.length; g++) {
+      var grid = revealGrids[g];
+      var el = grid.el;
+      // A grid can ask to be skipped until its first layout has run (tiles
+      // aren't where they will end up yet) — see curated-grid.js.
+      if (!el.isConnected || el.hasAttribute("data-reveal-hold")) continue;
+      var rect = el.getBoundingClientRect();
+      if (!rect.width && !rect.height) continue;
+      var farOut = rect.bottom < -far - 100 || rect.top > vh + far + 100;
+      if (farOut && grid.allOut) continue;
+
+      var anyIn = false;
+      var tiles = grid.tiles;
+      for (var i = 0; i < tiles.length; i++) {
+        var tile = tiles[i];
+        var h = tile.offsetHeight;
+        if (!h) continue; // not rendered (display: none / detached)
+        var top = rect.top + offsetTopWithin(tile, el);
+        var bottom = top + h;
+        var isIn = tile.classList.contains("cg-in");
+        var next = isIn;
+        var visible = Math.min(bottom, rootBottom) - Math.max(top, 0);
+        if (visible >= Math.min(h * ENTER_RATIO, ENTER_MAX_PX)) {
+          next = true;
+        } else if (isIn) {
+          // Only ever hide a tile that is completely off screen. While
+          // scrolling up it also has to be well clear of the viewport, so a
+          // small reversal right after a reveal doesn't replay the pop.
+          if (bottom <= 0) next = dirUp && bottom >= -far;
+          else if (top >= vh) next = dirUp && top <= vh + far;
         }
-        tile.__lastCommitScrollY = window.scrollY;
-        tile.classList.toggle("cg-in", willReveal);
-      }, COMMIT_DELAY_MS);
+        if (next !== isIn) (next ? toShow : toHide).push(tile);
+        if (next) anyIn = true;
+      }
+      grid.allOut = !anyIn;
     }
 
-    // Reveal, plus the ordinary hide while scrolling down: fires right at
-    // the natural edge, same threshold either direction crosses to enter.
-    var edgeIO = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          var tile = entry.target;
-          var willReveal = entry.intersectionRatio >= ENTER_RATIO;
-          var willHide = !entry.isIntersecting;
-          if (willReveal) {
-            commit(tile, true);
-          } else if (willHide) {
-            // While scrolling up, a tile that already appeared shouldn't
-            // vanish again just because a small reversal re-crosses the
-            // same shallow edge it entered through — farIO below decides
-            // hide in that case instead, once it's scrolled meaningfully
-            // out of view rather than just barely.
-            if (document.documentElement.getAttribute("data-scroll-dir") !== "up") {
-              commit(tile, false);
-            }
-          }
-        });
-      },
-      { threshold: [0, ENTER_RATIO], rootMargin: "0px 0px -60px 0px" },
-    );
+    // Write phase.
+    for (var s = 0; s < toShow.length; s++) toShow[s].classList.add("cg-in");
+    for (var d = 0; d < toHide.length; d++) toHide[d].classList.remove("cg-in");
+  }
 
-    // Hide while scrolling up: only once a tile is well clear of the
-    // viewport (not just past its entry edge), so scrolling up a little
-    // right after a reveal doesn't immediately hide it again. Positive
-    // rootMargin *grows* the root outward past the real viewport edges —
-    // a tile only counts as "not intersecting" once it's fully past that
-    // grown boundary, i.e. a real 20%-of-viewport distance beyond the
-    // actual edge, not merely touching the edge itself.
-    var farIO = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) commit(entry.target, false);
-        });
-      },
-      { threshold: 0, rootMargin: "20% 0px 20% 0px" },
-    );
+  // Re-evaluate every observed tile on the next frame. Cheap to call often:
+  // multiple calls within a frame collapse into one pass.
+  function refreshReveal() {
+    if (revealScheduled) return;
+    revealScheduled = true;
+    requestAnimationFrame(updateReveal);
+  }
 
+  function startRevealListeners() {
+    if (revealListening) return;
+    revealListening = true;
+    window.addEventListener("scroll", refreshReveal, { passive: true });
+    window.addEventListener("resize", refreshReveal, { passive: true });
+    window.addEventListener("pageshow", refreshReveal);
+    document.addEventListener("visibilitychange", refreshReveal);
+    // Anything that moves tiles without a scroll: images loading (load
+    // doesn't bubble, hence capture) and content above changing height.
+    document.addEventListener(
+      "load",
+      function (e) {
+        if (e.target && e.target.tagName === "IMG") refreshReveal();
+      },
+      true,
+    );
+    if ("ResizeObserver" in window) {
+      resizeObserver = new ResizeObserver(refreshReveal);
+      resizeObserver.observe(document.body);
+    }
+  }
+
+  // Kept as a factory for the callers' sake (curated-grid.js, grid-layout.js)
+  // — every "observer" shares the one scroll-driven pass above. observe() on
+  // an already-observed tile is a no-op.
+  function createRevealObserver() {
+    if (!("requestAnimationFrame" in window)) return null;
+    startRevealListeners();
     return {
       observe: function (tile) {
-        edgeIO.observe(tile);
-        farIO.observe(tile);
+        var el = tile.closest(".portfolio-grid") || tile.parentNode;
+        if (!el) return;
+        if (tile.__revealGrid === el) return;
+        var grid = null;
+        for (var i = 0; i < revealGrids.length; i++) {
+          if (revealGrids[i].el === el) grid = revealGrids[i];
+        }
+        if (!grid) {
+          grid = { el: el, tiles: [], allOut: false };
+          revealGrids.push(grid);
+          if (resizeObserver) resizeObserver.observe(el);
+        }
+        tile.__revealGrid = el;
+        grid.tiles.push(tile);
+        grid.allOut = false;
+        refreshReveal();
       },
     };
   }
 
-  // No IntersectionObserver support: reveal everything immediately rather
-  // than leaving tiles permanently hidden.
+  // No requestAnimationFrame: reveal everything immediately rather than
+  // leaving tiles permanently hidden.
   function revealAllImmediately(tiles) {
     tiles.forEach(function (t) {
       t.classList.add("cg-in");
@@ -156,6 +230,7 @@ window.GridUtils = (function () {
     getBlurUrl: getBlurUrl,
     randomizePopDuration: randomizePopDuration,
     createRevealObserver: createRevealObserver,
+    refreshReveal: refreshReveal,
     revealAllImmediately: revealAllImmediately,
   };
 })();
