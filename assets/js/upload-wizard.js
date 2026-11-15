@@ -1468,13 +1468,12 @@
     // `jekyll serve --incremental` a new collection document does NOT
     // invalidate these on its own, so a new country/location would be
     // missing from them until they are touched.
-    await touchFile(rootHandle, ['worldmap.html']);
     await touchFile(rootHandle, ['countries.html']);
     await touchFile(rootHandle, ['locations.html']);
     // Every page embeds the countries modal (a list of site.countries);
     // Jekyll tracks includes as dependencies, so touching it rebuilds them all.
     await touchFile(rootHandle, ['_includes', 'countries_modal.html']);
-    // Portfolio (index.html via portfolio layout) reads `site.locations | size`.
+    // Explore (index.html) inlines every location, country and photo path.
     await touchFile(rootHandle, ['index.html']);
   }
 

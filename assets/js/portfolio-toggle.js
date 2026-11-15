@@ -427,7 +427,7 @@
   }
 
   // Reads portfolio.yml, applies `transform` to its text, writes the result
-  // back, then touches index.html.
+  // back, then touches portfolio.html.
   function updatePortfolioYaml(transform) {
     return getRootHandle().then(function (handle) {
       return handle.getDirectoryHandle('_data').then(function (dataDir) {
@@ -445,9 +445,9 @@
         // Nudge Jekyll into a full rebuild. Editing _data/portfolio.yml
         // alone *should* trigger a rebuild, but in practice the watcher
         // sometimes misses rapid bursts (we hit this on the upload
-        // wizard too). Touching index.html makes sure the home page
-        // gets regenerated so the user sees their toggle on next reload.
-        return touchFile(handle, ['index.html']);
+        // wizard too). Touching portfolio.html makes sure the portfolio
+        // page gets regenerated so the user sees their toggle on next reload.
+        return touchFile(handle, ['portfolio.html']);
       });
     });
   }
