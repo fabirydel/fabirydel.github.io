@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+  {% include head.html %}
+  {%- comment -%}
+    Explore: a full-screen 3D globe. All data the page needs is inlined below
+    as JSON (locations, countries, and the flat list of full-size photo paths,
+    which assets/js/explore.js groups by location folder).
+  {%- endcomment -%}
+  {%- assign full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" | sort: "path" -%}
+
+  <body class="explore-page">
+    {% include header.html %}
+
+    <main class="explore" id="explore" data-state="intro" aria-label="Explore the globe">
+      <div class="explore__map" id="explore-map"></div>
+      <div class="explore__vignette" aria-hidden="true"></div>
+
+      <!-- Intro -->
+      <section class="explore-intro" id="explore-intro">
+        <div class="explore-intro__me">
+          <img src="/images/IMG_0773.jpg" alt="Fabian Rydel" width="56" height="56" decoding="async">
+          <p>
+            <strong>Fabian Rydel</strong>
+            <span>{{ site.tagline }}</span>
+          </p>
+        </div>
+        <h1 class="explore-intro__title">Explore</h1>
+        <p class="explore-intro__stats" id="explore-stats"></p>
+        <p class="explore-intro__stats explore-intro__stats--more">120k kilometers · 1,303 days on the road</p>
+        <button type="button" class="explore-btn explore-btn--primary" id="explore-begin">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>
+          Begin the journey
+        </button>
+        <p class="explore-intro__hint">or pick any light on the globe</p>
+      </section>
+
+      <!-- Globe / flat map switch -->
+      <div class="explore-view" id="explore-view" role="group" aria-label="Map view">
+        <button type="button" data-view="globe" aria-pressed="true">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M2 8h12M8 2c2.2 2 2.2 10 0 12M8 2c-2.2 2-2.2 10 0 12" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+          Globe
+        </button>
+        <button type="button" data-view="flat" aria-pressed="false">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.8 4l4-1.6 4.4 1.6 4-1.6v9.6l-4 1.6-4.4-1.6-4 1.6zM5.8 2.4V12M10.2 4v9.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          Flat map
+        </button>
+      </div>
+
+      <!-- Countries rail -->
+      <nav class="explore-rail" id="explore-rail" aria-label="Countries">
+        <button type="button" class="explore-rail__item explore-rail__item--all" data-country="">
+          <span class="explore-rail__name">The whole world</span>
+        </button>
+      </nav>
+
+      <!-- Hover card for a dot on the globe -->
+      <div class="explore-hover" id="explore-hover" aria-hidden="true">
+        <img alt="" id="explore-hover-img">
+        <div>
+          <strong id="explore-hover-title"></strong>
+          <span id="explore-hover-country"></span>
+        </div>
+      </div>
+
+      <!-- Location panel -->
+      <aside class="explore-panel" id="explore-panel" aria-live="polite">
+        <header class="explore-panel__head">
+          <div>
+            <p class="explore-panel__country" id="explore-panel-country"></p>
+            <h2 class="explore-panel__title" id="explore-panel-title"></h2>
+          </div>
+          <button type="button" class="explore-icon-btn" id="explore-close" aria-label="Back to the globe">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9m0-9l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+          </button>
+        </header>
+
+        <button type="button" class="explore-panel__hero" id="explore-hero" aria-label="View photo full screen">
+          <img class="explore-panel__hero-img" alt="">
+          <img class="explore-panel__hero-img" alt="">
+          <span class="explore-panel__count" id="explore-photo-count"></span>
+        </button>
+
+        <div class="explore-panel__strip" id="explore-strip"></div>
+
+        <footer class="explore-panel__foot">
+          <a class="explore-panel__link" id="explore-country-link" href="#">Open the full gallery →</a>
+        </footer>
+      </aside>
+
+      <!-- Transport -->
+      <div class="explore-transport" id="explore-transport">
+        <button type="button" class="explore-icon-btn" id="explore-prev" aria-label="Previous location">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </button>
+        <button type="button" class="explore-icon-btn explore-icon-btn--play" id="explore-play" aria-label="Play the journey" aria-pressed="false">
+          <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.5v11l9-5.5z" fill="currentColor"/></svg>
+          <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h3v11H4zm5 0h3v11H9z" fill="currentColor"/></svg>
+        </button>
+        <button type="button" class="explore-icon-btn" id="explore-next" aria-label="Next location">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </button>
+        <div class="explore-transport__meta">
+          <span class="explore-transport__label" id="explore-stop-label"></span>
+          <span class="explore-transport__bar"><span id="explore-progress"></span></span>
+        </div>
+      </div>
+
+      <!-- Full-screen photo viewer -->
+      <div class="explore-viewer" id="explore-viewer" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+        <img id="explore-viewer-img" alt="">
+        <p class="explore-viewer__caption" id="explore-viewer-caption"></p>
+        <button type="button" class="explore-icon-btn explore-viewer__close" id="explore-viewer-close" aria-label="Close">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9m0-9l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <button type="button" class="explore-icon-btn explore-viewer__nav explore-viewer__nav--prev" id="explore-viewer-prev" aria-label="Previous photo">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </button>
+        <button type="button" class="explore-icon-btn explore-viewer__nav explore-viewer__nav--next" id="explore-viewer-next" aria-label="Next photo">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </button>
+      </div>
+
+      <p class="explore-error" id="explore-error" hidden></p>
+    </main>
+
+    <script type="application/json" id="explore-data">
+      {
+        "locations": [
+          {%- assign first = true -%}
+          {%- for l in site.locations -%}
+            {%- if l.latlng and l.latlng != "" -%}
+              {%- unless first -%},{%- endunless -%}
+              {%- assign first = false -%}
+              {"n": {{ l.namePath | jsonify }}, "t": {{ l.title | jsonify }}, "c": {{ l.country | jsonify }}, "ll": {{ l.latlng }}, "i": {{ l.indexImagePath | jsonify }}}
+            {%- endif -%}
+          {%- endfor -%}
+        ],
+        "countries": [
+          {%- for c in site.countries -%}
+            {"n": {{ c.name | jsonify }}, "t": {{ c.title | jsonify }}, "colors": {{ site.data.flag_colors[c.name] | jsonify }}, "order": {{ site.data.locations_per_country[c.name].locations | jsonify }}}
+            {%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ],
+        "photos": [
+          {%- for img in full_images -%}
+            {{ img.path | remove_first: "/images/full/" | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+
+    {% include countries_modal.html %}
+    {% include landscapes_modal.html %}
+  </body>
+
+</html>

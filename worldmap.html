@@ -1,23 +1,17 @@
 ---
-layout: worldmap
-title: Worldmap
+layout: null
+sitemap: false
+permalink: /worldmap/
 ---
-
-<div
-  id="country-map"
-  class="world-map"
-  data-zoom="2"
-  data-bounds="[[-90,-180], [90,180]]"
-  data-latlng="[32.593009, -19.038898]"
-
-  {% assign locations = site.locations %}
-  data-locations="{{ locations.size }}"
-
-  {% for location in locations %}
-    data-img-{{ forloop.index }}="{{ location.indexImagePath }}"
-    data-title-{{ forloop.index }}="{{ location.title }}"
-    data-latlng-{{ forloop.index }}="{{ location.latlng }}"
-    data-path-{{ forloop.index }}="{{ location.namePath }}"
-    data-country-{{ forloop.index }}="{{ location.country }}"
-  {% endfor %}
-></div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Fabian Rydel</title>
+    <link rel="canonical" href="{{ site.url }}/">
+    <meta name="robots" content="noindex">
+    <script>location.replace('/' + ('#flat'));</script>
+    <meta http-equiv="refresh" content="0; url=/">
+  </head>
+  <body><a href="/">Continue to fabirydel.com</a></body>
+</html>

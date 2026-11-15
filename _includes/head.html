@@ -9,7 +9,7 @@
   <link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | absolute_url }}" title="{{ site.title }}"/>
 
   {%- assign needs_map = false -%}
-  {%- if page.layout == 'location' or page.layout == 'country' or page.layout == 'worldmap' -%}
+  {%- if page.layout == 'location' or page.layout == 'country' -%}
     {%- assign needs_map = true -%}
   {%- endif -%}
 
@@ -32,6 +32,12 @@
 
   {%- if page.layout == 'country' -%}
     <script defer src="/assets/js/country-page.js"></script>
+  {%- endif -%}
+
+  {%- if page.layout == 'explore' -%}
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css">
+    <script defer src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    <script defer src="/assets/js/explore.js"></script>
   {%- endif -%}
 
   {%- if is_nft_page -%}

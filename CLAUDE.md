@@ -19,6 +19,11 @@ bundle exec jekyll serve        # http://localhost:4000
 - `_nfts/`: NFT pages. Metadata fields are **encrypted** strings (CryptoJS, see `assets/js/nftEncryption.js` and `_includes/decrypt_modal.html`). Never "fix" or re-encode them by hand.
 - `_includes/` holds the galleries/modals; `_layouts/` the page layouts; `assets/js/` is vanilla JS (galleries, maps, grid layout, color sort); styles are `assets/css/main.scss` plus a few plain CSS files and `_sass/`.
 
+## Pages
+- `/` is the Explore page (`index.html`, `_layouts/explore.html`, `assets/js/explore.js`, `_sass/explore.scss`): a Mapbox GL JS globe with a flat-map toggle, a per-location photo panel and an autoplay journey. Its data (locations, countries, full-size photo paths) is inlined as JSON by the layout.
+- `/portfolio/` is the curated grid (`portfolio.html`). `/countries` lists countries.
+- `explore.html` and `worldmap.html` are redirect stubs for old URLs (the old Locations map page is gone).
+
 ## Images
 - `images/full/<location>/<file>.jpg` (max 1300px), `images/thumb/` (max 400px), `images/blur/` (max 30px blur placeholders). Same relative path in all three.
 - All three sizes must exist for a photo to display correctly.

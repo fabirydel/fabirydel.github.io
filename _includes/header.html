@@ -36,17 +36,17 @@
     <div class="left-options">
       <a href="/">
         <h1
-          class="portfolio {% if page.url == '/' %} header-selected {% endif %}"
+          class="explore-link {% if page.url == '/' %} header-selected {% endif %}"
         >
-          Portfolio
+          Explore
         </h1>
       </a>
 
-      <a href="/worldmap">
+      <a href="/portfolio">
         <h1
-          class="locations {% if page.url == '/worldmap.html' %} header-selected {% endif %}"
+          class="portfolio {% if page.url contains 'portfolio' %} header-selected {% endif %}"
         >
-          Locations
+          Portfolio
         </h1>
       </a>
     </div>
@@ -123,17 +123,17 @@
   <div class="header-options small">
     <a href="/">
       <h1
-        class="portfolio {% if page.url == '/' %} header-selected {% endif %}"
+        class="explore-link {% if page.url == '/' %} header-selected {% endif %}"
       >
-        Portfolio
+        Explore
       </h1>
     </a>
 
-    <a href="/worldmap">
+    <a href="/portfolio">
       <h1
-        class="locations {% if page.url == '/worldmap.html' %} header-selected {% endif %}"
+        class="portfolio {% if page.url contains 'portfolio' %} header-selected {% endif %}"
       >
-        Locations
+        Portfolio
       </h1>
     </a>
     <a href="/countries">
