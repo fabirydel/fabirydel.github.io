@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
       top: 0,
       bottom: 64,
       left: s === 'intro' ? Math.min(root.clientWidth * 0.34, 480) : 210,
-      right: s === 'place' ? 450 : 0
+      right: s === 'place' ? 500 : 0
     };
   }
   function globeZoom() { return flat ? (isMobile() ? 0.8 : 1.9) : (isMobile() ? 0.9 : 1.7); }
@@ -327,6 +327,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (!reduceMotion && !document.hidden && !viewerOpen) {
+      // During the journey the collage drifts down on its own so photos
+      // below the fold get seen; any scroll by the user hands it back.
+      if (playing && arrived && state === 'place' && !panelTouched && ticks >= 2) {
+        var maxScroll = collage.scrollHeight - collage.clientHeight;
+        if (scrollPos < maxScroll) {
+          scrollPos = Math.min(maxScroll, Math.max(scrollPos, collage.scrollTop) + dt * 34);
+          collage.scrollTop = scrollPos;
+        }
+      }
       if (flat) {
         // The flat map stays still.
       } else if (orbiting && state === 'place') {
@@ -464,77 +473,243 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ------------------------------------------------------------ the panel */
 
-  var hero = $('explore-hero');
-  var heroImgs = hero.querySelectorAll('.explore-panel__hero-img');
-  var heroFront = 0;
-  var strip = $('explore-strip');
-  var photoIndex = 0;
-  var photoToken = 0;
+  // The panel shows a location's photos as a justified collage: rows are
+  // filled left to right and each row's height is solved so it spans the
+  // panel exactly, so every photo keeps its own shape and nothing is cropped.
+  // Shapes aren't known at build time, so thumbnails are probed in batches
+  // (more load as you scroll) and each batch appends the rows it completes.
+  var collage = $('explore-collage');
+  var ratios = {};           // photo path -> width / height
+  var photoIndex = 0;        // photo shown in the full-screen viewer
+  var collageToken = 0;
+  var known = 0;             // photos of the current place with a known shape
+  var rowsRendered = 0;
+  var tilesRendered = 0;
+  var loadingBatch = false;
+  var panelTouched = false;  // user scrolled the collage: stop auto-scrolling
+  var scrollPos = 0;
   var ticker = null;
-  var ticks = 0;
+  var ticks = 0;             // seconds spent at this stop since arriving
   var arrived = false;
-  var PHOTO_MS = 4200;
+  var GAP = 6, BATCH = 24, DWELL_SECONDS = 11;
+
+  function probe(paths, done) {
+    var left = paths.length;
+    if (!left) return done();
+    paths.forEach(function (p) {
+      if (ratios[p]) { if (!--left) done(); return; }
+      var im = new Image();
+      im.onload = im.onerror = function () {
+        ratios[p] = im.naturalWidth && im.naturalHeight ? im.naturalWidth / im.naturalHeight : 1.5;
+        if (!--left) done();
+      };
+      im.src = '/images/thumb/' + p;
+    });
+  }
+
+  // Greedy justified rows over photos[0..count). Row targets cycle through a
+  // few heights so the collage has some rhythm instead of even stripes.
+  function buildRows(photos, count, width, complete, zoom) {
+    var scale = (isMobile() ? 0.78 : 1) * (zoom || 1);
+    var targets = [158, 124, 140];
+    var rows = [], row = [], sum = 0;
+    // The opening row is taller so the collage starts with a statement.
+    function target() { return (rows.length ? targets[rows.length % targets.length] : 205) * scale; }
+    for (var i = 0; i < count; i++) {
+      var r = ratios[photos[i]] || 1.5;
+      if (i === 0 && r >= 1.15) {
+        // Lead photo: a landscape opener gets the full width to itself.
+        rows.push({ h: width / r, items: [{ i: 0, w: width }], lead: true });
+        continue;
+      }
+      var t = target();
+      // Would adding this photo squeeze the row below its target height? If
+      // the row is nearer the target without it, close the row first, so a
+      // run of portraits never ends up as a strip of slivers.
+      if (row.length) {
+        var hWith = (width - GAP * row.length) / (sum + r);
+        var hWithout = (width - GAP * (row.length - 1)) / sum;
+        if (hWith < t && Math.abs(Math.log(hWithout / t)) < Math.abs(Math.log(hWith / t))) {
+          rows.push({ h: hWithout, items: row.map(function (x) { return { i: x.i, w: x.r * hWithout }; }) });
+          row = []; sum = 0;
+          t = target();
+        }
+      }
+      row.push({ i: i, r: r });
+      sum += r;
+      var inner = width - GAP * (row.length - 1);
+      if (sum * t >= inner) {
+        var h = inner / sum;
+        rows.push({ h: h, items: row.map(function (x) { return { i: x.i, w: x.r * h }; }) });
+        row = []; sum = 0;
+      }
+    }
+    if (row.length && complete) {
+      var lastH = Math.min(target() * 1.25, (width - GAP * (row.length - 1)) / sum);
+      rows.push({ h: lastH, items: row.map(function (t) { return { i: t.i, w: t.r * lastH }; }) });
+    }
+    return rows;
+  }
+
+  // With only a handful of photos the default row heights leave half the
+  // panel empty, so grow the rows until the collage fills the height. Tries
+  // progressively larger rows and keeps the one that lands closest to full;
+  // a small overflow (which just scrolls) beats a big gap.
+  var collageZoom = 1;
+
+  function fitZoom(photos, width) {
+    var avail = collage.clientHeight - 30;
+    if (avail <= 0) return 1;
+    var best = 1, bestScore = Infinity;
+    for (var z = 1; z <= 6.01; z += 0.1) {
+      var rows = buildRows(photos, photos.length, width, true, z);
+      var total = GAP * (rows.length - 1);
+      rows.forEach(function (r) { total += r.h; });
+      var fill = total / avail;
+      // Under-filling costs its gap; overflowing costs more, and past 30% is out.
+      var score = fill <= 1 ? 1 - fill : (fill <= 1.3 ? (fill - 1) * 1.6 : Infinity);
+      if (score < bestScore) { bestScore = score; best = z; }
+    }
+    return best;
+  }
+
+  // For a small set, try every way of splitting the photos (in order) into
+  // rows. Each row is justified to the full width, so there is never a ragged
+  // edge; the split whose total height best matches the panel wins.
+  var SMALL_SET = 12, MIN_ROW = 120;
+
+  function fitSplit(photos, width) {
+    var n = photos.length;
+    var avail = collage.clientHeight - 30;
+    if (avail <= 0) return null;
+    var r = photos.map(function (p) { return ratios[p] || 1.5; });
+    var best = null, bestFill = 0, bestScore = Infinity;
+    for (var mask = 0; mask < (1 << (n - 1)); mask++) {
+      var rows = [], start = 0, total = 0, minH = Infinity, maxH = 0;
+      for (var i = 0; i < n; i++) {
+        if (i === n - 1 || (mask >> i) & 1) {
+          var sum = 0;
+          for (var k = start; k <= i; k++) sum += r[k];
+          // A row is justified to the width unless that would make it taller
+          // than the panel (a lone portrait); then it is capped and centred.
+          var h = Math.min((width - GAP * (i - start)) / sum, n === 1 ? avail : avail * 0.8);
+          var items = [];
+          for (k = start; k <= i; k++) items.push({ i: k, w: r[k] * h });
+          rows.push({ h: h, items: items });
+          total += h;
+          minH = Math.min(minH, h); maxH = Math.max(maxH, h);
+          start = i + 1;
+        }
+      }
+      total += GAP * (rows.length - 1);
+      var fill = total / avail;
+      var score = fill <= 1 ? 1 - fill : (fill <= 1.35 ? (fill - 1) * 1.6 : 10 + fill);
+      // Rows of similar height read as a collage; one giant photo over a
+      // strip of tiny ones does not. Penalise imbalance, and penalise hard
+      // any row too short to see the photos in it.
+      score += 0.12 * (maxH / minH - 1);
+      if (minH < MIN_ROW) score += 3 * (MIN_ROW - minH) / MIN_ROW;
+      if (score < bestScore) { bestScore = score; best = rows; bestFill = fill; }
+    }
+    return { rows: best, fill: bestFill };
+  }
+
+  function renderRows() {
+    if (!current) return;
+    var width = collage.clientWidth;
+    if (!width) return;
+    var photos = current.photos;
+    // Only sets that arrive in one batch are fitted; longer ones scroll anyway.
+    if (rowsRendered === 0) collageZoom = known >= photos.length ? fitZoom(photos, width) : 1;
+    var rows = buildRows(photos, known, width, known >= photos.length, collageZoom);
+    if (rowsRendered === 0 && known >= photos.length && photos.length <= SMALL_SET) {
+      // If no clean split comes close (say a landscape plus a portrait), keep
+      // the enlarged rows instead: the short last row is centred by CSS.
+      var split = fitSplit(photos, width);
+      if (split && split.fill >= 0.72) rows = split.rows;
+    }
+    var html = '';
+    for (var r = rowsRendered; r < rows.length; r++) {
+      var row = rows[r];
+      html += '<div class="explore-collage__row" style="height:' + row.h.toFixed(2) + 'px">';
+      row.items.forEach(function (t) {
+        var path = photos[t.i];
+        // Big tiles get the full-size file; small ones stay on thumbnails.
+        var size = t.w > 300 ? 'full' : 'thumb';
+        html += '<button type="button" class="explore-tile" data-index="' + t.i + '" aria-label="Photo ' + (t.i + 1) + ' of ' + photos.length + '"' +
+          ' style="width:' + t.w.toFixed(2) + 'px;--i:' + (tilesRendered % BATCH) + ';background-image:url(&quot;/images/blur/' + path + '&quot;)">' +
+          '<img alt="" loading="lazy" decoding="async" src="/images/' + size + '/' + path + '"></button>';
+        tilesRendered++;
+      });
+      html += '</div>';
+    }
+    rowsRendered = rows.length;
+    if (html) collage.insertAdjacentHTML('beforeend', html);
+  }
+
+  function loadMore() {
+    if (!current || loadingBatch || known >= current.photos.length) return;
+    loadingBatch = true;
+    var token = collageToken;
+    var upTo = Math.min(current.photos.length, known + BATCH);
+    probe(current.photos.slice(known, upTo), function () {
+      if (token !== collageToken) return;
+      loadingBatch = false;
+      known = upTo;
+      renderRows();
+      fillIfShort();
+    });
+  }
+
+  function fillIfShort() {
+    if (collage.scrollHeight - collage.scrollTop - collage.clientHeight < 400) loadMore();
+  }
+
+  function resetCollage() {
+    collageToken++;
+    loadingBatch = false;
+    known = rowsRendered = tilesRendered = 0;
+    collage.innerHTML = '';
+    collage.scrollTop = scrollPos = 0;
+  }
+
+  collage.addEventListener('scroll', fillIfShort, { passive: true });
+  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (evt) {
+    collage.addEventListener(evt, function () { panelTouched = true; }, { passive: true });
+  });
+  collage.addEventListener('click', function (e) {
+    var t = e.target.closest('.explore-tile');
+    if (t) openViewer(Number(t.dataset.index));
+  });
 
   function showPhoto(index) {
     if (!current) return;
     var n = current.photos.length;
     photoIndex = ((index % n) + n) % n;
-    var path = current.photos[photoIndex];
-    var token = ++photoToken;
-    var back = heroImgs[heroFront ^ 1];
-    var loader = new Image();
-    loader.onload = function () {
-      if (token !== photoToken) return;
-      back.src = loader.src;
-      back.classList.add('is-current');
-      heroImgs[heroFront].classList.remove('is-current');
-      heroFront ^= 1;
-    };
-    loader.src = '/images/full/' + path;
-    $('explore-photo-count').textContent = (photoIndex + 1) + ' / ' + n;
-
-    Array.prototype.forEach.call(strip.children, function (t, i) { t.classList.toggle('is-active', i === photoIndex); });
-    var active = strip.children[photoIndex];
-    if (active) strip.scrollTo({ left: active.offsetLeft - strip.clientWidth / 2 + active.offsetWidth / 2, behavior: 'smooth' });
-
     if (viewerOpen) paintViewer();
   }
 
+  // One-second heartbeat: counts time at a stop and moves the journey on.
   function restartTicker() {
     clearInterval(ticker);
     ticks = 0;
     ticker = setInterval(function () {
-      if (!current || viewerOpen || document.hidden) return;
-      ticks++;
-      if (playing && arrived && ticks >= Math.min(current.photos.length, 3)) { step(1); return; }
-      if (current.photos.length > 1) showPhoto(photoIndex + 1);
-    }, PHOTO_MS);
+      if (!current || viewerOpen || document.hidden || !playing || !arrived) return;
+      if (++ticks >= DWELL_SECONDS) step(1);
+    }, 1000);
   }
 
-  strip.addEventListener('click', function (e) {
-    var t = e.target.closest('.explore-strip__thumb');
-    if (!t) return;
-    showPhoto(Number(t.dataset.index));
-    restartTicker();
-  });
-
   function fillPanel(place) {
+    var n = place.photos.length;
     $('explore-panel-country').textContent = countryTitle(place.country);
     $('explore-panel-title').textContent = place.title;
+    $('explore-panel-meta').textContent = n + (n === 1 ? ' photo' : ' photos');
     $('explore-country-link').href = '/countries/' + place.country + '#chapter-' + place.name;
     $('explore-country-link').textContent = 'Open the ' + countryTitle(place.country) + ' gallery →';
-    hero.style.backgroundImage = 'url("/images/blur/' + place.photos[0] + '")';
-    heroImgs[0].classList.remove('is-current');
-    heroImgs[1].classList.remove('is-current');
 
-    strip.innerHTML = place.photos.map(function (p, i) {
-      return '<button type="button" class="explore-strip__thumb" data-index="' + i + '" aria-label="Photo ' + (i + 1) + '">' +
-        '<img alt="" loading="lazy" src="/images/thumb/' + p + '"></button>';
-    }).join('');
-    strip.scrollLeft = 0;
-    strip.classList.toggle('is-single', place.photos.length < 2);
-
-    showPhoto(0);
+    panelTouched = false;
+    resetCollage();
+    loadMore();
     restartTicker();
   }
 
@@ -754,8 +929,9 @@ document.addEventListener('DOMContentLoaded', function () {
     $('explore-viewer-img').src = '/images/full/' + current.photos[photoIndex];
     $('explore-viewer-caption').textContent = current.title + ', ' + countryTitle(current.country) + ' · ' + (photoIndex + 1) + ' / ' + current.photos.length;
   }
-  function openViewer() {
+  function openViewer(index) {
     if (!current) return;
+    photoIndex = index || 0;
     viewerOpen = true;
     viewer.hidden = false;
     paintViewer();
@@ -765,9 +941,9 @@ document.addEventListener('DOMContentLoaded', function () {
     viewerOpen = false;
     viewer.hidden = true;
     restartTicker();
-    hero.focus();
+    var tile = collage.querySelector('.explore-tile[data-index="' + photoIndex + '"]');
+    if (tile) tile.focus({ preventScroll: true });
   }
-  hero.addEventListener('click', openViewer);
   $('explore-viewer-close').addEventListener('click', closeViewer);
   $('explore-viewer-prev').addEventListener('click', function () { showPhoto(photoIndex - 1); });
   $('explore-viewer-next').addEventListener('click', function () { showPhoto(photoIndex + 1); });
@@ -801,6 +977,14 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', function () {
     layoutRoot();
     map.resize();
+    if (current) {
+      // Row geometry depends on the panel width: re-flow what is loaded.
+      var keep = known;
+      collage.innerHTML = '';
+      rowsRendered = tilesRendered = 0;
+      known = keep;
+      renderRows();
+    }
   });
 
   window.addEventListener('hashchange', function () {
