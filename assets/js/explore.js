@@ -138,13 +138,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isMobile()) {
       return {
         top: s === 'intro' ? 44 : 96,
-        bottom: s === 'place' ? Math.round(root.clientHeight * 0.52) : (s === 'intro' ? 230 : 76),
+        bottom: s === 'place' ? Math.round(root.clientHeight * 0.52) : (s === 'intro' ? 230 : 124),
         left: 0, right: 0
       };
     }
     return {
       top: 0,
-      bottom: 64,
+      bottom: 112,
       left: s === 'intro' ? Math.min(root.clientWidth * 0.34, 480) : 210,
       right: s === 'place' ? 500 : 0
     };
@@ -725,10 +725,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function syncTransport() {
     var label = $('explore-stop-label');
     if (current) {
-      label.textContent = 'Stop ' + (current.stop + 1) + ' of ' + route.length;
+      label.textContent = 'Location ' + (current.stop + 1) + ' of ' + route.length;
       $('explore-progress').style.width = ((current.stop + 1) / route.length * 100) + '%';
     } else {
-      label.textContent = activeCountry ? countryTitle(activeCountry) + ' · ' + groups[activeCountry].length + ' locations' : route.length + ' stops';
+      label.textContent = activeCountry ? countryTitle(activeCountry) + ' · ' + groups[activeCountry].length + ' locations' : route.length + ' locations';
       $('explore-progress').style.width = '0%';
     }
   }
