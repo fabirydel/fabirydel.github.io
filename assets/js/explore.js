@@ -216,23 +216,23 @@ document.addEventListener('DOMContentLoaded', function () {
     map.addLayer({
       id: 'explore-trail', type: 'line', source: 'explore-trail',
       layout: { 'line-cap': 'round', 'line-join': 'round' },
-      paint: { 'line-color': '#ffd9a0', 'line-opacity': 0.28, 'line-width': 1.2, 'line-dasharray': [1, 2.5] }
+      paint: { 'line-color': '#a9d6ff', 'line-opacity': 0.28, 'line-width': 1.2, 'line-dasharray': [1, 2.5] }
     });
     map.addLayer({
       id: 'explore-arc-glow', type: 'line', source: 'explore-arc',
       layout: { 'line-cap': 'round', 'line-join': 'round' },
-      paint: { 'line-color': '#ffb85c', 'line-opacity': 0.35, 'line-width': 9, 'line-blur': 8 }
+      paint: { 'line-color': '#2f9bff', 'line-opacity': 0.35, 'line-width': 9, 'line-blur': 8 }
     });
     map.addLayer({
       id: 'explore-arc', type: 'line', source: 'explore-arc',
       layout: { 'line-cap': 'round', 'line-join': 'round' },
-      paint: { 'line-color': '#fff1d6', 'line-width': 2 }
+      paint: { 'line-color': '#e6f3ff', 'line-width': 2 }
     });
 
     map.addLayer({
       id: 'explore-glow', type: 'circle', source: 'explore-places',
       paint: {
-        'circle-color': '#ffb85c',
+        'circle-color': '#2f9bff',
         'circle-blur': 1,
         'circle-radius': ['interpolate', ['linear'], ['zoom'], 0, 7, 4, 13, 9, 22, 13, 30],
         'circle-opacity': 0.55
@@ -241,9 +241,9 @@ document.addEventListener('DOMContentLoaded', function () {
     map.addLayer({
       id: 'explore-dots', type: 'circle', source: 'explore-places',
       paint: {
-        'circle-color': '#fff4dc',
+        'circle-color': '#eef7ff',
         'circle-radius': ['interpolate', ['linear'], ['zoom'], 0, 1.6, 4, 2.8, 9, 5, 13, 6.5],
-        'circle-stroke-color': 'rgba(255, 184, 92, 0.9)',
+        'circle-stroke-color': 'rgba(47, 155, 255, 0.95)',
         'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 0, 0.4, 6, 1.2],
         'circle-opacity': 1
       }
@@ -702,7 +702,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function fillPanel(place) {
     var n = place.photos.length;
     $('explore-panel-country').textContent = countryTitle(place.country);
+    $('explore-panel-country').href = '/countries/' + place.country;
     $('explore-panel-title').textContent = place.title;
+    $('explore-panel-title').href = '/countries/' + place.country + '#chapter-' + place.name;
     $('explore-panel-meta').textContent = n + (n === 1 ? ' photo' : ' photos');
     $('explore-country-link').href = '/countries/' + place.country + '#chapter-' + place.name;
     $('explore-country-link').textContent = 'Open the ' + countryTitle(place.country) + ' gallery →';

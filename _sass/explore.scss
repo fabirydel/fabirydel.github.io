@@ -3,7 +3,17 @@
 
 $explore-glass: rgba(11, 12, 14, 0.72);
 $explore-line: rgba(242, 239, 233, 0.1);
-$explore-glow: #ffb85c;
+$explore-glow: #2f9bff; // keep in sync with --accent in variables.scss (rgba() needs a real colour)
+
+// footer.js blurs and pins #blurable when the About sheet opens, so it wraps
+// the (already fixed) page and has to span the viewport itself.
+.explore-blurable {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 body.explore-page {
   background: var(--background-dark);
@@ -15,7 +25,7 @@ body.explore-page {
   position: fixed;
   top: var(--header-height);
   right: 0;
-  bottom: 0;
+  bottom: 2em; // leaves room for the "Photography by" footer bar
   left: 0;
   background: #06070a;
   color: var(--cream);
@@ -586,6 +596,26 @@ body.explore-page {
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+.explore-panel__country a,
+.explore-panel__title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.explore-panel__country a:hover {
+  color: #7cbcff;
+}
+
+.explore-panel__title a {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.3s ease;
+
+  &:hover {
+    background-size: 100% 1px;
+  }
 }
 
 .explore-panel__title {

@@ -12,6 +12,7 @@
   <body class="explore-page">
     {% include header.html %}
 
+    <div id="blurable" class="explore-blurable">
     <main class="explore" id="explore" data-state="intro" aria-label="Explore the globe">
       <div class="explore__map" id="explore-map"></div>
       <div class="explore__vignette" aria-hidden="true"></div>
@@ -67,8 +68,8 @@
       <aside class="explore-panel" id="explore-panel" aria-live="polite">
         <header class="explore-panel__head">
           <div>
-            <p class="explore-panel__country" id="explore-panel-country"></p>
-            <h2 class="explore-panel__title" id="explore-panel-title"></h2>
+            <p class="explore-panel__country"><a id="explore-panel-country" href="/countries"></a></p>
+            <h2 class="explore-panel__title"><a id="explore-panel-title" href="/countries"></a></h2>
             <p class="explore-panel__meta" id="explore-panel-meta"></p>
           </div>
           <button type="button" class="explore-icon-btn" id="explore-close" aria-label="Back to the globe">
@@ -118,6 +119,9 @@
 
       <p class="explore-error" id="explore-error" hidden></p>
     </main>
+    </div>
+
+    {% include footer.html %}
 
     <script type="application/json" id="explore-data">
       {
