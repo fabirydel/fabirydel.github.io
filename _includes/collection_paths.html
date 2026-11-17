@@ -1,0 +1,25 @@
+{%- comment -%}
+  Renders a collection's photo paths (relative to images/full, e.g.
+  "bled/01_IMG_2855.jpg") joined by "|". Callers capture the output and
+  split it:
+
+    {%- capture joined -%}{% include collection_paths.html collection=c full_images=full_images %}{%- endcapture -%}
+    {%- assign paths = joined | strip | split: "|" | uniq -%}
+
+  A collection lists its photos explicitly under `images:`. The older
+  trip-style collections list `locations:` instead; those expand to every
+  photo of each location.
+
+  Inputs:
+    collection  — a document from _collections/
+    full_images — static files under /images/full/ (only needed for `locations:`)
+{%- endcomment -%}
+{%- assign cp_c = include.collection -%}
+{%- for cp_p in cp_c.images -%}{{ cp_p }}|{%- endfor -%}
+{%- if cp_c.locations -%}
+  {%- for cp_loc in cp_c.locations -%}
+    {%- assign cp_prefix = "/images/full/" | append: cp_loc | append: "/" -%}
+    {%- assign cp_matches = include.full_images | where_exp: "img", "img.path contains cp_prefix" -%}
+    {%- for cp_img in cp_matches -%}{{ cp_img.path | remove_first: "/images/full/" }}|{%- endfor -%}
+  {%- endfor -%}
+{%- endif -%}

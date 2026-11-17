@@ -1,0 +1,598 @@
+// Collections: the index (stacks of prints on a table) and a single
+// collection (prints dealt across the table). Behaviour lives in
+// assets/js/collections.js. Everything is prefixed cx-.
+
+$cx-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+.cx-body {
+  background: var(--background-dark);
+}
+
+.cx-index,
+.cx-page {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  padding: calc(var(--header-height) + 48px) clamp(18px, 4vw, 64px) 140px;
+  color: var(--cream);
+  font-family: "poppins", sans-serif;
+  background:
+    radial-gradient(
+      1100px 520px at 50% 0%,
+      rgba(47, 155, 255, 0.09),
+      transparent 70%
+    ),
+    var(--background-dark);
+  overflow-x: clip;
+}
+
+.cx-dev-only {
+  display: none !important;
+}
+
+.cx-dev .cx-dev-only {
+  display: inline-flex !important;
+}
+
+.cx-dev .cx-stack.cx-dev-only {
+  display: block !important;
+}
+
+// ---------------------------------------------------------------------
+// A print: a photo with a paper border
+// ---------------------------------------------------------------------
+.cx-print {
+  position: absolute;
+  inset: 0;
+  display: block;
+  box-sizing: border-box;
+  padding: 7px;
+  background-color: var(--cream);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 14px 30px rgba(0, 0, 0, 0.45);
+  transition: transform 0.55s $cx-ease;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1px;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Index
+// ---------------------------------------------------------------------
+.cx-index__head {
+  max-width: 1500px;
+  margin: 0 auto 64px;
+  text-align: center;
+
+  h1 {
+    font-size: clamp(36px, 5.2vw, 64px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 16px;
+  }
+}
+
+.cx-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
+  gap: 92px 72px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(8px, 3vw, 40px);
+}
+
+.cx-stack {
+  --tx: 0;
+  --ty: 0;
+  --rest: -1.4deg;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transform: rotate(var(--rest));
+  animation: cx-drop 0.8s $cx-ease both;
+  animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+  -webkit-tap-highlight-color: transparent;
+
+  &:nth-child(3n + 2) {
+    --rest: 1.8deg;
+  }
+  &:nth-child(4n + 3) {
+    --rest: -0.6deg;
+  }
+  &:nth-child(5n + 4) {
+    --rest: 2.4deg;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 14px;
+    border-radius: 4px;
+  }
+}
+
+@keyframes cx-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-46px) rotate(calc(var(--rest) * 5)) scale(1.12);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--rest));
+  }
+}
+
+.cx-stack__pile {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  transform: perspective(900px) rotateY(calc(var(--tx) * 9deg))
+    rotateX(calc(var(--ty) * -9deg));
+  transition: transform 0.3s ease-out;
+}
+
+.cx-print--1 {
+  transform: rotate(-5deg) translate(-2.5%, 1%);
+}
+.cx-print--2 {
+  transform: rotate(4.5deg) translate(2.5%, -1%);
+}
+.cx-print--3 {
+  transform: rotate(-1.5deg) translate(0, -3.5%);
+}
+
+.cx-stack:hover,
+.cx-stack:focus-visible,
+.cx-stack.is-fanned {
+  .cx-print--1 {
+    transform: rotate(-12deg) translate(-22%, -5%);
+  }
+  .cx-print--2 {
+    transform: rotate(11deg) translate(22%, -8%);
+  }
+  .cx-print--3 {
+    transform: rotate(-2deg) translate(0, -25%);
+  }
+  .cx-print--cover {
+    transform: translateY(2%) scale(1.03);
+  }
+  .cx-stack__label em {
+    color: var(--accent);
+  }
+}
+
+.cx-stack__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+  margin-top: 34px;
+  text-align: center;
+
+  strong {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  em {
+    font-style: normal;
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.25s ease;
+  }
+}
+
+.cx-stack--new {
+  .cx-print--blank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 2px dashed rgba(242, 239, 233, 0.28);
+    box-shadow: none;
+    color: rgba(242, 239, 233, 0.5);
+    font-size: 54px;
+    font-weight: 300;
+    transition:
+      border-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  &:hover .cx-print--blank {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
+
+// ---------------------------------------------------------------------
+// Collection page: hero
+// ---------------------------------------------------------------------
+.cx-hero {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 6vw, 84px);
+  max-width: 1080px;
+  margin: 0 auto 72px;
+}
+
+.cx-hero__cover {
+  position: relative;
+  flex: 0 0 min(44%, 440px);
+  aspect-ratio: 4 / 3;
+  transform: rotate(-2.5deg);
+}
+
+.cx-print--under {
+  transform: rotate(5deg) translate(1.5%, 1%);
+  background: #d9d5cd;
+}
+
+.cx-print--hero {
+  view-transition-name: cx-cover;
+}
+
+.cx-hero__text {
+  min-width: 0;
+}
+
+.cx-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.cx-hero__title {
+  margin-top: 14px;
+  font-size: clamp(34px, 5vw, 62px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.cx-hero__desc {
+  max-width: 46ch;
+  margin-top: 14px;
+  color: rgba(242, 239, 233, 0.78);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.cx-hero__meta {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.cx-hero__hint {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.cx-controls {
+  // Above any print that has been dragged up here.
+  position: relative;
+  z-index: 100002;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.cx-seg {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid rgba(242, 239, 233, 0.14);
+  border-radius: 999px;
+  background: rgba(242, 239, 233, 0.06);
+
+  button {
+    padding: 7px 16px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--cream);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+    &[aria-pressed="true"] {
+      background: var(--accent);
+      color: #fff;
+    }
+  }
+}
+
+.cx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border: 1px solid rgba(242, 239, 233, 0.14);
+  border-radius: 999px;
+  background: rgba(242, 239, 233, 0.06);
+  color: var(--cream);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  &:disabled {
+    border-color: rgba(242, 239, 233, 0.14);
+    color: var(--muted);
+    cursor: progress;
+  }
+}
+
+.cx-seg button:focus-visible,
+.cx-btn:focus-visible,
+.cx-back:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+// ---------------------------------------------------------------------
+// Collection page: the spread
+// ---------------------------------------------------------------------
+.cx-spread {
+  --b: 7px;
+  position: relative;
+  max-width: 1500px;
+  margin: 0 auto;
+  transition: height 0.6s $cx-ease;
+
+  &[data-mode="grid"] {
+    --b: 0px;
+  }
+}
+
+.cx-photo {
+  --x: 0px;
+  --y: 0px;
+  --r: 0deg;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--b);
+  border: 0;
+  border-radius: 3px;
+  background: var(--cream);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 10px 24px rgba(0, 0, 0, 0.4);
+  translate: var(--x) var(--y);
+  rotate: var(--r);
+  cursor: pointer;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    translate 0.75s $cx-ease,
+    rotate 0.45s $cx-ease,
+    scale 0.3s $cx-ease,
+    width 0.75s $cx-ease,
+    height 0.75s $cx-ease,
+    padding 0.4s ease,
+    box-shadow 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    z-index: 100000 !important;
+    rotate: 0deg;
+    scale: 1.05;
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.5),
+      0 26px 50px rgba(0, 0, 0, 0.6);
+
+    .cx-photo__cap {
+      opacity: 1;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  &.is-dragging {
+    z-index: 100001 !important;
+    scale: 1.08;
+    cursor: grabbing;
+    transition:
+      rotate 0.2s ease,
+      scale 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+}
+
+.cx-spread[data-mode="table"] .cx-photo {
+  @media (hover: hover) {
+    cursor: grab;
+  }
+}
+
+.cx-spread[data-mode="grid"] .cx-photo {
+  border-radius: 2px;
+  box-shadow: none;
+
+  &:hover,
+  &:focus-visible {
+    scale: 1.02;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  }
+}
+
+.cx-photo__inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1px;
+  background-size: cover;
+  background-position: center;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+}
+
+.cx-photo__cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 22px 10px 8px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.62));
+  color: #fff;
+  font-family: "poppins", sans-serif;
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+// ---------------------------------------------------------------------
+// Index -> collection: the cover print travels between the two pages
+// ---------------------------------------------------------------------
+::view-transition-group(cx-cover) {
+  animation-duration: 0.55s;
+  animation-timing-function: $cx-ease;
+}
+
+// ---------------------------------------------------------------------
+// Small screens
+// ---------------------------------------------------------------------
+@media screen and (max-width: 760px) {
+  .cx-index,
+  .cx-page {
+    padding-top: calc(var(--header-height) + 28px);
+  }
+
+  .cx-index__head {
+    margin-bottom: 48px;
+  }
+
+  .cx-table {
+    gap: 72px 40px;
+    padding: 0 26px;
+  }
+
+  .cx-hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 34px;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  .cx-hero__cover {
+    flex: none;
+    width: min(78%, 340px);
+    margin: 0 auto;
+  }
+
+  .cx-hero__desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cx-controls {
+    justify-content: center;
+  }
+
+  .cx-hero__hint {
+    display: none;
+  }
+
+  .cx-spread {
+    --b: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cx-stack {
+    animation: none;
+  }
+}
+
+// The site-wide a / a:visited / a:hover rules (main.scss) recolour and
+// underline links; keep these ones as designed.
+.cx-stack,
+.cx-stack:visited,
+.cx-stack:hover {
+  color: var(--cream);
+  text-decoration: none;
+}
+
+a.cx-btn,
+a.cx-btn:visited {
+  color: var(--cream);
+}
+
+a.cx-back:visited {
+  color: var(--muted);
+}
+
+a.cx-btn:hover,
+a.cx-back:hover {
+  color: var(--accent);
+  text-decoration: none;
+}

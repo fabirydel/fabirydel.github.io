@@ -1,0 +1,113 @@
+---
+layout: default
+title: Edit collections
+permalink: /collections/edit/
+style: collection-editor-page
+sitemap: false
+---
+{%- comment -%}
+  Local-only collection editor (assets/js/collection-editor.js). Creates and
+  edits the files in _collections/: name, description, cover and the list of
+  photos, picked from every photo on the site. Nothing is rendered in
+  production builds.
+{%- endcomment -%}
+{%- if jekyll.environment == 'production' -%}
+<p style="padding: 4rem 1.5rem; text-align: center;">The collection editor is only available when running the site locally.</p>
+{%- else -%}
+{%- assign full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" | sort: "path" -%}
+{%- assign cx_docs = site.collections | sort: "title" -%}
+
+<link rel="stylesheet" href="/assets/css/collection-editor.css">
+
+<section class="ce" id="ce">
+  <aside class="ce-side">
+    <a class="ce-back" href="/collections/">&larr; Collections</a>
+    <h1 class="ce-title">Collection editor</h1>
+
+    <label class="ce-field">
+      <span>Collection</span>
+      <select id="ce-pick"></select>
+    </label>
+    <label class="ce-field">
+      <span>Name</span>
+      <input type="text" id="ce-name" placeholder="e.g. Castles & Keeps" autocomplete="off">
+    </label>
+    <label class="ce-field">
+      <span>File name <em id="ce-slug-hint"></em></span>
+      <input type="text" id="ce-slug" placeholder="castles_and_keeps" autocomplete="off" spellcheck="false">
+    </label>
+    <label class="ce-field">
+      <span>Description <em>optional</em></span>
+      <textarea id="ce-desc" rows="2" placeholder="One line shown under the title"></textarea>
+    </label>
+
+    <div class="ce-tray-head">
+      <span><strong id="ce-count">0</strong> photos</span>
+      <button type="button" class="ce-link" id="ce-clear">Remove all</button>
+    </div>
+    <p class="ce-hint">Drag to reorder. The star marks the cover.</p>
+    <div class="ce-tray" id="ce-tray"></div>
+
+    <div class="ce-actions">
+      <button type="button" class="ce-btn ce-btn-primary" id="ce-save">Save collection</button>
+      <button type="button" class="ce-btn" id="ce-download">Download file</button>
+    </div>
+    <button type="button" class="ce-danger" id="ce-delete" hidden>Delete this collection…</button>
+    <div class="ce-confirm" id="ce-confirm" role="alertdialog" aria-live="assertive" hidden>
+      <p id="ce-confirm-text"></p>
+      <div class="ce-confirm__actions">
+        <button type="button" class="ce-btn ce-btn-danger" id="ce-confirm-yes">Delete</button>
+        <button type="button" class="ce-btn" id="ce-confirm-no">Cancel</button>
+      </div>
+    </div>
+    <p class="ce-folder" id="ce-folder"></p>
+    <p class="ce-status" id="ce-status" role="status"></p>
+    <details class="ce-preview">
+      <summary>File preview</summary>
+      <pre id="ce-preview"></pre>
+    </details>
+  </aside>
+
+  <div class="ce-main">
+    <div class="ce-filters">
+      <input type="search" id="ce-search" placeholder="Search places or countries…" autocomplete="off">
+      <select id="ce-country"><option value="">All countries</option></select>
+      <label class="ce-check"><input type="checkbox" id="ce-only-selected"> Only places in this collection</label>
+    </div>
+    <div class="ce-library" id="ce-library"></div>
+  </div>
+</section>
+
+<script type="application/json" id="ce-data">
+  {
+    "locations": [
+      {%- for l in site.locations -%}
+        {"n": {{ l.namePath | jsonify }}, "t": {{ l.title | jsonify }}, "c": {{ l.country | jsonify }}}
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    "countries": [
+      {%- for c in site.countries -%}
+        {"n": {{ c.name | jsonify }}, "t": {{ c.title | jsonify }}}
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    "collections": [
+      {%- for c in cx_docs -%}
+        {%- capture joined -%}{% include collection_paths.html collection=c full_images=full_images %}{%- endcapture -%}
+        {%- assign paths = joined | strip | split: "|" | uniq -%}
+        {%- assign slug = c.path | split: "/" | last | remove: ".html" -%}
+        {"slug": {{ slug | jsonify }}, "title": {{ c.title | jsonify }}, "description": {{ c.description | jsonify }}, "cover": {{ c.cover | remove_first: "/images/full/" | jsonify }}, "images": {{ paths | jsonify }}}
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    "photos": [
+      {%- for img in full_images -%}
+        {{ img.path | remove_first: "/images/full/" | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+<script src="/assets/js/collection-editor.js" defer></script>
+{%- endif -%}

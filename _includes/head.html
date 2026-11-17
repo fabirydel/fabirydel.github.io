@@ -40,6 +40,10 @@
     <script defer src="/assets/js/explore.js"></script>
   {%- endif -%}
 
+  {%- if page.layout == 'collection' or page.layout == 'collections' -%}
+    <script defer src="/assets/js/collections.js"></script>
+  {%- endif -%}
+
   {%- if is_nft_page -%}
     <script defer src="/assets/js/crypto-js/crypto-js.js"></script>
     <script defer src="/assets/js/nft.js"></script>
@@ -72,7 +76,24 @@
         {%- endfor -%}
       ]);
     </script>
+    {%- comment -%}
+      Dev-only: the collections (and the photos each one holds) for the
+      collection picker button on photo tiles.
+    {%- endcomment -%}
+    <script>
+      window.__collections = [
+        {%- for c in site.collections -%}
+          {%- assign c_slug = c.path | split: "/" | last | remove: ".html" -%}
+          {"slug": {{ c_slug | jsonify }}, "title": {{ c.title | jsonify }}, "images": {{ c.images | jsonify }}},
+        {%- endfor -%}
+      ];
+      {%- if page.layout == 'collection' -%}
+        window.__currentCollection = {{ page.path | split: "/" | last | remove: ".html" | jsonify }};
+      {%- endif -%}
+    </script>
+    <script defer src="/assets/js/dev-files.js"></script>
     <script defer src="/assets/js/portfolio-toggle.js"></script>
+    <script defer src="/assets/js/collection-toggle.js"></script>
   {%- endunless -%}
 
   {%- if jekyll.environment == 'production' and site.google_analytics -%}

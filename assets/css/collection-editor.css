@@ -1,0 +1,485 @@
+/* Local-only collection editor (/collections/edit/). Scoped under .ce. */
+
+.ce {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 24px clamp(14px, 2.5vw, 36px) 120px;
+  color: #f2efe9;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+}
+
+.ce [hidden] {
+  display: none !important;
+}
+
+/* The site header slides away when scrolling down and back when scrolling
+   up (#header.hide, see header.scss). The sticky panel and filter bar
+   follow it, so nothing shows through between them and the top. */
+.ce {
+  --ce-top: var(--header-height);
+}
+
+body:has(#header.hide) .ce {
+  --ce-top: 0px;
+}
+
+.ce-side {
+  position: sticky;
+  top: calc(var(--ce-top) + 16px);
+  max-height: calc(100vh - var(--ce-top) - 70px);
+  transition: top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
+  padding: 18px;
+  border: 1px solid rgba(242, 239, 233, 0.12);
+  border-radius: 12px;
+  background: rgba(242, 239, 233, 0.04);
+}
+
+.ce-back {
+  color: #9c9a97;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.ce-back:hover {
+  color: #2f9bff;
+}
+
+.ce-title {
+  margin: 6px 0 16px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.ce-field {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.ce-field > span {
+  display: block;
+  margin-bottom: 4px;
+  color: #9c9a97;
+  font-size: 12px;
+}
+
+.ce-field em {
+  font-style: normal;
+  opacity: 0.75;
+}
+
+.ce input[type="text"],
+.ce input[type="search"],
+.ce select,
+.ce textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid rgba(242, 239, 233, 0.18);
+  border-radius: 8px;
+  background: #15171a;
+  color: inherit;
+  font: inherit;
+}
+
+/* Own chevron, inset from the edge (the native one hugs the border). */
+.ce select {
+  padding-right: 34px;
+  background-color: #15171a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%239c9a97' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ce input:focus,
+.ce select:focus,
+.ce textarea:focus {
+  outline: 2px solid #2f9bff;
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+.ce input[readonly] {
+  opacity: 0.6;
+}
+
+.ce textarea {
+  resize: vertical;
+}
+
+.ce-tray-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.ce-hint {
+  margin: 2px 0 8px;
+  color: #9c9a97;
+  font-size: 12px;
+}
+
+.ce-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #2f9bff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ce-link:hover {
+  text-decoration: underline;
+}
+
+.ce-danger {
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #ff8a8a;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ce-danger:hover {
+  text-decoration: underline;
+}
+
+.ce-tray {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  min-height: 60px;
+}
+
+.ce-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 18px 8px;
+  border: 1px dashed rgba(242, 239, 233, 0.2);
+  border-radius: 8px;
+  color: #9c9a97;
+  text-align: center;
+}
+
+.ce-item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #15171a;
+  cursor: grab;
+}
+
+.ce-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ce-item.is-cover {
+  outline: 2px solid #f5c542;
+  outline-offset: -2px;
+}
+
+.ce-item.is-missing {
+  outline: 2px solid #ff6b6b;
+  outline-offset: -2px;
+}
+
+.ce-item.is-dragging {
+  opacity: 0.35;
+}
+
+.ce-item.is-over {
+  outline: 2px solid #2f9bff;
+  outline-offset: -2px;
+}
+
+.ce-star,
+.ce-x {
+  position: absolute;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 12px;
+  line-height: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.ce-star {
+  left: 3px;
+}
+
+.ce-x {
+  right: 3px;
+  font-size: 15px;
+}
+
+.ce-item:hover .ce-star,
+.ce-item:hover .ce-x,
+.ce-item.is-cover .ce-star {
+  opacity: 1;
+}
+
+.ce-item.is-cover .ce-star {
+  color: #f5c542;
+}
+
+.ce-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.ce-folder {
+  margin: 10px 0 0;
+  color: #9c9a97;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.ce-folder strong {
+  color: #f2efe9;
+  font-weight: 600;
+}
+
+.ce-btn {
+  padding: 9px 14px;
+  border: 1px solid rgba(242, 239, 233, 0.2);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ce-btn:hover {
+  border-color: #2f9bff;
+}
+
+.ce-btn-primary {
+  flex: 1;
+  border-color: #2f9bff;
+  background: #2f9bff;
+  color: #fff;
+  font-weight: 600;
+}
+
+.ce-status {
+  min-height: 1.4em;
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.ce-status[data-kind="err"] {
+  color: #ff8a8a;
+}
+
+.ce-status[data-kind="ok"] {
+  color: #7ddc9a;
+}
+
+.ce-status a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.ce-preview {
+  margin-top: 10px;
+  color: #9c9a97;
+  font-size: 12px;
+}
+
+.ce-preview summary {
+  cursor: pointer;
+}
+
+.ce-preview pre {
+  max-height: 220px;
+  margin: 8px 0 0;
+  padding: 10px;
+  overflow: auto;
+  border: 0;
+  border-radius: 8px;
+  background: #15171a;
+  color: #cfccc6;
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+/* Library */
+.ce-filters {
+  position: sticky;
+  /* Tucked 4px under the header: the header is a few px shorter than
+     --header-height, which would leave a sliver of photos showing. */
+  top: calc(var(--ce-top) - 4px);
+  transition: top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 0 12px;
+  background: var(--background-dark, #0b0c0e);
+}
+
+.ce-filters input[type="search"] {
+  flex: 1 1 220px;
+  width: auto;
+}
+
+.ce-filters select {
+  flex: 0 1 200px;
+  width: auto;
+}
+
+.ce-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #9c9a97;
+  cursor: pointer;
+}
+
+.ce-loc {
+  margin-bottom: 26px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 260px;
+}
+
+.ce-loc header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.ce-loc h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ce-loc h2 span {
+  margin-left: 6px;
+  color: #9c9a97;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ce-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+}
+
+.ce-thumb {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  background: #15171a;
+  cursor: pointer;
+}
+
+.ce-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.15s ease;
+}
+
+.ce-thumb:hover img {
+  opacity: 0.8;
+}
+
+.ce-thumb.is-in {
+  outline: 3px solid #2f9bff;
+  outline-offset: -3px;
+}
+
+.ce-thumb.is-in::after {
+  content: "✓";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2f9bff;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
+@media screen and (max-width: 900px) {
+  .ce {
+    grid-template-columns: 1fr;
+  }
+
+  .ce-side {
+    position: static;
+    max-height: none;
+  }
+}
+
+/* In-page confirmation (native dialogs are blocked in some browsers). */
+.ce-confirm {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255, 138, 138, 0.45);
+  border-radius: 10px;
+  background: rgba(255, 107, 107, 0.08);
+}
+
+.ce-confirm p {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.ce-confirm__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ce-btn-danger {
+  border-color: #e5484d;
+  background: #e5484d;
+  color: #fff;
+  font-weight: 600;
+}
+
+.ce-btn-danger:hover {
+  border-color: #ff6369;
+  background: #ff6369;
+}

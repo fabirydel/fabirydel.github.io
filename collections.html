@@ -1,15 +1,56 @@
 ---
 layout: collections
 title: Collections
+permalink: /collections/
 ---
+{%- comment -%}
+  The collections index: every collection is a stack of prints on a table.
+  (`site.collections` here is the documents in _collections/, since the
+  Jekyll collection itself is labelled "collections".)
+{%- endcomment -%}
+{%- assign cx_docs = site.collections | sort: "title" -%}
+{%- assign full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" | sort: "path" -%}
 
-<div id="collection-list" class="container">
-  {% for collection in site.collections %}
-    <a class="item-container" href="/collections/{{ collection.name }}">
-      <div class="title">
-        <span>{{ collection.title}}</span>
-      </div>
-      <img src="{{ collection.cover }}" class="item-cover">
-    </a>
-  {% endfor %}
-</div>
+<main class="cx-index">
+  <header class="cx-index__head">
+    <h1>Collections</h1>
+  </header>
+
+  <div class="cx-table">
+    {%- for c in cx_docs -%}
+      {%- capture joined -%}{% include collection_paths.html collection=c full_images=full_images %}{%- endcapture -%}
+      {%- assign paths = joined | strip | split: "|" | uniq -%}
+      {%- assign cover = c.cover | remove_first: "/images/full/" -%}
+      {%- if cover == "" -%}{%- assign cover = paths | first -%}{%- endif -%}
+      {%- assign peek = paths | where_exp: "p", "p != cover" -%}
+      <a class="cx-stack" href="{{ c.url | remove: '.html' }}" style="--i: {{ forloop.index0 }}">
+        <span class="cx-stack__pile">
+          {%- for p in peek limit: 3 -%}
+            <span class="cx-print cx-print--{{ forloop.rindex }}">
+              <img src="/images/thumb/{{ p }}" alt="" loading="lazy" decoding="async">
+            </span>
+          {%- endfor -%}
+          <span class="cx-print cx-print--cover">
+            <img src="/images/full/{{ cover }}" alt="{{ c.title }}" decoding="async">
+          </span>
+        </span>
+        <span class="cx-stack__label">
+          <strong>{{ c.title }}</strong>
+          <em>{{ paths | size }} photos</em>
+        </span>
+      </a>
+    {%- endfor -%}
+
+    {%- unless jekyll.environment == 'production' -%}
+      <a class="cx-stack cx-stack--new cx-dev-only" href="/collections/edit/" style="--i: {{ cx_docs | size }}">
+        <span class="cx-stack__pile">
+          <span class="cx-print cx-print--blank"><span>+</span></span>
+        </span>
+        <span class="cx-stack__label">
+          <strong>New collection</strong>
+          <em>local only</em>
+        </span>
+      </a>
+    {%- endunless -%}
+  </div>
+</main>
