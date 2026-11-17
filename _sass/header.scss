@@ -9,7 +9,7 @@
   position: fixed;
   user-select: none;
   width: calc(100% - 48px);
-  z-index: 5;
+  z-index: 100005;
   font-family: "poppins", sans-serif;
   font-weight: 500;
   // Slow 0.75s transition was sluggish for nav feedback. Tightened to 0.25s
