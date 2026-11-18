@@ -280,9 +280,25 @@
       });
     }
 
-    // Drag a print around the table (mouse / pen; touch keeps scrolling).
+    // Drag a print around the table. Mouse / pen drag straight away; on touch
+    // a short press picks the print up (a quick swipe still scrolls the page).
     var press = null;
     var suppressClick = false;
+    var HOLD_MS = 220;
+
+    function pickUp(p) {
+      if (!press || press !== p || p.moved) return;
+      p.canDrag = true;
+      p.held = true;
+      p.it.el.classList.add('is-dragging');
+      p.it.el.style.zIndex = String(++zTop);
+      if (navigator.vibrate) { try { navigator.vibrate(8); } catch (err) { /* ignore */ } }
+    }
+
+    // Once a print is held the finger must move it, not the page.
+    document.addEventListener('touchmove', function (e) {
+      if (press && press.held && e.cancelable) e.preventDefault();
+    }, { passive: false });
 
     root.addEventListener('pointerdown', function (e) {
       var el = e.target.closest ? e.target.closest('.cx-photo') : null;
@@ -295,16 +311,28 @@
         dx: it.dx,
         dy: it.dy,
         moved: false,
+        held: false,
+        touch: e.pointerType === 'touch',
         canDrag: mode === 'table' && e.pointerType !== 'touch'
       };
+      if (mode === 'table' && press.touch) {
+        var mine = press;
+        mine.timer = setTimeout(function () { pickUp(mine); }, HOLD_MS);
+      }
     });
 
     window.addEventListener('pointermove', function (e) {
-      if (!press || !press.canDrag) return;
+      if (!press) return;
       var mx = e.clientX - press.x;
       var my = e.clientY - press.y;
+      // Moving before the hold completes means the finger is scrolling.
+      if (press.touch && !press.canDrag) {
+        if (Math.abs(mx) + Math.abs(my) > 8) { clearTimeout(press.timer); press = null; }
+        return;
+      }
+      if (!press.canDrag) return;
       if (!press.moved) {
-        if (Math.abs(mx) + Math.abs(my) < 6) return;
+        if (!press.held && Math.abs(mx) + Math.abs(my) < 6) return;
         press.moved = true;
         press.it.el.classList.add('is-dragging');
         press.it.el.style.zIndex = String(++zTop);
@@ -316,8 +344,14 @@
 
     function endPress() {
       if (!press) return;
+      clearTimeout(press.timer);
+      if (press.held) press.it.el.classList.remove('is-dragging');
       if (press.moved) {
         press.it.el.classList.remove('is-dragging');
+        suppressClick = true;
+        setTimeout(function () { suppressClick = false; }, 0);
+      } else if (press.held) {
+        // Held without moving: not a tap either.
         suppressClick = true;
         setTimeout(function () { suppressClick = false; }, 0);
       }

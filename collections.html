@@ -12,10 +12,6 @@ permalink: /collections/
 {%- assign full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" | sort: "path" -%}
 
 <main class="cx-index">
-  <header class="cx-index__head">
-    <h1>Collections</h1>
-  </header>
-
   <div class="cx-table">
     {%- for c in cx_docs -%}
       {%- capture joined -%}{% include collection_paths.html collection=c full_images=full_images %}{%- endcapture -%}
