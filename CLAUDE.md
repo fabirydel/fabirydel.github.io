@@ -15,13 +15,17 @@ bundle exec jekyll serve        # http://localhost:4000
 - `_data/locations_per_country.yml`: country -> list of location names. **Must be updated whenever a location is added.**
 - `_data/portfolio.yml`: curated portfolio grid entries (path, title, place, location, country, `large`), grouped by colour sections.
 - `_data/flag_colors.yml`: colours per flag.
-- `_landscapes/` (themes: mountains, coast, castles, ...) and `_collections/` (named trips) are output collections with their own pages.
+- `_landscapes/` (themes: mountains, coast, castles, ...) is an output collection with its own pages.
+- `_collections/<name>.html`: one page per collection, a hand-picked set of photos (`layout: collection`; `title`, `description`, `cover`, `images:` as paths relative to `images/full/`). (`locations:` is still understood and expands to every photo of those places, see `_includes/collection_paths.html`, but no file uses it any more.) In Liquid, `site.collections` is the list of these documents.
 - `_nfts/`: NFT pages. Metadata fields are **encrypted** strings (CryptoJS, see `assets/js/nftEncryption.js` and `_includes/decrypt_modal.html`). Never "fix" or re-encode them by hand.
 - `_includes/` holds the galleries/modals; `_layouts/` the page layouts; `assets/js/` is vanilla JS (galleries, maps, grid layout, color sort); styles are `assets/css/main.scss` plus a few plain CSS files and `_sass/`.
 
 ## Pages
 - `/` is the Explore page (`index.html`, `_layouts/explore.html`, `assets/js/explore.js`, `_sass/explore.scss`): a Mapbox GL JS globe with a flat-map toggle, a per-location photo panel and an autoplay journey. Its data (locations, countries, full-size photo paths) is inlined as JSON by the layout.
 - `/portfolio/` is the curated grid (`portfolio.html`). `/countries` lists countries.
+- `/collections/` is the collections index (`collections.html`): stacks of prints that fan out on hover. `/collections/<name>` (`_layouts/collection.html`) deals the photos across a "table" (draggable prints, Table/Grid toggle, Shuffle). Both use `assets/js/collections.js` and `_sass/collections.scss`.
+- `/collections/edit/` (`collections-edit.html`, `assets/js/collection-editor.js`) is the local-only editor that creates and edits `_collections` files; it renders nothing in production.
+- Dev-only tools on photo tiles (localhost, non-production builds): the portfolio checkbox (`assets/js/portfolio-toggle.js`) and the collection picker (`assets/js/collection-toggle.js`). They and the collection editor write source files through `window.devFiles` (`assets/js/dev-files.js`), which posts to `/__dev/files`, an endpoint added to `jekyll serve` by the local gem in `_dev/jekyll-dev-files` (loaded via the Gemfile because github-pages forces safe mode, so `_plugins/` is ignored). It only touches `_collections/*.html` and `_data/portfolio.yml`. Without the gem the tools fall back to the browser's folder access, which is remembered per port.
 - `explore.html` and `worldmap.html` are redirect stubs for old URLs (the old Locations map page is gone).
 
 ## Images

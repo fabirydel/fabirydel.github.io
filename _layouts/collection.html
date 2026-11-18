@@ -1,23 +1,98 @@
 <!doctype html>
 <html lang="en">
-
   {% include head.html %}
-  <body>
+  {%- comment -%}
+    One collection: the cover print sits in the hero and the photos are
+    "dealt" from it across the table (assets/js/collections.js). The photo
+    list is inlined as JSON; the modal slides are rendered below.
+  {%- endcomment -%}
+  {%- if page.locations -%}
+    {%- assign full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" | sort: "path" -%}
+  {%- endif -%}
+  {%- capture joined -%}{% include collection_paths.html collection=page full_images=full_images %}{%- endcapture -%}
+  {%- assign collection_paths = joined | strip | split: "|" | uniq -%}
+  {%- assign cover = page.cover | remove_first: "/images/full/" -%}
+  {%- if cover == "" -%}{%- assign cover = collection_paths | first -%}{%- endif -%}
+  {%- assign slug = page.path | split: "/" | last | remove: ".html" -%}
+
+  <style>
+    @view-transition { navigation: auto; }
+  </style>
+
+  <body class="cx-body">
     {% include header.html %}
     <div id="blurable">
-      <!-- {{ content }} -->
-      <div class="gallery-body gallery-body-country" id="gallery-body">
-        <div class="gallery-page-wrapper">
-          {{ content }}
+      <main class="cx-page" id="gallery-body">
+        <section class="cx-hero">
+          <div class="cx-hero__cover" aria-hidden="true">
+            <span class="cx-print cx-print--under"></span>
+            <span class="cx-print cx-print--hero" id="cx-hero-print">
+              <img src="/images/full/{{ cover }}" alt="" decoding="async">
+            </span>
+          </div>
+          <div class="cx-hero__text">
+            <a class="cx-back" href="/collections/">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              All collections
+            </a>
+            <h1 class="cx-hero__title">{{ page.title }}</h1>
+            {%- if page.description -%}
+              <p class="cx-hero__desc">{{ page.description }}</p>
+            {%- endif -%}
+            <p class="cx-hero__meta">{{ collection_paths | size }} photos</p>
+            <div class="cx-controls">
+              <div class="cx-seg" role="group" aria-label="Layout">
+                <button type="button" data-mode="table" aria-pressed="true">Collage</button>
+                <button type="button" data-mode="grid" aria-pressed="false">Grid</button>
+              </div>
+              <button type="button" class="cx-btn" id="cx-shuffle">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 4.5h2.2c1.3 0 2.4.6 3.1 1.7l2.4 3.6c.7 1.1 1.8 1.7 3.1 1.7h2.2M1.5 11.5h2.2c1 0 1.9-.4 2.6-1.1M14.5 4.5h-2.2c-1 0-1.9.4-2.6 1.1M12.6 2.6l1.9 1.9-1.9 1.9M12.6 9.6l1.9 1.9-1.9 1.9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Shuffle
+              </button>
+              <button type="button" class="cx-btn" id="cx-download">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8.5M4.5 7.5 8 11l3.5-3.5M2.5 13.5h11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Download</span>
+              </button>
+              {%- unless jekyll.environment == 'production' -%}
+                <a class="cx-btn cx-dev-only" href="/collections/edit/?c={{ slug }}">Edit</a>
+              {%- endunless -%}
+            </div>
+            <p class="cx-hero__hint">Drag the prints around, then download your collage. Click a print to open it.</p>
+          </div>
+        </section>
 
-          {% include country_gallery.html %}
-        </div>
-      </div>
+        <section class="cx-spread" id="cx-spread" data-mode="table" aria-label="Photos"></section>
+      </main>
     </div>
     {% include footer.html %}
+
+    <script type="application/json" id="cx-data">
+      {
+        "slug": {{ slug | jsonify }},
+        "title": {{ page.title | jsonify }},
+        "paths": {{ collection_paths | jsonify }},
+        "places": {
+          {%- assign seen = "" -%}
+          {%- assign first = true -%}
+          {%- for p in collection_paths -%}
+            {%- assign loc_slug = p | split: "/" | first -%}
+            {%- assign key = "|" | append: loc_slug | append: "|" -%}
+            {%- unless seen contains key -%}
+              {%- assign seen = seen | append: key -%}
+              {%- assign loc_doc = site.locations | where: "namePath", loc_slug | first -%}
+              {%- if loc_doc.title -%}
+                {%- unless first -%},{%- endunless -%}
+                {%- assign first = false -%}
+                {{ loc_slug | jsonify }}: {{ loc_doc.title | jsonify }}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        }
+      }
+    </script>
   </body>
 
-  {% include gallery_portfolio_modal.html %}
-  <!-- {% include countries_modal.html %} -->
-  <!-- {% include landscapes_modal.html %} -->
+  {% include gallery_collection_modal.html %}
+  {% include countries_modal.html %}
+  {% include landscapes_modal.html %}
 </html>

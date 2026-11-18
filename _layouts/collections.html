@@ -2,7 +2,12 @@
 <html lang="en">
 
   {% include head.html %}
-  <body>
+
+  <style>
+    @view-transition { navigation: auto; }
+  </style>
+
+  <body class="cx-body">
     {% include header.html %}
     <div id="blurable">
       {{ content }}
@@ -10,7 +15,6 @@
     {% include footer.html %}
   </body>
 
-  {% include gallery_portfolio_modal.html %}
   {% include countries_modal.html %}
   {% include landscapes_modal.html %}
 </html>

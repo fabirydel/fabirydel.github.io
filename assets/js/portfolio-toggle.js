@@ -6,9 +6,8 @@
 //     only on the portfolio page where every tile is in-portfolio anyway).
 //   - Shows an empty outlined checkbox on hover if the photo is NOT in
 //     portfolio.yml.
-//   - On click, toggles state: writes _data/portfolio.yml in-place via the
-//     File System Access API (re-using the upload wizard's saved folder
-//     handle in IndexedDB so the user only grants access once).
+//   - On click, toggles state: writes _data/portfolio.yml in-place through
+//     window.devFiles (assets/js/dev-files.js).
 //   - On the portfolio page, un-checking also removes the tile and the
 //     corresponding modal slide from the DOM in real time and re-runs the
 //     grid layout — no full page reload required.
@@ -26,83 +25,12 @@
   var isLocal = h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0' || h.endsWith('.local');
   if (!isLocal) return;
 
-  if (!('showDirectoryPicker' in window)) {
-    console.warn('[portfolio-toggle] File System Access API not available — toggle disabled.');
+  // File access goes through assets/js/dev-files.js: the dev server writes
+  // the file itself when it can (any port, no prompt), with the File System
+  // Access API as the fallback.
+  if (!window.devFiles) {
+    console.warn('[portfolio-toggle] dev-files.js not loaded — toggle disabled.');
     return;
-  }
-
-  // --------------------------------------------------------------------
-  // IndexedDB helper — same DB the upload wizard uses, so the folder
-  // handle persists across both features.
-  // --------------------------------------------------------------------
-  var idb = (function () {
-    var DB_NAME = 'upload-wizard';
-    var STORE = 'kv';
-    var dbPromise;
-    function open() {
-      if (dbPromise) return dbPromise;
-      dbPromise = new Promise(function (resolve, reject) {
-        var req = indexedDB.open(DB_NAME, 1);
-        req.onupgradeneeded = function () { req.result.createObjectStore(STORE); };
-        req.onsuccess = function () { resolve(req.result); };
-        req.onerror = function () { reject(req.error); };
-      });
-      return dbPromise;
-    }
-    return {
-      get: function (key) {
-        return open().then(function (db) {
-          return new Promise(function (resolve, reject) {
-            var tx = db.transaction(STORE, 'readonly');
-            var req = tx.objectStore(STORE).get(key);
-            req.onsuccess = function () { resolve(req.result); };
-            req.onerror = function () { reject(req.error); };
-          });
-        });
-      },
-      set: function (key, value) {
-        return open().then(function (db) {
-          return new Promise(function (resolve, reject) {
-            var tx = db.transaction(STORE, 'readwrite');
-            tx.objectStore(STORE).put(value, key);
-            tx.oncomplete = function () { resolve(); };
-            tx.onerror = function () { reject(tx.error); };
-          });
-        });
-      },
-    };
-  })();
-
-  // --------------------------------------------------------------------
-  // Folder handle — reuse upload wizard's grant if present.
-  // --------------------------------------------------------------------
-  var cachedHandle = null;
-  function getRootHandle() {
-    if (cachedHandle) return Promise.resolve(cachedHandle);
-    return idb.get('rootHandle').then(function (saved) {
-      if (saved) {
-        return saved.queryPermission({ mode: 'readwrite' }).then(function (perm) {
-          if (perm === 'granted') {
-            cachedHandle = saved;
-            return saved;
-          }
-          return saved.requestPermission({ mode: 'readwrite' }).then(function (newPerm) {
-            if (newPerm === 'granted') {
-              cachedHandle = saved;
-              return saved;
-            }
-            throw new Error('Permission to repo folder was denied.');
-          });
-        });
-      }
-      // No saved handle — prompt for one now.
-      return window.showDirectoryPicker({ mode: 'readwrite' }).then(function (handle) {
-        return idb.set('rootHandle', handle).then(function () {
-          cachedHandle = handle;
-          return handle;
-        });
-      });
-    });
   }
 
   // --------------------------------------------------------------------
@@ -429,47 +357,18 @@
   // Reads portfolio.yml, applies `transform` to its text, writes the result
   // back, then touches portfolio.html.
   function updatePortfolioYaml(transform) {
-    return getRootHandle().then(function (handle) {
-      return handle.getDirectoryHandle('_data').then(function (dataDir) {
-        return dataDir.getFileHandle('portfolio.yml').then(function (yamlFh) {
-          return yamlFh.getFile()
-            .then(function (f) { return f.text(); })
-            .then(function (currentText) {
-              var updated = transform(currentText);
-              return yamlFh.createWritable().then(function (w) {
-                return w.write(updated).then(function () { return w.close(); });
-              });
-            });
-        });
-      }).then(function () {
-        // Nudge Jekyll into a full rebuild. Editing _data/portfolio.yml
-        // alone *should* trigger a rebuild, but in practice the watcher
-        // sometimes misses rapid bursts (we hit this on the upload
-        // wizard too). Touching portfolio.html makes sure the portfolio
-        // page gets regenerated so the user sees their toggle on next reload.
-        return touchFile(handle, ['portfolio.html']);
-      });
+    var file = '_data/portfolio.yml';
+    return window.devFiles.read(file).then(function (currentText) {
+      if (currentText === null) throw new Error(file + ' was not found.');
+      return window.devFiles.write(file, transform(currentText));
+    }).then(function () {
+      // Nudge Jekyll into a full rebuild. Editing _data/portfolio.yml
+      // alone *should* trigger a rebuild, but in practice the watcher
+      // sometimes misses rapid bursts (we hit this on the upload
+      // wizard too). Touching portfolio.html makes sure the portfolio
+      // page gets regenerated so the user sees their toggle on next reload.
+      return window.devFiles.touch('portfolio.html');
     });
-  }
-
-  // Re-write a file with its existing content to bump its mtime, forcing
-  // Jekyll's watcher to regenerate it.
-  async function touchFile(rootHandle, segments) {
-    try {
-      var dir = rootHandle;
-      for (var i = 0; i < segments.length - 1; i++) {
-        dir = await dir.getDirectoryHandle(segments[i]);
-      }
-      var fh = await dir.getFileHandle(segments[segments.length - 1]);
-      var f = await fh.getFile();
-      var text = await f.text();
-      var w = await fh.createWritable();
-      await w.write(text);
-      await w.close();
-    } catch (err) {
-      // Non-fatal — the YAML write already succeeded.
-      console.debug('[portfolio-toggle] touch failed', segments.join('/'), err);
-    }
   }
 
   // --------------------------------------------------------------------

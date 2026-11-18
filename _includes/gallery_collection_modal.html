@@ -1,0 +1,40 @@
+{%- comment -%}
+  Modal slides for a collection page. Same markup and id as the other
+  "new style" modals (see gallery_landscape_modal.html), fed from the
+  `collection_paths` array assigned in _layouts/collection.html.
+{%- endcomment -%}
+
+<div id="myPortfolioModal" class="modal" onclick="closeModal('myPortfolioModal')">
+  <a class="close cursor icon close-button" onclick="closeModal('myPortfolioModal')"></a>
+  <div class="modal-content">
+    {% for image_path in collection_paths %}
+      {%- assign loc_slug = image_path | split: '/' | first -%}
+      {%- assign loc_doc = site.locations | where: "namePath", loc_slug | first -%}
+      {%- if loc_doc.title -%}
+        {%- assign place_label = loc_doc.title -%}
+      {%- else -%}
+        {%- assign place_label = loc_slug | replace: '_', ' ' | capitalize -%}
+      {%- endif -%}
+      {%- capture country_slug %}{% include country_for_location.html name_path=loc_slug %}{% endcapture -%}
+      {%- assign country_page = site.countries | where: "name", country_slug | first -%}
+      {%- if country_page.title -%}
+        {%- assign country_label = country_page.title -%}
+      {%- else -%}
+        {%- assign country_label = country_slug | capitalize -%}
+      {%- endif -%}
+      {%- assign country_href = "/countries/" | append: country_slug -%}
+      {%- assign chapter_href = country_href | append: "#chapter-" | append: loc_slug -%}
+
+      <div class="slide">
+        <div class="image-modal-container center">
+          {% include photo_caption.html place=place_label place_href=chapter_href country=country_label country_href=country_href dummy=true %}
+          <img data-src="/images/full/{{ image_path }}" alt="{{ place_label }}, {{ country_label }}" decoding="async" onclick="ignore(event)">
+          {% include photo_caption.html place=place_label place_href=chapter_href country=country_label country_href=country_href %}
+        </div>
+      </div>
+    {% endfor %}
+
+    <a class="prev icon fa-chevron-left" onclick="plusSlides(event, -1)"></a>
+    <a class="next icon fa-chevron-right" onclick="plusSlides(event, 1)"></a>
+  </div>
+</div>

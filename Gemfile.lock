@@ -1,3 +1,8 @@
+PATH
+  remote: _dev/jekyll-dev-files
+  specs:
+    jekyll-dev-files (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -319,6 +324,7 @@ DEPENDENCIES
   guard-livereload
   jekyll (~> 3.8.7)
   jekyll-debug
+  jekyll-dev-files!
   jekyll-feed (~> 0.12)
   minima (~> 2.5)
   tzinfo (~> 1.2)
@@ -327,4 +333,4 @@ DEPENDENCIES
   webrick (~> 1.7)
 
 BUNDLED WITH
-   2.1.4
+   2.4.22

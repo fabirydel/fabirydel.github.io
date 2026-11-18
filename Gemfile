@@ -17,6 +17,9 @@ gem "github-pages", "~> 206", group: :jekyll_plugins
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
   gem 'jekyll-debug'
+  # Local-only: lets the dev tools (collection editor, portfolio toggle)
+  # write source files through `jekyll serve`. See _dev/jekyll-dev-files.
+  gem "jekyll-dev-files", path: "_dev/jekyll-dev-files"
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
