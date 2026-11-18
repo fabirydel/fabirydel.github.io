@@ -951,6 +951,54 @@ document.addEventListener('DOMContentLoaded', function () {
   $('explore-viewer-next').addEventListener('click', function () { showPhoto(photoIndex + 1); });
   viewer.addEventListener('click', function (e) { if (e.target === viewer) closeViewer(); });
 
+  // Drag the photo: sideways to flick to the next or previous one, down to
+  // dismiss. The photo follows the finger and springs back if it isn't thrown far enough.
+  (function () {
+    var img = $('explore-viewer-img');
+    var drag = null;
+    function reset(animate) {
+      img.style.transition = animate ? 'transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease' : 'none';
+      img.style.transform = '';
+      img.style.opacity = '';
+    }
+    img.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      drag = { x: e.clientX, y: e.clientY, dx: 0, dy: 0, axis: '', id: e.pointerId };
+      img.style.transition = 'none';
+    });
+    img.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      drag.dx = e.clientX - drag.x;
+      drag.dy = e.clientY - drag.y;
+      if (!drag.axis && Math.max(Math.abs(drag.dx), Math.abs(drag.dy)) > 8) {
+        drag.axis = Math.abs(drag.dx) > Math.abs(drag.dy) ? 'x' : 'y';
+        try { img.setPointerCapture(e.pointerId); } catch (err) { /* not capturable */ }
+      }
+      if (drag.axis === 'x') {
+        img.style.transform = 'translateX(' + drag.dx + 'px) rotate(' + (drag.dx / 60) + 'deg)';
+      } else if (drag.axis === 'y' && drag.dy > 0) {
+        img.style.transform = 'translateY(' + drag.dy + 'px)';
+        img.style.opacity = String(Math.max(0.3, 1 - drag.dy / 360));
+      }
+    });
+    function end() {
+      if (!drag) return;
+      var d = drag; drag = null;
+      if (d.axis === 'x' && Math.abs(d.dx) > 70) {
+        showPhoto(photoIndex + (d.dx < 0 ? 1 : -1));
+        reset(false);
+      } else if (d.axis === 'y' && d.dy > 110) {
+        reset(false);
+        closeViewer();
+      } else {
+        reset(true);
+      }
+    }
+    img.addEventListener('pointerup', end);
+    img.addEventListener('pointercancel', end);
+    img.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  })();
+
   /* ------------------------------------------------------------- keyboard */
 
   document.addEventListener('keydown', function (e) {
