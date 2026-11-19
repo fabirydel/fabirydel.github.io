@@ -18,8 +18,8 @@ $cx-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   font-family: "poppins", sans-serif;
   background:
     radial-gradient(
-      1100px 520px at 50% 0%,
-      rgba(47, 155, 255, 0.09),
+      1100px 520px at 50% 50%,
+      rgba(47, 155, 255, 0.05),
       transparent 70%
     ),
     var(--background-dark);
