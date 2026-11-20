@@ -463,7 +463,7 @@
       state.existing = state.slug;
       markClean();
       renderAll();
-      setStatus('Saved <code>' + esc(path) + '</code>. Jekyll rebuilds in a few seconds. <a href="/trips/' + esc(state.slug) + '/">Open the trip</a>', 'ok');
+      setStatus('Saved <code>' + esc(path) + '</code>. Jekyll rebuilds in a few seconds. <a href="/trips/' + esc(state.slug) + '">Open the trip</a>', 'ok');
     } catch (err) {
       console.error(err);
       setStatus('Could not save: ' + esc(err && err.message ? err.message : err), 'error');

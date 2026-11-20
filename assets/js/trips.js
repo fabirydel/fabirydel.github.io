@@ -102,7 +102,7 @@
 
   function statLine(sum) {
     var bits = [];
-    bits.push(sum.places + (sum.places === 1 ? ' place' : ' places'));
+    bits.push(sum.places + (sum.places === 1 ? ' location' : ' locations'));
     if (sum.countries) bits.push(sum.countries + (sum.countries === 1 ? ' country' : ' countries'));
     if (sum.km >= 1) bits.push(fmtKm(sum.km));
     if (sum.days > 1) bits.push(sum.days + ' days');
@@ -111,7 +111,7 @@
 
   // Trip page: what and where on the first line, when and how far on the second.
   function statHtml(sum) {
-    var one = [sum.places + (sum.places === 1 ? ' place' : ' places')];
+    var one = [sum.places + (sum.places === 1 ? ' location' : ' locations')];
     if (sum.countries) one.push(sum.countries + (sum.countries === 1 ? ' country' : ' countries'));
     var two = [];
     if (sum.range) two.push(sum.range);
@@ -203,7 +203,7 @@
     });
 
     var html = trips.map(function (t, i) {
-      return '<a class="tr-card" href="/trips/' + esc(t.slug) + '/" style="--i:' + i + '">' +
+      return '<a class="tr-card" href="/trips/' + esc(t.slug) + '" style="--i:' + i + '">' +
         cardMapHtml(t.stops) +
         '<span class="tr-card__label"><strong>' + esc(t.title) + '</strong>' +
         (t.sum.range ? '<em>' + esc(t.sum.range) + '</em>' : '') +
