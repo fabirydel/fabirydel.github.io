@@ -1,0 +1,111 @@
+---
+layout: default
+title: Edit trips
+permalink: /trips/edit/
+style: collection-editor-page
+sitemap: false
+---
+{%- comment -%}
+  Local-only trip editor (assets/js/trip-editor.js). Creates and edits the
+  files in _trips/: a name, a description and the stops (locations, each with
+  a date; the dates give the order). Nothing is rendered in production builds.
+{%- endcomment -%}
+{%- if jekyll.environment == 'production' -%}
+<p style="padding: 4rem 1.5rem; text-align: center;">The trip editor is only available when running the site locally.</p>
+{%- else -%}
+{%- assign full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" | sort: "path" -%}
+<link rel="stylesheet" href="/assets/css/collection-editor.css">
+<link rel="stylesheet" href="/assets/css/trip-editor.css">
+
+<section class="ce te" id="te">
+  <aside class="ce-side">
+    <a class="ce-back" href="/trips/">&larr; Trips</a>
+    <h1 class="ce-title">Trip editor</h1>
+
+    <label class="ce-field">
+      <span>Trip</span>
+      <select id="te-pick"></select>
+    </label>
+    <label class="ce-field">
+      <span>Name</span>
+      <input type="text" id="te-name" placeholder="e.g. Ireland road trip" autocomplete="off">
+    </label>
+    <label class="ce-field">
+      <span>File name <em id="te-slug-hint"></em></span>
+      <input type="text" id="te-slug" placeholder="ireland_road_trip" autocomplete="off" spellcheck="false">
+    </label>
+    <label class="ce-field">
+      <span>Description <em>optional</em></span>
+      <textarea id="te-desc" rows="2" placeholder="One line shown under the title"></textarea>
+    </label>
+
+    <div class="ce-tray-head">
+      <span><strong id="te-count">0</strong> stops <em id="te-range"></em></span>
+      <button type="button" class="ce-link" id="te-clear">Remove all</button>
+    </div>
+    <p class="ce-hint">Click places on the right to add them. The dates set the order; for stops on the same day use ▲▼ to choose which comes first.</p>
+    <ol class="te-stops" id="te-stops"></ol>
+
+    <div class="ce-actions">
+      <button type="button" class="ce-btn ce-btn-primary" id="te-save">Save trip</button>
+    </div>
+    <button type="button" class="ce-danger" id="te-delete" hidden>Delete this trip…</button>
+    <div class="ce-confirm" id="te-confirm" role="alertdialog" aria-live="assertive" hidden>
+      <p id="te-confirm-text"></p>
+      <div class="ce-confirm__actions">
+        <button type="button" class="ce-btn ce-btn-danger" id="te-confirm-yes">Delete</button>
+        <button type="button" class="ce-btn" id="te-confirm-no">Cancel</button>
+      </div>
+    </div>
+    <p class="ce-folder" id="te-folder"></p>
+    <p class="ce-status" id="te-status" role="status"></p>
+    <details class="ce-preview">
+      <summary>File preview</summary>
+      <pre id="te-preview"></pre>
+    </details>
+  </aside>
+
+  <div class="ce-main">
+    <div class="ce-filters">
+      <input type="search" id="te-search" placeholder="Search places or countries…" autocomplete="off">
+      <select id="te-country"><option value="">All countries</option></select>
+      <label class="ce-check"><input type="checkbox" id="te-only-selected"> Only places in this trip</label>
+    </div>
+    <div class="te-library" id="te-library"></div>
+  </div>
+</section>
+
+<script type="application/json" id="te-data">
+  {
+    "locations": [
+      {%- for l in site.locations -%}
+        {"n": {{ l.namePath | jsonify }}, "t": {{ l.title | jsonify }}, "c": {{ l.country | jsonify }}, "i": {{ l.indexImagePath | jsonify }}}
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    "photos": [
+      {%- for img in full_images -%}
+        {{ img.path | remove_first: "/images/full/" | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    "countries": [
+      {%- for c in site.countries -%}
+        {"n": {{ c.name | jsonify }}, "t": {{ c.title | jsonify }}}
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    "trips": [
+      {%- for t in site.trips -%}
+        {%- assign slug = t.path | split: "/" | last | remove: ".html" -%}
+        {"slug": {{ slug | jsonify }}, "title": {{ t.title | jsonify }}, "description": {{ t.description | jsonify }}, "stops": [
+          {%- for s in t.stops -%}
+            {"l": {{ s.location | jsonify }}, "d": {{ s.date | date: "%Y-%m-%d" | jsonify }}, "m": {{ s.travel | jsonify }}, "p": {{ s.images | jsonify }}}{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ]}{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+<script src="/assets/js/trip-editor.js" defer></script>
+{%- endif -%}

@@ -1,0 +1,40 @@
+---
+layout: trips
+title: Trips
+permalink: /trips/
+---
+{%- comment -%}
+  The trips index: one card per trip, a satellite map of the route.
+  Trips are the files in _trips/ (an ordered list of locations by date).
+  Everything is drawn by assets/js/trips.js from the JSON below.
+{%- endcomment -%}
+<main class="tr-index">
+  <div class="tr-grid" id="tr-grid"></div>
+  {%- unless jekyll.environment == 'production' -%}
+    <a class="tr-card tr-card--new tr-dev-only" href="/trips/edit/"><span>+</span><strong>New trip</strong><em>local only</em></a>
+  {%- endunless -%}
+</main>
+
+<script type="application/json" id="tr-data">
+  {
+    "trips": [
+      {%- for t in site.trips -%}
+        {%- assign slug = t.path | split: "/" | last | remove: ".html" -%}
+        {
+          "slug": {{ slug | jsonify }},
+          "title": {{ t.title | jsonify }},
+          "description": {{ t.description | jsonify }},
+          "stops": [
+            {%- for s in t.stops -%}
+              {%- assign loc = site.locations | where: "namePath", s.location | first -%}
+              {%- if loc -%}
+                {"n": {{ loc.namePath | jsonify }}, "t": {{ loc.title | jsonify }}, "c": {{ loc.country | jsonify }}, "ll": {{ loc.latlng }}, "i": {{ loc.indexImagePath | jsonify }}, "d": {{ s.date | date: "%Y-%m-%d" | jsonify }}},
+              {%- endif -%}
+            {%- endfor -%}
+            null
+          ]
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+</script>

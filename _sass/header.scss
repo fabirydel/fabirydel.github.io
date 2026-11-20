@@ -383,6 +383,12 @@
         padding-left: 4vw;
         padding-right: 4vw;
       }
+
+      // Five links (with Trips) have to fit on one row.
+      .header-options.small h1 {
+        font-size: 11px;
+        letter-spacing: 0.05em;
+      }
     }
   }
 }

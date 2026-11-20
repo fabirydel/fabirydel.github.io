@@ -1,0 +1,45 @@
+{%- comment -%}
+  The location panel shared by Explore and Trips (see assets/js/place-panel.js
+  and _sass/place-ui.scss).
+{%- endcomment -%}
+<aside class="place-panel" id="place-panel" aria-live="polite">
+  <header class="place-panel__head">
+    <div>
+      <p class="place-panel__country">
+        <a id="place-panel-country" href="/countries"></a>
+      </p>
+      <h2 class="place-panel__title">
+        <a id="place-panel-title" href="/countries"></a>
+      </h2>
+      <p class="place-panel__meta" id="place-panel-meta"></p>
+    </div>
+    <button
+      type="button"
+      class="ui-icon-btn"
+      id="place-close"
+      aria-label="Back to the globe"
+    >
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path
+          d="M3.5 3.5l9 9m0-9l-9 9"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          fill="none"
+        />
+      </svg>
+    </button>
+  </header>
+
+  <div
+    class="place-collage"
+    id="place-collage"
+    aria-label="Photos"
+  ></div>
+
+  <footer class="place-panel__foot">
+    <a class="place-panel__link" id="place-country-link" href="#"
+      >Open the full gallery →</a
+    >
+  </footer>
+</aside>

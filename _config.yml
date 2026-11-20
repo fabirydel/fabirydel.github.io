@@ -57,6 +57,8 @@ collections:
     output: true
   collections:
     output: true
+  trips:
+    output: true
   nfts:
     output: true
 

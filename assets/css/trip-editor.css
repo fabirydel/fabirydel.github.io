@@ -1,0 +1,348 @@
+/* Local-only trip editor (/trips/edit/). Builds on collection-editor.css. */
+
+.te-stops {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.te-stop {
+  display: grid;
+  grid-template-columns: 22px 38px minmax(0, 1fr) 24px;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  gap: 2px 8px;
+  padding: 6px;
+  border: 1px solid rgba(242, 239, 233, 0.1);
+  border-radius: 8px;
+  background: rgba(242, 239, 233, 0.04);
+}
+
+.te-stop__n {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2f9bff;
+  color: #04101d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.te-stop img {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #15171a;
+}
+
+.te-stop__t {
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.te-stop__t strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.te-stop__t em {
+  font-style: normal;
+  font-size: 11px;
+  color: #9c9a97;
+}
+
+.te .te-stop input[type="date"] {
+  width: 128px;
+  padding: 5px 6px;
+  border: 1px solid rgba(242, 239, 233, 0.16);
+  border-radius: 6px;
+  background: #15171a;
+  color: #f2efe9;
+  font: inherit;
+  font-size: 12px;
+  color-scheme: dark;
+}
+
+.te .te-stop input[type="date"]:focus {
+  outline: 0;
+  border-color: #2f9bff;
+}
+
+.te-stop__x {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #9c9a97;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.te-stop__x:hover {
+  background: rgba(242, 239, 233, 0.12);
+  color: #f2efe9;
+}
+
+.te-empty {
+  margin: 0;
+  padding: 14px 8px;
+  text-align: center;
+  color: #9c9a97;
+  font-size: 12.5px;
+}
+
+/* Library of places */
+.te-country {
+  margin-bottom: 26px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 260px;
+}
+
+.te-country h2 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.te-country h2 span {
+  margin-left: 6px;
+  color: #9c9a97;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.te-places {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.te-place {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: #15171a;
+  color: #f2efe9;
+  text-align: left;
+  cursor: pointer;
+}
+
+.te-place img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, opacity 0.2s ease;
+}
+
+.te-place::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 45%, rgba(0, 0, 0, 0.78));
+}
+
+.te-place span {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 6px;
+  z-index: 1;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.te-place:hover img {
+  transform: scale(1.06);
+}
+
+.te-place.is-in {
+  border-color: #2f9bff;
+}
+
+.te-place b {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: #2f9bff;
+  color: #04101d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.te-stop > :nth-child(1),
+.te-stop > :nth-child(2),
+.te-stop > :nth-child(5) {
+  grid-row: 1 / span 2;
+}
+
+.te-stop > :nth-child(3) {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.te-stop__row2 {
+  grid-column: 3;
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  min-width: 0;
+}
+
+.te-stop__move {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.te-stop__move button {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid rgba(242, 239, 233, 0.16);
+  border-radius: 6px;
+  background: #15171a;
+  color: #f2efe9;
+  font-size: 9px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.te-stop__move button:hover:not(:disabled) {
+  border-color: #2f9bff;
+  color: #2f9bff;
+}
+
+.te-stop__move button:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.te-stop__straight {
+  order: 3; /* wraps below the date and arrows when the row is narrow */
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid rgba(242, 239, 233, 0.16);
+  border-radius: 6px;
+  background: #15171a;
+  color: rgba(242, 239, 233, 0.7);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.te-stop__straight:hover,
+.te-stop__straight.is-on {
+  border-color: #2f9bff;
+  color: #2f9bff;
+}
+
+.te-stop__photos-btn {
+  order: 3;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid rgba(242, 239, 233, 0.16);
+  border-radius: 6px;
+  background: #15171a;
+  color: rgba(242, 239, 233, 0.7);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.te-stop__photos-btn:hover,
+.te-stop__photos-btn.is-on,
+.te-stop__photos-btn[aria-expanded="true"] {
+  border-color: #2f9bff;
+  color: #2f9bff;
+}
+
+.te-stop__picker {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin-top: 6px;
+}
+
+.te-stop__hint {
+  margin: 0 0 6px;
+  font-size: 11px;
+  color: #9c9a97;
+}
+
+.te-stop__hint button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #2f9bff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.te-stop__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+  gap: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.te-stop__ph {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background: #15171a;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.te-stop__ph img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+  opacity: 0.55;
+}
+
+.te-stop__ph:hover img {
+  opacity: 0.85;
+}
+
+.te-stop__ph.is-on {
+  border-color: #2f9bff;
+}
+
+.te-stop__ph.is-on img {
+  opacity: 1;
+}

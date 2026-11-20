@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  {% include head.html %}
+  {%- assign slug = page.path | split: "/" | last | remove: ".html" -%}
+  {%- assign full_images = site.static_files | where: "image", true | where_exp: "img", "img.path contains '/images/full/'" | sort: "path" -%}
+  <body class="tr-body tr-body--trip">
+    {% include header.html %}
+    <div id="blurable">
+      <main class="tr-trip" id="tr-trip" aria-label="{{ page.title }}">
+        <div class="tr-map" id="tr-map"></div>
+        <div class="tr-vignette" aria-hidden="true"></div>
+
+        <section class="tr-panel" id="tr-panel">
+          <a class="tr-back" href="/trips/">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            All trips
+          </a>
+          <h1 class="tr-panel__title">{{ page.title }}</h1>
+          {%- if page.description -%}<p class="tr-panel__desc">{{ page.description }}</p>{%- endif -%}
+          <p class="tr-panel__stats" id="tr-stats"></p>
+          <div class="tr-panel__actions">
+            <button type="button" class="ui-btn ui-btn--primary" id="tr-play">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>
+              Play
+            </button>
+            <button type="button" class="ui-btn ui-btn--ghost" id="tr-fit" hidden>Whole route</button>
+            {%- unless jekyll.environment == 'production' -%}
+              <a class="ui-btn ui-btn--ghost tr-dev-only" href="/trips/edit/?t={{ slug }}">Edit</a>
+            {%- endunless -%}
+          </div>
+          <ol class="tr-stops" id="tr-stops"></ol>
+        </section>
+
+        {% include place_panel.html %}
+
+        {% include place_transport.html center='none' %}
+
+        {% include place_viewer.html %}
+
+        <p class="tr-error" id="tr-error" hidden></p>
+      </main>
+    </div>
+    {% include footer.html %}
+
+    <script type="application/json" id="tr-data">
+      {
+        "slug": {{ slug | jsonify }},
+        "title": {{ page.title | jsonify }},
+        "stops": [
+          {%- for s in page.stops -%}
+            {%- assign loc = site.locations | where: "namePath", s.location | first -%}
+            {%- if loc -%}
+              {"n": {{ loc.namePath | jsonify }}, "t": {{ loc.title | jsonify }}, "c": {{ loc.country | jsonify }}, "ll": {{ loc.latlng }}, "i": {{ loc.indexImagePath | jsonify }}, "d": {{ s.date | date: "%Y-%m-%d" | jsonify }}, "m": {{ s.travel | jsonify }}, "p": {{ s.images | jsonify }}},
+            {%- endif -%}
+          {%- endfor -%}
+          null
+        ],
+        "photos": {
+          {%- assign seen = "|" -%}
+          {%- assign first = true -%}
+          {%- for s in page.stops -%}
+            {%- assign key = "|" | append: s.location | append: "|" -%}
+            {%- unless seen contains key -%}
+              {%- assign seen = seen | append: s.location | append: "|" -%}
+              {%- assign loc_path = "/images/full/" | append: s.location | append: "/" -%}
+              {%- assign loc_images = full_images | where_exp: "img", "img.path contains loc_path" -%}
+              {%- unless first -%},{%- endunless -%}
+              {%- assign first = false -%}
+              {{ s.location | jsonify }}: [
+                {%- for img in loc_images -%}
+                  {{ img.path | remove_first: "/images/full/" | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+                {%- endfor -%}
+              ]
+            {%- endunless -%}
+          {%- endfor -%}
+        }
+      }
+    </script>
+  </body>
+
+  {% include countries_modal.html %}
+  {% include landscapes_modal.html %}
+</html>

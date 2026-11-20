@@ -37,11 +37,23 @@
   {%- if page.layout == 'explore' -%}
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css">
     <script defer src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    <script defer src="/assets/js/place-panel.js"></script>
     <script defer src="/assets/js/explore.js"></script>
   {%- endif -%}
 
   {%- if page.layout == 'collection' or page.layout == 'collections' -%}
     <script defer src="/assets/js/collections.js"></script>
+  {%- endif -%}
+
+  {%- if page.layout == 'trip' or page.layout == 'trips' -%}
+    {%- if page.layout == 'trip' -%}
+      <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css">
+      <script defer src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+    {%- endif -%}
+    {%- if page.layout == 'trip' -%}
+      <script defer src="/assets/js/place-panel.js"></script>
+    {%- endif -%}
+    <script defer src="/assets/js/trips.js"></script>
   {%- endif -%}
 
   {%- if is_nft_page -%}

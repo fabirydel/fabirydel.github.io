@@ -42,7 +42,7 @@
           </p>
           <button
             type="button"
-            class="explore-btn explore-btn--primary"
+            class="ui-btn ui-btn--primary"
             id="explore-begin"
           >
             <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -114,172 +114,11 @@
           </div>
         </div>
 
-        <!-- Location panel -->
-        <aside class="explore-panel" id="explore-panel" aria-live="polite">
-          <header class="explore-panel__head">
-            <div>
-              <p class="explore-panel__country">
-                <a id="explore-panel-country" href="/countries"></a>
-              </p>
-              <h2 class="explore-panel__title">
-                <a id="explore-panel-title" href="/countries"></a>
-              </h2>
-              <p class="explore-panel__meta" id="explore-panel-meta"></p>
-            </div>
-            <button
-              type="button"
-              class="explore-icon-btn"
-              id="explore-close"
-              aria-label="Back to the globe"
-            >
-              <svg viewBox="0 0 16 16" aria-hidden="true">
-                <path
-                  d="M3.5 3.5l9 9m0-9l-9 9"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  stroke-linecap="round"
-                  fill="none"
-                />
-              </svg>
-            </button>
-          </header>
+        {% include place_panel.html %}
 
-          <div
-            class="explore-collage"
-            id="explore-collage"
-            aria-label="Photos"
-          ></div>
+        {% include place_transport.html %}
 
-          <footer class="explore-panel__foot">
-            <a class="explore-panel__link" id="explore-country-link" href="#"
-              >Open the full gallery →</a
-            >
-          </footer>
-        </aside>
-
-        <!-- Transport -->
-        <div class="explore-transport" id="explore-transport">
-          <button
-            type="button"
-            class="explore-icon-btn"
-            id="explore-prev"
-            aria-label="Previous location"
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path
-                d="M10 3L5 8l5 5"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                fill="none"
-              />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="explore-icon-btn explore-icon-btn--play"
-            id="explore-play"
-            aria-label="Play the journey"
-            aria-pressed="false"
-          >
-            <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4.5 2.5v11l9-5.5z" fill="currentColor" />
-            </svg>
-            <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 2.5h3v11H4zm5 0h3v11H9z" fill="currentColor" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="explore-icon-btn"
-            id="explore-next"
-            aria-label="Next location"
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path
-                d="M6 3l5 5-5 5"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                fill="none"
-              />
-            </svg>
-          </button>
-          <div class="explore-transport__meta">
-            <span
-              class="explore-transport__label"
-              id="explore-stop-label"
-            ></span>
-            <span class="explore-transport__bar"
-              ><span id="explore-progress"></span
-            ></span>
-          </div>
-        </div>
-
-        <!-- Full-screen photo viewer -->
-        <div
-          class="explore-viewer"
-          id="explore-viewer"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Photo viewer"
-          hidden
-        >
-          <img id="explore-viewer-img" alt="" />
-          <p class="explore-viewer__caption" id="explore-viewer-caption"></p>
-          <button
-            type="button"
-            class="explore-icon-btn explore-viewer__close"
-            id="explore-viewer-close"
-            aria-label="Close"
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path
-                d="M3.5 3.5l9 9m0-9l-9 9"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                fill="none"
-              />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="explore-icon-btn explore-viewer__nav explore-viewer__nav--prev"
-            id="explore-viewer-prev"
-            aria-label="Previous photo"
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path
-                d="M10 3L5 8l5 5"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                fill="none"
-              />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="explore-icon-btn explore-viewer__nav explore-viewer__nav--next"
-            id="explore-viewer-next"
-            aria-label="Next photo"
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path
-                d="M6 3l5 5-5 5"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                fill="none"
-              />
-            </svg>
-          </button>
-        </div>
+        {% include place_viewer.html %}
 
         <p class="explore-error" id="explore-error" hidden></p>
       </main>

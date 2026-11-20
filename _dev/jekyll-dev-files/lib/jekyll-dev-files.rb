@@ -28,6 +28,7 @@ module JekyllDevFiles
 
   READ_WRITE = [
     %r!\A_collections/[a-z0-9_]+\.html\z!,
+    %r!\A_trips/[a-z0-9_]+\.html\z!,
     %r!\A_data/portfolio\.yml\z!,
   ].freeze
   TOUCH_ONLY = [%r!\A[a-z0-9_-]+\.html\z!].freeze
@@ -83,8 +84,8 @@ module JekyllDevFiles
         File.write(file, content, :encoding => "UTF-8")
         { "ok" => true }
       when "delete"
-        # Collections only; the portfolio data file is never deleted.
-        file = resolve(body["path"], [READ_WRITE.first])
+        # Collections and trips only; the portfolio data file is never deleted.
+        file = resolve(body["path"], READ_WRITE.first(2))
         File.delete(file) if File.file?(file)
         { "ok" => true }
       when "touch"
