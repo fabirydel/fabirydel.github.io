@@ -531,6 +531,7 @@
         var target = document.getElementById(li.dataset.target);
         if (target && typeof target.scrollIntoView === 'function') {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          pinTo(target, { settle: true });
         }
       });
     });
@@ -572,6 +573,9 @@
       }, { once: true });
     }
 
+    pinToHash();
+    window.addEventListener('hashchange', pinToHash);
+
     // Hide the floating bubble while the banner map is visible in the viewport;
     // show it once the banner scrolls out of view.
     var bannerWrapper = document.getElementById('country-map-banner-wrapper');
@@ -589,6 +593,91 @@
         bannerObserver.observe(bannerWrapper);
       }
     }
+  }
+
+
+  // Keep a chapter pinned at the top of the viewport while the page is still
+  // laying out. Photo grids are placed by JS and images load late, so the
+  // chapters above the target grow after the browser has already scrolled
+  // to #chapter-x and we end up on a neighbouring location. We re-align on
+  // every layout change until things settle or the visitor scrolls.
+  var activePin = null;
+
+  function pinTo(target, opts) {
+    opts = opts || {};
+    if (activePin) activePin.stop();
+
+    var stopped = false;
+    var timers = [];
+    var ro = null;
+    var lastAlign = 0;
+
+    function topFor() {
+      var margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      return Math.max(0, target.getBoundingClientRect().top + window.pageYOffset - margin);
+    }
+
+    function align() {
+      if (stopped) return;
+      var top = topFor();
+      if (Math.abs(top - window.pageYOffset) > 1) {
+        window.scrollTo({ top: top, left: 0, behavior: 'instant' });
+      }
+      lastAlign = Date.now();
+    }
+
+    function stop() {
+      if (stopped) return;
+      stopped = true;
+      timers.forEach(clearTimeout);
+      if (ro) ro.disconnect();
+      ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (t) {
+        window.removeEventListener(t, stop, true);
+      });
+      document.removeEventListener('load', onLoad, true);
+      window.removeEventListener('load', onWindowLoad);
+      if (activePin && activePin.stop === stop) activePin = null;
+    }
+
+    // Any deliberate scrolling by the visitor wins.
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (t) {
+      window.addEventListener(t, stop, { capture: true, passive: true });
+    });
+
+    var settleTimer = null;
+    function scheduleEnd(ms) {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(stop, ms);
+      timers.push(settleTimer);
+    }
+
+    function onLoad() { align(); scheduleEnd(1500); }
+    function onWindowLoad() { align(); scheduleEnd(1500); }
+    document.addEventListener('load', onLoad, true); // image loads (capture)
+    window.addEventListener('load', onWindowLoad);
+
+    var content = document.querySelector('.country-page-content') || document.body;
+    if ('ResizeObserver' in window) {
+      ro = new ResizeObserver(function () { align(); scheduleEnd(1500); });
+      ro.observe(content);
+    }
+
+    // For TOC clicks, wait for the smooth scroll to get going before we
+    // start correcting, otherwise we fight it.
+    var startDelay = opts.settle ? 700 : 0;
+    timers.push(setTimeout(function () { align(); scheduleEnd(opts.settle ? 1200 : 2500); }, startDelay));
+    // Never pin for more than a few seconds, whatever happens.
+    timers.push(setTimeout(stop, 10000));
+
+    activePin = { stop: stop };
+    if (!opts.settle) align();
+  }
+
+  function pinToHash() {
+    var id = decodeURIComponent((window.location.hash || '').slice(1));
+    if (id.indexOf('chapter-') !== 0) return;
+    var target = document.getElementById(id);
+    if (target) pinTo(target);
   }
 
   if (document.readyState === 'loading') {

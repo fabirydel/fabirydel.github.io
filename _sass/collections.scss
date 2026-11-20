@@ -26,6 +26,12 @@ $cx-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   overflow-x: clip;
 }
 
+// Fanned-out prints rise above their pile: keep the first row clear of the
+// header.
+.cx-index {
+  padding-top: calc(var(--header-height) + 96px);
+}
+
 .cx-dev-only {
   display: none !important;
 }
@@ -542,6 +548,12 @@ $cx-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
     padding-top: calc(var(--header-height) + 28px);
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  // The mobile header is taller than --header-height and the fanned prints
+  // rise above their pile, so keep the first stack well clear of it.
+  .cx-index {
+    padding-top: calc(var(--header-height) + 72px);
   }
 
   .cx-table {
