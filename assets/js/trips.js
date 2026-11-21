@@ -36,16 +36,23 @@
     return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
   }
 
-  function fmtDate(d) { return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
+  // 1st, 2nd, 3rd, 4th ... 11th, 12th, 13th ... 21st, 22nd
+  function ord(n) {
+    var r = n % 100;
+    if (r >= 11 && r <= 13) return n + 'th';
+    return n + (['th', 'st', 'nd', 'rd'][n % 10] || 'th');
+  }
+
+  function fmtDate(d) { return ord(d.getDate()) + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
 
   function fmtRange(a, b) {
     if (!a) return '';
     if (!b || a.getTime() === b.getTime()) return fmtDate(a);
     if (a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth()) {
-      return a.getDate() + '–' + b.getDate() + ' ' + MONTHS[a.getMonth()] + ' ' + a.getFullYear();
+      return ord(a.getDate()) + '–' + ord(b.getDate()) + ' ' + MONTHS[a.getMonth()] + ' ' + a.getFullYear();
     }
     if (a.getFullYear() === b.getFullYear()) {
-      return a.getDate() + ' ' + MONTHS[a.getMonth()] + ' – ' + b.getDate() + ' ' + MONTHS[b.getMonth()] + ' ' + a.getFullYear();
+      return ord(a.getDate()) + ' ' + MONTHS[a.getMonth()] + ' – ' + ord(b.getDate()) + ' ' + MONTHS[b.getMonth()] + ' ' + a.getFullYear();
     }
     return fmtDate(a) + ' – ' + fmtDate(b);
   }
