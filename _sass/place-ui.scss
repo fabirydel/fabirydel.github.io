@@ -80,31 +80,6 @@ $ui-glow: #2f9bff; // keep in sync with --accent in variables.scss (rgba() needs
   &:hover {
     background: rgba(242, 239, 233, 0.18) !important;
   }
-
-  &--play {
-    width: 46px;
-    height: 46px;
-    background: var(--cream) !important;
-    color: var(--ink) !important;
-
-    &:hover {
-      background: #fff !important;
-      transform: scale(1.05);
-    }
-
-    .icon-pause {
-      display: none;
-    }
-
-    [data-playing="true"] & {
-      .icon-play {
-        display: none;
-      }
-      .icon-pause {
-        display: block;
-      }
-    }
-  }
 }
 
 /* --------------------------------------------------------------- panel */

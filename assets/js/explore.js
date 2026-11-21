@@ -120,6 +120,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!route.length) { fail('No locations found.'); return; }
 
+  // The order next / previous walk through. It starts as the tidy route above;
+  // "Randomize" swaps in a shuffled copy (stop = position in the current order).
+  var baseRoute = route.slice();
+  var shuffled = false;
+  function setRoute(list, isShuffled) {
+    route = list;
+    shuffled = isShuffled;
+    route.forEach(function (p, i) { p.stop = i; });
+  }
+  function shuffledCopy() {
+    var a = baseRoute.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
   $('explore-stats').textContent =
     places.length + ' locations · ' + countryNames.length + ' countries · ' + data.photos.length.toLocaleString('en') + ' photos';
 
@@ -130,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var state = 'intro';
   var current = null;        // place shown in the panel
   var activeCountry = '';    // country filter / framing
-  var playing = false;
   var flat = false;          // flat (mercator) map instead of the 3D globe
 
   function padding(forState) {
@@ -327,8 +344,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (!reduceMotion && !document.hidden && !panel.viewerOpen()) {
-      // During the journey the collage drifts down on its own.
-      if (playing && arrived && state === 'place' && ticks >= 2) panel.autoScroll(dt);
       if (flat) {
         // The flat map stays still.
       } else if (orbiting && state === 'place') {
@@ -347,7 +362,6 @@ document.addEventListener('DOMContentLoaded', function () {
     orbiting = false;
     flightToken++;
     if (arcAnim) finishArc();
-    if (playing) setPlaying(false);
   }
   ['mousedown', 'touchstart', 'wheel'].forEach(function (evt) { map.on(evt, userTookOver); });
 
@@ -444,7 +458,6 @@ document.addEventListener('DOMContentLoaded', function () {
   rail.addEventListener('click', function (e) {
     var btn = e.target.closest('.explore-rail__item');
     if (!btn) return;
-    setPlaying(false);
     if (btn.dataset.country) showCountry(btn.dataset.country);
     else showGlobe();
   });
@@ -470,27 +483,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // page: see assets/js/place-panel.js.
   var panel = PlacePanel({
     isMobile: isMobile,
-    countryTitle: countryTitle,
-    onViewerClose: function () { restartTicker(); }
+    countryTitle: countryTitle
   });
-  var ticker = null;
-  var ticks = 0;             // seconds spent at this stop since arriving
   var arrived = false;
-  var DWELL_SECONDS = 11;
-
-  // One-second heartbeat: counts time at a stop and moves the journey on.
-  function restartTicker() {
-    clearInterval(ticker);
-    ticks = 0;
-    ticker = setInterval(function () {
-      if (!current || panel.viewerOpen() || document.hidden || !playing || !arrived) return;
-      if (++ticks >= DWELL_SECONDS) step(1);
-    }, 1000);
-  }
 
   function fillPanel(place) {
     panel.fill(place);
-    restartTicker();
   }
 
   /* --------------------------------------------------------------- states */
@@ -536,14 +534,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (arcAnim) finishArc();
     var km = from ? distanceKm(from, place) : 0;
     var duration = from ? Math.max(3200, Math.min(9500, 3000 + km * 2.4)) : 6000;
-    if (from && km > 0.5 && !reduceMotion) {
+    // Randomized: no lines joining the locations, since the order means nothing.
+    if (from && km > 0.5 && !reduceMotion && !shuffled) {
       arcAnim = { points: greatCircle(from, place, 72), start: performance.now(), duration: duration * 0.92 };
     }
 
     flyCamera(placeCamera(place, from && km > 0.5 ? bearingBetween(from, place) : -20, duration), function () {
       finishArc();
       arrived = true;
-      ticks = 0;
       orbiting = true;
     });
   }
@@ -573,7 +571,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (on === flat || switching || !mapReady) return;
     switching = true;
     flat = on;
-    setPlaying(false);
     orbiting = false;
     flightToken++;
     if (arcAnim) finishArc();
@@ -611,7 +608,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function showCountry(name) {
     activeCountry = name;
     current = null;
-    clearInterval(ticker);
     setState('country');
     syncPins();
     syncRail();
@@ -625,7 +621,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function showGlobe() {
     activeCountry = '';
     current = null;
-    clearInterval(ticker);
     setState('globe');
     syncPins();
     syncRail();
@@ -645,24 +640,22 @@ document.addEventListener('DOMContentLoaded', function () {
     selectPlace(route[index]);
   }
 
-  function setPlaying(on) {
-    playing = on;
-    root.dataset.playing = on ? 'true' : 'false';
-    var btn = $('place-play');
-    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    btn.setAttribute('aria-label', on ? 'Pause the journey' : 'Play the journey');
-    if (on) {
-      if (!current) step(1);
-      else { ticks = 0; orbiting = arrived; }
-    }
-  }
-
-  $('explore-begin').addEventListener('click', function () { setPlaying(true); });
-  $('place-play').addEventListener('click', function () { setPlaying(!playing); });
+  // "Begin the journey" goes to the first location; the arrows move on from there.
+  $('explore-begin').addEventListener('click', function () {
+    if (current) return;
+    if (shuffled) setRoute(baseRoute.slice(), false);
+    step(1);
+  });
+  // "Randomize": a fresh shuffled order, landing on its first location.
+  $('explore-random').addEventListener('click', function () {
+    setRoute(shuffledCopy(), true);
+    trail = [];
+    setLine('explore-trail', trail);
+    selectPlace(route[0]);
+  });
   $('place-next').addEventListener('click', function () { step(1); });
   $('place-prev').addEventListener('click', function () { step(-1); });
   $('place-close').addEventListener('click', function () {
-    setPlaying(false);
     if (activeCountry) showCountry(activeCountry); else showGlobe();
   });
 
@@ -711,7 +704,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (panel.viewerOpen()) return;
     if (e.key === 'ArrowRight') step(1);
     else if (e.key === 'ArrowLeft') step(-1);
-    else if (e.key === ' ' && tag !== 'button' && tag !== 'a') setPlaying(!playing);
     else if (e.key === 'Escape' && state === 'place') $('place-close').click();
     else return;
     e.preventDefault();
@@ -727,7 +719,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.addEventListener('hashchange', function () {
     var wanted = placeByName[decodeURIComponent(location.hash.slice(1))];
-    if (wanted && wanted !== current) { setPlaying(false); selectPlace(wanted); }
+    if (wanted && wanted !== current) { selectPlace(wanted); }
   });
 
   // Reveal as soon as the style is in (tiles keep streaming in afterwards)

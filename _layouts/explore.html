@@ -40,16 +40,43 @@
           <p class="explore-intro__stats explore-intro__stats--more">
             90k kilometers · 1,414 days on the road
           </p>
-          <button
-            type="button"
-            class="ui-btn ui-btn--primary"
-            id="explore-begin"
-          >
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4 2.5v11l9-5.5z" fill="currentColor" />
-            </svg>
-            Begin the journey
-          </button>
+          <div class="explore-intro__actions">
+            <button
+              type="button"
+              class="ui-btn ui-btn--primary"
+              id="explore-begin"
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 2.5v11l9-5.5z" fill="currentColor" />
+              </svg>
+              Begin the journey
+            </button>
+            <button
+              type="button"
+              class="ui-btn ui-btn--ghost"
+              id="explore-random"
+              title="Land on a random location and shuffle the order of next / previous"
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <rect
+                  x="1.75"
+                  y="1.75"
+                  width="12.5"
+                  height="12.5"
+                  rx="3"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+                <circle cx="5.3" cy="5.3" r="1" fill="currentColor" />
+                <circle cx="10.7" cy="5.3" r="1" fill="currentColor" />
+                <circle cx="8" cy="8" r="1" fill="currentColor" />
+                <circle cx="5.3" cy="10.7" r="1" fill="currentColor" />
+                <circle cx="10.7" cy="10.7" r="1" fill="currentColor" />
+              </svg>
+              Randomize
+            </button>
+          </div>
           <p class="explore-intro__hint">or pick any light on the globe</p>
         </section>
 

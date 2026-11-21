@@ -1,6 +1,5 @@
 {%- comment -%}
   Prev / next bar with a progress label, shared by Explore and Trips.
-  include.center = 'none' leaves out the middle play button.
 {%- endcomment -%}
 <div class="place-transport is-hidden" id="place-transport">
   <button
@@ -20,22 +19,6 @@
       />
     </svg>
   </button>
-  {%- unless include.center == 'none' -%}
-  <button
-    type="button"
-    class="ui-icon-btn ui-icon-btn--play"
-    id="place-play"
-    aria-label="Play the journey"
-    aria-pressed="false"
-  >
-    <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M4.5 2.5v11l9-5.5z" fill="currentColor" />
-    </svg>
-    <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M4 2.5h3v11H4zm5 0h3v11H9z" fill="currentColor" />
-    </svg>
-  </button>
-  {%- endunless %}
   <button
     type="button"
     class="ui-icon-btn"
