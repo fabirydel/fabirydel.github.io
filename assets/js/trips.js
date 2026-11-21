@@ -109,6 +109,26 @@
     return bits.join(' · ');
   }
 
+  // Small round country flags for a trip, in order of first visit. One flag
+  // stands alone, several overlap like a hand of cards, and past MAX_FLAGS
+  // the rest collapse into a "+N" badge (its tooltip lists them).
+  var MAX_FLAGS = 4;
+  function flagsHtml(stops) {
+    var seen = {}, names = [];
+    stops.forEach(function (s) { if (s.country && !seen[s.country]) { seen[s.country] = 1; names.push(s.country); } });
+    if (!names.length) return '';
+    var shown = names.length > MAX_FLAGS ? names.slice(0, MAX_FLAGS - 1) : names;
+    var rest = names.slice(shown.length);
+    var html = shown.map(function (n) {
+      return '<span class="tr-flag" title="' + esc(prettyName(n)) + '"><img alt="' + esc(prettyName(n)) +
+        '" loading="lazy" src="/images/flags/' + encodeURIComponent(n) + '.png" onerror="this.remove()"></span>';
+    }).join('');
+    if (rest.length) {
+      html += '<span class="tr-flag tr-flag--more" title="' + esc(rest.map(prettyName).join(', ')) + '">+' + rest.length + '</span>';
+    }
+    return '<span class="tr-flags" data-count="' + names.length + '" aria-label="' + esc(names.map(prettyName).join(', ')) + '">' + html + '</span>';
+  }
+
   // Trip page: what and where on the first line, when and how far on the second.
   function statHtml(sum) {
     var one = [sum.places + (sum.places === 1 ? ' location' : ' locations')];
@@ -205,7 +225,7 @@
     var html = trips.map(function (t, i) {
       return '<a class="tr-card" href="/trips/' + esc(t.slug) + '" style="--i:' + i + '">' +
         cardMapHtml(t.stops) +
-        '<span class="tr-card__label"><strong>' + esc(t.title) + '</strong>' +
+        '<span class="tr-card__label"><span class="tr-card__head"><strong>' + esc(t.title) + '</strong>' + flagsHtml(t.stops) + '</span>' +
         (t.sum.range ? '<em>' + esc(t.sum.range) + '</em>' : '') +
         '<small>' + esc(statLine(t.sum)) + '</small></span></a>';
     }).join('');
@@ -287,6 +307,7 @@
     }
 
     $('tr-stats').innerHTML = statHtml(sum);
+    $('tr-flags').innerHTML = flagsHtml(stops);
     renderStopsList();
 
     if (!stops.length) { fail('This trip has no stops yet.'); return; }
