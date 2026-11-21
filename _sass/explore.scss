@@ -198,6 +198,25 @@ body.explore-page {
   font-size: 12px;
 }
 
+.explore-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+
+  // Same size as the primary button next to it.
+  .ui-btn--ghost {
+    padding: 14px 24px !important;
+    font-size: 13px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      margin-left: -2px;
+    }
+  }
+}
+
 .explore-intro__hint {
   margin: 16px 0 0 4px;
   color: var(--muted);
@@ -540,6 +559,10 @@ body.explore-page {
     .explore:not([data-state="intro"]) & {
       transform: translateY(20px);
     }
+  }
+
+  .explore-intro__actions {
+    justify-content: center;
   }
 
   .explore-intro__stats {
