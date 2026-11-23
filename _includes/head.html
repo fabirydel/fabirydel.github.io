@@ -81,6 +81,7 @@
       completely absent from the deployed site.
     {%- endcomment -%}
     <link rel="stylesheet" href="/assets/css/portfolio-toggle.css">
+    <link rel="stylesheet" href="/assets/css/cover-toggle.css">
     <script>
       window.__portfolioPaths = new Set([
         {%- for p in site.data.portfolio -%}
@@ -103,9 +104,21 @@
         window.__currentCollection = {{ page.path | split: "/" | last | remove: ".html" | jsonify }};
       {%- endif -%}
     </script>
+    {%- comment -%}
+      Dev-only: each location's current cover image, for the "set as cover"
+      button on photo tiles (assets/js/cover-toggle.js).
+    {%- endcomment -%}
+    <script>
+      window.__covers = {
+        {%- for l in site.locations -%}
+          {{ l.namePath | jsonify }}: {{ l.indexImagePath | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      };
+    </script>
     <script defer src="/assets/js/dev-files.js"></script>
     <script defer src="/assets/js/portfolio-toggle.js"></script>
     <script defer src="/assets/js/collection-toggle.js"></script>
+    <script defer src="/assets/js/cover-toggle.js"></script>
   {%- endunless -%}
 
   {%- if jekyll.environment == 'production' and site.google_analytics -%}

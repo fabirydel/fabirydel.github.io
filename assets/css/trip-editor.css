@@ -308,6 +308,7 @@
 }
 
 .te-stop__grid {
+  user-select: none; /* shift-click picks a range, not text */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
   gap: 4px;

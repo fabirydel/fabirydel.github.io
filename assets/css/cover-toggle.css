@@ -1,0 +1,92 @@
+/* ============================================================
+   Dev-only cover picker (assets/js/cover-toggle.js)
+   A star in the top-left corner of a photo tile; filled when the
+   photo is its location's cover image.
+   ============================================================ */
+
+.cv-toggle {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.cv-toggle svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+.cv-toggle:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: #fff;
+  transform: scale(1.06);
+}
+
+.cv-toggle:focus-visible {
+  outline: 2px solid #2f9bff;
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+.photo-tile:hover .cv-toggle,
+.photo-tile:focus-within .cv-toggle {
+  opacity: 1;
+}
+
+/* The current cover: filled, and always visible so it is easy to find. */
+.cv-toggle.is-cover {
+  opacity: 1;
+  background: #2f9bff;
+  border-color: rgba(255, 255, 255, 0.95);
+  cursor: default;
+}
+
+.cv-toggle.is-cover svg {
+  fill: currentColor;
+}
+
+.cv-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  z-index: 100000;
+  max-width: min(90vw, 460px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(20, 22, 26, 0.95);
+  border: 1px solid rgba(242, 239, 233, 0.2);
+  color: #f2efe9;
+  font-size: 13px;
+  text-align: center;
+  transform: translate(-50%, 12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cv-toast.is-on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.cv-toast.is-bad {
+  border-color: #d95040;
+}

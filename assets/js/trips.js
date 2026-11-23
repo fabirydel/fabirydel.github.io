@@ -117,24 +117,66 @@
   }
 
   // Small round country flags for a trip, in order of first visit. One flag
-  // stands alone, several overlap like a hand of cards, and past MAX_FLAGS
-  // the rest collapse into a "+N" badge (its tooltip lists them).
-  var MAX_FLAGS = 4;
+  // stands alone, several overlap like a hand of cards. Every country is
+  // rendered; fitFlags() then hides the ones that do not fit beside the title
+  // and shows a "+N" badge (its tooltip lists them) only when some are hidden.
   function flagsHtml(stops) {
     var seen = {}, names = [];
     stops.forEach(function (s) { if (s.country && !seen[s.country]) { seen[s.country] = 1; names.push(s.country); } });
     if (!names.length) return '';
-    var shown = names.length > MAX_FLAGS ? names.slice(0, MAX_FLAGS - 1) : names;
-    var rest = names.slice(shown.length);
-    var html = shown.map(function (n) {
+    var html = names.map(function (n) {
       return '<span class="tr-flag" title="' + esc(prettyName(n)) + '"><img alt="' + esc(prettyName(n)) +
         '" loading="lazy" src="/images/flags/' + encodeURIComponent(n) + '.png" onerror="this.remove()"></span>';
     }).join('');
-    if (rest.length) {
-      html += '<span class="tr-flag tr-flag--more" title="' + esc(rest.map(prettyName).join(', ')) + '">+' + rest.length + '</span>';
-    }
-    return '<span class="tr-flags" data-count="' + names.length + '" aria-label="' + esc(names.map(prettyName).join(', ')) + '">' + html + '</span>';
+    html += '<span class="tr-flag tr-flag--more" hidden></span>';
+    return '<span class="tr-flags" aria-label="' + esc(names.map(prettyName).join(', ')) + '">' + html + '</span>';
   }
+
+  // Show as many flags as fit in the room beside the trip title (the title
+  // keeps its single line unless it alone would take more than ~55% of the
+  // row); on the trip page the whole row is free. The overflow becomes "+N".
+  function fitFlags(root) {
+    Array.prototype.forEach.call((root || document).querySelectorAll('.tr-flags'), function (box) {
+      var flags = Array.prototype.slice.call(box.querySelectorAll('.tr-flag:not(.tr-flag--more)'));
+      var more = box.querySelector('.tr-flag--more');
+      flags.forEach(function (f) { f.hidden = false; });
+      more.hidden = true;
+      if (flags.length < 2) return;
+
+      var parent = box.parentElement;
+      var avail = parent.clientWidth;
+      var title = parent.querySelector('strong');
+      if (title) {
+        var keep = title.style.cssText;
+        title.style.whiteSpace = 'nowrap';
+        title.style.flex = 'none';
+        var tw = title.offsetWidth;
+        title.style.cssText = keep;
+        var gap = parseFloat(getComputedStyle(parent).columnGap) || 12;
+        avail = Math.max(avail - tw - gap, parent.clientWidth * 0.45);
+      }
+      if (box.offsetWidth <= avail || !avail) return;
+
+      var step = flags[1].offsetLeft - flags[0].offsetLeft;  // one flag's visible width when overlapped
+      var w = flags[0].offsetWidth;
+      var slots = Math.max(2, Math.floor((avail - w) / step) + 1);  // flags + the badge
+      var keepN = Math.min(flags.length - 1, slots - 1);
+      var hiddenNames = [];
+      flags.forEach(function (f, i) {
+        if (i >= keepN) { f.hidden = true; hiddenNames.push(f.title); }
+      });
+      more.textContent = '+' + hiddenNames.length;
+      more.title = hiddenNames.join(', ');
+      more.hidden = false;
+    });
+  }
+
+  var fitTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(fitTimer);
+    fitTimer = setTimeout(function () { fitFlags(); }, 80);
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fitFlags(); });
 
   // Trip page: what and where on the first line, when and how far on the second.
   function statHtml(sum) {
@@ -237,6 +279,7 @@
         '<small>' + esc(statLine(t.sum)) + '</small></span></a>';
     }).join('');
     grid.innerHTML = html;
+    fitFlags(grid);
 
     var devCard = document.querySelector('.tr-card--new');
     if (devCard) grid.appendChild(devCard);
@@ -315,6 +358,7 @@
 
     $('tr-stats').innerHTML = statHtml(sum);
     $('tr-flags').innerHTML = flagsHtml(stops);
+    fitFlags($('tr-flags').parentNode);
     renderStopsList();
 
     if (!stops.length) { fail('This trip has no stops yet.'); return; }
@@ -333,7 +377,7 @@
     // The route is a list of points through every stop. Legs are straight
     // great-circle arcs until the road routes arrive (see fetchRoads); then
     // each driven leg follows the road. State is rebuilt by buildGeometry.
-    var coords, cum, totalLen, stopDist;
+    var coords, cum, totalLen, stopDist, stopIx;
 
     function buildGeometry(roads) {
       coords = [[stops[0].lng, stops[0].lat]];
@@ -353,6 +397,7 @@
         cum.push(cum[k - 1] + km({ lat: coords[k - 1][1], lng: coords[k - 1][0] }, { lat: coords[k][1], lng: coords[k][0] }));
       }
       totalLen = cum[cum.length - 1] || 1;
+      stopIx = stopAt;
       stopDist = stopAt.map(function (ix) { return cum[ix]; });
       for (var j = 1; j < stops.length; j++) stops[j].legKm = stopDist[j] - stopDist[j - 1];
     }
@@ -370,6 +415,32 @@
       return coords.slice(0, hi).concat([[a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f]]);
     }
 
+    // One feature per leg (stop j-1 to stop j), numbered j. Legs already
+    // travelled are shown with a layer filter, which costs nothing per frame;
+    // only the leg in progress is re-sent to the map as it grows.
+    function legsData() {
+      var features = [];
+      for (var j = 1; j < stops.length; j++) {
+        features.push({ type: 'Feature', properties: { i: j }, geometry: { type: 'LineString', coordinates: coords.slice(stopIx[j - 1], stopIx[j] + 1) } });
+      }
+      return { type: 'FeatureCollection', features: features };
+    }
+
+    // The leg in progress, from its start up to `dist` km along the trip.
+    function partialLeg(leg, dist) {
+      var from = stopIx[leg - 1], to = stopIx[leg];
+      var lo = from, hi = to;
+      while (hi - lo > 1) {
+        var mid = (lo + hi) >> 1;
+        if (cum[mid] <= dist) lo = mid; else hi = mid;
+      }
+      var f = (dist - cum[lo]) / ((cum[hi] - cum[lo]) || 1);
+      var a = coords[lo], b = coords[hi];
+      var out = coords.slice(from, hi);
+      out.push([a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f]);
+      return out;
+    }
+
     function lineData(c) {
       return { type: 'Feature', geometry: { type: 'LineString', coordinates: c.length > 1 ? c : [c[0], c[0]] } };
     }
@@ -378,11 +449,46 @@
     // so the line follows the roads. Legs marked "straight" (flights, ferries)
     // and legs with no road route keep the straight arc. Results are cached
     // in localStorage, so each leg is only requested once per browser.
+    // Douglas-Peucker: the Directions geometry has a point every few metres,
+    // far more than a map line needs. A whole trip can run to 250,000 points,
+    // which is slow to store and slow to draw; this keeps the shape (to about
+    // 20 m) with a fraction of them.
+    function simplify(pts, tol) {
+      var n = pts.length;
+      if (n < 3) return pts;
+      var k = Math.cos(pts[0][1] * Math.PI / 180), t2 = tol * tol;
+      var keep = new Uint8Array(n), stack = [0, n - 1];
+      keep[0] = keep[n - 1] = 1;
+      while (stack.length) {
+        var hi = stack.pop(), lo = stack.pop();
+        var ax = pts[lo][0] * k, ay = pts[lo][1], bx = pts[hi][0] * k, by = pts[hi][1];
+        var dx = bx - ax, dy = by - ay, len2 = dx * dx + dy * dy, best = -1, at = -1;
+        for (var i = lo + 1; i < hi; i++) {
+          var px = pts[i][0] * k - ax, py = pts[i][1] - ay, d2;
+          if (len2 === 0) d2 = px * px + py * py;
+          else {
+            var u = Math.max(0, Math.min(1, (px * dx + py * dy) / len2));
+            var ex = px - u * dx, ey = py - u * dy;
+            d2 = ex * ex + ey * ey;
+          }
+          if (d2 > best) { best = d2; at = i; }
+        }
+        if (best > t2) { keep[at] = 1; stack.push(lo, at, at, hi); }
+      }
+      return pts.filter(function (_, i) { return keep[i]; });
+    }
+    var SIMPLIFY = 0.0002;
+
     function fetchLeg(a, b) {
       var key = 'tr-road:' + [a.lng, a.lat, b.lng, b.lat].map(function (n) { return n.toFixed(4); }).join(',');
       try {
         var hit = localStorage.getItem(key);
-        if (hit) return Promise.resolve(JSON.parse(hit));
+        if (hit) {
+          var cached = JSON.parse(hit), lean = simplify(cached, SIMPLIFY);
+          // Older caches hold the full-detail line: slim them down once.
+          if (lean.length < cached.length * 0.9) { try { localStorage.setItem(key, JSON.stringify(lean)); } catch (e) { /* full */ } }
+          return Promise.resolve(lean);
+        }
       } catch (e) { /* no storage */ }
       var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + a.lng + ',' + a.lat + ';' + b.lng + ',' + b.lat +
         '?geometries=geojson&overview=full&access_token=' + TOKEN;
@@ -392,7 +498,7 @@
         // A road route that is wildly longer than the crow-flies line is a
         // detour round water; the arc is the more honest picture.
         if (r.distance / 1000 > Math.max(40, km(a, b) * 4)) return null;
-        var pts = r.geometry.coordinates.map(function (c) { return [+c[0].toFixed(5), +c[1].toFixed(5)]; });
+        var pts = simplify(r.geometry.coordinates.map(function (c) { return [+c[0].toFixed(5), +c[1].toFixed(5)]; }), SIMPLIFY);
         try { localStorage.setItem(key, JSON.stringify(pts)); } catch (e) { /* full */ }
         return pts;
       }).catch(function () { return null; });
@@ -431,9 +537,22 @@
     }
     computeBounds();
 
+    // The map views the switcher offers. `light` ones get a darker route so
+    // it still reads on a pale map.
+    var STYLES = [
+      { id: 'satellite', label: 'Satellite', url: 'mapbox://styles/mapbox/satellite-streets-v12', light: false },
+      { id: 'streets', label: 'Streets', url: 'mapbox://styles/mapbox/streets-v12', light: true },
+      { id: 'terrain', label: 'Terrain', url: 'mapbox://styles/mapbox/outdoors-v12', light: true },
+      { id: 'dark', label: 'Dark', url: 'mapbox://styles/mapbox/dark-v11', light: false }
+    ];
+    var styleId = 'satellite';
+    try { styleId = localStorage.getItem('tr-map-style') || styleId; } catch (e) { /* no storage */ }
+    function styleById(id) { return STYLES.filter(function (x) { return x.id === id; })[0] || STYLES[0]; }
+    var currentStyle = styleById(styleId);
+
     var map = new mapboxgl.Map({
       container: 'tr-map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      style: currentStyle.url,
       projection: 'mercator',
       bounds: bounds,
       fitBoundsOptions: { padding: padding(), maxZoom: 9 },
@@ -443,6 +562,39 @@
       renderWorldCopies: true
     });
     map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
+    // The view switcher goes first, so it sits above the zoom buttons.
+    var styleControl = {
+      onAdd: function () {
+        var box = document.createElement('div');
+        box.className = 'mapboxgl-ctrl tr-styles';
+        box.innerHTML =
+          '<div class="mapboxgl-ctrl-group"><button type="button" class="tr-styles__btn" aria-label="Map view" aria-haspopup="true" aria-expanded="false" title="Map view">' +
+          '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5l7.5 4-7.5 4-7.5-4zM2.5 10l7.5 4 7.5-4M2.5 13.5l7.5 4 7.5-4" fill="none" stroke="#222" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></button></div>' +
+          '<div class="tr-styles__menu" role="menu" hidden>' + STYLES.map(function (x) {
+            return '<button type="button" role="menuitemradio" data-style="' + x.id + '" aria-checked="' + (x.id === currentStyle.id) + '">' + x.label + '</button>';
+          }).join('') + '</div>';
+        var btn = box.querySelector('.tr-styles__btn'), menu = box.querySelector('.tr-styles__menu');
+        function close() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          menu.hidden = !menu.hidden;
+          btn.setAttribute('aria-expanded', menu.hidden ? 'false' : 'true');
+        });
+        menu.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-style]');
+          if (!b) return;
+          setMapStyle(b.dataset.style);
+          Array.prototype.forEach.call(menu.children, function (c) { c.setAttribute('aria-checked', c === b ? 'true' : 'false'); });
+          close();
+        });
+        document.addEventListener('click', function (e) { if (!box.contains(e.target)) close(); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+        this._box = box;
+        return box;
+      },
+      onRemove: function () { if (this._box && this._box.parentNode) this._box.parentNode.removeChild(this._box); }
+    };
+    map.addControl(styleControl, 'top-right');
     map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
     map.touchZoomRotate.disableRotation();
 
@@ -467,6 +619,7 @@
 
     // ---- state ------------------------------------------------------------
     var ready = false;
+    var layersReady = false;    // the route sources and layers exist on the current style
     var journey = false;        // stepping through the trip with the arrows
     var token = 0;              // bumped to cancel a running animation
     var introDone = false, introRunning = false;
@@ -474,24 +627,50 @@
     var playBtn = $('tr-play');
     var fitBtn = $('tr-fit');
 
-    function reveal(dist) {
+    // The white line: the legs already travelled (a filter on one static
+    // source) plus the leg in progress (a small source updated every frame).
+    // Re-sending the whole growing line each frame made long trips crawl,
+    // with the pins (which follow the clock) racing ahead of the line.
+    var doneLegs = -1;
+    function reveal(dist, settleNow) {
       head = dist;
       for (var i = 0; i < stops.length; i++) showMarker(i, stopDist[i] <= dist + 1e-6);
-      map.getSource('tr-progress').setData(lineData(partial(dist)));
+      if (!layersReady) return;   // a new map view is loading; it redraws from `head`
+      var leg = 1;
+      while (leg < stops.length && stopDist[leg] <= dist + 1e-6) leg++;   // legs 1..leg-1 are complete
+      if (leg !== doneLegs) {
+        doneLegs = leg;
+        ['tr-done-glow', 'tr-done-line'].forEach(function (id) { map.setFilter(id, ['<', ['get', 'i'], leg]); });
+      }
+      map.getSource('tr-head').setData(leg < stops.length && dist > stopDist[leg - 1] ? lineData(partialLeg(leg, dist)) : lineData([coords[0]]));
+      if (settleNow) settle();
     }
 
-    function revealAll() { reveal(totalLen); }
+    // The direction arrows sit on a copy of the line up to the head. It is
+    // only rebuilt when the line comes to rest, and hidden while it moves.
+    function setArrows(on) {
+      if (layersReady && map.getLayer('tr-progress-arrows')) map.setLayoutProperty('tr-progress-arrows', 'visibility', on ? 'visible' : 'none');
+    }
+    function settle() {
+      if (!layersReady) return;
+      map.getSource('tr-arrows').setData(lineData(partial(head)));
+      setArrows(true);
+    }
 
-    function animate(from, to, ms, run, myToken) {
+    function revealAll() { reveal(totalLen, true); }
+
+    function animate(from, to, ms, run, myToken, ease) {
+      ease = ease || easeInOut;
       return new Promise(function (resolve) {
-        if (reduceMotion || ms <= 0 || from === to) { run(to); resolve(true); return; }
+        if (reduceMotion || ms <= 0 || from === to) { run(to); settle(); resolve(true); return; }
         var start = null;
+        setArrows(false);
         function frame(now) {
           if (myToken !== token) { resolve(false); return; }
           if (start === null) start = now;
           var t = Math.min(1, (now - start) / ms);
-          run(from + (to - from) * easeInOut(t));
-          if (t < 1) requestAnimationFrame(frame); else resolve(true);
+          run(from + (to - from) * ease(t));
+          if (t < 1) requestAnimationFrame(frame); else { settle(); resolve(true); }
         }
         requestAnimationFrame(frame);
       });
@@ -512,9 +691,11 @@
     async function intro() {
       var my = ++token;
       introRunning = true;
-      reveal(0);
-      var ms = Math.max(2600, Math.min(6500, totalLen * 5));
-      var ok = await animate(0, totalLen, ms, reveal, my);
+      reveal(0, true);
+      // A steady, unhurried pace (about 14 s per 1000 km, and at least 0.6 s a stop) so the trip can be
+      // followed, and a pin only pops once the line has reached its place.
+      var ms = Math.max(6000, Math.min(36000, Math.max(totalLen * 14, stops.length * 600)));
+      var ok = await animate(0, totalLen, ms, reveal, my, function (t) { return t; });
       if (ok) { revealAll(); introDone = true; introRunning = false; }
     }
 
@@ -586,7 +767,7 @@
       root.classList.add('is-journey');
       playBtn.hidden = true;
       fitBtn.hidden = false;
-      reveal(0);
+      reveal(0, true);
       selected = -1;
       goTo(0);
     }
@@ -646,7 +827,7 @@
     });
 
     // ---- layers -------------------------------------------------------------
-    map.on('style.load', async function () {
+    function addRouteLayers() {
       var arrow = document.createElement('canvas');
       arrow.width = arrow.height = 32;
       var g = arrow.getContext('2d');
@@ -661,26 +842,28 @@
       g.stroke();
       if (!map.hasImage('tr-arrow')) map.addImage('tr-arrow', g.getImageData(0, 0, 32, 32));
 
+      var light = currentStyle.light;
       map.addSource('tr-route', { type: 'geojson', data: lineData(coords) });
-      map.addSource('tr-progress', { type: 'geojson', data: lineData([coords[0]]) });
+      map.addSource('tr-done', { type: 'geojson', data: legsData() });
+      map.addSource('tr-head', { type: 'geojson', data: lineData([coords[0]]) });
+      map.addSource('tr-arrows', { type: 'geojson', data: lineData([coords[0]]) });
 
       map.addLayer({
         id: 'tr-route-ghost', type: 'line', source: 'tr-route',
         layout: { 'line-cap': 'round', 'line-join': 'round' },
-        paint: { 'line-color': '#ffffff', 'line-opacity': 0.22, 'line-width': 1.6, 'line-dasharray': [1, 2.5] }
+        paint: { 'line-color': light ? '#1b2a3a' : '#ffffff', 'line-opacity': light ? 0.4 : 0.22, 'line-width': 1.6, 'line-dasharray': [1, 2.5] }
       });
+      var glow = light
+        ? { 'line-color': '#ffffff', 'line-opacity': 0.9, 'line-width': 9, 'line-blur': 2 }
+        : { 'line-color': '#2f9bff', 'line-opacity': 0.55, 'line-width': 12, 'line-blur': 9 };
+      var white = { 'line-color': light ? '#1f6feb' : '#ffffff', 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 2.2, 10, 4] };
+      var round = { 'line-cap': 'round', 'line-join': 'round' };
+      map.addLayer({ id: 'tr-done-glow', type: 'line', source: 'tr-done', filter: ['<', ['get', 'i'], 1], layout: round, paint: glow });
+      map.addLayer({ id: 'tr-head-glow', type: 'line', source: 'tr-head', layout: round, paint: glow });
+      map.addLayer({ id: 'tr-done-line', type: 'line', source: 'tr-done', filter: ['<', ['get', 'i'], 1], layout: round, paint: white });
+      map.addLayer({ id: 'tr-head-line', type: 'line', source: 'tr-head', layout: round, paint: white });
       map.addLayer({
-        id: 'tr-progress-glow', type: 'line', source: 'tr-progress',
-        layout: { 'line-cap': 'round', 'line-join': 'round' },
-        paint: { 'line-color': '#2f9bff', 'line-opacity': 0.55, 'line-width': 12, 'line-blur': 9 }
-      });
-      map.addLayer({
-        id: 'tr-progress-line', type: 'line', source: 'tr-progress',
-        layout: { 'line-cap': 'round', 'line-join': 'round' },
-        paint: { 'line-color': '#ffffff', 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 2.2, 10, 4] }
-      });
-      map.addLayer({
-        id: 'tr-progress-arrows', type: 'symbol', source: 'tr-progress',
+        id: 'tr-progress-arrows', type: 'symbol', source: 'tr-arrows',
         layout: {
           'symbol-placement': 'line',
           'symbol-spacing': 110,
@@ -691,6 +874,28 @@
           'icon-ignore-placement': true
         }
       });
+      layersReady = true;
+    }
+
+    // A new map view wipes the route off the map: put it back and redraw it.
+    function setMapStyle(id) {
+      var next = styleById(id);
+      if (next.id === currentStyle.id) return;
+      currentStyle = next;
+      try { localStorage.setItem('tr-map-style', next.id); } catch (e) { /* no storage */ }
+      layersReady = false;
+      map.setStyle(next.url, { diff: false });
+    }
+
+    var styleLoaded = false;
+    map.on('style.load', async function () {
+      addRouteLayers();
+      if (styleLoaded) {
+        doneLegs = -1;
+        reveal(head, true);
+        return;
+      }
+      styleLoaded = true;
 
       ready = true;
       root.classList.add('is-ready');
@@ -714,14 +919,18 @@
       var restart = introRunning && !introDone;
       buildGeometry(roads);
       computeBounds();
-      map.getSource('tr-route').setData(lineData(coords));
+      if (layersReady) {
+        map.getSource('tr-route').setData(lineData(coords));
+        map.getSource('tr-done').setData(legsData());
+      }
+      doneLegs = -1;
       sum = summarise(stops);
       $('tr-stats').innerHTML = statHtml(sum);
       renderStopsList();
       highlight(selected);
       token++; // cancels an intro still drawing the old line
       if (restart) intro();
-      else if (selected >= 0 && journey) reveal(stopDist[selected]);
+      else if (selected >= 0 && journey) reveal(stopDist[selected], true);
       else if (introDone || selected >= 0 || head > 0) revealAll();
       if (selected < 0 && !journey && !restart) fitAll(0);
     }

@@ -62,7 +62,7 @@
   function blank() { return { existing: null, title: '', slug: '', description: '', stops: [] }; }
 
   function newStop(loc, date, straight, images) {
-    return { id: ++seq, loc: loc, date: date || '', straight: !!straight, images: images || [], open: false };
+    return { id: ++seq, loc: loc, date: date || '', straight: !!straight, images: images || [], open: false, anchor: '' };
   }
 
   function sortedStops() {
@@ -151,7 +151,7 @@
     return '<div class="te-stop__picker">' +
       '<p class="te-stop__hint">' + (s.images.length
         ? s.images.length + ' picked. Only these show for this stop.'
-        : 'Click the photos from this trip. None picked shows them all.') +
+        : 'Click the photos from this trip (shift-click for a range). None picked shows them all.') +
       (s.images.length ? ' <button type="button" data-photos-all>Show all</button>' : '') + '</p>' +
       '<div class="te-stop__grid">' + all.map(function (p) {
         return '<button type="button" class="te-stop__ph' + (on.has(p) ? ' is-on' : '') + '" data-photo="' + esc(p) + '" aria-pressed="' + on.has(p) + '">' +
@@ -370,9 +370,22 @@
     var ph = e.target.closest('[data-photo]');
     if (ph) {
       var st = stopOf(ph), p = ph.dataset.photo, at = st.images.indexOf(p);
-      if (at === -1) st.images.push(p); else st.images.splice(at, 1);
-      // keep the file in the place's own photo order
       var order = photosByLoc[st.loc] || [];
+      var turnOn = at === -1;
+      if (e.shiftKey && st.anchor && st.anchor !== p && order.indexOf(st.anchor) !== -1) {
+        // Shift-click: every photo from the last one clicked to this one
+        // takes on the state this click gives it (all picked, or all cleared).
+        var from = order.indexOf(st.anchor), to = order.indexOf(p);
+        var range = order.slice(Math.min(from, to), Math.max(from, to) + 1);
+        st.images = st.images.filter(function (x) { return range.indexOf(x) === -1; });
+        if (turnOn) st.images = st.images.concat(range);
+      } else if (turnOn) {
+        st.images.push(p);
+      } else {
+        st.images.splice(at, 1);
+      }
+      st.anchor = p;
+      // keep the file in the place's own photo order
       st.images.sort(function (a, b) { return order.indexOf(a) - order.indexOf(b); });
       var sc = stopsEl.scrollTop, gridEl = ph.closest('.te-stop__grid'), gs = gridEl.scrollTop;
       refreshStops();

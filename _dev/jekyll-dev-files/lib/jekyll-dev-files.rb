@@ -30,6 +30,7 @@ module JekyllDevFiles
     %r!\A_collections/[a-z0-9_]+\.html\z!,
     %r!\A_trips/[a-z0-9_]+\.html\z!,
     %r!\A_data/portfolio\.yml\z!,
+    %r!\A_locations/[a-z0-9_]+\.html\z!,
   ].freeze
   TOUCH_ONLY = [%r!\A[a-z0-9_-]+\.html\z!].freeze
 

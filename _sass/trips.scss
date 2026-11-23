@@ -640,6 +640,77 @@ a.tr-back {
   top: 10px;
 }
 
+// Map view switcher: one button above the zoom buttons that opens a small menu.
+.tr-styles {
+  position: relative;
+
+  .tr-styles__btn {
+    display: grid;
+    place-items: center;
+  }
+
+  .tr-styles__btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.tr-styles__menu {
+  position: absolute;
+  top: 0;
+  right: calc(100% + 8px);
+  min-width: 132px;
+  padding: 6px;
+  border-radius: 12px;
+  background: $tr-glass;
+  border: 1px solid $tr-line;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+
+  &[hidden] {
+    display: none;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 10px !important;
+    border: 0 !important;
+    border-radius: 8px;
+    background: none !important;
+    color: rgba(242, 239, 233, 0.8) !important;
+    font: 13px "poppins", sans-serif;
+    text-align: left;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(242, 239, 233, 0.45);
+      flex: none;
+    }
+
+    &:hover {
+      background: rgba(242, 239, 233, 0.1) !important;
+      color: var(--cream) !important;
+    }
+
+    &[aria-checked="true"] {
+      color: var(--cream) !important;
+
+      &::before {
+        background: $tr-accent;
+        border-color: $tr-accent;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 850px) {
   .tr-index {
     padding-top: calc(var(--header-height) + 40px);
@@ -682,9 +753,8 @@ a.tr-back {
     display: none;
   }
 
-  .tr-trip .mapboxgl-ctrl-top-right {
-    top: auto;
-    bottom: 0;
+  // Pinch zooms on touch screens: the zoom buttons go, the view switcher stays.
+  .tr-trip .mapboxgl-ctrl-top-right > .mapboxgl-ctrl-group {
     display: none;
   }
 }
@@ -736,6 +806,10 @@ $tr-ring: #101216;
   & + & {
     margin-left: -7px;
   }
+}
+
+.tr-flag[hidden] {
+  display: none;
 }
 
 .tr-flag--more {
