@@ -632,6 +632,29 @@
     // Re-sending the whole growing line each frame made long trips crawl,
     // with the pins (which follow the clock) racing ahead of the line.
     var doneLegs = -1;
+
+    // The tip of the moving line is a shade darker than the rest and fades
+    // back into it over the last few km, so a stretch that retraces ground
+    // already drawn can still be told apart. The head source carries
+    // lineMetrics, so the gradient runs 0..1 along the leg in progress.
+    function tipFadeKm() { return Math.max(8, Math.min(160, totalLen * 0.07)); }
+    function mixHex(a, b, t) {
+      var pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16), out = '#';
+      [16, 8, 0].forEach(function (sh) {
+        var x = Math.round(((pa >> sh) & 255) * (1 - t) + ((pb >> sh) & 255) * t);
+        out += (x < 16 ? '0' : '') + x.toString(16);
+      });
+      return out;
+    }
+    function tipGradient(len) {
+      var base = currentStyle.light ? '#1f6feb' : '#ffffff';
+      var tip = currentStyle.light ? '#0a3a8a' : '#2377f0';
+      var f = tipFadeKm() / Math.max(len, 1e-6);   // fade length as a share of the leg so far
+      var p = 1 - f;
+      if (p <= 0.001) return ['interpolate', ['linear'], ['line-progress'], 0, mixHex(base, tip, 1 - 1 / f), 1, tip];
+      return ['interpolate', ['linear'], ['line-progress'], 0, base, p, base, 1, tip];
+    }
+
     function reveal(dist, settleNow) {
       head = dist;
       for (var i = 0; i < stops.length; i++) showMarker(i, stopDist[i] <= dist + 1e-6);
@@ -642,7 +665,9 @@
         doneLegs = leg;
         ['tr-done-glow', 'tr-done-line'].forEach(function (id) { map.setFilter(id, ['<', ['get', 'i'], leg]); });
       }
-      map.getSource('tr-head').setData(leg < stops.length && dist > stopDist[leg - 1] ? lineData(partialLeg(leg, dist)) : lineData([coords[0]]));
+      var moving = leg < stops.length && dist > stopDist[leg - 1];
+      map.getSource('tr-head').setData(moving ? lineData(partialLeg(leg, dist)) : lineData([coords[0]]));
+      if (moving) map.setPaintProperty('tr-head-line', 'line-gradient', tipGradient(dist - stopDist[leg - 1]));
       if (settleNow) settle();
     }
 
@@ -845,7 +870,7 @@
       var light = currentStyle.light;
       map.addSource('tr-route', { type: 'geojson', data: lineData(coords) });
       map.addSource('tr-done', { type: 'geojson', data: legsData() });
-      map.addSource('tr-head', { type: 'geojson', data: lineData([coords[0]]) });
+      map.addSource('tr-head', { type: 'geojson', lineMetrics: true, data: lineData([coords[0]]) });
       map.addSource('tr-arrows', { type: 'geojson', data: lineData([coords[0]]) });
 
       map.addLayer({
@@ -861,7 +886,10 @@
       map.addLayer({ id: 'tr-done-glow', type: 'line', source: 'tr-done', filter: ['<', ['get', 'i'], 1], layout: round, paint: glow });
       map.addLayer({ id: 'tr-head-glow', type: 'line', source: 'tr-head', layout: round, paint: glow });
       map.addLayer({ id: 'tr-done-line', type: 'line', source: 'tr-done', filter: ['<', ['get', 'i'], 1], layout: round, paint: white });
-      map.addLayer({ id: 'tr-head-line', type: 'line', source: 'tr-head', layout: round, paint: white });
+      map.addLayer({
+        id: 'tr-head-line', type: 'line', source: 'tr-head', layout: round,
+        paint: { 'line-width': white['line-width'], 'line-gradient': tipGradient(tipFadeKm()) }
+      });
       map.addLayer({
         id: 'tr-progress-arrows', type: 'symbol', source: 'tr-arrows',
         layout: {
